@@ -397,20 +397,21 @@
 
 <div id="controls">
     <span class="ctrl-label">Category</span>
-    <select id="category" onchange="onCategoryChange()">
-        <option value="death">Cancer Mortality (/ 100k)</option>
-        <option value="daly">Disease Burden — DALYs (/ 100k)</option>
-        <option value="infra">Healthcare Infrastructure</option>
+    <select id="category" onchange="onCategoryChange()" data-i18n-select="category">
+        <option value="death" data-i18n="cat_death">Cancer Mortality (/ 100k)</option>
+        <option value="daly" data-i18n="cat_daly">Disease Burden — DALYs (/ 100k)</option>
+        <option value="infra" data-i18n="cat_infra">Healthcare Infrastructure</option>
+        <option value="research" data-i18n="cat_research">Research Activity</option>
     </select>
     <div class="sep"></div>
-    <span class="ctrl-label">Type</span>
-    <select id="metric" onchange="updateMap()">
-        <option value="death_cancer_all">All cancers combined</option>
-        <option value="death_breast">Breast cancer</option>
-        <option value="death_colon">Colorectal cancer</option>
-        <option value="death_liver">Liver cancer</option>
-        <option value="death_mouth">Mouth & oropharynx</option>
-        <option value="death_oesophagus">Oesophagus</option>
+    <span class="ctrl-label" data-i18n="type_label">Type</span>
+    <select id="metric" onchange="updateMap()" data-i18n-select="metric">
+        <option value="death_cancer_all" data-i18n="metric_death_all">All cancers combined</option>
+        <option value="death_breast" data-i18n="metric_breast">Breast cancer</option>
+        <option value="death_colon" data-i18n="metric_colon">Colorectal cancer</option>
+        <option value="death_liver" data-i18n="metric_liver">Liver cancer</option>
+        <option value="death_mouth" data-i18n="metric_mouth">Mouth &amp; oropharynx</option>
+        <option value="death_oesophagus" data-i18n="metric_oesophagus">Oesophagus</option>
     </select>
     <div class="sep"></div>
     <div style="position:relative">
@@ -1576,9 +1577,10 @@ function updateCategoryOptions() {
     const sel = document.getElementById("category");
     if (!sel) return;
     const opts = [
-        ["death", t("cat_death")],
-        ["daly", t("cat_daly")],
-        ["infra", t("cat_infra")]
+        ["death", t("cat_death", "Cancer Mortality (/ 100k)")],
+        ["daly", t("cat_daly", "Disease Burden — DALYs (/ 100k)")],
+        ["infra", t("cat_infra", "Healthcare Infrastructure")],
+        ["research", t("cat_research", "Research Activity")]
     ];
     const cur = sel.value;
     sel.innerHTML = opts.map(([v,l]) => `<option value="${v}"${v===cur?" selected":""}>${l}</option>`).join("");
@@ -1590,17 +1592,29 @@ function updateMetricOptions() {
     if (!sel) return;
     const opts = {
         death: [
-            ["death_cancer_all", t("all_cancers")], ["death_breast", t("breast")],
-            ["death_colon", t("colon")], ["death_liver", t("liver")],
-            ["death_mouth", t("mouth")], ["death_oesophagus", t("oesophagus")]
+            ["death_cancer_all", t("all_cancers", "All cancers combined")],
+            ["death_breast", t("breast", "Breast cancer")],
+            ["death_colon", t("colon", "Colorectal cancer")],
+            ["death_liver", t("liver", "Liver cancer")],
+            ["death_mouth", t("mouth", "Mouth & oropharynx")],
+            ["death_oesophagus", t("oesophagus", "Oesophagus")]
         ],
         daly: [
-            ["daly_breast", t("daly_breast")], ["daly_colon", t("daly_colon")],
-            ["daly_liver", t("daly_liver")], ["daly_mouth", t("daly_mouth")], ["daly_oesophagus", t("daly_oesophagus")]
+            ["daly_breast", t("daly_breast", "Breast — DALYs")],
+            ["daly_colon", t("daly_colon", "Colorectal — DALYs")],
+            ["daly_liver", t("daly_liver", "Liver — DALYs")],
+            ["daly_mouth", t("daly_mouth", "Mouth — DALYs")],
+            ["daly_oesophagus", t("daly_oesophagus", "Oesophagus — DALYs")]
         ],
         infra: [
-            ["cancer_surgery", t("surgery")], ["cancer_registry", t("registry")],
-            ["cancer_plan", t("plan")], ["breast_screening", t("screening")], ["cancer_dept", t("dept")]
+            ["cancer_surgery", t("surgery", "Cancer surgery")],
+            ["cancer_registry", t("registry", "Cancer registry")],
+            ["cancer_plan", t("plan", "National plan")],
+            ["breast_screening", t("screening", "Breast screening")],
+            ["cancer_dept", t("dept", "Cancer dept (tertiary)")]
+        ],
+        research: [
+            ["research_index", t("research_index_label", "PubMed publications 2020–2025")]
         ]
     };
     const cur = sel.value;
