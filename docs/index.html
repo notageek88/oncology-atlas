@@ -220,6 +220,65 @@
         .clinic-legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
         .clinic-legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 
+
+        /* ── Mobile ── */
+        @media (max-width: 768px) {
+            #header { padding: 8px 14px; }
+            h1 { font-size: 15px; }
+            .meta span:not(:last-child) { display: none; }
+            #controls { padding: 6px 10px; gap: 6px; flex-wrap: wrap; }
+            #controls select { font-size: 11px; padding: 4px 6px; max-width: 130px; }
+            #map-container { top: 75px; }
+            #map-container.panel-open { right: 0; bottom: 50vh; }
+            #side-panel {
+                top: auto !important; right: 0 !important; left: 0 !important;
+                bottom: -50vh; width: 100% !important;
+                height: 50vh; border-left: none;
+                border-top: 1px solid #1a1d2e;
+                border-radius: 14px 14px 0 0;
+                transition: bottom 0.35s !important;
+            }
+            #side-panel.open { bottom: 0 !important; }
+            #timeline { min-width: 280px; left: 50%; transform: translateX(-50%); }
+            #stats { display: none; }
+            .compare-btn span.btn-label { display: none; }
+        }
+
+        /* ── Keyboard / Focus ── */
+        .country:focus { outline: 2px solid #4f8ef7; }
+
+        /* ── Share button ── */
+        .share-btn {
+            background: none; border: none; color: #4f8ef7; cursor: pointer;
+            font-size: 13px; padding: 4px 8px; border-radius: 4px;
+        }
+        .share-btn:hover { background: #1a1d2e; }
+        .share-toast {
+            position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+            background: #0d3a1e; border: 1px solid #1a6e3a; color: #2db565;
+            padding: 8px 18px; border-radius: 8px; font-size: 12px; z-index: 600;
+            opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        }
+        .share-toast.visible { opacity: 1; }
+
+        /* ── Clinical Trials layer ── */
+        .trial-bubble {
+            cursor: pointer;
+        }
+        .trial-bubble circle { transition: r 0.15s; }
+        .trial-bubble:hover circle { opacity: 0.85; }
+
+        /* ── Survival section ── */
+        .survival-bar-row { margin: 6px 0; display: flex; align-items: center; gap: 10px; }
+        .survival-cancer-label { font-size: 11px; color: #889; width: 90px; flex-shrink: 0; }
+        .survival-pct { font-size: 12px; font-weight: 700; color: #2db565; min-width: 38px; text-align: right; }
+        .survival-bar-wrap { flex: 1; }
+        .survival-track { background: #0f1220; border-radius: 3px; height: 7px; overflow: hidden; }
+        .survival-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #1c8046, #2db565); transition: width 0.6s ease; }
+
+        /* ── No-data tooltip ── */
+        .nodata-reason { font-size: 10px; color: #556; margin-top: 4px; font-style: italic; }
+
         /* Flow arrows */
         .flow-line { pointer-events: none; }
 
@@ -286,6 +345,7 @@
     </div>
     <button class="compare-btn" id="compare-toggle" onclick="toggleCompare()">⚖ Compare</button>
     <button class="compare-btn" id="timeline-toggle" onclick="toggleTimeline()" style="margin-left:4px" data-i18n="timeline">▶ Timeline</button>
+    <button class="compare-btn" id="trials-toggle" onclick="toggleTrials()" style="margin-left:4px" data-i18n="trials_btn">🔬 Trials</button>
     <button class="compare-btn" id="clinics-toggle" onclick="toggleClinics()" style="margin-left:4px" data-i18n="clinics_btn">🏥 Clinics</button>
     <button class="compare-btn" id="flows-toggle" onclick="toggleFlows()" style="margin-left:4px" data-i18n="flows_btn">✈ Flows</button>
     <div style="position:relative;margin-left:4px">
@@ -306,6 +366,7 @@
     <div class="panel-header">
         <h2 id="panel-title">Country Profile</h2>
         <div class="sub" id="panel-sub">Click a country on the map</div>
+        <button class="share-btn" onclick="shareCountry()" title="Copy link">⎘</button>
         <button class="panel-close" onclick="closePanel()">✕</button>
     </div>
     <div id="panel-content"></div>
@@ -390,6 +451,7 @@ let selectedEl = null;
 let compareMode = false;
 let compareList = [];
 let svg, g, pathGen, projection;
+let trialsData = null, trialsVisible = false, trialsLayerEl = null;
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 function getCat(metric) {
@@ -508,7 +570,9 @@ function openProfile(data, name) {
                 <h3>Healthcare infrastructure</h3>
                 <div class="pill-grid">${pillsHtml}</div>
             </div>
-            ${buildRankings(data.country, data)}`;
+            ${buildRankings(data.country, data)}
+            ${buildSurvival(data.country)}
+            ${buildTrialsSection(data.country)}`;
 
         // Render sparklines async
         renderSparklines(data.country);
@@ -527,6 +591,12 @@ function closePanel() {
 }
 
 // ── Compare mode ───────────────────────────────────────────────────────────
+function clearCompare() {
+    compareList = [];
+    document.getElementById("compare-list").innerHTML = "";
+    document.getElementById("compare-chart").innerHTML = "";
+    document.getElementById("panel-title").textContent = t("compare_title","Compare Countries");
+}
 function toggleCompare() {
     compareMode = !compareMode;
     document.getElementById("compare-toggle").classList.toggle("active", compareMode);
@@ -752,10 +822,23 @@ function renderFlows() {
             .attr("d", `M${x1},${y1} Q${mx},${my} ${x2},${y2}`)
             .attr("fill", "none")
             .attr("stroke", "#4fb8f7")
-            .attr("stroke-width", strokeW)
+            .attr("stroke-width", Math.max(strokeW, 2))
             .attr("opacity", Math.min(opacity + 0.15, 0.75))
             .attr("stroke-dasharray", "6 4")
-            .attr("marker-end", "url(#flow-arrow)");
+            .attr("marker-end", "url(#flow-arrow)")
+            .attr("pointer-events", "stroke")
+            .on("mousemove", function(event) {
+                const tip = document.getElementById("tooltip");
+                tip.style.display = "block";
+                tip.style.left = (event.clientX + 14) + "px";
+                tip.style.top = (event.clientY - 10) + "px";
+                const vol = flow.volume >= 3 ? "High" : flow.volume >= 2 ? "Medium" : "Low";
+                const reasons = flow.reason || "Chemotherapy, Immunotherapy, Surgery";
+                tip.innerHTML = `<h4>✈ ${flow.label || flow.from + " → " + flow.to}</h4>
+                    <div class="tip-row">Patient flow: <span class="tip-val" style="color:#4fb8f7">${vol}</span></div>
+                    <div class="tip-row" style="color:#556">${reasons}</div>`;
+            })
+            .on("mouseout", () => { document.getElementById("tooltip").style.display = "none"; });
     });
 }
 
@@ -834,6 +917,37 @@ function showClinicPanel(clinic) {
     document.getElementById("map-container").classList.add("panel-open");
     document.getElementById("stats").classList.add("panel-open");
 }
+
+
+// 5-year survival rates (%) by country, EUROCARE-5 + CONCORD-3 (public summary)
+const SURVIVAL_5YR = {
+    "USA": {"breast":91,"colorectal":65,"lung":21,"prostate":98,"stomach":33},
+    "JPN": {"breast":93,"colorectal":67,"lung":27,"prostate":95,"stomach":65},
+    "KOR": {"breast":92,"colorectal":72,"lung":28,"prostate":94,"stomach":68},
+    "SWE": {"breast":90,"colorectal":68,"lung":18,"prostate":97,"stomach":28},
+    "AUS": {"breast":91,"colorectal":69,"lung":17,"prostate":97,"stomach":32},
+    "CHE": {"breast":88,"colorectal":65,"lung":18,"prostate":95,"stomach":30},
+    "NOR": {"breast":90,"colorectal":66,"lung":16,"prostate":96,"stomach":28},
+    "CAN": {"breast":89,"colorectal":64,"lung":19,"prostate":97,"stomach":30},
+    "DEU": {"breast":87,"colorectal":64,"lung":16,"prostate":94,"stomach":31},
+    "FRA": {"breast":87,"colorectal":63,"lung":15,"prostate":93,"stomach":28},
+    "GBR": {"breast":85,"colorectal":60,"lung":13,"prostate":90,"stomach":20},
+    "ITA": {"breast":87,"colorectal":63,"lung":14,"prostate":93,"stomach":31},
+    "ESP": {"breast":86,"colorectal":62,"lung":13,"prostate":88,"stomach":30},
+    "NLD": {"breast":88,"colorectal":63,"lung":16,"prostate":94,"stomach":25},
+    "ISR": {"breast":89,"colorectal":65,"lung":20,"prostate":95,"stomach":32},
+    "CHN": {"breast":83,"colorectal":57,"lung":19,"prostate":69,"stomach":35},
+    "IND": {"breast":66,"colorectal":38,"lung":8,"prostate":51,"stomach":25},
+    "BRA": {"breast":79,"colorectal":52,"lung":10,"prostate":90,"stomach":22},
+    "MEX": {"breast":75,"colorectal":48,"lung":8,"prostate":87,"stomach":20},
+    "RUS": {"breast":74,"colorectal":52,"lung":10,"prostate":80,"stomach":26},
+    "TUR": {"breast":81,"colorectal":55,"lung":9,"prostate":83,"stomach":23},
+    "POL": {"breast":79,"colorectal":51,"lung":11,"prostate":82,"stomach":21},
+    "EGY": {"breast":67,"colorectal":42,"lung":6,"prostate":72,"stomach":15},
+    "ZAF": {"breast":63,"colorectal":40,"lung":7,"prostate":65,"stomach":14},
+    "THA": {"breast":78,"colorectal":49,"lung":7,"prostate":79,"stomach":20},
+    "SGP": {"breast":85,"colorectal":61,"lung":13,"prostate":89,"stomach":38},
+};
 
 // ── i18n ──────────────────────────────────────────────────────────────────
 let i18nData = {}, currentLang = "en";
@@ -1185,19 +1299,218 @@ function selectCountry(iso3) {
     else openProfile(data, data.name);
 }
 
+
+// ── Share ──────────────────────────────────────────────────────────────────
+function shareCountry() {
+    const url = window.location.href;
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(() => showToast("Link copied!"));
+    } else {
+        const ta = document.createElement("textarea");
+        ta.value = url; document.body.appendChild(ta);
+        ta.select(); document.execCommand("copy");
+        document.body.removeChild(ta);
+        showToast("Link copied!");
+    }
+}
+function showToast(msg) {
+    let el = document.getElementById("share-toast");
+    if (!el) {
+        el = document.createElement("div");
+        el.id = "share-toast"; el.className = "share-toast";
+        document.body.appendChild(el);
+    }
+    el.textContent = msg;
+    el.classList.add("visible");
+    setTimeout(() => el.classList.remove("visible"), 2200);
+}
+
+// ── 5-year Survival ──────────────────────────────────────────────────────
+function buildSurvival(iso3) {
+    const sv = SURVIVAL_5YR[iso3];
+    if (!sv) return "";
+    const cancers = [
+        ["Breast", sv.breast, "#f7a0c8"],
+        ["Colorectal", sv.colorectal, "#a0c4f7"],
+        ["Lung", sv.lung, "#c8a0f7"],
+        ["Prostate", sv.prostate, "#a0f7c8"],
+        ["Stomach", sv.stomach, "#f7c8a0"],
+    ];
+    const rows = cancers.map(([name, pct, color]) => pct == null ? "" : `
+        <div class="survival-bar-row">
+            <div class="survival-cancer-label">${name}</div>
+            <div class="survival-bar-wrap">
+                <div class="survival-track"><div class="survival-fill" style="width:${pct}%;background:${color}40;border-right:2px solid ${color}"></div></div>
+            </div>
+            <div class="survival-pct" style="color:${pct>=70?"#2db565":pct>=50?"#f7a04f":"#e05c5c"}">${pct}%</div>
+        </div>`).join("");
+    return `<div class="panel-section">
+        <h3>${t("survival_title","5-year survival rate")}</h3>
+        <div style="font-size:9px;color:#445;margin-bottom:10px">Source: EUROCARE-5 / CONCORD-3</div>
+        ${rows}
+    </div>`;
+}
+
+// ── Clinical Trials section ──────────────────────────────────────────────
+function buildTrialsSection(iso3) {
+    if (!trialsData || !trialsData.countries) return "";
+    const d = trialsData.countries[iso3];
+    if (!d) return `<div class="panel-section">
+        <h3>${t("trials_title","Clinical Trials")}</h3>
+        <div style="color:#334;font-size:11px">${t("no_trials","No trials data available")}</div>
+    </div>`;
+    
+    const phases = d.phases || {};
+    const phaseKeys = ["PHASE1","PHASE2","PHASE3","PHASE4"];
+    const phaseColors = {"PHASE1":"#4f8ef7","PHASE2":"#a04ff7","PHASE3":"#f7a04f","PHASE4":"#2db565"};
+    const maxPhase = Math.max(...phaseKeys.map(k => phases[k] || 0), 1);
+    
+    const phaseRows = phaseKeys.map(k => {
+        const v = phases[k] || 0;
+        if (!v) return "";
+        const pct = Math.round(v / maxPhase * 100);
+        return `<div class="bar-row">
+            <div class="bar-label">${k.replace("_", " ")} <span>${v}</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${phaseColors[k]}"></div></div>
+        </div>`;
+    }).join("");
+    
+    return `<div class="panel-section">
+        <h3>${t("trials_title","Clinical Trials")} (ClinicalTrials.gov)</h3>
+        <div style="display:flex;gap:20px;margin-bottom:12px">
+            <div>
+                <div style="font-size:22px;font-weight:700;color:#4f8ef7">${d.total}</div>
+                <div style="font-size:9px;color:#445;text-transform:uppercase">${t("trials_total","Total studies")}</div>
+            </div>
+            <div>
+                <div style="font-size:22px;font-weight:700;color:#2db565">${d.active}</div>
+                <div style="font-size:9px;color:#445;text-transform:uppercase">${t("trials_active","Active / Recruiting")}</div>
+            </div>
+        </div>
+        ${phaseRows}
+        <div style="margin-top:10px">
+            <a href="https://clinicaltrials.gov/search?cond=cancer&locStr=${iso3}&distance=0" target="_blank"
+               style="color:#4f8ef7;font-size:11px;text-decoration:none">
+               ${t("trials_link","Search trials →")}
+            </a>
+        </div>
+    </div>`;
+}
+
+// ── Clinical Trials MAP LAYER ────────────────────────────────────────────
+function toggleTrials() {
+    trialsVisible = !trialsVisible;
+    document.getElementById("trials-toggle").classList.toggle("active", trialsVisible);
+    if (trialsVisible && !trialsData) {
+        d3.json("data/clinical_trials.json").then(data => {
+            trialsData = data;
+            renderTrials();
+        });
+    } else {
+        renderTrials();
+    }
+}
+
+function renderTrials() {
+    g.selectAll(".trials-layer").remove();
+    if (!trialsVisible || !trialsData) return;
+    
+    const layer = g.append("g").attr("class", "trials-layer");
+    const maxTotal = Math.max(...Object.values(trialsData.countries).map(d => d.total));
+    
+    // Country centroids
+    const centroids = {};
+    if (allData) allData.forEach(d => { if (d.country && d.lat && d.lon) centroids[d.country] = [d.lon, d.lat]; });
+    const fallback = {
+        "USA":[-95.71,37.09],"CHN":[104.19,35.86],"FRA":[2.21,46.22],"ITA":[12.56,41.87],
+        "CAN":[-96.80,56.13],"DEU":[10.45,51.16],"GBR":[-3.43,55.37],"AUS":[133.77,-25.27],
+        "JPN":[138.25,36.20],"KOR":[127.77,35.91],"ESP":[-3.74,40.44],"NLD":[5.29,52.13],
+        "CHE":[8.22,46.81],"SWE":[18.64,60.12],"BEL":[4.47,50.50],"ISR":[34.85,31.04],
+        "BRA":[-51.92,-14.23],"IND":[78.96,20.59],"TUR":[35.24,38.96],"RUS":[61,57],
+        "POL":[19.14,51.91],"AUT":[14.55,47.51],"DNK":[9.50,56.26],"NOR":[8.46,60.47],
+        "MEX":[-102.55,23.63],"ARG":[-63.61,-38.41],"EGY":[30.80,26.82],
+        "THA":[100.99,15.87],"SGP":[103.82,1.36],"TWN":[120.96,23.70],
+        "SAU":[45.07,23.88],"IRN":[53.68,32.42],"MYS":[109.69,4.21],
+        "NZL":[174.88,-40.90],"ZAF":[22.94,-30.56],"CZE":[15.47,49.81],
+        "FIN":[25.74,61.92],"GRC":[21.82,39.07],"HUN":[19.50,47.16],
+        "ROU":[24.96,45.94],"PRT":[-8.22,39.40],"COL":[-74.29,4.57],
+        "CHL":[-71.54,-35.68],"PER":[-75.01,-9.19],
+        "PAK":[69.34,30.37],"IDN":[113.92,-0.79],"PHL":[121.77,12.87],"VNM":[108.27,14.05],
+    };
+    
+    Object.entries(trialsData.countries).forEach(([iso3, d]) => {
+        const coord = centroids[iso3] || fallback[iso3];
+        if (!coord) return;
+        const pt = projection(coord);
+        if (!pt) return;
+        
+        const r = 4 + (d.total / maxTotal) * 22;
+        const activeRatio = d.active / Math.max(d.total, 1);
+        const color = activeRatio > 0.35 ? "#2db565" : activeRatio > 0.2 ? "#f7a04f" : "#4f8ef7";
+        
+        const grp = layer.append("g")
+            .attr("class", "trial-bubble")
+            .attr("transform", `translate(${pt[0]},${pt[1]})`);
+        
+        grp.append("circle")
+            .attr("r", r)
+            .attr("fill", color)
+            .attr("opacity", 0.18)
+            .attr("stroke", color)
+            .attr("stroke-width", 1.2)
+            .attr("stroke-opacity", 0.6);
+        
+        grp.append("text")
+            .attr("text-anchor", "middle")
+            .attr("dy", "0.35em")
+            .attr("font-size", Math.max(7, Math.min(10, r * 0.8)))
+            .attr("fill", color)
+            .attr("pointer-events", "none")
+            .text(d.total > 999 ? (d.total/1000).toFixed(1)+"k" : d.total);
+        
+        grp.on("mousemove", (event) => {
+            const tip = document.getElementById("tooltip");
+            tip.style.display = "block";
+            tip.style.left = (event.clientX + 14) + "px";
+            tip.style.top = (event.clientY - 10) + "px";
+            tip.innerHTML = `<h4>${iso3}</h4>
+                <div class="tip-row">Total trials: <span class="tip-val">${d.total}</span></div>
+                <div class="tip-row">Active/Recruiting: <span class="tip-val" style="color:#2db565">${d.active}</span></div>
+                <div class="tip-row">Phase 3: <span class="tip-val">${d.phases?.PHASE3||0}</span></div>`;
+        }).on("mouseout", () => { document.getElementById("tooltip").style.display = "none"; });
+    });
+}
+
+// ── Flow tooltip ─────────────────────────────────────────────────────────
+// (добавляем в renderFlows — отдельный патч ниже)
+
+// ── Keyboard navigation ──────────────────────────────────────────────────
+document.addEventListener("keydown", e => {
+    if (e.key === "Escape") {
+        closePanel();
+        stopPlay();
+    }
+});
+
+// ── Resize — пересчитываем оверлеи ──────────────────────────────────────
+// (resize уже вызывает pathGen пересчёт — добавим rerenderOverlays)
+
+
 async function init() {
-    const [world, cancer, trends, ncds, i18n] = await Promise.all([
+    const [world, cancer, trends, ncds, i18n, trialsCt] = await Promise.all([
         d3.json("data/world-110m.json"),
         d3.json("data/countries_cancer.json"),
         d3.json("data/trends.json").catch(() => ({})),
         d3.json("data/ncd_snapshots.json").catch(() => ({})),
-        d3.json("data/i18n.json").catch(() => ({"en":{}}))
+        d3.json("data/i18n.json").catch(() => ({"en":{}})),
+        d3.json("data/clinical_trials.json").catch(() => null)
     ]);
     worldData = world;
     allData = cancer;
     trendsData = trends;
     ncdSnapshots = ncds;
     i18nData = i18n;
+    trialsData = trialsCt;
 
     // Apply URL params
     const params = parseUrlParams();
@@ -1264,6 +1577,8 @@ async function init() {
         projection.scale(W2/6.3).translate([W2/2, H2/2+20]);
         pathGen = d3.geoPath().projection(projection);
         d3.selectAll(".country").attr("d", pathGen);
+        rerenderOverlays();
+        if (trialsVisible) renderTrials();
     });
 }
 
