@@ -186,6 +186,43 @@
         #stats.panel-open { right: 376px; }
         #stats b { color: #4f8ef7; }
 
+        /* Clinics layer */
+        .clinic-dot {
+            cursor: pointer;
+            transition: r 0.15s;
+        }
+        .clinic-dot:hover { opacity: 0.9; }
+        .clinic-tooltip {
+            position: fixed; z-index: 500;
+            background: #0d0f1a; border: 1px solid #1a1d2e;
+            border-radius: 8px; padding: 10px 14px;
+            font-size: 11px; color: #aab; max-width: 240px;
+            pointer-events: none; box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+        }
+        .clinic-tooltip .ct-name { font-weight: 700; color: #dde; font-size: 12px; margin-bottom: 4px; }
+        .clinic-tooltip .ct-city { color: #667; font-size: 10px; margin-bottom: 6px; }
+        .clinic-tooltip .ct-tag {
+            display: inline-block; padding: 1px 7px; border-radius: 99px;
+            font-size: 9px; font-weight: 600; margin-right: 4px; margin-bottom: 4px;
+        }
+        .ct-tag.standard { background: #0d3a1e; color: #4fc88a; border: 1px solid #1a6e3a; }
+        .ct-tag.nonstandard { background: #3a1a0d; color: #f7a04f; border: 1px solid #6e3a1a; }
+        .ct-tag.experimental { background: #2a0d3a; color: #c84ff7; border: 1px solid #5a1a6e; }
+        .ct-tag.controversial { background: #3a0d0d; color: #f74f4f; border: 1px solid #6e1a1a; }
+        .ct-tag.tourism { background: #0d2a3a; color: #4fb8f7; border: 1px solid #1a5a6e; }
+        .clinic-legend {
+            position: fixed; bottom: 60px; left: 16px; z-index: 300;
+            background: rgba(9,11,18,0.95); border: 1px solid #1a1d2e;
+            border-radius: 8px; padding: 10px 14px; font-size: 10px;
+            display: none;
+        }
+        .clinic-legend.visible { display: block; }
+        .clinic-legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+        .clinic-legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+        /* Flow arrows */
+        .flow-line { pointer-events: none; }
+
         /* Lang switcher */
         #lang-btn {
             background: #10131f; border: 1px solid #1a1d2e; color: #778;
@@ -249,6 +286,8 @@
     </div>
     <button class="compare-btn" id="compare-toggle" onclick="toggleCompare()">⚖ Compare</button>
     <button class="compare-btn" id="timeline-toggle" onclick="toggleTimeline()" style="margin-left:4px" data-i18n="timeline">▶ Timeline</button>
+    <button class="compare-btn" id="clinics-toggle" onclick="toggleClinics()" style="margin-left:4px">🏥 Clinics</button>
+    <button class="compare-btn" id="flows-toggle" onclick="toggleFlows()" style="margin-left:4px">✈ Flows</button>
     <div style="position:relative;margin-left:4px">
         <button id="lang-btn" onclick="toggleLangMenu()">🌐 EN</button>
         <div id="lang-menu"></div>
@@ -277,6 +316,15 @@
     <button id="timeline-play" onclick="togglePlay()">▶</button>
     <span id="year-label">2000</span>
     <input id="year-slider" type="range" min="2000" max="2021" step="1" value="2021" oninput="onYearSlide(this.value)">
+</div>
+
+<div class="clinic-legend" id="clinic-legend">
+    <div style="font-size:9px;color:#334;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:7px">Cancer Clinics</div>
+    <div class="clinic-legend-row"><div class="clinic-legend-dot" style="background:#4fc88a"></div><span style="color:#aab">Standard (FDA/EMA approved)</span></div>
+    <div class="clinic-legend-row"><div class="clinic-legend-dot" style="background:#f7a04f"></div><span style="color:#aab">Integrative / Alternative</span></div>
+    <div class="clinic-legend-row"><div class="clinic-legend-dot" style="background:#c84ff7"></div><span style="color:#aab">Experimental</span></div>
+    <div class="clinic-legend-row"><div class="clinic-legend-dot" style="background:#f74f4f"></div><span style="color:#aab">Controversial</span></div>
+    <div class="clinic-legend-row"><div style="width:10px;height:2px;background:#4fb8f7;border-radius:1px"></div><span style="color:#aab">✈ Migration flow</span></div>
 </div>
 
 <div id="legend">
@@ -554,6 +602,252 @@ function updateMap() {
     buildLegend(currentMetric);
     d3.selectAll(".country").transition().duration(350)
         .attr("fill", d => getColor(dataByNumId[+d.id], currentMetric));
+}
+
+// ── Clinics & Flows layer ─────────────────────────────────────────────────
+let clinicsData = null;
+let clinicsVisible = false;
+let flowsVisible = false;
+let clinicTooltipEl = null;
+
+const CLINIC_COLORS = {
+    standard: "#4fc88a",
+    integrative: "#f7a04f",
+    alternative: "#f7a04f",
+    anthroposophic: "#f7a04f",
+    stem_cell: "#f7d34f",
+    experimental: "#c84ff7",
+    immunotherapy_experimental: "#c84ff7",
+    controversial: "#f74f4f"
+};
+
+function clinicColor(c) {
+    if (c.type === "standard") return CLINIC_COLORS.standard;
+    return CLINIC_COLORS[c.category] || CLINIC_COLORS.alternative;
+}
+
+function toggleClinics() {
+    clinicsVisible = !clinicsVisible;
+    document.getElementById("clinics-toggle").classList.toggle("active", clinicsVisible);
+    document.getElementById("clinic-legend").classList.toggle("visible", clinicsVisible || flowsVisible);
+    if (clinicsVisible && !clinicsData) {
+        d3.json("data/clinics.json").then(data => {
+            clinicsData = data;
+            renderClinics();
+        });
+    } else {
+        renderClinics();
+    }
+}
+
+function toggleFlows() {
+    flowsVisible = !flowsVisible;
+    document.getElementById("flows-toggle").classList.toggle("active", flowsVisible);
+    document.getElementById("clinic-legend").classList.toggle("visible", clinicsVisible || flowsVisible);
+    if (flowsVisible && !clinicsData) {
+        d3.json("data/clinics.json").then(data => {
+            clinicsData = data;
+            renderFlows();
+        });
+    } else {
+        renderFlows();
+    }
+}
+
+function renderClinics() {
+    const svg = d3.select("#map-svg");
+    svg.selectAll(".clinic-layer").remove();
+    if (!clinicsVisible || !clinicsData) return;
+
+    const layer = svg.append("g").attr("class", "clinic-layer");
+    const svgEl = document.getElementById("map-svg");
+    const w = svgEl.clientWidth, h = svgEl.clientHeight;
+
+    // Get current zoom/pan transform
+    const t = d3.zoomTransform(svgEl);
+    const proj = projection;
+
+    clinicsData.clinics.forEach(clinic => {
+        const pt = proj([clinic.lon, clinic.lat]);
+        if (!pt) return;
+        const [x, y] = t.apply(pt);
+        const r = clinic.tier === "flagship" ? 7 : clinic.tier === "top" ? 5 : 4;
+        const col = clinicColor(clinic);
+
+        const g = layer.append("g")
+            .attr("class", "clinic-dot")
+            .attr("transform", `translate(${x},${y})`);
+
+        // Outer glow ring for flagship
+        if (clinic.tier === "flagship") {
+            g.append("circle").attr("r", r + 4)
+                .attr("fill", "none")
+                .attr("stroke", col)
+                .attr("stroke-width", 0.8)
+                .attr("opacity", 0.3);
+        }
+        g.append("circle").attr("r", r)
+            .attr("fill", col)
+            .attr("stroke", "#0b0d14")
+            .attr("stroke-width", 1.2)
+            .attr("opacity", 0.9);
+
+        // Medical tourism marker
+        if (clinic.medical_tourism) {
+            g.append("text")
+                .attr("text-anchor", "middle")
+                .attr("dy", r + 8)
+                .attr("font-size", 7)
+                .attr("fill", "#4fb8f7")
+                .text("✈");
+        }
+
+        g.on("mousemove", function(event) {
+            showClinicTooltip(clinic, event.clientX, event.clientY);
+        }).on("mouseleave", function() {
+            hideClinicTooltip();
+        }).on("click", function(event) {
+            event.stopPropagation();
+            showClinicPanel(clinic);
+        });
+    });
+}
+
+function renderFlows() {
+    const svg = d3.select("#map-svg");
+    svg.selectAll(".flow-layer").remove();
+    if (!flowsVisible || !clinicsData) return;
+
+    const layer = svg.insert("g", ".clinic-layer").attr("class", "flow-layer");
+    const svgEl = document.getElementById("map-svg");
+    const t = d3.zoomTransform(svgEl);
+    const proj = projection;
+
+    // ISO3 -> centroid lookup from allData
+    const centroids = {};
+    if (allData) {
+        allData.forEach(d => {
+            if (d.country && d.lat && d.lon) centroids[d.country] = [d.lon, d.lat];
+        });
+    }
+
+    // Fallback centroids for common countries not in allData format
+    const fallback = {
+        "RUS":[61,57],"DEU":[10.45,51.16],"ISR":[34.85,31.04],"TUR":[35.24,38.96],
+        "USA":[-95.71,37.09],"GBR":[-3.43,55.37],"FRA":[2.21,46.22],"NLD":[5.29,52.13],
+        "ITA":[12.56,41.87],"SWE":[18.64,60.12],"CHE":[8.22,46.81],"ISR":[34.85,31.04],
+        "UKR":[31.16,48.37],"KAZ":[66.92,48.01],"SAU":[45.07,23.88],"EGY":[30.80,26.82],
+        "IRN":[53.68,32.42],"IRQ":[43.67,33.22],"IND":[78.96,20.59],"THA":[100.99,15.87],
+        "SGP":[103.82,1.36],"JPN":[138.25,36.20],"KOR":[127.77,35.91],"CHN":[104.19,35.86],
+        "AUS":[133.77,-25.27],"CAN":[-96.80,56.13],"BRA":[-51.92,-14.23],"MEX":[-102.55,23.63],
+        "MYS":[109.69,4.21],"IDN":[113.92,-0.79],"VNM":[108.27,14.05],"BGD":[90.35,23.68],
+        "NPL":[84.12,28.39],"KHM":[104.99,12.56],"MMR":[95.95,21.91],"NGA":[8.67,9.08],
+        "KEN":[37.90,-0.02],"GHA":[-1.02,7.94],"ARG":[-63.61,-38.41],"COL":[-74.29,4.57]
+    };
+
+    clinicsData.migration_flows.forEach(flow => {
+        const from = centroids[flow.from] || fallback[flow.from];
+        const to = centroids[flow.to] || fallback[flow.to];
+        if (!from || !to) return;
+
+        const ptFrom = proj(from);
+        const ptTo = proj(to);
+        if (!ptFrom || !ptTo) return;
+
+        const [x1, y1] = t.apply(ptFrom);
+        const [x2, y2] = t.apply(ptTo);
+
+        // Bezier curve with upward arc
+        const mx = (x1 + x2) / 2;
+        const my = (y1 + y2) / 2 - Math.sqrt((x2-x1)**2+(y2-y1)**2) * 0.25;
+        const opacity = 0.15 + flow.volume * 0.07;
+        const strokeW = 0.6 + flow.volume * 0.3;
+
+        layer.append("path")
+            .attr("class", "flow-line")
+            .attr("d", `M${x1},${y1} Q${mx},${my} ${x2},${y2}`)
+            .attr("fill", "none")
+            .attr("stroke", "#4fb8f7")
+            .attr("stroke-width", strokeW)
+            .attr("opacity", opacity)
+            .attr("stroke-dasharray", "4 3");
+    });
+}
+
+// Re-render clinics/flows after zoom (called from zoom handler)
+function rerenderOverlays() {
+    if (clinicsVisible) renderClinics();
+    if (flowsVisible) renderFlows();
+}
+
+function showClinicTooltip(clinic, cx, cy) {
+    if (!clinicTooltipEl) {
+        clinicTooltipEl = document.createElement("div");
+        clinicTooltipEl.className = "clinic-tooltip";
+        document.body.appendChild(clinicTooltipEl);
+    }
+    const typeTag = clinic.type === "standard" ? "standard" : (clinic.category || clinic.tier);
+    const col = clinicColor(clinic);
+    clinicTooltipEl.innerHTML = `
+        <div class="ct-name">${clinic.name}</div>
+        <div class="ct-city">${clinic.city}, ${clinic.country}</div>
+        <span class="ct-tag ${clinic.type}" style="background:${col}18;color:${col};border-color:${col}44">${clinic.type === "standard" ? "Standard" : (clinic.category||clinic.tier)}</span>
+        ${clinic.medical_tourism ? '<span class="ct-tag tourism">✈ Medical tourism</span>' : ""}
+        ${clinic.tier === "flagship" ? '<span class="ct-tag standard">Flagship</span>' : ""}
+        ${clinic.rank_newsweek ? `<div style="margin-top:5px;font-size:10px;color:#667">Newsweek #${clinic.rank_newsweek}</div>` : ""}
+        ${clinic.accreditation?.length ? `<div style="font-size:10px;color:#667;margin-top:3px">${clinic.accreditation.join(" · ")}</div>` : ""}
+        <div style="margin-top:6px;font-size:10px;color:#556">${(clinic.treatments||[]).slice(0,3).join(", ")}</div>
+    `;
+    clinicTooltipEl.style.display = "block";
+    clinicTooltipEl.style.left = (cx + 12) + "px";
+    clinicTooltipEl.style.top = (cy - 10) + "px";
+}
+
+function hideClinicTooltip() {
+    if (clinicTooltipEl) clinicTooltipEl.style.display = "none";
+}
+
+function showClinicPanel(clinic) {
+    const col = clinicColor(clinic);
+    const treatStr = (clinic.treatments||[]).map(t => `<span style="background:${col}15;color:${col};border:1px solid ${col}30;border-radius:99px;padding:1px 8px;font-size:10px;margin:2px;display:inline-block">${t}</span>`).join("");
+    const accStr = (clinic.accreditation||[]).join(" · ") || "—";
+
+    document.getElementById("panel-content").innerHTML = `
+        <div style="padding:20px 20px 0">
+            <div style="font-size:10px;color:#334;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:6px">Cancer Clinic</div>
+            <h2 style="font-size:17px;font-weight:700;color:#dde;margin-bottom:4px">${clinic.name}</h2>
+            <div style="font-size:12px;color:#667;margin-bottom:12px">${clinic.city}, ${clinic.country}</div>
+            <span style="background:${col}18;color:${col};border:1px solid ${col}44;border-radius:99px;padding:2px 10px;font-size:10px;font-weight:600">
+                ${clinic.type === "standard" ? "✅ Standard medicine" : "⚗ " + (clinic.category||clinic.tier)}
+            </span>
+            ${clinic.medical_tourism ? '<span style="background:#0d2a3a;color:#4fb8f7;border:1px solid #1a5a6e;border-radius:99px;padding:2px 10px;font-size:10px;margin-left:6px">✈ Medical tourism</span>' : ""}
+        </div>
+        <div style="padding:14px 20px">
+            ${clinic.description ? `<div style="font-size:12px;color:#889;line-height:1.5;margin-bottom:14px">${clinic.description}</div>` : ""}
+            <div class="panel-section">
+                <h3>Treatments offered</h3>
+                <div style="margin-top:6px">${treatStr}</div>
+            </div>
+            ${(clinic.specialties||[]).length ? `
+            <div class="panel-section">
+                <h3>Specialties</h3>
+                <div style="font-size:11px;color:#889;margin-top:4px">${clinic.specialties.join(" · ")}</div>
+            </div>` : ""}
+            <div class="panel-section">
+                <h3>Details</h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px">
+                    ${clinic.founded ? `<div><div style="font-size:9px;color:#334;text-transform:uppercase">Founded</div><div style="font-size:13px;color:#aab">${clinic.founded}</div></div>` : ""}
+                    ${clinic.beds ? `<div><div style="font-size:9px;color:#334;text-transform:uppercase">Beds</div><div style="font-size:13px;color:#aab">${clinic.beds}</div></div>` : ""}
+                    <div><div style="font-size:9px;color:#334;text-transform:uppercase">Accreditation</div><div style="font-size:11px;color:#4f8ef7">${accStr}</div></div>
+                    ${clinic.rank_newsweek ? `<div><div style="font-size:9px;color:#334;text-transform:uppercase">Newsweek rank</div><div style="font-size:13px;color:#4fc88a">#${clinic.rank_newsweek}</div></div>` : ""}
+                </div>
+            </div>
+            ${clinic.url ? `<div style="margin-top:14px"><a href="${clinic.url}" target="_blank" style="color:#4f8ef7;font-size:11px;text-decoration:none">🔗 ${clinic.url.replace("https://","")}</a></div>` : ""}
+        </div>`;
+
+    document.getElementById("panel").classList.add("open");
+    document.getElementById("map-container").classList.add("panel-open");
+    document.getElementById("stats").classList.add("panel-open");
 }
 
 // ── i18n ──────────────────────────────────────────────────────────────────
@@ -898,7 +1192,7 @@ function selectCountry(iso3) {
         const cy = (bounds[0][1] + bounds[1][1]) / 2;
         const cont = document.getElementById("map-container");
         svg.transition().duration(600).call(
-            d3.zoom().scaleExtent([0.7,14]).on("zoom", e => g.attr("transform", e.transform))
+            d3.zoom().scaleExtent([0.7,14]).on("zoom", e => { g.attr("transform", e.transform); rerenderOverlays(); })
                 .transform, d3.zoomIdentity.translate(cont.clientWidth/2 - cx*2.5, cont.clientHeight/2 - cy*2.5).scale(2.5)
         );
     }

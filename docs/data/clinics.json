@@ -1,0 +1,1346 @@
+{
+  "generated": "2026-03-19",
+  "sources": [
+    "Newsweek World's Best Hospitals 2024",
+    "NCI Cancer Centers",
+    "ESMO Designated Centres",
+    "JCI Accreditation Database",
+    "Medical Tourism Index",
+    "Open source research"
+  ],
+  "total": 41,
+  "standard_count": 29,
+  "nonstandard_count": 12,
+  "migration_flows": [
+    {
+      "from": "RUS",
+      "to": "DEU",
+      "volume": 3,
+      "label": "Russia -> Germany"
+    },
+    {
+      "from": "RUS",
+      "to": "ISR",
+      "volume": 4,
+      "label": "Russia -> Israel"
+    },
+    {
+      "from": "RUS",
+      "to": "TUR",
+      "volume": 2,
+      "label": "Russia -> Turkey"
+    },
+    {
+      "from": "RUS",
+      "to": "CHN",
+      "volume": 1,
+      "label": "Russia -> China"
+    },
+    {
+      "from": "UKR",
+      "to": "DEU",
+      "volume": 3,
+      "label": "Ukraine -> Germany"
+    },
+    {
+      "from": "UKR",
+      "to": "ISR",
+      "volume": 3,
+      "label": "Ukraine -> Israel"
+    },
+    {
+      "from": "KAZ",
+      "to": "ISR",
+      "volume": 2,
+      "label": "Kazakhstan -> Israel"
+    },
+    {
+      "from": "KAZ",
+      "to": "DEU",
+      "volume": 2,
+      "label": "Kazakhstan -> Germany"
+    },
+    {
+      "from": "GBR",
+      "to": "DEU",
+      "volume": 1,
+      "label": "UK -> Germany"
+    },
+    {
+      "from": "USA",
+      "to": "MEX",
+      "volume": 2,
+      "label": "USA -> Mexico (alternative)"
+    },
+    {
+      "from": "CAN",
+      "to": "MEX",
+      "volume": 1,
+      "label": "Canada -> Mexico (alternative)"
+    },
+    {
+      "from": "AUS",
+      "to": "DEU",
+      "volume": 1,
+      "label": "Australia -> Germany"
+    },
+    {
+      "from": "SAU",
+      "to": "DEU",
+      "volume": 2,
+      "label": "Saudi Arabia -> Germany"
+    },
+    {
+      "from": "SAU",
+      "to": "ISR",
+      "volume": 1,
+      "label": "Saudi Arabia -> Israel"
+    },
+    {
+      "from": "TUR",
+      "to": "DEU",
+      "volume": 1,
+      "label": "Turkey -> Germany"
+    },
+    {
+      "from": "EGY",
+      "to": "TUR",
+      "volume": 2,
+      "label": "Egypt -> Turkey"
+    },
+    {
+      "from": "IRN",
+      "to": "TUR",
+      "volume": 2,
+      "label": "Iran -> Turkey"
+    },
+    {
+      "from": "IRQ",
+      "to": "TUR",
+      "volume": 1,
+      "label": "Iraq -> Turkey"
+    },
+    {
+      "from": "IND",
+      "to": "SGP",
+      "volume": 2,
+      "label": "India -> Singapore"
+    },
+    {
+      "from": "IND",
+      "to": "THA",
+      "volume": 2,
+      "label": "India -> Thailand"
+    },
+    {
+      "from": "BGD",
+      "to": "IND",
+      "volume": 3,
+      "label": "Bangladesh -> India"
+    },
+    {
+      "from": "NPL",
+      "to": "IND",
+      "volume": 2,
+      "label": "Nepal -> India"
+    },
+    {
+      "from": "KHM",
+      "to": "THA",
+      "volume": 1,
+      "label": "Cambodia -> Thailand"
+    },
+    {
+      "from": "MMR",
+      "to": "THA",
+      "volume": 1,
+      "label": "Myanmar -> Thailand"
+    },
+    {
+      "from": "JPN",
+      "to": "USA",
+      "volume": 1,
+      "label": "Japan -> USA"
+    },
+    {
+      "from": "KOR",
+      "to": "USA",
+      "volume": 1,
+      "label": "South Korea -> USA"
+    },
+    {
+      "from": "CHN",
+      "to": "USA",
+      "volume": 1,
+      "label": "China -> USA"
+    },
+    {
+      "from": "MYS",
+      "to": "SGP",
+      "volume": 2,
+      "label": "Malaysia -> Singapore"
+    },
+    {
+      "from": "IDN",
+      "to": "SGP",
+      "volume": 2,
+      "label": "Indonesia -> Singapore"
+    },
+    {
+      "from": "VNM",
+      "to": "JPN",
+      "volume": 1,
+      "label": "Vietnam -> Japan"
+    },
+    {
+      "from": "NGA",
+      "to": "IND",
+      "volume": 1,
+      "label": "Nigeria -> India"
+    },
+    {
+      "from": "KEN",
+      "to": "IND",
+      "volume": 1,
+      "label": "Kenya -> India"
+    },
+    {
+      "from": "GHA",
+      "to": "GBR",
+      "volume": 1,
+      "label": "Ghana -> UK"
+    },
+    {
+      "from": "BRA",
+      "to": "USA",
+      "volume": 1,
+      "label": "Brazil -> USA"
+    },
+    {
+      "from": "ARG",
+      "to": "USA",
+      "volume": 1,
+      "label": "Argentina -> USA"
+    },
+    {
+      "from": "COL",
+      "to": "USA",
+      "volume": 1,
+      "label": "Colombia -> USA"
+    },
+    {
+      "from": "MEX",
+      "to": "USA",
+      "volume": 2,
+      "label": "Mexico -> USA"
+    }
+  ],
+  "clinics": [
+    {
+      "id": "mayo",
+      "name": "Mayo Clinic Cancer Center",
+      "city": "Rochester, MN",
+      "country": "USA",
+      "iso3": "USA",
+      "lat": 44.022,
+      "lon": -92.499,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "NCI",
+        "JCI"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 1971,
+      "rank_newsweek": 1,
+      "url": "https://www.mayoclinic.org",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy",
+        "proton therapy"
+      ],
+      "medical_tourism": false
+    },
+    {
+      "id": "md_anderson",
+      "name": "MD Anderson Cancer Center",
+      "city": "Houston, TX",
+      "country": "USA",
+      "iso3": "USA",
+      "lat": 29.706,
+      "lon": -95.397,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "NCI",
+        "JCI"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 1941,
+      "rank_newsweek": 2,
+      "url": "https://www.mdanderson.org",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy",
+        "proton therapy",
+        "CAR-T"
+      ],
+      "medical_tourism": false
+    },
+    {
+      "id": "memorial_sloan",
+      "name": "Memorial Sloan Kettering Cancer Center",
+      "city": "New York, NY",
+      "country": "USA",
+      "iso3": "USA",
+      "lat": 40.764,
+      "lon": -73.956,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "NCI",
+        "JCI"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 1884,
+      "rank_newsweek": 3,
+      "url": "https://www.mskcc.org",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy",
+        "CAR-T",
+        "proton therapy"
+      ],
+      "medical_tourism": false
+    },
+    {
+      "id": "dana_farber",
+      "name": "Dana-Farber Cancer Institute",
+      "city": "Boston, MA",
+      "country": "USA",
+      "iso3": "USA",
+      "lat": 42.337,
+      "lon": -71.107,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "NCI",
+        "JCI"
+      ],
+      "specialties": [
+        "all cancers",
+        "hematology"
+      ],
+      "founded": 1947,
+      "rank_newsweek": 4,
+      "url": "https://www.dana-farber.org",
+      "treatments": [
+        "chemo",
+        "immunotherapy",
+        "CAR-T",
+        "stem cell transplant"
+      ],
+      "medical_tourism": false
+    },
+    {
+      "id": "johns_hopkins_onc",
+      "name": "Johns Hopkins Sidney Kimmel Cancer Center",
+      "city": "Baltimore, MD",
+      "country": "USA",
+      "iso3": "USA",
+      "lat": 39.296,
+      "lon": -76.592,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "NCI",
+        "JCI"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 1973,
+      "rank_newsweek": 5,
+      "url": "https://www.hopkinsmedicine.org",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy"
+      ],
+      "medical_tourism": false
+    },
+    {
+      "id": "stanford_cancer",
+      "name": "Stanford Cancer Institute",
+      "city": "Stanford, CA",
+      "country": "USA",
+      "iso3": "USA",
+      "lat": 37.434,
+      "lon": -122.175,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "NCI"
+      ],
+      "specialties": [
+        "all cancers",
+        "immunotherapy"
+      ],
+      "founded": 1976,
+      "rank_newsweek": 8,
+      "url": "https://cancer.stanford.edu",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy",
+        "CAR-T"
+      ],
+      "medical_tourism": false
+    },
+    {
+      "id": "cleveland_clinic_onc",
+      "name": "Cleveland Clinic Taussig Cancer Institute",
+      "city": "Cleveland, OH",
+      "country": "USA",
+      "iso3": "USA",
+      "lat": 41.503,
+      "lon": -81.62,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "NCI"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 1983,
+      "rank_newsweek": 7,
+      "url": "https://my.clevelandclinic.org",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy",
+        "proton therapy"
+      ],
+      "medical_tourism": false
+    },
+    {
+      "id": "city_of_hope",
+      "name": "City of Hope National Medical Center",
+      "city": "Duarte, CA",
+      "country": "USA",
+      "iso3": "USA",
+      "lat": 34.134,
+      "lon": -117.975,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "NCI",
+        "JCI"
+      ],
+      "specialties": [
+        "all cancers",
+        "hematology"
+      ],
+      "founded": 1913,
+      "rank_newsweek": 10,
+      "url": "https://www.cityofhope.org",
+      "treatments": [
+        "chemo",
+        "immunotherapy",
+        "CAR-T",
+        "stem cell transplant"
+      ],
+      "medical_tourism": false
+    },
+    {
+      "id": "charite",
+      "name": "Charite Comprehensive Cancer Center",
+      "city": "Berlin",
+      "country": "Germany",
+      "iso3": "DEU",
+      "lat": 52.525,
+      "lon": 13.378,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO",
+        "DKH"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 1710,
+      "rank_newsweek": 6,
+      "url": "https://www.charite.de",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy",
+        "CAR-T"
+      ],
+      "medical_tourism": true
+    },
+    {
+      "id": "gustave_roussy",
+      "name": "Gustave Roussy",
+      "city": "Villejuif",
+      "country": "France",
+      "iso3": "FRA",
+      "lat": 48.793,
+      "lon": 2.36,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO",
+        "HAS"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 1926,
+      "rank_newsweek": 9,
+      "url": "https://www.gustaveroussy.fr",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy",
+        "proton therapy"
+      ],
+      "medical_tourism": true
+    },
+    {
+      "id": "christie",
+      "name": "The Christie NHS Foundation Trust",
+      "city": "Manchester",
+      "country": "United Kingdom",
+      "iso3": "GBR",
+      "lat": 53.445,
+      "lon": -2.228,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 1892,
+      "rank_newsweek": 15,
+      "url": "https://www.christie.nhs.uk",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy",
+        "proton therapy"
+      ],
+      "medical_tourism": false
+    },
+    {
+      "id": "nki_avl",
+      "name": "Netherlands Cancer Institute (NKI-AVL)",
+      "city": "Amsterdam",
+      "country": "Netherlands",
+      "iso3": "NLD",
+      "lat": 52.36,
+      "lon": 4.884,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 1913,
+      "rank_newsweek": 12,
+      "url": "https://www.nki.nl",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy"
+      ],
+      "medical_tourism": false
+    },
+    {
+      "id": "ieo",
+      "name": "Istituto Europeo di Oncologia (IEO)",
+      "city": "Milan",
+      "country": "Italy",
+      "iso3": "ITA",
+      "lat": 45.438,
+      "lon": 9.196,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO",
+        "JCI"
+      ],
+      "specialties": [
+        "all cancers",
+        "breast",
+        "surgery"
+      ],
+      "founded": 1994,
+      "rank_newsweek": 18,
+      "url": "https://www.ieo.it",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy"
+      ],
+      "medical_tourism": true
+    },
+    {
+      "id": "karolinska_onc",
+      "name": "Karolinska University Hospital Cancer",
+      "city": "Stockholm",
+      "country": "Sweden",
+      "iso3": "SWE",
+      "lat": 59.332,
+      "lon": 18.024,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ESMO"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 1958,
+      "rank_newsweek": 20,
+      "url": "https://www.karolinska.se",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy",
+        "proton therapy"
+      ],
+      "medical_tourism": false
+    },
+    {
+      "id": "heidelberg_cancer",
+      "name": "NCT Heidelberg",
+      "city": "Heidelberg",
+      "country": "Germany",
+      "iso3": "DEU",
+      "lat": 49.415,
+      "lon": 8.675,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO",
+        "DKH"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 2004,
+      "url": "https://www.nct-heidelberg.de",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy",
+        "proton therapy"
+      ],
+      "medical_tourism": true
+    },
+    {
+      "id": "sheba",
+      "name": "Sheba Medical Center Cancer",
+      "city": "Ramat Gan",
+      "country": "Israel",
+      "iso3": "ISR",
+      "lat": 32.064,
+      "lon": 34.838,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "JCI"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 1948,
+      "rank_newsweek": 3,
+      "url": "https://eng.sheba.co.il",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy",
+        "CAR-T",
+        "proton therapy"
+      ],
+      "medical_tourism": true
+    },
+    {
+      "id": "hadassah",
+      "name": "Hadassah Medical Center",
+      "city": "Jerusalem",
+      "country": "Israel",
+      "iso3": "ISR",
+      "lat": 31.777,
+      "lon": 35.197,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "specialties": [
+        "all cancers",
+        "hematology"
+      ],
+      "founded": 1918,
+      "url": "https://www.hadassah-med.com",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy",
+        "stem cell transplant"
+      ],
+      "medical_tourism": true
+    },
+    {
+      "id": "acibadem_cancer",
+      "name": "Acibadem Cancer Center",
+      "city": "Istanbul",
+      "country": "Turkey",
+      "iso3": "TUR",
+      "lat": 41.026,
+      "lon": 29.025,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "url": "https://www.acibadem.com",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy",
+        "proton therapy"
+      ],
+      "medical_tourism": true
+    },
+    {
+      "id": "memorial_istanbul",
+      "name": "Memorial Hospital Cancer Center",
+      "city": "Istanbul",
+      "country": "Turkey",
+      "iso3": "TUR",
+      "lat": 41.065,
+      "lon": 29.001,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "url": "https://www.memorial.com.tr",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy"
+      ],
+      "medical_tourism": true
+    },
+    {
+      "id": "ncc_japan",
+      "name": "National Cancer Center Hospital Japan",
+      "city": "Tokyo",
+      "country": "Japan",
+      "iso3": "JPN",
+      "lat": 35.664,
+      "lon": 139.731,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "JCI"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 1962,
+      "rank_newsweek": 14,
+      "url": "https://www.ncc.go.jp",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy",
+        "proton therapy"
+      ],
+      "medical_tourism": false
+    },
+    {
+      "id": "asan_cancer",
+      "name": "Asan Medical Center Cancer",
+      "city": "Seoul",
+      "country": "South Korea",
+      "iso3": "KOR",
+      "lat": 37.523,
+      "lon": 127.107,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "JCI"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 1989,
+      "rank_newsweek": 11,
+      "url": "https://www.amc.seoul.kr",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy",
+        "proton therapy"
+      ],
+      "medical_tourism": true
+    },
+    {
+      "id": "bumrungrad",
+      "name": "Bumrungrad International Hospital Cancer",
+      "city": "Bangkok",
+      "country": "Thailand",
+      "iso3": "THA",
+      "lat": 13.744,
+      "lon": 100.556,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 1980,
+      "url": "https://www.bumrungrad.com",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy"
+      ],
+      "medical_tourism": true
+    },
+    {
+      "id": "singapore_cancer",
+      "name": "National Cancer Centre Singapore",
+      "city": "Singapore",
+      "country": "Singapore",
+      "iso3": "SGP",
+      "lat": 1.279,
+      "lon": 103.835,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "JCI"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 1999,
+      "url": "https://www.nccs.com.sg",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy",
+        "proton therapy"
+      ],
+      "medical_tourism": true
+    },
+    {
+      "id": "apollo_cancer",
+      "name": "Apollo Cancer Centres",
+      "city": "Chennai",
+      "country": "India",
+      "iso3": "IND",
+      "lat": 13.01,
+      "lon": 80.209,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI",
+        "NABH"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 1983,
+      "url": "https://www.apollohospitals.com",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy",
+        "proton therapy"
+      ],
+      "medical_tourism": true
+    },
+    {
+      "id": "blokhin",
+      "name": "N.N. Blokhin NMRCO",
+      "city": "Moscow",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 55.71,
+      "lon": 37.563,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 1952,
+      "url": "https://www.ronc.ru",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy"
+      ],
+      "medical_tourism": false
+    },
+    {
+      "id": "hertzen",
+      "name": "P.A. Herzen Moscow Oncology Institute",
+      "city": "Moscow",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 55.769,
+      "lon": 37.573,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [],
+      "specialties": [
+        "all cancers",
+        "surgery"
+      ],
+      "founded": 1898,
+      "url": "https://www.mnioi.nmicr.ru",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation"
+      ],
+      "medical_tourism": false
+    },
+    {
+      "id": "inca_brazil",
+      "name": "Instituto Nacional de Cancer (INCA)",
+      "city": "Rio de Janeiro",
+      "country": "Brazil",
+      "iso3": "BRA",
+      "lat": -22.9,
+      "lon": -43.178,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 1937,
+      "url": "https://www.inca.gov.br",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy"
+      ],
+      "medical_tourism": false
+    },
+    {
+      "id": "peter_mac",
+      "name": "Peter MacCallum Cancer Centre",
+      "city": "Melbourne",
+      "country": "Australia",
+      "iso3": "AUS",
+      "lat": -37.8,
+      "lon": 144.989,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 1949,
+      "url": "https://www.petermac.org",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy",
+        "proton therapy"
+      ],
+      "medical_tourism": false
+    },
+    {
+      "id": "pm_toronto",
+      "name": "Princess Margaret Cancer Centre",
+      "city": "Toronto",
+      "country": "Canada",
+      "iso3": "CAN",
+      "lat": 43.66,
+      "lon": -79.388,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "NCI-designated"
+      ],
+      "specialties": [
+        "all cancers"
+      ],
+      "founded": 1952,
+      "rank_newsweek": 13,
+      "url": "https://www.uhn.ca/PrincessMargaret",
+      "treatments": [
+        "surgery",
+        "chemo",
+        "radiation",
+        "immunotherapy",
+        "proton therapy"
+      ],
+      "medical_tourism": false
+    },
+    {
+      "id": "hufeland",
+      "name": "Hufeland Klinik",
+      "city": "Bad Mergentheim",
+      "country": "Germany",
+      "iso3": "DEU",
+      "lat": 49.499,
+      "lon": 9.773,
+      "type": "nonstandard",
+      "tier": "alternative",
+      "category": "integrative",
+      "specialties": [
+        "mistletoe",
+        "hyperthermia",
+        "immune stimulation"
+      ],
+      "url": "https://www.hufeland.de",
+      "treatments": [
+        "mistletoe (Iscador)",
+        "hyperthermia",
+        "ozone therapy",
+        "high-dose vitamin C",
+        "detox"
+      ],
+      "description": "Integrative oncology, mistletoe therapy pioneer"
+    },
+    {
+      "id": "st_georg",
+      "name": "Klinik St. Georg",
+      "city": "Bad Aibling",
+      "country": "Germany",
+      "iso3": "DEU",
+      "lat": 47.863,
+      "lon": 11.993,
+      "type": "nonstandard",
+      "tier": "alternative",
+      "category": "integrative",
+      "specialties": [
+        "hyperthermia",
+        "IPT",
+        "mistletoe"
+      ],
+      "url": "https://www.klinik-st-georg.de",
+      "treatments": [
+        "whole body hyperthermia",
+        "local hyperthermia",
+        "IPT",
+        "mistletoe",
+        "ozone"
+      ],
+      "description": "Known for hyperthermia and IPT protocols"
+    },
+    {
+      "id": "hallwang",
+      "name": "Hallwang Private Oncology Clinic",
+      "city": "Burgberg",
+      "country": "Germany",
+      "iso3": "DEU",
+      "lat": 47.817,
+      "lon": 10.286,
+      "type": "nonstandard",
+      "tier": "experimental",
+      "category": "experimental",
+      "specialties": [
+        "dendritic cell vaccine",
+        "checkpoint inhibitors off-label",
+        "NK cells"
+      ],
+      "url": "https://www.hallwang-clinic.com",
+      "treatments": [
+        "dendritic cell therapy",
+        "checkpoint inhibitors off-label",
+        "peptide vaccines",
+        "NK cell therapy"
+      ],
+      "description": "Expensive experimental immunotherapy, off-label protocols"
+    },
+    {
+      "id": "oasis_hope",
+      "name": "Oasis of Hope Hospital",
+      "city": "Tijuana",
+      "country": "Mexico",
+      "iso3": "MEX",
+      "lat": 32.486,
+      "lon": -117.036,
+      "type": "nonstandard",
+      "tier": "alternative",
+      "category": "alternative",
+      "specialties": [
+        "Contreras method",
+        "Laetrile",
+        "IPT"
+      ],
+      "url": "https://www.oasisofhope.com",
+      "treatments": [
+        "Contreras ozone therapy",
+        "Laetrile",
+        "IPT",
+        "antineoplastons",
+        "coffee enemas"
+      ],
+      "description": "60+ years alternative cancer treatment, US patients"
+    },
+    {
+      "id": "hospital_angeles_tj",
+      "name": "Hospital Angeles Tijuana",
+      "city": "Tijuana",
+      "country": "Mexico",
+      "iso3": "MEX",
+      "lat": 32.493,
+      "lon": -117.065,
+      "type": "nonstandard",
+      "tier": "alternative",
+      "category": "alternative",
+      "specialties": [
+        "Laetrile",
+        "Gerson therapy",
+        "stem cells"
+      ],
+      "url": "https://www.hospitalesangeles.com/tijuana",
+      "treatments": [
+        "Laetrile/amygdalin",
+        "Gerson therapy",
+        "coffee enemas",
+        "stem cells"
+      ],
+      "description": "Popular US border clinic for alternative cancer treatment"
+    },
+    {
+      "id": "paracelsus",
+      "name": "Paracelsus Klinik",
+      "city": "Lustmuhle",
+      "country": "Switzerland",
+      "iso3": "CHE",
+      "lat": 47.444,
+      "lon": 9.382,
+      "type": "nonstandard",
+      "tier": "alternative",
+      "category": "integrative",
+      "specialties": [
+        "biological medicine",
+        "mistletoe",
+        "detox"
+      ],
+      "url": "https://www.paracelsus.ch",
+      "treatments": [
+        "biological cancer therapy",
+        "mistletoe",
+        "neural therapy",
+        "detox",
+        "diet therapy"
+      ],
+      "description": "Swiss biological medicine clinic"
+    },
+    {
+      "id": "klinik_arlesheim",
+      "name": "Klinik Arlesheim",
+      "city": "Arlesheim",
+      "country": "Switzerland",
+      "iso3": "CHE",
+      "lat": 47.494,
+      "lon": 7.622,
+      "type": "nonstandard",
+      "tier": "alternative",
+      "category": "anthroposophic",
+      "specialties": [
+        "anthroposophic medicine",
+        "Iscador",
+        "mistletoe"
+      ],
+      "url": "https://www.klinik-arlesheim.ch",
+      "treatments": [
+        "Iscador (mistletoe)",
+        "anthroposophic medicine",
+        "eurythmy therapy",
+        "art therapy"
+      ],
+      "description": "Anthroposophic medicine center, Iscador research"
+    },
+    {
+      "id": "saisei_mirai",
+      "name": "Saisei Mirai Cell Therapy Clinic",
+      "city": "Osaka",
+      "country": "Japan",
+      "iso3": "JPN",
+      "lat": 34.694,
+      "lon": 135.501,
+      "type": "nonstandard",
+      "tier": "experimental",
+      "category": "immunotherapy_experimental",
+      "specialties": [
+        "NK cell therapy",
+        "dendritic cell vaccine",
+        "gamma delta T-cell"
+      ],
+      "url": "https://www.saisei-mirai.or.jp",
+      "treatments": [
+        "NK cell therapy",
+        "dendritic cell vaccine",
+        "gamma-delta T-cell therapy",
+        "peptide vaccines"
+      ],
+      "description": "Advanced immunotherapy, popular with international patients"
+    },
+    {
+      "id": "burzynski",
+      "name": "Burzynski Clinic",
+      "city": "Houston, TX",
+      "country": "USA",
+      "iso3": "USA",
+      "lat": 29.753,
+      "lon": -95.462,
+      "type": "nonstandard",
+      "tier": "controversial",
+      "category": "controversial",
+      "specialties": [
+        "antineoplastons",
+        "brain tumors"
+      ],
+      "url": "https://www.burzynskiclinic.com",
+      "treatments": [
+        "antineoplaston therapy",
+        "gene-targeted therapy",
+        "personalized targeted therapy"
+      ],
+      "description": "Controversial antineoplaston therapy (not FDA-approved), brain tumor focus"
+    },
+    {
+      "id": "block_center",
+      "name": "Block Center for Integrative Cancer Treatment",
+      "city": "Skokie, IL",
+      "country": "USA",
+      "iso3": "USA",
+      "lat": 42.024,
+      "lon": -87.736,
+      "type": "nonstandard",
+      "tier": "integrative",
+      "category": "integrative",
+      "specialties": [
+        "integrative oncology",
+        "nutrition",
+        "mind-body"
+      ],
+      "url": "https://www.blockmd.com",
+      "treatments": [
+        "integrative chemo support",
+        "nutrition oncology",
+        "mind-body medicine",
+        "supplement protocols"
+      ],
+      "description": "Evidence-based integrative oncology alongside conventional treatment"
+    },
+    {
+      "id": "genesis_athens",
+      "name": "Genesis Clinic Athens",
+      "city": "Athens",
+      "country": "Greece",
+      "iso3": "GRC",
+      "lat": 37.993,
+      "lon": 23.734,
+      "type": "nonstandard",
+      "tier": "experimental",
+      "category": "experimental",
+      "specialties": [
+        "dendritic cell therapy",
+        "tumor vaccines",
+        "NK cells"
+      ],
+      "url": "https://www.genesis.gr",
+      "treatments": [
+        "personalized cancer vaccines",
+        "dendritic cell therapy",
+        "NK cells",
+        "gamma delta T-cells"
+      ],
+      "description": "Experimental immunotherapy clinic, European patients"
+    },
+    {
+      "id": "infusio",
+      "name": "Infusio Frankfurt",
+      "city": "Frankfurt",
+      "country": "Germany",
+      "iso3": "DEU",
+      "lat": 50.121,
+      "lon": 8.669,
+      "type": "nonstandard",
+      "tier": "alternative",
+      "category": "stem_cell",
+      "specialties": [
+        "stem cell therapy",
+        "exosomes",
+        "regenerative"
+      ],
+      "url": "https://www.infusio.org",
+      "treatments": [
+        "stem cell therapy",
+        "exosome therapy",
+        "peptide therapy",
+        "ozone",
+        "high-dose vitamin C"
+      ],
+      "description": "Stem cell and regenerative medicine"
+    }
+  ]
+}
