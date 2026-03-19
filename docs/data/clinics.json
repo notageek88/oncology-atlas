@@ -8,8 +8,8 @@
     "Medical Tourism Index",
     "Open source research"
   ],
-  "total": 103,
-  "standard_count": 91,
+  "total": 125,
+  "standard_count": 113,
   "nonstandard_count": 12,
   "migration_flows": [
     {
@@ -2639,6 +2639,458 @@
         "Affordable public care"
       ],
       "name_ru": "Национальный онкологический институт Мексики (INCan)"
+    },
+    {
+      "id": "hertzen_moscow",
+      "name": "P.A. Herzen Moscow Oncology Research Institute",
+      "name_ru": "НМИЦ радиологии — Московский онкологический институт им. П.А. Герцена",
+      "city": "Moscow",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 55.796,
+      "lon": 37.541,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "Minzdrav RF",
+        "NMRC"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Лучевая терапия",
+        "Химиотерапия",
+        "Ядерная медицина"
+      ]
+    },
+    {
+      "id": "nmrc_radiology",
+      "name": "NMRC of Radiology (Obninsk branch)",
+      "name_ru": "НМИЦ радиологии — Медицинский радиологический научный центр (Обнинск)",
+      "city": "Obninsk",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 55.094,
+      "lon": 36.611,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "Minzdrav RF",
+        "NMRC"
+      ],
+      "treatments": [
+        "Радиотерапия",
+        "Протонная терапия",
+        "Ядерная медицина",
+        "Брахитерапия"
+      ]
+    },
+    {
+      "id": "tsnioi_peterskov",
+      "name": "N.N. Petrov National Medical Research Center of Oncology",
+      "name_ru": "НМИЦ онкологии им. Н.Н. Петрова (Санкт-Петербург)",
+      "city": "Saint Petersburg",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 59.839,
+      "lon": 30.294,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "Minzdrav RF",
+        "NMRC"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Иммунотерапия",
+        "Генетическая диагностика"
+      ]
+    },
+    {
+      "id": "nmrc_hematology",
+      "name": "National Medical Research Center for Hematology",
+      "name_ru": "НМИЦ гематологии (Москва)",
+      "city": "Moscow",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 55.77,
+      "lon": 37.56,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "Minzdrav RF",
+        "NMRC"
+      ],
+      "treatments": [
+        "Гематология",
+        "Трансплантация КМ",
+        "ТКМ",
+        "CAR-T клетки"
+      ]
+    },
+    {
+      "id": "spb_clinical_onco",
+      "name": "St. Petersburg Clinical Scientific and Practical Center for Specialized Oncological Care",
+      "name_ru": "Санкт-Петербургский клинический онкологический центр",
+      "city": "Saint Petersburg",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 59.977,
+      "lon": 30.217,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "rostov_onco",
+      "name": "National Medical Research Center of Oncology (Rostov-on-Don)",
+      "name_ru": "НМИЦ онкологии (Ростов-на-Дону)",
+      "city": "Rostov-on-Don",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 47.237,
+      "lon": 39.694,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "Minzdrav RF",
+        "NMRC"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия",
+        "ПЭТ/КТ диагностика"
+      ]
+    },
+    {
+      "id": "chelyabinsk_onco",
+      "name": "Chelyabinsk Regional Clinical Oncology Dispensary",
+      "name_ru": "Челябинский областной клинический онкологический диспансер",
+      "city": "Chelyabinsk",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 55.163,
+      "lon": 61.401,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "ekaterinburg_onco",
+      "name": "Sverdlovsk Regional Oncological Dispensary",
+      "name_ru": "Свердловский областной онкологический диспансер (Екатеринбург)",
+      "city": "Yekaterinburg",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 56.837,
+      "lon": 60.597,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "novosibirsk_onco",
+      "name": "Novosibirsk Regional Oncological Dispensary",
+      "name_ru": "Новосибирский областной онкологический диспансер",
+      "city": "Novosibirsk",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 54.989,
+      "lon": 82.898,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "kazan_onco",
+      "name": "Tatarstan Republican Clinical Oncological Dispensary",
+      "name_ru": "Республиканский клинический онкологический диспансер МЗ РТ (Казань)",
+      "city": "Kazan",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 55.786,
+      "lon": 49.123,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Ядерная медицина"
+      ]
+    },
+    {
+      "id": "krasnodar_onco",
+      "name": "Krasnodar Regional Clinical Oncological Dispensary",
+      "name_ru": "Краснодарский краевой клинический онкологический диспансер №1",
+      "city": "Krasnodar",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 45.039,
+      "lon": 38.98,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "samara_onco",
+      "name": "Samara Regional Clinical Oncological Dispensary",
+      "name_ru": "Самарский областной клинический онкологический диспансер",
+      "city": "Samara",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 53.195,
+      "lon": 50.151,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "omsk_onco",
+      "name": "Omsk Regional Oncological Dispensary",
+      "name_ru": "Омский областной онкологический диспансер",
+      "city": "Omsk",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 54.989,
+      "lon": 73.368,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "ufa_onco",
+      "name": "Bashkortostan Republican Clinical Oncological Dispensary",
+      "name_ru": "Республиканский клинический онкологический диспансер (Уфа)",
+      "city": "Ufa",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 54.734,
+      "lon": 55.959,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "voronezh_onco",
+      "name": "Voronezh Regional Clinical Oncological Dispensary",
+      "name_ru": "Воронежский областной клинический онкологический диспансер",
+      "city": "Voronezh",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 51.661,
+      "lon": 39.2,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "krasnoyarsk_onco",
+      "name": "Krasnoyarsk Regional Clinical Oncological Dispensary",
+      "name_ru": "Красноярский краевой клинический онкологический диспансер им. А.И. Крыжановского",
+      "city": "Krasnoyarsk",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 56.009,
+      "lon": 92.852,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "nizhniy_novgorod_onco",
+      "name": "Nizhny Novgorod Regional Clinical Oncological Dispensary",
+      "name_ru": "Нижегородский областной онкологический диспансер",
+      "city": "Nizhny Novgorod",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 56.296,
+      "lon": 43.977,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "perm_onco",
+      "name": "Perm Regional Clinical Oncological Dispensary",
+      "name_ru": "Пермский краевой онкологический диспансер",
+      "city": "Perm",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 57.994,
+      "lon": 56.224,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "european_medical_onco",
+      "name": "European Medical Centre - Oncology",
+      "name_ru": "Европейский медицинский центр — Онкология (Москва)",
+      "city": "Moscow",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 55.774,
+      "lon": 37.6,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Иммунотерапия",
+        "Таргетная терапия",
+        "Молекулярная диагностика"
+      ]
+    },
+    {
+      "id": "lapino_onco",
+      "name": "Lapino Clinical Hospital - Oncology",
+      "name_ru": "Клиническая больница Лапино — Онкология (Москва)",
+      "city": "Moscow",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 55.744,
+      "lon": 36.984,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Roszdravnadzor"
+      ],
+      "treatments": [
+        "Хирургия рака",
+        "Химиотерапия",
+        "Таргетная терапия"
+      ]
+    },
+    {
+      "id": "medsi_onco",
+      "name": "MEDSI Clinic - Oncology Center",
+      "name_ru": "Клиника МЕДСИ — Онкологический центр (Москва)",
+      "city": "Moscow",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 55.751,
+      "lon": 37.535,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Roszdravnadzor"
+      ],
+      "treatments": [
+        "Диагностика онкологии",
+        "Химиотерапия",
+        "Таргетная терапия"
+      ]
+    },
+    {
+      "id": "moroz_spb_onco",
+      "name": "City Clinical Oncological Dispensary Saint Petersburg",
+      "name_ru": "Городской клинический онкологический диспансер (Санкт-Петербург)",
+      "city": "Saint Petersburg",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 59.975,
+      "lon": 30.345,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
     }
   ]
 }
