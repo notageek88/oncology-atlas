@@ -114,7 +114,18 @@
     "explain_oesophagus": "Esophageal cancer — two main types: squamous cell (tobacco/alcohol) and adenocarcinoma (acid reflux/obesity). High mortality due to late diagnosis. Major burden in East Africa and China.",
     "find_trials": "Find clinical trials →",
     "cancer_type_label": "Cancer type:",
-    "about_this_metric": "About this cancer type"
+    "about_this_metric": "About this cancer type",
+    "details_section": "Details",
+    "newsweek_rank": "Newsweek",
+    "no_data_legend": "No data",
+    "loading_text": "Loading...",
+    "sources_title": "Data Sources",
+    "country_profile_title": "Country Profile",
+    "phase1": "Phase 1",
+    "phase2": "Phase 2",
+    "phase3": "Phase 3",
+    "phase4": "Phase 4",
+    "click_country_hint": "Click a country on the map"
   },
   "ru": {
     "title": "OncologyAtlas",
@@ -231,7 +242,18 @@
     "explain_oesophagus": "Рак пищевода — два типа: плоскоклеточный (табак/алкоголь) и аденокарцинома (рефлюкс/ожирение). Высокая смертность из-за поздней диагностики.",
     "find_trials": "Найти клинические исследования →",
     "cancer_type_label": "Тип рака:",
-    "about_this_metric": "Об этом показателе"
+    "about_this_metric": "Об этом показателе",
+    "details_section": "Подробности",
+    "newsweek_rank": "Newsweek",
+    "no_data_legend": "Нет данных",
+    "loading_text": "Загрузка...",
+    "sources_title": "Источники данных",
+    "country_profile_title": "Профиль страны",
+    "phase1": "Фаза 1",
+    "phase2": "Фаза 2",
+    "phase3": "Фаза 3",
+    "phase4": "Фаза 4",
+    "click_country_hint": "Нажмите на страну на карте"
   },
   "zh": {
     "title": "OncologyAtlas",
@@ -348,7 +370,18 @@
     "explain_oesophagus": "Esophageal cancer — two main types: squamous cell (tobacco/alcohol) and adenocarcinoma (acid reflux/obesity). High mortality due to late diagnosis. Major burden in East Africa and China.",
     "find_trials": "Find clinical trials →",
     "cancer_type_label": "Cancer type:",
-    "about_this_metric": "About this cancer type"
+    "about_this_metric": "About this cancer type",
+    "details_section": "详细信息",
+    "newsweek_rank": "Newsweek",
+    "no_data_legend": "无数据",
+    "loading_text": "加载中...",
+    "sources_title": "数据来源",
+    "country_profile_title": "国家概况",
+    "phase1": "第一期",
+    "phase2": "第二期",
+    "phase3": "第三期",
+    "phase4": "第四期",
+    "click_country_hint": "点击地图上的国家"
   },
   "es": {
     "title": "OncologyAtlas",
@@ -465,7 +498,18 @@
     "explain_oesophagus": "Esophageal cancer — two main types: squamous cell (tobacco/alcohol) and adenocarcinoma (acid reflux/obesity). High mortality due to late diagnosis. Major burden in East Africa and China.",
     "find_trials": "Find clinical trials →",
     "cancer_type_label": "Cancer type:",
-    "about_this_metric": "About this cancer type"
+    "about_this_metric": "About this cancer type",
+    "details_section": "Detalles",
+    "newsweek_rank": "Newsweek",
+    "no_data_legend": "Sin datos",
+    "loading_text": "Cargando...",
+    "sources_title": "Fuentes de datos",
+    "country_profile_title": "Perfil del país",
+    "phase1": "Fase 1",
+    "phase2": "Fase 2",
+    "phase3": "Fase 3",
+    "phase4": "Fase 4",
+    "click_country_hint": "Haz clic en un país del mapa"
   },
   "ar": {
     "title": "OncologyAtlas",
@@ -582,7 +626,18 @@
     "explain_oesophagus": "Esophageal cancer — two main types: squamous cell (tobacco/alcohol) and adenocarcinoma (acid reflux/obesity). High mortality due to late diagnosis. Major burden in East Africa and China.",
     "find_trials": "Find clinical trials →",
     "cancer_type_label": "Cancer type:",
-    "about_this_metric": "About this cancer type"
+    "about_this_metric": "About this cancer type",
+    "details_section": "تفاصيل",
+    "newsweek_rank": "Newsweek",
+    "no_data_legend": "لا بيانات",
+    "loading_text": "جار التحميل...",
+    "sources_title": "مصادر البيانات",
+    "country_profile_title": "ملف الدولة",
+    "phase1": "المرحلة 1",
+    "phase2": "المرحلة 2",
+    "phase3": "المرحلة 3",
+    "phase4": "المرحلة 4",
+    "click_country_hint": "انقر على دولة في الخريطة"
   },
   "hi": {
     "title": "OncologyAtlas",
@@ -699,7 +754,18 @@
     "explain_oesophagus": "Esophageal cancer — two main types: squamous cell (tobacco/alcohol) and adenocarcinoma (acid reflux/obesity). High mortality due to late diagnosis. Major burden in East Africa and China.",
     "find_trials": "Find clinical trials →",
     "cancer_type_label": "Cancer type:",
-    "about_this_metric": "About this cancer type"
+    "about_this_metric": "About this cancer type",
+    "details_section": "विवरण",
+    "newsweek_rank": "Newsweek",
+    "no_data_legend": "डेटा नहीं",
+    "loading_text": "लोड हो रहा है...",
+    "sources_title": "डेटा स्रोत",
+    "country_profile_title": "देश प्रोफ़ाइल",
+    "phase1": "चरण 1",
+    "phase2": "चरण 2",
+    "phase3": "चरण 3",
+    "phase4": "चरण 4",
+    "click_country_hint": "मानचित्र पर एक देश पर क्लिक करें"
   },
   "pt": {
     "title": "OncologyAtlas",
@@ -816,7 +882,18 @@
     "explain_oesophagus": "Esophageal cancer — two main types: squamous cell (tobacco/alcohol) and adenocarcinoma (acid reflux/obesity). High mortality due to late diagnosis. Major burden in East Africa and China.",
     "find_trials": "Find clinical trials →",
     "cancer_type_label": "Cancer type:",
-    "about_this_metric": "About this cancer type"
+    "about_this_metric": "About this cancer type",
+    "details_section": "Detalhes",
+    "newsweek_rank": "Newsweek",
+    "no_data_legend": "Sem dados",
+    "loading_text": "Carregando...",
+    "sources_title": "Fontes de dados",
+    "country_profile_title": "Perfil do país",
+    "phase1": "Fase 1",
+    "phase2": "Fase 2",
+    "phase3": "Fase 3",
+    "phase4": "Fase 4",
+    "click_country_hint": "Clique em um país no mapa"
   },
   "fr": {
     "title": "OncologyAtlas",
@@ -933,7 +1010,18 @@
     "explain_oesophagus": "Esophageal cancer — two main types: squamous cell (tobacco/alcohol) and adenocarcinoma (acid reflux/obesity). High mortality due to late diagnosis. Major burden in East Africa and China.",
     "find_trials": "Find clinical trials →",
     "cancer_type_label": "Cancer type:",
-    "about_this_metric": "About this cancer type"
+    "about_this_metric": "About this cancer type",
+    "details_section": "Détails",
+    "newsweek_rank": "Newsweek",
+    "no_data_legend": "Pas de données",
+    "loading_text": "Chargement...",
+    "sources_title": "Sources de données",
+    "country_profile_title": "Profil du pays",
+    "phase1": "Phase 1",
+    "phase2": "Phase 2",
+    "phase3": "Phase 3",
+    "phase4": "Phase 4",
+    "click_country_hint": "Cliquez sur un pays sur la carte"
   },
   "de": {
     "title": "OncologyAtlas",
@@ -1050,7 +1138,18 @@
     "explain_oesophagus": "Esophageal cancer — two main types: squamous cell (tobacco/alcohol) and adenocarcinoma (acid reflux/obesity). High mortality due to late diagnosis. Major burden in East Africa and China.",
     "find_trials": "Find clinical trials →",
     "cancer_type_label": "Cancer type:",
-    "about_this_metric": "About this cancer type"
+    "about_this_metric": "About this cancer type",
+    "details_section": "Details",
+    "newsweek_rank": "Newsweek",
+    "no_data_legend": "Keine Daten",
+    "loading_text": "Wird geladen...",
+    "sources_title": "Datenquellen",
+    "country_profile_title": "Länderprofil",
+    "phase1": "Phase 1",
+    "phase2": "Phase 2",
+    "phase3": "Phase 3",
+    "phase4": "Phase 4",
+    "click_country_hint": "Klicken Sie auf ein Land auf der Karte"
   },
   "ja": {
     "title": "OncologyAtlas",
@@ -1167,7 +1266,18 @@
     "explain_oesophagus": "Esophageal cancer — two main types: squamous cell (tobacco/alcohol) and adenocarcinoma (acid reflux/obesity). High mortality due to late diagnosis. Major burden in East Africa and China.",
     "find_trials": "Find clinical trials →",
     "cancer_type_label": "Cancer type:",
-    "about_this_metric": "About this cancer type"
+    "about_this_metric": "About this cancer type",
+    "details_section": "詳細",
+    "newsweek_rank": "Newsweek",
+    "no_data_legend": "データなし",
+    "loading_text": "読み込み中...",
+    "sources_title": "データソース",
+    "country_profile_title": "国プロファイル",
+    "phase1": "フェーズ1",
+    "phase2": "フェーズ2",
+    "phase3": "フェーズ3",
+    "phase4": "フェーズ4",
+    "click_country_hint": "地図で国をクリックしてください"
   },
   "id": {
     "title": "OncologyAtlas",
@@ -1284,6 +1394,17 @@
     "explain_oesophagus": "Esophageal cancer — two main types: squamous cell (tobacco/alcohol) and adenocarcinoma (acid reflux/obesity). High mortality due to late diagnosis. Major burden in East Africa and China.",
     "find_trials": "Find clinical trials →",
     "cancer_type_label": "Cancer type:",
-    "about_this_metric": "About this cancer type"
+    "about_this_metric": "About this cancer type",
+    "details_section": "Detail",
+    "newsweek_rank": "Newsweek",
+    "no_data_legend": "Tidak ada data",
+    "loading_text": "Memuat...",
+    "sources_title": "Sumber data",
+    "country_profile_title": "Profil Negara",
+    "phase1": "Fase 1",
+    "phase2": "Fase 2",
+    "phase3": "Fase 3",
+    "phase4": "Fase 4",
+    "click_country_hint": "Klik negara di peta"
   }
 }

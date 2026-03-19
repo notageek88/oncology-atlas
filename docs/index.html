@@ -467,8 +467,8 @@
 <!-- Side panel -->
 <div id="side-panel">
     <div class="panel-header">
-        <h2 id="panel-title">Country Profile</h2>
-        <div class="sub" id="panel-sub">Click a country on the map</div>
+        <h2 id="panel-title" data-i18n="country_profile_title">Country Profile</h2>
+        <div class="sub" id="panel-sub" data-i18n="click_country_hint">Click a country on the map</div>
         <button class="share-btn" onclick="shareCountry()" title="Copy link">⎘</button>
         <button class="panel-close" onclick="closePanel()">✕</button>
     </div>
@@ -483,7 +483,7 @@
 </div>
 
 <div class="clinic-legend" id="clinic-legend">
-    <div style="font-size:9px;color:#334;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:7px" data-i18n="clinic_legend_title">Cancer Clinics</div>
+    <div style="font-size:9px;color:#334;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:7px" data-i18n="clinic_legend_title"></div>
     <div class="clinic-legend-row"><div class="clinic-legend-dot" style="background:#4fc88a"></div><span style="color:#aab" data-i18n="clinic_standard">Standard (FDA/EMA approved)</span></div>
     <div class="clinic-legend-row"><div class="clinic-legend-dot" style="background:#f7a04f"></div><span style="color:#aab" data-i18n="clinic_integrative">Integrative / Alternative</span></div>
     <div class="clinic-legend-row"><div class="clinic-legend-dot" style="background:#c84ff7"></div><span style="color:#aab" data-i18n="clinic_experimental">Experimental</span></div>
@@ -598,7 +598,7 @@ function buildLegend(metric) {
             <div id="leg-gradient" style="background:linear-gradient(to right,${[grp.nodata,...grp.colors].join(",")})"></div>
             <div id="leg-labels"><span>${lo}</span><span>${mid}</span><span>${hi}+</span></div>
             <div style="color:#2a2d40;font-size:9px;margin-top:5px;display:flex;align-items:center;gap:5px">
-                <div style="width:7px;height:7px;border-radius:50%;background:#0f1220;border:1px solid #1a1d2e"></div>No data</div>`;
+                <div style="width:7px;height:7px;border-radius:50%;background:#0f1220;border:1px solid #1a1d2e"></div>${t("no_data_legend","No data")}</div>`;
     }
 }
 
@@ -683,7 +683,7 @@ function openProfile(data, name) {
             <div class="panel-section" id="trend-section">
                 <h3>${t("trends_section","Trends over time")}</h3>
                 <div class="metric-explain">Как менялась смертность за последние 15–20 лет. <strong>Красный тренд ↑</strong> = рост, <strong>зелёный ↓</strong> = снижение. Снижение обычно означает улучшение ранней диагностики или появление новых методов лечения.</div>
-                <div id="trend-charts"><div style="color:#334;font-size:11px">Loading...</div></div>
+                <div id="trend-charts"><div style="color:#334;font-size:11px">${t("loading_text","Loading...")}</div></div>
             </div>
             <div class="panel-section">
                 <h3>${t("daly_section","Disease burden — DALYs / 100k")} <span class="info-icon" onmouseenter="showExplain('daly_breast',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
@@ -997,7 +997,7 @@ function showClinicTooltip(clinic, cx, cy) {
         <span class="ct-tag ${clinic.type}" style="background:${col}18;color:${col};border-color:${col}44">${clinic.type === "standard" ? "Standard" : (clinic.category||clinic.tier)}</span>
         ${clinic.medical_tourism ? `<span class="ct-tag tourism">✈ ${t("clinic_medical_tourism","Medical tourism")}</span>` : ""}
         ${clinic.tier === "flagship" ? `<span class="ct-tag standard">${t("clinic_flagship","Flagship")}</span>` : ""}
-        ${clinic.rank_newsweek ? `<div style="margin-top:5px;font-size:10px;color:#667">Newsweek #${clinic.rank_newsweek}</div>` : ""}
+        ${clinic.rank_newsweek ? `<div style="margin-top:5px;font-size:10px;color:#667">${t("newsweek_rank","Newsweek")} #${clinic.rank_newsweek}</div>` : ""}
         ${clinic.accreditation?.length ? `<div style="font-size:10px;color:#667;margin-top:3px">${clinic.accreditation.join(" · ")}</div>` : ""}
         <div style="margin-top:6px;font-size:10px;color:#556">${(clinic.treatments||[]).slice(0,3).join(", ")}</div>
     `;
@@ -1037,7 +1037,7 @@ function showClinicPanel(clinic) {
                 <div style="font-size:11px;color:#889;margin-top:4px">${clinic.specialties.join(" · ")}</div>
             </div>` : ""}
             <div class="panel-section">
-                <h3>Details</h3>
+                <h3>${t("details_section","Details")}</h3>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px">
                     ${clinic.founded ? `<div><div style="font-size:9px;color:#334;text-transform:uppercase">${t("clinic_founded","Founded")}</div><div style="font-size:13px;color:#aab">${clinic.founded}</div></div>` : ""}
                     ${clinic.beds ? `<div><div style="font-size:9px;color:#334;text-transform:uppercase">${t("clinic_beds","Beds")}</div><div style="font-size:13px;color:#aab">${clinic.beds}</div></div>` : ""}
@@ -1914,9 +1914,9 @@ function renderTrials() {
             tip.style.left = (event.clientX + 14) + "px";
             tip.style.top = (event.clientY - 10) + "px";
             tip.innerHTML = `<h4>${iso3}</h4>
-                <div class="tip-row">Total trials: <span class="tip-val">${d.total}</span></div>
-                <div class="tip-row">Active/Recruiting: <span class="tip-val" style="color:#2db565">${d.active}</span></div>
-                <div class="tip-row">Phase 3: <span class="tip-val">${d.phases?.PHASE3||0}</span></div>`;
+                <div class="tip-row">${t("trials_total","Total trials")}: <span class="tip-val">${d.total}</span></div>
+                <div class="tip-row">${t("trials_active","Active/Recruiting")}: <span class="tip-val" style="color:#2db565">${d.active}</span></div>
+                <div class="tip-row">${t("phase3","Phase 3")}: <span class="tip-val">${d.phases?.PHASE3||0}</span></div>`;
         }).on("mouseout", () => { document.getElementById("tooltip").style.display = "none"; });
     });
 }
@@ -2032,7 +2032,7 @@ init();
 <div id="sources-modal" onclick="if(event.target===this)closeSources()">
   <div id="sources-box">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
-      <h2>📚 Data Sources</h2>
+      <h2>📚 <span data-i18n="sources_title">Data Sources</span></h2>
       <button onclick="closeSources()" style="background:none;border:none;color:#445;font-size:18px;cursor:pointer">✕</button>
     </div>
 
