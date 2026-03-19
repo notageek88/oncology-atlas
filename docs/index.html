@@ -504,23 +504,26 @@
     <div id="leg-body"></div>
 </div>
 
-<div id="world-stats-bar" style="position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:#0b0d18ee;border:1px solid #1a1d2e;border-radius:10px;padding:8px 18px;display:flex;gap:20px;align-items:center;pointer-events:none;backdrop-filter:blur(8px);z-index:9">
-    <div style="display:flex;flex-direction:column;align-items:center;gap:2px">
-        <span style="font-size:9px;color:#4f8ef7;font-weight:600;text-transform:uppercase;letter-spacing:.06em" data-i18n="world_avg_label">World avg</span>
-        <span id="world-mean" style="font-size:15px;font-weight:700;color:#e0e8ff;line-height:1">—</span>
-        <span id="world-mean-hint" style="font-size:9px;color:#445;line-height:1">—</span>
-    </div>
-    <div style="width:1px;height:32px;background:#1a1d2e"></div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:2px">
-        <span style="font-size:9px;color:#556;font-weight:600;text-transform:uppercase;letter-spacing:.06em" data-i18n="world_max_label">Max country</span>
-        <span id="world-max" style="font-size:14px;font-weight:600;color:#a0c4ff;line-height:1">—</span>
-        <span id="world-max-country" style="font-size:9px;color:#445;line-height:1">—</span>
-    </div>
-    <div style="width:1px;height:32px;background:#1a1d2e"></div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:2px">
-        <span style="font-size:9px;color:#556;font-weight:600;text-transform:uppercase;letter-spacing:.06em" data-i18n="world_countries_label">Countries</span>
-        <span id="world-n" style="font-size:14px;font-weight:600;color:#a0c4ff;line-height:1">—</span>
-        <span style="font-size:9px;color:#445;line-height:1" data-i18n="world_with_data">with data</span>
+<div id="world-stats-bar" style="position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:#0b0d18f0;border:1px solid #243060;border-radius:10px;padding:10px 20px;display:flex;flex-direction:column;gap:4px;pointer-events:none;backdrop-filter:blur(10px);z-index:9;min-width:280px">
+    <div style="font-size:9px;color:#4f8ef7;font-weight:700;text-transform:uppercase;letter-spacing:.08em;text-align:center" id="world-bar-title">🌍 Global</div>
+    <div id="world-bar-desc" style="font-size:10px;color:#8899cc;text-align:center;line-height:1.3">—</div>
+    <div style="display:flex;gap:16px;align-items:center;justify-content:center;margin-top:4px">
+        <div style="text-align:center">
+            <div style="font-size:9px;color:#6677aa;margin-bottom:2px" data-i18n="world_avg_label">Avg</div>
+            <div id="world-mean" style="font-size:16px;font-weight:800;color:#e0e8ff;line-height:1">—</div>
+        </div>
+        <div style="width:1px;height:28px;background:#243060"></div>
+        <div style="text-align:center">
+            <div style="font-size:9px;color:#6677aa;margin-bottom:2px"><span id="world-max-country-label">Max</span></div>
+            <div id="world-max" style="font-size:15px;font-weight:700;color:#a0c4ff;line-height:1">—</div>
+            <div id="world-max-country" style="font-size:9px;color:#8899cc;margin-top:1px">—</div>
+        </div>
+        <div style="width:1px;height:28px;background:#243060"></div>
+        <div style="text-align:center">
+            <div style="font-size:9px;color:#6677aa;margin-bottom:2px" data-i18n="world_countries_label">Countries</div>
+            <div id="world-n" style="font-size:15px;font-weight:700;color:#a0c4ff;line-height:1">—</div>
+            <div style="font-size:9px;color:#6677aa;margin-top:1px" data-i18n="world_with_data">with data</div>
+        </div>
     </div>
 </div>
 
@@ -882,10 +885,22 @@ function updateWorldStatsBar(metric) {
     const meanVal = cat === "research" ? Math.round(s.global_mean).toLocaleString() : s.global_mean.toFixed(1);
     const maxVal  = cat === "research" ? Math.round(s.global_max).toLocaleString() : s.global_max.toFixed(1);
 
+    // Title = metric name
+    const metricLabel = METRIC_GROUPS[cat] && METRIC_GROUPS[cat].options[metric]
+        ? METRIC_GROUPS[cat].options[metric]
+        : metric;
+    const titleEl = document.getElementById("world-bar-title");
+    if (titleEl) titleEl.textContent = "🌍 " + metricLabel;
+
+    // Description = what the number means
+    const descEl = document.getElementById("world-bar-desc");
+    if (descEl) descEl.textContent = hint;
+
     document.getElementById("world-mean").textContent = meanVal;
-    document.getElementById("world-mean-hint").textContent = hint;
     document.getElementById("world-max").textContent = maxVal;
-    document.getElementById("world-max-country").textContent = maxCountryName || maxHint;
+    document.getElementById("world-max-country").textContent = maxCountryName || "";
+    const maxLbl = document.getElementById("world-max-country-label");
+    if (maxLbl) maxLbl.textContent = t("world_max_label", "Max country");
     document.getElementById("world-n").textContent = s.country_count;
 }
 
