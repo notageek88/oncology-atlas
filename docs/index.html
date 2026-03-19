@@ -674,6 +674,7 @@ function openProfile(data, name) {
         }).join("");
 
         document.getElementById("panel-content").innerHTML = `
+            ${buildCancerExplain()}
             <div class="panel-section">
                 <h3>${t("mortality_section","Cancer mortality (death / 100k)")} <span class="info-icon" onmouseenter="showExplain('death_cancer_all',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
                 <div class="metric-explain">Число людей, умерших от рака, на каждые <strong>100 000 жителей</strong> в год. Показатель стандартизован по возрасту — страны разного размера и структуры населения можно сравнивать напрямую. <strong>Чем ниже — тем лучше.</strong></div>
@@ -696,6 +697,7 @@ function openProfile(data, name) {
             </div>
             ${buildRankings(data.country, data)}
             ${buildSurvival(data.country)}
+            ${buildPrevention(data.country)}
             ${buildTrialsSection(data.country)}`;
 
         // Render sparklines async

@@ -4,7 +4,7 @@
   "note": "Active oncology trials by country Russia/CIS data from national registries (GRLS Minzdrav RF, KZ/BY/UZ health ministries). Additional countries from national/regional registries (IRCT, PACTR, BMRC, SUKL, Turkey MoH).",
   "countries": {
     "AUS": {
-      "total": 160,
+      "total": 167,
       "active": 55,
       "phases": {
         "PHASE1": 47,
@@ -320,7 +320,7 @@
       }
     },
     "NZL": {
-      "total": 23,
+      "total": 29,
       "active": 6,
       "phases": {
         "PHASE2": 9,
