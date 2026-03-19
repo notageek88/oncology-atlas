@@ -279,6 +279,67 @@
         /* ── No-data tooltip ── */
         .nodata-reason { font-size: 10px; color: #556; margin-top: 4px; font-style: italic; }
 
+
+        /* ── Metric explanations ── */
+        .metric-explain {
+            font-size: 10px; color: #445; margin-bottom: 10px;
+            line-height: 1.5; padding: 8px 10px;
+            background: #0b0d14; border-left: 2px solid #1a3a6e;
+            border-radius: 0 5px 5px 0;
+        }
+        .metric-explain strong { color: #667; }
+        .info-icon {
+            display: inline-block; width: 14px; height: 14px;
+            background: #1a1d2e; border-radius: 50%;
+            text-align: center; line-height: 14px;
+            font-size: 9px; color: #4f8ef7; cursor: help;
+            margin-left: 5px; vertical-align: middle; flex-shrink: 0;
+        }
+        .info-icon:hover { background: #1a3a6e; }
+        .bar-label-wrap { display: flex; align-items: center; gap: 0; margin-bottom: 3px; }
+        .bar-label-name { font-size: 11px; color: #778; flex: 1; }
+        .bar-label-val { font-size: 11px; color: #4f8ef7; font-weight: 600; }
+
+        /* ── Tooltip explanation popup ── */
+        .explain-popup {
+            position: fixed; z-index: 800;
+            background: #0d0f1a; border: 1px solid #1a3a6e;
+            border-radius: 10px; padding: 14px 16px;
+            font-size: 11px; max-width: 280px; line-height: 1.6;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.8);
+            pointer-events: none;
+        }
+        .explain-popup .ep-title { font-size: 13px; font-weight: 700; color: #dde; margin-bottom: 6px; }
+        .explain-popup .ep-def { color: #889; margin-bottom: 8px; }
+        .explain-popup .ep-example { color: #556; font-size: 10px; padding: 6px 8px; background: #0b0d14; border-radius: 5px; }
+        .explain-popup .ep-source { color: #445; font-size: 9px; margin-top: 6px; }
+
+        /* ── Sources panel ── */
+        #sources-modal {
+            display: none; position: fixed; inset: 0; z-index: 700;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(4px);
+        }
+        #sources-modal.open { display: flex; align-items: center; justify-content: center; }
+        #sources-box {
+            background: #09090f; border: 1px solid #1a1d2e;
+            border-radius: 14px; padding: 24px 28px;
+            max-width: 600px; width: 92%; max-height: 80vh;
+            overflow-y: auto;
+        }
+        #sources-box h2 { font-size: 16px; margin-bottom: 18px; color: #eee; }
+        .source-card {
+            border: 1px solid #1a1d2e; border-radius: 8px;
+            padding: 12px 16px; margin-bottom: 10px;
+            background: #0b0d14;
+        }
+        .source-card .sc-name { font-size: 13px; font-weight: 700; color: #4f8ef7; margin-bottom: 4px; }
+        .source-card .sc-desc { font-size: 11px; color: #778; line-height: 1.5; }
+        .source-card .sc-url { font-size: 10px; color: #445; margin-top: 5px; }
+        .source-card .sc-url a { color: #4f8ef7; text-decoration: none; }
+        .source-card .sc-url a:hover { text-decoration: underline; }
+        .source-card .sc-metrics { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+        .sc-tag { background: #0d1e3a; color: #4f8ef7; font-size: 9px; padding: 2px 8px; border-radius: 99px; border: 1px solid #1a3a6e; }
+
         /* Flow arrows */
         .flow-line { pointer-events: none; }
 
@@ -313,6 +374,7 @@
         <span id="meta-countries">— countries</span>
         <span>18 metrics</span>
         <a href="https://github.com/notageek88/oncology-atlas" target="_blank">GitHub ↗</a>
+        <button onclick="openSources()" style="background:none;border:1px solid #1a1d2e;color:#778;padding:3px 10px;border-radius:5px;font-size:11px;cursor:pointer">📚 Sources</button>
     </div>
 </div>
 
@@ -494,12 +556,19 @@ function showTip(event, d, data) {
     const tip = document.getElementById("tooltip");
     const n = data?.name || d.properties.name;
     const val = data ? data[currentMetric] : null;
-    const fv = val != null ? (typeof val === "number" ? val.toFixed(1) : val) : "No data";
+    const fv = val != null ? (typeof val === "number" ? val.toFixed(1) : val) : null;
     const cat = getCat(currentMetric);
     const metricLabel = METRIC_GROUPS[cat].options[currentMetric] || "All cancers";
+    const unitLine = cat === "death"
+        ? `<div style="font-size:9px;color:#445;margin-top:2px">смертей на 100 000 жителей в год</div>`
+        : cat === "daly"
+        ? `<div style="font-size:9px;color:#445;margin-top:2px">лет здоровой жизни потеряно на 100 000</div>`
+        : "";
     tip.innerHTML = `<h4>${n}</h4>
-        <div class="tip-row">${metricLabel}: <span class="tip-val">${fv}</span></div>
-        <div class="tip-row" style="color:#334;margin-top:4px">Click for full profile</div>`;
+        ${fv != null
+            ? `<div class="tip-row">${metricLabel}: <span class="tip-val">${fv}</span></div>${unitLine}`
+            : `<div class="tip-row" style="color:#334">Нет данных — страна не отчитывается в ВОЗ</div>`}
+        <div class="tip-row" style="color:#445;margin-top:4px;font-size:10px">Кликни для полного профиля →</div>`;
     tip.style.display = "block";
     moveTip(event);
 }
@@ -555,19 +624,23 @@ function openProfile(data, name) {
 
         document.getElementById("panel-content").innerHTML = `
             <div class="panel-section">
-                <h3>Cancer mortality (death / 100k)</h3>
+                <h3>Cancer mortality (death / 100k) <span class="info-icon" onmouseenter="showExplain('death_cancer_all',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
+                <div class="metric-explain">Число людей, умерших от рака, на каждые <strong>100 000 жителей</strong> в год. Показатель стандартизован по возрасту — страны разного размера и структуры населения можно сравнивать напрямую. <strong>Чем ниже — тем лучше.</strong></div>
                 ${deathRows.length ? barsHtml(deathRows) : '<div style="color:#334;font-size:11px">No data</div>'}
             </div>
             <div class="panel-section" id="trend-section">
                 <h3>Trends over time</h3>
+                <div class="metric-explain">Как менялась смертность за последние 15–20 лет. <strong>Красный тренд ↑</strong> = рост, <strong>зелёный ↓</strong> = снижение. Снижение обычно означает улучшение ранней диагностики или появление новых методов лечения.</div>
                 <div id="trend-charts"><div style="color:#334;font-size:11px">Loading...</div></div>
             </div>
             <div class="panel-section">
-                <h3>Disease burden — DALYs / 100k</h3>
+                <h3>Disease burden — DALYs / 100k <span class="info-icon" onmouseenter="showExplain('daly_breast',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
+                <div class="metric-explain"><strong>DALY = год здоровой жизни, потерянный из-за болезни.</strong> Включает и преждевременную смерть, и годы жизни с болезнью. 1 DALY = 1 потерянный год. Отражает общее бремя болезни, не только смерти.</div>
                 ${dalyrRows.length ? barsHtml(dalyrRows) : '<div style="color:#334;font-size:11px">No data</div>'}
             </div>
             <div class="panel-section">
-                <h3>Healthcare infrastructure</h3>
+                <h3>Healthcare infrastructure <span class="info-icon" onmouseenter="showExplain('cancer_registry',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
+                <div class="metric-explain">Базовые возможности системы здравоохранения страны в области онкологии. Зелёный ✅ = есть, красный ✗ = нет. Даже богатые страны иногда имеют пробелы в отдельных областях.</div>
                 <div class="pill-grid">${pillsHtml}</div>
             </div>
             ${buildRankings(data.country, data)}
@@ -948,6 +1021,143 @@ const SURVIVAL_5YR = {
     "THA": {"breast":78,"colorectal":49,"lung":7,"prostate":79,"stomach":20},
     "SGP": {"breast":85,"colorectal":61,"lung":13,"prostate":89,"stomach":38},
 };
+
+
+// ── Metric explanations ─────────────────────────────────────────────────
+const METRIC_EXPLAIN = {
+    death_cancer_all: {
+        title: "Смертность от рака — все виды",
+        def: "Число людей, умерших от любого вида рака, на 100 000 жителей в год. Показатель стандартизован по возрасту — это значит, что страны с разной возрастной структурой можно честно сравнивать.",
+        example: "Если показатель = 120, значит из каждых 100 000 человек в год умирают 120 от рака.",
+        source: "WHO GHO · SA_0000001807"
+    },
+    death_breast: {
+        title: "Смертность от рака молочной железы",
+        def: "Число женщин, умерших от рака груди, на 100 000 жителей в год. Высокий показатель часто означает поздно выявленный рак или ограниченный доступ к лечению.",
+        example: "Россия ≈ 17, США ≈ 12, Япония ≈ 9 — чем ниже, тем лучше скрининг и лечение.",
+        source: "WHO GHO · SA_0000001438"
+    },
+    death_colon: {
+        title: "Смертность от колоректального рака",
+        def: "Смерти от рака толстой и прямой кишки. Один из самых предотвратимых видов рака — при регулярной колоноскопии выявляется на стадии полипа, до перехода в рак.",
+        example: "Высокие показатели в Восточной Европе связаны с низким охватом скрининга.",
+        source: "WHO GHO · SA_0000001439"
+    },
+    death_liver: {
+        title: "Смертность от рака печени",
+        def: "Смерти от гепатоцеллюлярной карциномы (рак печени). Сильно коррелирует с распространённостью гепатита B и C, а также алкоголизмом.",
+        example: "Высокие показатели в Монголии, Камбодже, Мали — из-за высокой распространённости гепатита B.",
+        source: "WHO GHO · SA_0000001445"
+    },
+    death_mouth: {
+        title: "Смертность от рака полости рта",
+        def: "Включает рак языка, губы, нёба, глотки. Главные факторы риска: табак, жевательный бетель (Южная Азия), алкоголь и ВПЧ.",
+        example: "Индия, Пакистан, Папуа Новая Гвинея имеют высокие показатели из-за культуры жевания бетеля.",
+        source: "WHO GHO · SA_0000001448"
+    },
+    death_oesophagus: {
+        title: "Смертность от рака пищевода",
+        def: "Рак пищевода — трубки между горлом и желудком. Высокие показатели в Восточной Африке (так называемый 'Esophageal Cancer Belt') связаны с горячим питьём и грибковыми токсинами.",
+        example: "Малави, Зимбабве, Иран — зоны высокого риска. В Европе и США встречается реже.",
+        source: "WHO GHO"
+    },
+    daly_breast: {
+        title: "DALYs — рак молочной железы",
+        def: "DALY (Disability-Adjusted Life Year) = годы жизни потерянные из-за болезни. Складывается из лет преждевременной смерти + лет жизни с инвалидностью. 1 DALY = 1 потерянный здоровый год жизни.",
+        example: "Показатель 200 DALYs/100k значит: из 100 000 человек суммарно теряется 200 лет здоровой жизни в год из-за этого вида рака.",
+        source: "WHO GHO · SA_0000001419"
+    },
+    daly_colon: {
+        title: "DALYs — колоректальный рак",
+        def: "Суммарное бремя болезни от рака толстой кишки. Высокий DALYs означает как высокую смертность, так и долгое тяжёлое лечение выживших.",
+        example: "DALYs отражает не только смерти, но и годы жизни с колостомой, химиотерапией, хронической болью.",
+        source: "WHO GHO · SA_0000001420"
+    },
+    cancer_surgery: {
+        title: "Доступность онкохирургии",
+        def: "Есть ли в стране специализированные хирурги и операционные для лечения рака. Хирургия — основной метод лечения большинства солидных опухолей. Без неё выживаемость резко падает.",
+        example: "В странах с 'No' пациенты с операбельными опухолями часто умирают без лечения или едут за рубеж.",
+        source: "WHO NCDI Poverty Commission · 2021"
+    },
+    cancer_registry: {
+        title: "Онкологический регистр",
+        def: "Национальная база данных всех случаев рака в стране. Без регистра невозможно отслеживать статистику, оценивать лечение и планировать ресурсы. Страны без регистра буквально не знают масштаб проблемы.",
+        example: "США, Швеция, Япония — реестры с 50+ летней историей. Многие страны Африки регистров не имеют.",
+        source: "WHO GHO · 2019"
+    },
+    cancer_plan: {
+        title: "Национальный план борьбы с раком",
+        def: "Государственная стратегия профилактики, раннего выявления и лечения онкологических заболеваний. Страны с планами тратят ресурсы более эффективно и имеют лучшую выживаемость.",
+        example: "Без плана — финансирование онкологии зависит от политических приоритетов, а не от реальных нужд.",
+        source: "WHO GHO · 2021"
+    },
+    breast_screening: {
+        title: "Программа скрининга рака груди",
+        def: "Национальная программа маммографии для всех женщин старше 40-50 лет. Массовый скрининг позволяет выявить рак на I-II стадии, когда 5-летняя выживаемость >90%.",
+        example: "В странах без скрининга большинство случаев выявляются на III-IV стадии, когда лечение значительно сложнее.",
+        source: "WHO GHO · 2021"
+    },
+    cancer_dept: {
+        title: "Специализированный онкологический отдел",
+        def: "Наличие в системе здравоохранения выделенного онкологического подразделения с обученными специалистами. Без специализации — онкологических пациентов лечат терапевты общей практики.",
+        example: "Специализация = лучшие протоколы, быстрые направления, контроль качества лечения.",
+        source: "WHO GHO · 2021"
+    },
+    ncd_mortality: {
+        title: "Вероятность смерти от НИЗ в возрасте 30–70 лет",
+        def: "Вероятность (в %) умереть от неинфекционного заболевания (рак, болезни сердца, диабет, хронические лёгочные болезни) в возрасте от 30 до 70 лет. Цель ВОЗ — снизить этот показатель до 25% к 2030 году.",
+        example: "Россия ≈ 30% — каждый третий человек в трудоспособном возрасте умирает от НИЗ. Япония ≈ 11%.",
+        source: "WHO GHO · NCDMORT3070"
+    },
+    survival_5yr: {
+        title: "5-летняя выживаемость",
+        def: "Процент пациентов с данным видом рака, которые живут 5 и более лет после постановки диагноза. Главный стандартный показатель эффективности онкологической системы.",
+        example: "Выживаемость 91% при раке груди (США) vs 63% (ЮАР) — разница объясняется скринингом, доступом к химио- и иммунотерапии.",
+        source: "EUROCARE-5 · CONCORD-3 · The Lancet 2018"
+    },
+    trials_total: {
+        title: "Клинические исследования",
+        def: "Количество научных испытаний новых методов лечения рака, зарегистрированных на ClinicalTrials.gov. Фаза 1 — безопасность, Фаза 2 — эффективность, Фаза 3 — сравнение со стандартом, Фаза 4 — долгосрочное наблюдение.",
+        example: "Участие в исследовании может дать доступ к новейшим препаратам ещё до их официального одобрения.",
+        source: "ClinicalTrials.gov · NIH · США"
+    }
+};
+
+function showExplain(key, el) {
+    hideExplain();
+    const d = METRIC_EXPLAIN[key];
+    if (!d) return;
+    const pop = document.createElement("div");
+    pop.id = "explain-popup";
+    pop.className = "explain-popup";
+    pop.innerHTML = `
+        <div class="ep-title">${d.title}</div>
+        <div class="ep-def">${d.def}</div>
+        ${d.example ? `<div class="ep-example">💡 ${d.example}</div>` : ""}
+        <div class="ep-source">Источник: ${d.source}</div>
+    `;
+    document.body.appendChild(pop);
+    // Position near the icon
+    const rect = el.getBoundingClientRect();
+    const pw = 280, ph = pop.offsetHeight || 160;
+    let left = rect.right + 8;
+    let top = rect.top - ph / 2;
+    if (left + pw > window.innerWidth - 10) left = rect.left - pw - 8;
+    if (top < 10) top = 10;
+    if (top + ph > window.innerHeight - 10) top = window.innerHeight - ph - 10;
+    pop.style.left = left + "px";
+    pop.style.top = top + "px";
+}
+function hideExplain() {
+    const el = document.getElementById("explain-popup");
+    if (el) el.remove();
+}
+document.addEventListener("click", e => {
+    if (!e.target.classList.contains("info-icon")) hideExplain();
+});
+
+function openSources() { document.getElementById("sources-modal").classList.add("open"); }
+function closeSources() { document.getElementById("sources-modal").classList.remove("open"); }
 
 // ── i18n ──────────────────────────────────────────────────────────────────
 let i18nData = {}, currentLang = "en";
@@ -1345,7 +1555,8 @@ function buildSurvival(iso3) {
             <div class="survival-pct" style="color:${pct>=70?"#2db565":pct>=50?"#f7a04f":"#e05c5c"}">${pct}%</div>
         </div>`).join("");
     return `<div class="panel-section">
-        <h3>${t("survival_title","5-year survival rate")}</h3>
+        <h3>${t("survival_title","5-year survival rate")} <span class="info-icon" onmouseenter="showExplain('survival_5yr',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
+        <div class="metric-explain">Процент пациентов, живущих <strong>5 и более лет</strong> после диагноза. Главный международный показатель качества онкологической помощи. Зависит от ранней диагностики и доступности лечения.</div>
         <div style="font-size:9px;color:#445;margin-bottom:10px">Source: EUROCARE-5 / CONCORD-3</div>
         ${rows}
     </div>`;
@@ -1376,7 +1587,8 @@ function buildTrialsSection(iso3) {
     }).join("");
     
     return `<div class="panel-section">
-        <h3>${t("trials_title","Clinical Trials")} (ClinicalTrials.gov)</h3>
+        <h3>${t("trials_title","Clinical Trials")} <span class="info-icon" onmouseenter="showExplain('trials_total',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
+        <div class="metric-explain">Число зарегистрированных научных испытаний новых методов лечения рака. <strong>Фаза 3</strong> — финальная перед одобрением препарата. Участие в испытаниях может дать доступ к новейшему лечению бесплатно.</div>
         <div style="display:flex;gap:20px;margin-bottom:12px">
             <div>
                 <div style="font-size:22px;font-weight:700;color:#4f8ef7">${d.total}</div>
@@ -1584,5 +1796,65 @@ async function init() {
 
 init();
 </script>
+
+<div id="sources-modal" onclick="if(event.target===this)closeSources()">
+  <div id="sources-box">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+      <h2>📚 Data Sources</h2>
+      <button onclick="closeSources()" style="background:none;border:none;color:#445;font-size:18px;cursor:pointer">✕</button>
+    </div>
+
+    <div class="source-card">
+      <div class="sc-name">WHO Global Health Observatory (GHO)</div>
+      <div class="sc-desc">Основной источник данных. ВОЗ собирает статистику здоровья от министерств здравоохранения 194 стран. Данные проходят стандартизацию и нормализацию для сравнения между странами.</div>
+      <div class="sc-metrics">
+        <span class="sc-tag">Смертность от рака</span>
+        <span class="sc-tag">DALYs</span>
+        <span class="sc-tag">Инфраструктура</span>
+        <span class="sc-tag">NCD Mortality 30-70</span>
+      </div>
+      <div class="sc-url">🔗 <a href="https://ghoapi.azureedge.net/api" target="_blank">ghoapi.azureedge.net</a> · Обновляется ежегодно · Бесплатно</div>
+    </div>
+
+    <div class="source-card">
+      <div class="sc-name">ClinicalTrials.gov (NIH)</div>
+      <div class="sc-desc">Реестр клинических исследований Национального института здоровья США. Содержит данные о всех зарегистрированных испытаниях лекарств и методов лечения по всему миру. Данные актуальны на дату последнего обновления карты.</div>
+      <div class="sc-metrics">
+        <span class="sc-tag">Клинические исследования</span>
+        <span class="sc-tag">Фазы испытаний</span>
+        <span class="sc-tag">Активные протоколы</span>
+      </div>
+      <div class="sc-url">🔗 <a href="https://clinicaltrials.gov/api/v2/studies" target="_blank">clinicaltrials.gov</a> · Open API · Обновляется еженедельно</div>
+    </div>
+
+    <div class="source-card">
+      <div class="sc-name">EUROCARE-5 / CONCORD-3</div>
+      <div class="sc-desc">Крупнейшие европейские и глобальные исследования выживаемости онкологических пациентов. CONCORD-3 охватывает 71 страну, 37.5 млн пациентов. Данные — публичные сводные показатели из peer-reviewed публикаций.</div>
+      <div class="sc-metrics">
+        <span class="sc-tag">5-летняя выживаемость</span>
+        <span class="sc-tag">Рак груди</span>
+        <span class="sc-tag">Рак лёгкого</span>
+        <span class="sc-tag">Рак простаты</span>
+      </div>
+      <div class="sc-url">🔗 <a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(17)33326-3" target="_blank">The Lancet, 2018</a> · Peer-reviewed</div>
+    </div>
+
+    <div class="source-card">
+      <div class="sc-name">Natural Earth / World Atlas TopoJSON</div>
+      <div class="sc-desc">Географические данные карты мира. 177 стран в формате TopoJSON, разрешение 110m (оптимально для мировой карты). Используется NYT, Guardian, Bloomberg.</div>
+      <div class="sc-metrics">
+        <span class="sc-tag">Границы стран</span>
+        <span class="sc-tag">Геометрии</span>
+      </div>
+      <div class="sc-url">🔗 <a href="https://github.com/topojson/world-atlas" target="_blank">github.com/topojson/world-atlas</a> · Public Domain</div>
+    </div>
+
+    <div style="margin-top:18px;padding-top:14px;border-top:1px solid #1a1d2e;font-size:10px;color:#334">
+      Все данные открытые. Репо: <a href="https://github.com/notageek88/oncology-atlas" target="_blank" style="color:#4f8ef7">github.com/notageek88/oncology-atlas</a>
+      · Лицензия MIT · Последнее обновление данных: март 2026
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
