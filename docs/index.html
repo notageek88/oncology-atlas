@@ -504,7 +504,7 @@
     <div id="leg-body"></div>
 </div>
 
-<div id="world-stats-bar" style="position:absolute;bottom:38px;left:50%;transform:translateX(-50%);background:#0b0d18cc;border:1px solid #1a1d2e;border-radius:8px;padding:6px 14px;display:flex;gap:18px;align-items:center;pointer-events:none;backdrop-filter:blur(6px);z-index:10">
+<div id="world-stats-bar" style="position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:#0b0d18cc;border:1px solid #1a1d2e;border-radius:8px;padding:6px 14px;display:flex;gap:18px;align-items:center;pointer-events:none;backdrop-filter:blur(6px);z-index:9">
     <span style="font-size:10px;color:#4f8ef7;font-weight:600;text-transform:uppercase;letter-spacing:.05em" data-i18n="world_avg_label">World avg</span>
     <span id="world-mean" style="font-size:13px;font-weight:700;color:#e0e8ff">—</span>
     <span style="color:#1a1d2e">|</span>
@@ -1602,6 +1602,9 @@ function toggleTimeline() {
     timelineMode = !timelineMode;
     document.getElementById("timeline-toggle").classList.toggle("active", timelineMode);
     document.getElementById("timeline").classList.toggle("visible", timelineMode);
+    // Hide world stats bar when timeline is open (they overlap at bottom)
+    const wsBar = document.getElementById("world-stats-bar");
+    if (wsBar) wsBar.style.display = timelineMode ? "none" : (worldStatsData[currentMetric] ? "flex" : "none");
     if (timelineMode) {
         // Switch map to NCD timeline view
         document.getElementById("leg-title").textContent = "NCD mortality risk (%) age 30-70";
