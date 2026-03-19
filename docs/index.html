@@ -564,6 +564,7 @@ let compareMode = false;
 let compareList = [];
 let svg, g, pathGen, projection;
 let trialsData = null, trialsVisible = false, trialsLayerEl = null;
+let extraMetrics = {};
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 function getCat(metric) {
@@ -1209,6 +1210,69 @@ document.addEventListener("click", e => {
 function openSources() { document.getElementById("sources-modal").classList.add("open"); }
 function closeSources() { document.getElementById("sources-modal").classList.remove("open"); }
 
+
+
+
+// ── Cancer type explanations ─────────────────────────────────────────────────
+function getCancerTypeForTrials() {
+    const m = currentMetric;
+    if (m.includes("breast") || m.includes("daly_breast")) return "breast cancer";
+    if (m.includes("colon")) return "colorectal cancer";
+    if (m.includes("liver")) return "liver cancer";
+    if (m.includes("mouth")) return "mouth cancer";
+    if (m.includes("oesophagus")) return "esophageal cancer";
+    return "cancer";
+}
+
+function getCancerExplainKey(metric) {
+    if (!metric) return null;
+    if (metric.includes("breast")) return "explain_breast";
+    if (metric.includes("colon")) return "explain_colon";
+    if (metric.includes("liver")) return "explain_liver";
+    if (metric.includes("mouth")) return "explain_mouth";
+    if (metric.includes("oesophagus")) return "explain_oesophagus";
+    if (metric.includes("all") || metric === "death_cancer_all") return "explain_all_cancers";
+    return null;
+}
+
+function buildCancerExplain() {
+    const key = getCancerExplainKey(currentMetric);
+    if (!key) return "";
+    const text = t(key, "");
+    if (!text) return "";
+    return `<div style="background:#0d0f1c;border:1px solid #1a2a50;border-radius:8px;padding:12px 14px;margin:10px 0;font-size:12px;line-height:1.6;color:#9ab">
+        <div style="font-size:10px;color:#4f8ef7;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">ⓘ ${t("about_this_metric","About this cancer type")}</div>
+        ${text}
+    </div>`;
+}
+
+
+// ── Prevention data ─────────────────────────────────────────────────────────
+function buildPrevention(iso3) {
+    if (!extraMetrics || !extraMetrics.cervical_screening) return "";
+    const hasCervical = extraMetrics.cervical_screening[iso3];
+    const alcoholVal = extraMetrics.alcohol_cancer && extraMetrics.alcohol_cancer[iso3];
+    if (hasCervical === undefined && !alcoholVal) return "";
+    const rows = [];
+    if (hasCervical !== undefined) {
+        const yes = hasCervical === 1;
+        rows.push(`<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #1a1d2e">
+            <span style="font-size:12px;color:#889">${t("cervical_screening_label","Cervical screening program")}</span>
+            <span style="font-size:12px;font-weight:600;color:${yes?"#2db565":"#e05c5c"}">${yes ? t("yes","Yes") : t("no","No")}</span>
+        </div>`);
+    }
+    if (alcoholVal) {
+        rows.push(`<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0">
+            <span style="font-size:12px;color:#889">${t("alcohol_cancer_label","Alcohol-attributable cancer deaths / 100k")}</span>
+            <span style="font-size:12px;font-weight:600;color:#4f8ef7">${alcoholVal.toFixed(1)}</span>
+        </div>`);
+    }
+    if (!rows.length) return "";
+    return `<div style="margin:14px 0 10px">
+        <h3>${t("prevention_section","Prevention & Risk Factors")}</h3>
+        <div style="margin-top:8px">${rows.join("")}</div>
+    </div>`;
+}
 
 // ── Map Filters ─────────────────────────────────────────────────────────
 let activeFilter = "all";
@@ -1862,13 +1926,14 @@ document.addEventListener("keydown", e => {
 
 
 async function init() {
-    const [world, cancer, trends, ncds, i18n, trialsCt] = await Promise.all([
+    const [world, cancer, trends, ncds, i18n, trialsCt, extraRaw] = await Promise.all([
         d3.json("data/world-110m.json"),
         d3.json("data/countries_cancer.json"),
         d3.json("data/trends.json").catch(() => ({})),
         d3.json("data/ncd_snapshots.json").catch(() => ({})),
         d3.json("data/i18n.json").catch(() => ({"en":{}})),
-        d3.json("data/clinical_trials.json").catch(() => null)
+        d3.json("data/clinical_trials.json").catch(() => null),
+        d3.json("data/extra_metrics.json").catch(() => ({}))
     ]);
     worldData = world;
     allData = cancer;
@@ -1876,6 +1941,7 @@ async function init() {
     ncdSnapshots = ncds;
     i18nData = i18n;
     trialsData = trialsCt;
+    extraMetrics = extraRaw || {};
 
     // Apply URL params
     const params = parseUrlParams();
