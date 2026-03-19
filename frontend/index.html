@@ -10,288 +10,336 @@
 
         #header {
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            padding: 12px 24px;
-            background: rgba(15,17,28,0.95);
-            border-bottom: 1px solid #1e2235;
-            display: flex; align-items: center; gap: 14px;
-            backdrop-filter: blur(8px);
+            padding: 11px 24px;
+            background: rgba(11,13,20,0.97);
+            border-bottom: 1px solid #1a1d2e;
+            display: flex; align-items: center; gap: 12px;
+            backdrop-filter: blur(10px);
         }
-        #header h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; }
+        #header h1 { font-size: 17px; font-weight: 700; letter-spacing: -0.3px; }
         #header h1 span { color: #4f8ef7; }
-        .badge {
-            background: #0f2040; color: #4f8ef7;
-            font-size: 11px; padding: 3px 9px;
-            border-radius: 99px; border: 1px solid #1e3a6e;
-        }
-        .meta { color: #444; font-size: 12px; margin-left: auto; }
+        .badge { background: #0d1e3a; color: #4f8ef7; font-size: 10px; padding: 2px 8px; border-radius: 99px; border: 1px solid #1a3a6e; }
+        .meta { color: #3a3f58; font-size: 11px; margin-left: auto; display: flex; gap: 14px; align-items: center; }
+        .meta a { color: #4f8ef7; text-decoration: none; }
+        .meta a:hover { text-decoration: underline; }
 
         #controls {
-            position: fixed; top: 52px; left: 0; right: 0; z-index: 100;
-            padding: 8px 20px;
-            background: rgba(11,13,20,0.92);
-            border-bottom: 1px solid #141624;
-            display: flex; gap: 10px; align-items: center;
-            backdrop-filter: blur(6px);
+            position: fixed; top: 47px; left: 0; right: 0; z-index: 100;
+            padding: 7px 20px;
+            background: rgba(9,11,18,0.95);
+            border-bottom: 1px solid #12151f;
+            display: flex; gap: 8px; align-items: center;
+            backdrop-filter: blur(8px);
         }
-        label { font-size: 11px; color: #555; text-transform: uppercase; letter-spacing: 0.5px; }
+        .ctrl-label { font-size: 10px; color: #3a3f58; text-transform: uppercase; letter-spacing: 0.6px; white-space: nowrap; }
         select {
-            background: #13162a; border: 1px solid #1e2235;
-            color: #ccc; padding: 6px 10px;
-            border-radius: 5px; font-size: 13px; cursor: pointer;
-            transition: border-color 0.2s;
+            background: #10131f; border: 1px solid #1a1d2e;
+            color: #aab; padding: 5px 10px;
+            border-radius: 5px; font-size: 12px; cursor: pointer;
         }
-        select:hover, select:focus { border-color: #4f8ef7; outline: none; }
+        select:hover, select:focus { border-color: #4f8ef7; outline: none; color: #dde; }
+        .sep { width: 1px; height: 20px; background: #1a1d2e; margin: 0 4px; }
 
-        #map-container {
-            position: fixed; top: 92px; left: 0; right: 0; bottom: 0;
-        }
-        svg { width: 100%; height: 100%; }
+        #map-container { position: fixed; top: 83px; left: 0; right: 0; bottom: 0; }
+        svg { width: 100%; height: 100%; cursor: grab; }
+        svg:active { cursor: grabbing; }
 
-        .country { transition: opacity 0.15s; cursor: pointer; }
-        .country:hover { opacity: 0.75; stroke: #4f8ef7 !important; stroke-width: 1.5px !important; }
-        .country.selected { stroke: #fff !important; stroke-width: 1.5px !important; }
+        .country { transition: opacity 0.12s, stroke 0.12s; }
+        .country:hover { opacity: 0.8; }
 
-        /* Tooltip */
         #tooltip {
-            position: fixed; pointer-events: none; z-index: 200;
-            background: rgba(11,13,20,0.97);
-            border: 1px solid #1e2235;
-            border-radius: 10px; padding: 14px 18px;
-            font-size: 13px; min-width: 240px;
-            display: none;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+            position: fixed; pointer-events: none; z-index: 300;
+            background: rgba(9,11,18,0.97); border: 1px solid #1a1d2e;
+            border-radius: 10px; padding: 13px 16px;
+            font-size: 12px; min-width: 220px; max-width: 280px;
+            display: none; box-shadow: 0 12px 40px rgba(0,0,0,0.7);
         }
-        #tooltip h3 { font-size: 15px; margin-bottom: 10px; color: #fff; }
-        .t-row { display: flex; justify-content: space-between; gap: 16px; padding: 4px 0; border-bottom: 1px solid #13162a; }
+        #tooltip h3 { font-size: 14px; margin-bottom: 10px; color: #eee; font-weight: 600; }
+        .t-section { font-size: 9px; color: #3a3f58; text-transform: uppercase; letter-spacing: 0.6px; margin: 8px 0 4px; }
+        .t-row { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; border-bottom: 1px solid #10131f; }
         .t-row:last-child { border: none; }
-        .t-label { color: #666; font-size: 11px; }
-        .t-val { font-weight: 600; color: #4f8ef7; font-size: 12px; }
-        .t-val.yes { color: #3dba7e; }
+        .t-label { color: #555; font-size: 11px; }
+        .t-val { font-weight: 600; font-size: 11px; color: #4f8ef7; white-space: nowrap; }
+        .t-val.yes { color: #2db565; }
         .t-val.no { color: #e05c5c; }
+        .t-val.partial { color: #f0a030; }
 
-        /* Legend */
         #legend {
-            position: fixed; bottom: 24px; left: 20px; z-index: 100;
-            background: rgba(11,13,20,0.92);
-            border: 1px solid #1e2235;
-            border-radius: 10px; padding: 14px 18px;
-            font-size: 12px; min-width: 160px;
-            backdrop-filter: blur(6px);
+            position: fixed; bottom: 20px; left: 16px; z-index: 100;
+            background: rgba(9,11,18,0.95); border: 1px solid #1a1d2e;
+            border-radius: 9px; padding: 12px 15px; font-size: 11px; min-width: 150px;
+            backdrop-filter: blur(8px);
         }
-        #legend h4 { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; }
-        #legend-gradient { height: 10px; border-radius: 5px; margin-bottom: 6px; }
-        #legend-labels { display: flex; justify-content: space-between; color: #555; font-size: 10px; }
-        .bool-item { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
-        .bool-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+        #legend h4 { font-size: 9px; color: #3a3f58; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+        #leg-gradient { height: 8px; border-radius: 4px; margin-bottom: 5px; }
+        #leg-labels { display: flex; justify-content: space-between; color: #3a3f58; font-size: 9px; }
+        .bool-row { display: flex; align-items: center; gap: 7px; margin: 3px 0; font-size: 11px; color: #888; }
+        .bool-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
 
-        /* Stats */
         #stats {
-            position: fixed; bottom: 24px; right: 20px; z-index: 100;
-            background: rgba(11,13,20,0.92); border: 1px solid #1e2235;
-            border-radius: 8px; padding: 8px 16px;
-            font-size: 11px; color: #555;
-            backdrop-filter: blur(6px);
+            position: fixed; bottom: 20px; right: 16px; z-index: 100;
+            background: rgba(9,11,18,0.95); border: 1px solid #1a1d2e;
+            border-radius: 7px; padding: 7px 14px;
+            font-size: 10px; color: #3a3f58;
         }
-        #stats span { color: #4f8ef7; }
-        #stats a { color: #4f8ef7; text-decoration: none; }
-        #stats a:hover { text-decoration: underline; }
+        #stats b { color: #4f8ef7; }
     </style>
 </head>
 <body>
-
 <div id="header">
     <h1>Oncology<span>Atlas</span></h1>
-    <div class="badge">WHO Data 2019–2022</div>
-    <div class="meta">194 countries · Open Source · MIT ·
-        <a href="https://github.com/notageek88/oncology-atlas" target="_blank" style="color:#4f8ef7;text-decoration:none">GitHub ↗</a>
+    <div class="badge">WHO GHO 2019–2022</div>
+    <div class="meta">
+        <span>195 countries</span>
+        <span>18 metrics</span>
+        <a href="https://github.com/notageek88/oncology-atlas" target="_blank">GitHub ↗</a>
     </div>
 </div>
 
 <div id="controls">
-    <label>Metric</label>
+    <span class="ctrl-label">Category</span>
+    <select id="category" onchange="onCategoryChange()">
+        <option value="death">Cancer Mortality (death rate / 100k)</option>
+        <option value="daly">Disease Burden (DALYs / 100k)</option>
+        <option value="infra">Healthcare Infrastructure</option>
+    </select>
+    <div class="sep"></div>
+    <span class="ctrl-label">Cancer type</span>
     <select id="metric" onchange="updateMap()">
-        <option value="breast_cancer_daly">Breast Cancer — DALYs per 100k</option>
-        <option value="oral_cancer_rate">Oral Cancer Rate per 100k</option>
-        <option value="oral_cancer_cases">Oral Cancer — New Cases</option>
-        <option value="cancer_surgery">Cancer Surgery Available</option>
-        <option value="cancer_registry">National Cancer Registry</option>
-        <option value="cancer_plan">National Cancer Action Plan</option>
+        <option value="death_cancer_all">All cancers combined</option>
+        <option value="death_breast">Breast cancer</option>
+        <option value="death_colon">Colorectal cancer</option>
+        <option value="death_liver">Liver cancer</option>
+        <option value="death_mouth">Mouth & oropharynx</option>
+        <option value="death_oesophagus">Oesophagus cancer</option>
     </select>
 </div>
 
-<div id="map-container">
-    <svg id="svg"></svg>
-</div>
-
+<div id="map-container"><svg id="svg"></svg></div>
 <div id="tooltip"></div>
 
 <div id="legend">
-    <h4 id="legend-title">DALYs per 100k</h4>
-    <div id="legend-body"></div>
+    <h4 id="leg-title">Death rate / 100k</h4>
+    <div id="leg-body"></div>
 </div>
 
 <div id="stats">
-    Countries: <span id="stat-n">—</span> &nbsp;|&nbsp; Source: <span>WHO GHO</span>
+    Countries: <b id="stat-n">—</b> &nbsp;·&nbsp; Source: <b>WHO GHO</b> &nbsp;·&nbsp; MIT License
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson@3"></script>
 <script>
-const METRICS = {
-    breast_cancer_daly: {
-        label: "Breast Cancer DALYs / 100k",
+
+// ── Metric definitions ──────────────────────────────────────────
+const METRIC_GROUPS = {
+    death: {
+        label: "Death rate / 100k",
+        options: {
+            death_cancer_all: "All cancers",
+            death_breast:     "Breast cancer",
+            death_colon:      "Colorectal",
+            death_liver:      "Liver cancer",
+            death_mouth:      "Mouth & oropharynx",
+            death_oesophagus: "Oesophagus",
+        },
         type: "numeric",
-        domain: [60, 100, 140, 180, 220],
-        colors: ["#0d1b3e","#1a4080","#2366c2","#4f8ef7","#a8c8ff"],
-        nodata: "#13162a"
+        domain: [20, 50, 80, 120, 180],
+        colors: ["#0d1433","#1a2d7a","#2855c2","#4f8ef7","#a0c4ff"],
+        nodata: "#0f1220"
     },
-    oral_cancer_rate: {
-        label: "Oral Cancer Rate / 100k",
+    daly: {
+        label: "DALYs / 100k",
+        options: {
+            daly_breast:     "Breast cancer",
+            daly_colon:      "Colorectal",
+            daly_liver:      "Liver cancer",
+            daly_mouth:      "Mouth & oropharynx",
+            daly_oesophagus: "Oesophagus",
+        },
         type: "numeric",
-        domain: [1, 2, 4, 7, 12],
-        colors: ["#0d2e1a","#14562e","#1e8044","#2db565","#6de0a0"],
-        nodata: "#13162a"
+        domain: [50, 100, 160, 220, 320],
+        colors: ["#0d2615","#155228","#1e8040","#2db565","#7aeaaa"],
+        nodata: "#0f1220"
     },
-    oral_cancer_cases: {
-        label: "Oral Cancer New Cases",
-        type: "numeric",
-        domain: [50, 300, 2000, 15000, 60000],
-        colors: ["#1a0d30","#3d1a72","#6b2fc4","#9b5fea","#cba8f8"],
-        nodata: "#13162a"
-    },
-    cancer_surgery: { label: "Cancer Surgery Available", type: "boolean" },
-    cancer_registry: { label: "National Cancer Registry", type: "boolean" },
-    cancer_plan: { label: "National Cancer Action Plan", type: "boolean" }
+    infra: {
+        label: "Healthcare availability",
+        options: {
+            cancer_surgery:   "Cancer surgery",
+            cancer_registry:  "Cancer registry",
+            cancer_plan:      "National cancer plan",
+            breast_screening: "Breast cancer screening",
+            cancer_dept:      "Cancer department (tertiary)",
+        },
+        type: "boolean",
+        nodata: "#0f1220"
+    }
 };
 
-const BOOL_COLORS = { "Yes": "#2db565", "No": "#e05c5c", default: "#2a2d3e" };
+const BOOL_COLORS = { "Yes": "#2db565", "No": "#e05c5c" };
+const NODATA_COLOR = "#0f1220";
 
-let cancerByNumId = {};
+// ── State ────────────────────────────────────────────────────────
+let dataByNumId = {};
 let worldData = null;
-let projection, pathGen, svg, g;
+let currentMetric = "death_cancer_all";
+let svg, g, pathGen, projection;
 
+// ── Category change ──────────────────────────────────────────────
+function onCategoryChange() {
+    const cat = document.getElementById("category").value;
+    const group = METRIC_GROUPS[cat];
+    const metricSel = document.getElementById("metric");
+    metricSel.innerHTML = Object.entries(group.options)
+        .map(([k, v]) => `<option value="${k}">${v}</option>`).join("");
+    currentMetric = Object.keys(group.options)[0];
+    metricSel.value = currentMetric;
+    updateMap();
+}
+
+// ── Color scale ──────────────────────────────────────────────────
 function getColor(d, metric) {
-    const m = METRICS[metric];
-    if (!d) return m.nodata || "#13162a";
+    const cat = getCat(metric);
+    const group = METRIC_GROUPS[cat];
+    if (!d) return group.nodata;
     const val = d[metric];
-    if (val === undefined || val === null) return m.nodata || "#13162a";
-    if (m.type === "boolean") return BOOL_COLORS[val] || BOOL_COLORS.default;
+    if (val === undefined || val === null) return group.nodata;
+
+    if (group.type === "boolean") return BOOL_COLORS[val] || "#2a2d40";
+
     const n = parseFloat(val);
-    if (isNaN(n)) return m.nodata || "#13162a";
-    const scale = d3.scaleThreshold().domain(m.domain).range([m.nodata, ...m.colors]);
+    if (isNaN(n)) return group.nodata;
+
+    const scale = d3.scaleThreshold()
+        .domain(group.domain)
+        .range([group.nodata, ...group.colors]);
     return scale(n);
 }
 
+function getCat(metric) {
+    for (const [cat, g] of Object.entries(METRIC_GROUPS)) {
+        if (metric in g.options || (cat === "death" && metric === "death_cancer_all")) return cat;
+    }
+    return "death";
+}
+
+// ── Legend ───────────────────────────────────────────────────────
 function buildLegend(metric) {
-    const m = METRICS[metric];
-    document.getElementById("legend-title").textContent = m.label;
-    const body = document.getElementById("legend-body");
-    if (m.type === "boolean") {
+    const cat = getCat(metric);
+    const group = METRIC_GROUPS[cat];
+    document.getElementById("leg-title").textContent = group.label;
+    const body = document.getElementById("leg-body");
+
+    if (group.type === "boolean") {
         body.innerHTML = [
-            ["Yes", "#2db565"], ["No", "#e05c5c"], ["No data", "#2a2d3e"]
-        ].map(([l,c]) => `<div class="bool-item"><div class="bool-dot" style="background:${c}"></div>${l}</div>`).join("");
+            ["Yes","#2db565"], ["No","#e05c5c"], ["No data","#2a2d40"]
+        ].map(([l, c]) =>
+            `<div class="bool-row"><div class="bool-dot" style="background:${c}"></div>${l}</div>`
+        ).join("");
     } else {
-        const grad = `linear-gradient(to right, ${[m.nodata, ...m.colors].join(", ")})`;
+        const grad = [group.nodata, ...group.colors].join(", ");
+        const lo = group.domain[0], mid = group.domain[Math.floor(group.domain.length/2)], hi = group.domain[group.domain.length-1];
         body.innerHTML = `
-            <div id="legend-gradient" style="background:${grad}"></div>
-            <div id="legend-labels">
-                <span>${m.domain[0]}</span>
-                <span>${m.domain[Math.floor(m.domain.length/2)]}</span>
-                <span>${m.domain[m.domain.length-1]}+</span>
-            </div>
-            <div style="color:#444;font-size:10px;margin-top:4px">■ No data</div>
-        `;
+            <div id="leg-gradient" style="background:linear-gradient(to right,${grad})"></div>
+            <div id="leg-labels"><span>${lo}</span><span>${mid}</span><span>${hi}+</span></div>
+            <div style="color:#2a2d40;font-size:9px;margin-top:5px;display:flex;align-items:center;gap:5px">
+                <div style="width:8px;height:8px;border-radius:50%;background:#0f1220;border:1px solid #1a1d2e"></div>No data
+            </div>`;
     }
 }
 
-function showTooltip(event, d, countryData) {
+// ── Tooltip ──────────────────────────────────────────────────────
+function showTip(event, d, data) {
     const tip = document.getElementById("tooltip");
-    const name = d.properties.name;
-    const rows = Object.entries(METRICS).map(([key, m]) => {
-        const val = countryData ? countryData[key] : null;
-        const display = val !== null && val !== undefined ? val : "—";
-        const cls = display === "Yes" ? "yes" : display === "No" ? "no" : "";
-        return `<div class="t-row"><span class="t-label">${m.label}</span><span class="t-val ${cls}">${display}</span></div>`;
-    }).join("");
-    tip.innerHTML = `<h3>${name}</h3>${rows}`;
+    const name = data?.name || d.properties.name;
+
+    let html = `<h3>${name}</h3>`;
+
+    if (data) {
+        // Mortality
+        html += `<div class="t-section">Mortality (death / 100k)</div>`;
+        [["All cancers", data.death_cancer_all], ["Breast", data.death_breast],
+         ["Colorectal", data.death_colon], ["Liver", data.death_liver],
+         ["Mouth", data.death_mouth]].forEach(([l, v]) => {
+            if (v) html += `<div class="t-row"><span class="t-label">${l}</span><span class="t-val">${typeof v === 'number' ? v.toFixed(1) : v}</span></div>`;
+        });
+
+        // Infrastructure
+        html += `<div class="t-section">Infrastructure</div>`;
+        [["Surgery", data.cancer_surgery], ["Registry", data.cancer_registry],
+         ["Plan", data.cancer_plan], ["Screening", data.breast_screening]].forEach(([l, v]) => {
+            if (v) {
+                const cls = v === "Yes" ? "yes" : v === "No" ? "no" : "";
+                html += `<div class="t-row"><span class="t-label">${l}</span><span class="t-val ${cls}">${v}</span></div>`;
+            }
+        });
+    } else {
+        html += `<div class="t-row"><span class="t-label">No data available</span></div>`;
+    }
+
+    tip.innerHTML = html;
     tip.style.display = "block";
-    positionTooltip(event);
+    moveTip(event);
 }
 
-function positionTooltip(event) {
+function moveTip(event) {
     const tip = document.getElementById("tooltip");
-    let x = event.clientX + 16, y = event.clientY - 10;
-    if (x + 260 > window.innerWidth) x = event.clientX - 260;
-    if (y + 200 > window.innerHeight) y = event.clientY - 200;
-    tip.style.left = x + "px";
-    tip.style.top = y + "px";
+    let x = event.clientX + 14, y = event.clientY - 10;
+    if (x + 290 > window.innerWidth) x = event.clientX - 290;
+    if (y + 260 > window.innerHeight) y = event.clientY - 260;
+    tip.style.left = x + "px"; tip.style.top = y + "px";
 }
 
+// ── Map update ───────────────────────────────────────────────────
 function updateMap() {
-    if (!worldData) return;
-    const metric = document.getElementById("metric").value;
-    buildLegend(metric);
+    currentMetric = document.getElementById("metric").value;
+    buildLegend(currentMetric);
+    if (!g) return;
     d3.selectAll(".country")
-        .transition().duration(400)
-        .attr("fill", d => getColor(cancerByNumId[+d.id], metric));
+        .transition().duration(350)
+        .attr("fill", d => getColor(dataByNumId[+d.id], currentMetric));
 }
 
+// ── Init ─────────────────────────────────────────────────────────
 async function init() {
-    // Load data
     const [world, cancer] = await Promise.all([
         d3.json("data/world-110m.json"),
         d3.json("data/countries_cancer.json")
     ]);
 
     worldData = world;
-    cancer.forEach(c => { if (c.numeric_id) cancerByNumId[c.numeric_id] = c; });
+    cancer.forEach(c => { if (c.numeric_id) dataByNumId[c.numeric_id] = c; });
     document.getElementById("stat-n").textContent = cancer.length;
 
-    // Setup SVG + projection
     const container = document.getElementById("map-container");
     const W = container.clientWidth, H = container.clientHeight;
 
     svg = d3.select("#svg").attr("width", W).attr("height", H);
-
-    projection = d3.geoNaturalEarth1()
-        .scale(W / 6.2)
-        .translate([W / 2, H / 2]);
-
+    projection = d3.geoNaturalEarth1().scale(W / 6.3).translate([W / 2, H / 2 + 20]);
     pathGen = d3.geoPath().projection(projection);
-
     g = svg.append("g");
 
     // Zoom
-    const zoom = d3.zoom()
-        .scaleExtent([0.8, 12])
-        .on("zoom", e => g.attr("transform", e.transform));
-    svg.call(zoom);
+    svg.call(d3.zoom().scaleExtent([0.7, 14]).on("zoom", e => g.attr("transform", e.transform)));
 
-    // Draw countries
     const countries = topojson.feature(world, world.objects.countries);
-    const metric = document.getElementById("metric").value;
 
     g.selectAll(".country")
         .data(countries.features)
         .join("path")
         .attr("class", "country")
         .attr("d", pathGen)
-        .attr("fill", d => getColor(cancerByNumId[+d.id], metric))
-        .attr("stroke", "#0b0d14")
-        .attr("stroke-width", 0.4)
-        .on("mousemove", (event, d) => {
-            showTooltip(event, d, cancerByNumId[+d.id]);
-        })
-        .on("mouseout", () => {
-            document.getElementById("tooltip").style.display = "none";
-        });
+        .attr("fill", d => getColor(dataByNumId[+d.id], currentMetric))
+        .attr("stroke", "#070910")
+        .attr("stroke-width", 0.3)
+        .on("mousemove", (e, d) => { showTip(e, d, dataByNumId[+d.id]); moveTip(e); })
+        .on("mouseout", () => { document.getElementById("tooltip").style.display = "none"; });
 
-    buildLegend(metric);
+    buildLegend(currentMetric);
 
-    // Resize handler
     window.addEventListener("resize", () => {
         const W2 = container.clientWidth, H2 = container.clientHeight;
-        projection.scale(W2 / 6.2).translate([W2 / 2, H2 / 2]);
+        projection.scale(W2 / 6.3).translate([W2 / 2, H2 / 2 + 20]);
         pathGen = d3.geoPath().projection(projection);
         d3.selectAll(".country").attr("d", pathGen);
     });
