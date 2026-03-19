@@ -169,7 +169,21 @@
         <option value="death_mouth">Mouth & oropharynx</option>
         <option value="death_oesophagus">Oesophagus</option>
     </select>
-    <button class="compare-btn" id="compare-toggle" onclick="toggleCompare()">⚖ Compare countries</button>
+    <div class="sep"></div>
+    <div style="position:relative">
+        <input id="search" type="text" placeholder="🔍 Search country..." autocomplete="off"
+            oninput="onSearch(this.value)" onfocus="showSuggest()" onblur="setTimeout(hideSuggest,200)"
+            style="background:#10131f;border:1px solid #1a1d2e;color:#ccd;padding:5px 10px 5px 10px;
+                   border-radius:5px;font-size:12px;width:190px;outline:none">
+        <div id="suggest" style="display:none;position:absolute;top:32px;left:0;width:240px;
+            background:#0d0f1a;border:1px solid #1a1d2e;border-radius:7px;z-index:500;
+            max-height:200px;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,0.7)"></div>
+    </div>
+    <button class="compare-btn" id="compare-toggle" onclick="toggleCompare()">⚖ Compare</button>
+    <a href="data/countries_cancer.csv" download style="margin-left:4px;background:#0d2a1a;color:#2db565;
+        border:1px solid #1a5c35;padding:5px 12px;border-radius:5px;font-size:11px;text-decoration:none">
+        ↓ CSV
+    </a>
 </div>
 
 <div id="map-container"><svg id="svg"></svg></div>
@@ -452,6 +466,55 @@ function updateMap() {
     buildLegend(currentMetric);
     d3.selectAll(".country").transition().duration(350)
         .attr("fill", d => getColor(dataByNumId[+d.id], currentMetric));
+}
+
+// ── Search ─────────────────────────────────────────────────────────────────
+function onSearch(q) {
+    const box = document.getElementById("suggest");
+    if (!q.trim()) { box.innerHTML = ""; box.style.display = "none"; return; }
+    const matches = allData
+        .filter(c => (c.name||"").toLowerCase().includes(q.toLowerCase()) || (c.country||"").toLowerCase().includes(q.toLowerCase()))
+        .slice(0, 8);
+    if (!matches.length) { box.innerHTML = ""; box.style.display = "none"; return; }
+    box.innerHTML = matches.map(c =>
+        `<div onclick="selectCountry('${c.country}')"
+            style="padding:8px 14px;cursor:pointer;font-size:12px;color:#ccd;border-bottom:1px solid #12151f"
+            onmouseover="this.style.background='#1a1d2e'" onmouseout="this.style.background=''">
+            ${c.name} <span style="color:#334;font-size:10px">${c.country}</span>
+        </div>`
+    ).join("");
+    box.style.display = "block";
+}
+
+function showSuggest() {
+    const q = document.getElementById("search").value;
+    if (q.trim()) onSearch(q);
+}
+function hideSuggest() { document.getElementById("suggest").style.display = "none"; }
+
+function selectCountry(iso3) {
+    document.getElementById("search").value = "";
+    hideSuggest();
+    const data = allData.find(c => c.country === iso3);
+    if (!data) return;
+    // highlight on map
+    if (selectedEl) d3.select(selectedEl).classed("selected", false);
+    const el = g.selectAll(".country").filter(d => dataByNumId[+d.id]?.country === iso3);
+    if (!el.empty()) {
+        selectedEl = el.node();
+        d3.select(selectedEl).classed("selected", true);
+        // zoom to country centroid
+        const bounds = pathGen.bounds(el.datum());
+        const cx = (bounds[0][0] + bounds[1][0]) / 2;
+        const cy = (bounds[0][1] + bounds[1][1]) / 2;
+        const cont = document.getElementById("map-container");
+        svg.transition().duration(600).call(
+            d3.zoom().scaleExtent([0.7,14]).on("zoom", e => g.attr("transform", e.transform))
+                .transform, d3.zoomIdentity.translate(cont.clientWidth/2 - cx*2.5, cont.clientHeight/2 - cy*2.5).scale(2.5)
+        );
+    }
+    if (compareMode) addToCompare(data, data.name);
+    else openProfile(data, data.name);
 }
 
 async function init() {
