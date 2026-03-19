@@ -74,8 +74,11 @@
         }
         .panel-close:hover { color: #eee; background: #1a1d2e; }
 
-        .panel-section { padding: 16px 20px; border-bottom: 1px solid #0f1118; }
-        .panel-section h3 { font-size: 10px; color: #334; text-transform: uppercase; letter-spacing: 0.7px; margin-bottom: 12px; }
+        .panel-section { padding: 14px 20px; border-bottom: 1px solid #0f1118; }
+        .panel-section h3 { font-size: 11px; color: #667; font-weight: 600; letter-spacing: 0.2px; }
+        .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 11px; }
+        .section-unit { font-size: 10px; color: #334; font-weight: 400; }
+        .no-data-msg { font-size: 11px; color: #334; padding: 4px 0; }
 
         /* Bar chart in panel */
         .bar-row { margin: 8px 0; }
@@ -154,13 +157,16 @@
         /* ── Tooltip ── */
         #tooltip {
             position: fixed; pointer-events: none; z-index: 300;
-            background: rgba(9,11,18,0.97); border: 1px solid #1a1d2e;
-            border-radius: 9px; padding: 10px 14px;
-            font-size: 11px; min-width: 180px;
-            display: none; box-shadow: 0 10px 36px rgba(0,0,0,0.7);
+            background: rgba(9,11,18,0.97); border: 1px solid #1a2540;
+            border-radius: 8px; padding: 8px 12px;
+            font-size: 11px; min-width: 120px; max-width: 200px;
+            display: none; box-shadow: 0 8px 28px rgba(0,0,0,0.75);
         }
-        #tooltip h4 { font-size: 13px; margin-bottom: 6px; color: #eee; }
-        .tip-val { color: #4f8ef7; font-weight: 600; }
+        .tip-country { font-size: 12px; font-weight: 600; color: #dde; margin-bottom: 3px; }
+        .tip-main { display: flex; align-items: baseline; gap: 4px; }
+        .tip-val { font-size: 18px; font-weight: 700; color: #4f8ef7; line-height: 1; }
+        .tip-unit { font-size: 10px; color: #445; }
+        .tip-nodata { font-size: 10px; color: #445; margin-top: 2px; }
         .tip-row { padding: 2px 0; color: #666; }
 
         /* ── Legend ── */
@@ -870,11 +876,10 @@ function showTip(event, d, data) {
         : cat === "daly"
         ? `<div style="font-size:9px;color:#445;margin-top:2px">${t("tip_unit_daly","DALYs lost per 100,000")}</div>`
         : "";
-    tip.innerHTML = `<h4>${n}</h4>
+    tip.innerHTML = `<div class="tip-country">${n}</div>
         ${fv != null
-            ? `<div class="tip-row">${metricLabel}: <span class="tip-val">${fv}</span></div>${unitLine}`
-            : `<div class="tip-row" style="color:#334">${t("tip_no_data","No data — not reported to WHO")}</div>`}
-        <div class="tip-row" style="color:#445;margin-top:4px;font-size:10px">${t("tip_click_hint","Click for full profile →")}</div>`;
+            ? `<div class="tip-main"><span class="tip-val">${fv}</span> <span class="tip-unit">${cat === "death" ? "/ 100k" : cat === "daly" ? "DALYs" : ""}</span></div>`
+            : `<div class="tip-nodata">${t("tip_no_data","No data")}</div>`}`;
     tip.style.display = "block";
     moveTip(event);
 }
@@ -930,23 +935,31 @@ function openProfile(data, name) {
 
         document.getElementById("panel-content").innerHTML = `
             <div class="panel-section">
-                <h3>${t("mortality_section","Cancer mortality")} <span style="color:#556;font-size:10px;font-weight:400">/ 100k</span></h3>
-                <div class="metric-explain">${t("explain_mortality_short","Age-standardized death rate per 100,000. Lower is better.")}</div>
-                ${deathRows.length ? barsHtml(deathRows) : `<div style='color:#334;font-size:11px'>${t('no_data','No data')}</div>`}
+                <div class="section-header">
+                    <h3>${t("mortality_section","Cancer mortality")}</h3>
+                    <span class="section-unit">${t("tip_unit_death","deaths / 100k / yr")}</span>
+                </div>
+                ${deathRows.length ? barsHtml(deathRows) : `<div class="no-data-msg">${t('no_data','No data')}</div>`}
             </div>
             <div class="panel-section" id="trend-section">
-                <h3>${t("trends_section","Trends over time")}</h3>
-                <div class="metric-explain">${t("explain_trends_short","How mortality changed 2000–2021. ↑ red = rising, ↓ green = falling.")}</div>
-                <div id="trend-charts"><div style="color:#334;font-size:11px">${t("loading_text","Loading...")}</div></div>
+                <div class="section-header">
+                    <h3>${t("trends_section","Trends")}</h3>
+                    <span class="section-unit">2000–2021</span>
+                </div>
+                <div id="trend-charts"><div class="no-data-msg">${t("loading_text","Loading...")}</div></div>
             </div>
             <div class="panel-section">
-                <h3>${t("daly_section","Disease burden")} <span style="color:#556;font-size:10px;font-weight:400">DALYs / 100k</span></h3>
-                <div class="metric-explain">${t("explain_daly_short","Years of healthy life lost. 1 DALY = 1 year lost to illness or early death.")}</div>
-                ${dalyrRows.length ? barsHtml(dalyrRows) : `<div style='color:#334;font-size:11px'>${t('no_data','No data')}</div>`}
+                <div class="section-header">
+                    <h3>${t("daly_section","Disease burden")}</h3>
+                    <span class="section-unit">DALYs / 100k</span>
+                </div>
+                ${dalyrRows.length ? barsHtml(dalyrRows) : `<div class="no-data-msg">${t('no_data','No data')}</div>`}
             </div>
             <div class="panel-section">
-                <h3>${t("infra_section","Healthcare infrastructure")}</h3>
-                <div class="metric-explain">${t("explain_infra_short","Core oncology capabilities. Green = available, red = not available.")}</div>
+                <div class="section-header">
+                    <h3>${t("infra_section","Infrastructure")}</h3>
+                    <span class="section-unit">${t("explain_infra_short","WHO verified")}</span>
+                </div>
                 <div class="pill-grid">${pillsHtml}</div>
             </div>
             ${buildRankings(data.country, data)}
@@ -998,7 +1011,7 @@ function renderCompare() {
     const listHtml = compareList.map((c,i) =>
         `<div class="cmp-item">
             <div style="width:10px;height:10px;border-radius:50%;background:${colors[i]};flex-shrink:0"></div>
-            <span style="flex:1;margin-left:8px">${c.name || c.country}</span>
+            <span style="flex:1;margin-left:8px">${getCountryName(c.country, c.name || c.country)}</span>
             <span class="rm" onclick="removeCompare('${c.country}')">✕</span>
         </div>`).join("");
 
@@ -1011,7 +1024,7 @@ function renderCompare() {
             const pct = Math.min(100, (v/max)*100);
             return `<div style="margin:2px 0">
                 <div style="display:flex;justify-content:space-between;font-size:10px;color:#556">
-                    <span>${c.name||c.country}</span><span style="color:${colors[i]}">${v.toFixed(1)}</span>
+                    <span>${getCountryName(c.country, c.name||c.country)}</span><span style="color:${colors[i]}">${v.toFixed(1)}</span>
                 </div>
                 <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${colors[i]}"></div></div>
             </div>`;
@@ -1595,9 +1608,9 @@ function buildPrevention(iso3) {
         </div>`);
     }
     if (!rows.length) return "";
-    return `<div style="margin:14px 0 10px">
-        <h3>${t("prevention_section","Prevention & Risk Factors")}</h3>
-        <div style="margin-top:8px">${rows.join("")}</div>
+    return `<div class="panel-section">
+        <div class="section-header"><h3>${t("prevention_section","Prevention & Risk Factors")}</h3></div>
+        ${rows.join("")}
     </div>`;
 }
 
@@ -1965,7 +1978,7 @@ function buildRankings(iso3, data) {
         <div class="rank-row">
             <div class="rank-num">${i+1}</div>
             <div class="rank-bar-wrap">
-                <div class="rank-name">${c.name}</div>
+                <div class="rank-name">${getCountryName(c.iso, c.name)}</div>
                 <div class="rank-bar-track">
                     <div class="rank-bar-fill" style="width:${(c.val/maxVal*100).toFixed(1)}%;background:${colorFn(c.val)}"></div>
                 </div>
@@ -1973,27 +1986,39 @@ function buildRankings(iso3, data) {
             <div class="rank-val" style="color:${colorFn(c.val)}">${c.val.toFixed(1)}</div>
         </div>`;
 
+    const countryLocalName = getCountryName(iso3, data.name || iso3);
     const thisRank = rank ? `<div style="color:#4f8ef7;font-size:11px;margin:8px 0 4px">
-        ${data.name}: ${t("ranked","ranked")} <b>#${rank}</b> ${t("of","of")} ${all.length} ${t("countries","countries")}</div>` : "";
+        ${countryLocalName}: ${t("ranked","#")}${rank} ${t("of","/")} ${all.length}</div>` : "";
 
     return `
         <div class="panel-section">
-            <h3>Global ranking — all cancer mortality</h3>
+            <div class="section-header">
+                <h3>${t("global_ranking","World ranking")}</h3>
+                <span class="section-unit">${t("all_cancers","all cancers")}</span>
+            </div>
             ${thisRank}
-            <div style="font-size:9px;color:#334;margin-bottom:6px">${t("highest","HIGHEST MORTALITY").toUpperCase()}</div>
+            <div style="font-size:9px;color:#e05c5c;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px">▲ ${t("highest","Highest mortality")}</div>
             ${top5.map((c,i) => rowHtml(c, i, v => d3.scaleThreshold().domain(NCD_DOMAIN).range([NCD_NODATA,...NCD_COLORS])(v/3))).join("")}
-            <div style="font-size:9px;color:#334;margin:10px 0 6px">${t("lowest","LOWEST MORTALITY").toUpperCase()}</div>
+            <div style="font-size:9px;color:#2db565;margin:10px 0 6px;text-transform:uppercase;letter-spacing:0.5px">▼ ${t("lowest","Lowest mortality")}</div>
             ${bottom5.map((c,i) => rowHtml(c, all.length-5+i, () => "#2db565")).join("")}
         </div>`;
 }
 
 // ── Sparklines ─────────────────────────────────────────────────────────────
-const TREND_LABELS = {
-    death_cancer_all: "All cancers mortality",
-    death_breast:     "Breast cancer mortality",
-    death_colon:      "Colorectal mortality",
-    death_liver:      "Liver cancer mortality",
-    death_mouth:      "Mouth cancer mortality",
+const TREND_LABEL_KEYS = {
+    death_cancer_all: "all_cancers",
+    death_breast:     "breast",
+    death_colon:      "colon",
+    death_liver:      "liver",
+    death_mouth:      "mouth",
+};
+// fallback EN labels
+const TREND_LABELS_EN = {
+    death_cancer_all: "All cancers",
+    death_breast:     "Breast",
+    death_colon:      "Colorectal",
+    death_liver:      "Liver",
+    death_mouth:      "Mouth",
 };
 const TREND_COLORS = {
     death_cancer_all: "#4f8ef7",
@@ -2012,7 +2037,8 @@ function renderSparklines(iso3) {
     const W = 300, H = 52;
     let html = "";
 
-    for (const [key, label] of Object.entries(TREND_LABELS)) {
+    for (const [key, i18nKey] of Object.entries(TREND_LABEL_KEYS)) {
+        const label = t(i18nKey, TREND_LABELS_EN[key] || key);
         const series = ctry[key];
         if (!series || series.length < 2) continue;
 
@@ -2069,16 +2095,23 @@ function onSearch(q) {
     const box = document.getElementById("suggest");
     if (!q.trim()) { box.innerHTML = ""; box.style.display = "none"; return; }
     const matches = allData
-        .filter(c => (c.name||"").toLowerCase().includes(q.toLowerCase()) || (c.country||"").toLowerCase().includes(q.toLowerCase()))
+        .filter(c => {
+            const locName = getCountryName(c.country, c.name || "").toLowerCase();
+            const enName = (c.name||"").toLowerCase();
+            const iso = (c.country||"").toLowerCase();
+            const ql = q.toLowerCase();
+            return locName.includes(ql) || enName.includes(ql) || iso.includes(ql);
+        })
         .slice(0, 8);
     if (!matches.length) { box.innerHTML = ""; box.style.display = "none"; return; }
-    box.innerHTML = matches.map(c =>
-        `<div onclick="selectCountry('${c.country}')"
+    box.innerHTML = matches.map(c => {
+        const locName = getCountryName(c.country, c.name || c.country);
+        return `<div onclick="selectCountry('${c.country}')"
             style="padding:8px 14px;cursor:pointer;font-size:12px;color:#ccd;border-bottom:1px solid #12151f"
             onmouseover="this.style.background='#1a1d2e'" onmouseout="this.style.background=''">
-            ${c.name} <span style="color:#334;font-size:10px">${c.country}</span>
-        </div>`
-    ).join("");
+            ${locName} <span style="color:#334;font-size:10px">${c.country}</span>
+        </div>`;
+    }).join("");
     box.style.display = "block";
 }
 

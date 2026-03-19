@@ -148,7 +148,8 @@
     "explain_mortality_short": "Age-standardized death rate per 100,000. Lower = better.",
     "explain_trends_short": "How mortality changed 2000–2021. ↑ red = rising, ↓ green = falling.",
     "explain_daly_short": "Years of healthy life lost. 1 DALY = 1 year lost to illness or early death.",
-    "explain_infra_short": "Core oncology capabilities. Green = available, red = not available."
+    "explain_infra_short": "Core oncology capabilities. Green = available, red = not available.",
+    "global_ranking": "World ranking"
   },
   "ru": {
     "title": "OncologyAtlas",
@@ -299,7 +300,8 @@
     "explain_mortality_short": "Стандартизованный по возрасту показатель смертности на 100 000. Чем ниже — тем лучше.",
     "explain_trends_short": "Как менялась смертность с 2000 по 2021. ↑ красный = рост, ↓ зелёный = снижение.",
     "explain_daly_short": "Годы здоровой жизни, потерянные из-за болезни. 1 DALY = 1 потерянный год.",
-    "explain_infra_short": "Онкологические возможности системы здравоохранения. Зелёный = есть, красный = нет."
+    "explain_infra_short": "Онкологические возможности системы здравоохранения. Зелёный = есть, красный = нет.",
+    "global_ranking": "Мировой рейтинг"
   },
   "zh": {
     "title": "OncologyAtlas",
@@ -450,7 +452,8 @@
     "explain_mortality_short": "年龄标准化死亡率，每10万人。数值越低越好。",
     "explain_trends_short": "2000–2021年死亡率变化。↑红色=上升，↓绿色=下降。",
     "explain_daly_short": "损失的健康生命年。1 DALY = 1年因疾病或早死损失的健康年。",
-    "explain_infra_short": "核心肿瘤学能力。绿色=具备，红色=不具备。"
+    "explain_infra_short": "核心肿瘤学能力。绿色=具备，红色=不具备。",
+    "global_ranking": "全球排名"
   },
   "es": {
     "title": "OncologyAtlas",
@@ -601,7 +604,8 @@
     "explain_mortality_short": "Tasa de mortalidad estandarizada por edad por 100,000. Menor = mejor.",
     "explain_trends_short": "Cómo cambió la mortalidad 2000–2021. ↑ rojo = subida, ↓ verde = bajada.",
     "explain_daly_short": "Años de vida sana perdidos. 1 AVAD = 1 año perdido por enfermedad o muerte prematura.",
-    "explain_infra_short": "Capacidades oncológicas básicas. Verde = disponible, rojo = no disponible."
+    "explain_infra_short": "Capacidades oncológicas básicas. Verde = disponible, rojo = no disponible.",
+    "global_ranking": "Ranking mundial"
   },
   "ar": {
     "title": "OncologyAtlas",
@@ -752,7 +756,8 @@
     "explain_mortality_short": "معدل وفيات معياري حسب العمر لكل 100,000. أقل = أفضل.",
     "explain_trends_short": "كيف تغيرت الوفيات 2000–2021. ↑ أحمر = ارتفاع، ↓ أخضر = انخفاض.",
     "explain_daly_short": "سنوات الحياة الصحية المفقودة. 1 DALY = سنة مفقودة بسبب المرض.",
-    "explain_infra_short": "القدرات الأساسية في مجال الأورام. أخضر = متاح، أحمر = غير متاح."
+    "explain_infra_short": "القدرات الأساسية في مجال الأورام. أخضر = متاح، أحمر = غير متاح.",
+    "global_ranking": "التصنيف العالمي"
   },
   "hi": {
     "title": "OncologyAtlas",
@@ -903,7 +908,8 @@
     "explain_mortality_short": "आयु-मानकीकृत मृत्यु दर प्रति 1 लाख। कम = बेहतर।",
     "explain_trends_short": "2000–2021 में मृत्यु दर कैसे बदली। ↑ लाल = बढ़त, ↓ हरा = गिरावट।",
     "explain_daly_short": "स्वस्थ जीवन के खोए वर्ष। 1 DALY = 1 वर्ष खोया।",
-    "explain_infra_short": "मूल ऑन्कोलॉजी क्षमताएं। हरा = उपलब्ध, लाल = अनुपलब्ध।"
+    "explain_infra_short": "मूल ऑन्कोलॉजी क्षमताएं। हरा = उपलब्ध, लाल = अनुपलब्ध।",
+    "global_ranking": "विश्व रैंकिंग"
   },
   "pt": {
     "title": "OncologyAtlas",
@@ -1054,7 +1060,8 @@
     "explain_mortality_short": "Taxa de mortalidade padronizada por idade por 100.000. Menor = melhor.",
     "explain_trends_short": "Como a mortalidade mudou 2000–2021. ↑ vermelho = subida, ↓ verde = queda.",
     "explain_daly_short": "Anos de vida saudável perdidos. 1 AVAD = 1 ano perdido por doença.",
-    "explain_infra_short": "Capacidades oncológicas básicas. Verde = disponível, vermelho = não disponível."
+    "explain_infra_short": "Capacidades oncológicas básicas. Verde = disponível, vermelho = não disponível.",
+    "global_ranking": "Ranking mundial"
   },
   "fr": {
     "title": "OncologyAtlas",
@@ -1205,7 +1212,8 @@
     "explain_mortality_short": "Taux de mortalité standardisé par âge pour 100 000. Plus bas = meilleur.",
     "explain_trends_short": "Évolution de la mortalité 2000–2021. ↑ rouge = hausse, ↓ vert = baisse.",
     "explain_daly_short": "Années de vie en bonne santé perdues. 1 AVCI = 1 année perdue.",
-    "explain_infra_short": "Capacités oncologiques de base. Vert = disponible, rouge = non disponible."
+    "explain_infra_short": "Capacités oncologiques de base. Vert = disponible, rouge = non disponible.",
+    "global_ranking": "Classement mondial"
   },
   "de": {
     "title": "OncologyAtlas",
@@ -1356,7 +1364,8 @@
     "explain_mortality_short": "Altersstandarisierte Sterblichkeitsrate pro 100.000. Niedriger = besser.",
     "explain_trends_short": "Sterblichkeitsentwicklung 2000–2021. ↑ rot = steigend, ↓ grün = sinkend.",
     "explain_daly_short": "Verlorene gesunde Lebensjahre. 1 DALY = 1 Jahr durch Krankheit oder frühzeitigen Tod.",
-    "explain_infra_short": "Grundlegende Onkologiekapazitäten. Grün = vorhanden, rot = nicht vorhanden."
+    "explain_infra_short": "Grundlegende Onkologiekapazitäten. Grün = vorhanden, rot = nicht vorhanden.",
+    "global_ranking": "Weltrangliste"
   },
   "ja": {
     "title": "OncologyAtlas",
@@ -1507,7 +1516,8 @@
     "explain_mortality_short": "年齢標準化死亡率（10万人当たり）。低いほど良い。",
     "explain_trends_short": "2000〜2021年の死亡率の変化。↑赤=上昇、↓緑=低下。",
     "explain_daly_short": "失われた健康寿命年数。1 DALY = 疾患や早死による1年の損失。",
-    "explain_infra_short": "腫瘍学の基本的能力。緑=あり、赤=なし。"
+    "explain_infra_short": "腫瘍学の基本的能力。緑=あり、赤=なし。",
+    "global_ranking": "世界ランキング"
   },
   "id": {
     "title": "OncologyAtlas",
@@ -1658,6 +1668,7 @@
     "explain_mortality_short": "Tingkat kematian standar usia per 100.000. Lebih rendah = lebih baik.",
     "explain_trends_short": "Bagaimana mortalitas berubah 2000–2021. ↑ merah = naik, ↓ hijau = turun.",
     "explain_daly_short": "Tahun kehidupan sehat yang hilang. 1 DALY = 1 tahun hilang karena penyakit.",
-    "explain_infra_short": "Kemampuan onkologi dasar. Hijau = tersedia, merah = tidak tersedia."
+    "explain_infra_short": "Kemampuan onkologi dasar. Hijau = tersedia, merah = tidak tersedia.",
+    "global_ranking": "Peringkat dunia"
   }
 }
