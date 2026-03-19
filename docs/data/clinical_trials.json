@@ -1,7 +1,7 @@
 {
   "updated": "2026-03-19",
   "source": "ClinicalTrials.gov API v2",
-  "note": "Active oncology trials by country Russia/CIS data from national registries (GRLS Minzdrav RF, KZ/BY/UZ health ministries).",
+  "note": "Active oncology trials by country Russia/CIS data from national registries (GRLS Minzdrav RF, KZ/BY/UZ health ministries). Additional countries from national/regional registries (IRCT, PACTR, BMRC, SUKL, Turkey MoH).",
   "countries": {
     "AUS": {
       "total": 160,
@@ -532,6 +532,66 @@
         "PHASE4": 1
       },
       "source": "Uzbekistan Health Ministry"
+    },
+    "NGA": {
+      "total": 89,
+      "active": 22,
+      "phases": {
+        "PHASE1": 8,
+        "PHASE2": 31,
+        "PHASE3": 38,
+        "PHASE4": 7,
+        "NA": 5
+      },
+      "source": "PACTR (Pan African Clinical Trials Registry) + WHO ICTRP"
+    },
+    "BGD": {
+      "total": 34,
+      "active": 9,
+      "phases": {
+        "PHASE1": 3,
+        "PHASE2": 12,
+        "PHASE3": 16,
+        "PHASE4": 2,
+        "NA": 1
+      },
+      "source": "Bangladesh Medical Research Council (BMRC) + WHO ICTRP"
+    },
+    "IRN": {
+      "total": 387,
+      "active": 112,
+      "phases": {
+        "PHASE1": 52,
+        "PHASE2": 147,
+        "PHASE3": 163,
+        "PHASE4": 18,
+        "NA": 7
+      },
+      "source": "Iranian Registry of Clinical Trials (IRCT)"
+    },
+    "TUR": {
+      "total": 312,
+      "active": 89,
+      "phases": {
+        "PHASE1": 41,
+        "PHASE2": 98,
+        "PHASE3": 142,
+        "PHASE4": 22,
+        "NA": 9
+      },
+      "source": "Turkey Ministry of Health Clinical Trials Registry"
+    },
+    "CZE": {
+      "total": 203,
+      "active": 67,
+      "phases": {
+        "PHASE1": 28,
+        "PHASE2": 74,
+        "PHASE3": 89,
+        "PHASE4": 9,
+        "NA": 3
+      },
+      "source": "SUKL (State Institute for Drug Control) Czech Republic + EudraCT"
     }
   }
 }
