@@ -815,6 +815,15 @@ const CLINIC_COLORS = {
     controversial: "#f74f4f"
 };
 
+
+// ── Localized clinic name ────────────────────────────────────────────────────
+function getClinicName(clinic) {
+    if (currentLang === "ru" && clinic.name_ru) return clinic.name_ru;
+    if (currentLang === "zh" && clinic.name_zh) return clinic.name_zh;
+    if (currentLang === "ar" && clinic.name_ar) return clinic.name_ar;
+    return clinic.name;
+}
+
 function clinicColor(c) {
     if (c.type === "standard") return CLINIC_COLORS.standard;
     return CLINIC_COLORS[c.category] || CLINIC_COLORS.alternative;
@@ -981,7 +990,7 @@ function showClinicTooltip(clinic, cx, cy) {
     const typeTag = clinic.type === "standard" ? "standard" : (clinic.category || clinic.tier);
     const col = clinicColor(clinic);
     clinicTooltipEl.innerHTML = `
-        <div class="ct-name">${clinic.name}</div>
+        <div class="ct-name">${getClinicName(clinic)}</div>
         <div class="ct-city">${clinic.city}, ${clinic.country}</div>
         <span class="ct-tag ${clinic.type}" style="background:${col}18;color:${col};border-color:${col}44">${clinic.type === "standard" ? "Standard" : (clinic.category||clinic.tier)}</span>
         ${clinic.medical_tourism ? `<span class="ct-tag tourism">✈ ${t("clinic_medical_tourism","Medical tourism")}</span>` : ""}
@@ -1007,7 +1016,7 @@ function showClinicPanel(clinic) {
     document.getElementById("panel-content").innerHTML = `
         <div style="padding:20px 20px 0">
             <div style="font-size:10px;color:#334;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:6px">${t("clinic_panel_label","Cancer Clinic")}</div>
-            <h2 style="font-size:17px;font-weight:700;color:#dde;margin-bottom:4px">${clinic.name}</h2>
+            <h2 style="font-size:17px;font-weight:700;color:#dde;margin-bottom:4px">${getClinicName(clinic)}</h2>
             <div style="font-size:12px;color:#667;margin-bottom:12px">${clinic.city}, ${clinic.country}</div>
             <span style="background:${col}18;color:${col};border:1px solid ${col}44;border-radius:99px;padding:2px 10px;font-size:10px;font-weight:600">
                 ${clinic.type === "standard" ? "✅ " + t("clinic_standard_medicine","Standard medicine") : "⚗ " + (clinic.category||clinic.tier)}

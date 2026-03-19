@@ -263,7 +263,8 @@
         "immunotherapy",
         "proton therapy"
       ],
-      "medical_tourism": false
+      "medical_tourism": false,
+      "name_ru": "Онкологический центр Клиники Мэйо"
     },
     {
       "id": "md_anderson",
@@ -293,7 +294,8 @@
         "proton therapy",
         "CAR-T"
       ],
-      "medical_tourism": false
+      "medical_tourism": false,
+      "name_ru": "Онкологический центр Андерсона (MD Anderson)"
     },
     {
       "id": "memorial_sloan",
@@ -323,7 +325,8 @@
         "CAR-T",
         "proton therapy"
       ],
-      "medical_tourism": false
+      "medical_tourism": false,
+      "name_ru": "Мемориальный онкологический центр Слоан-Кеттеринг"
     },
     {
       "id": "dana_farber",
@@ -352,7 +355,8 @@
         "CAR-T",
         "stem cell transplant"
       ],
-      "medical_tourism": false
+      "medical_tourism": false,
+      "name_ru": "Онкологический институт Дана-Фарбер"
     },
     {
       "id": "johns_hopkins_onc",
@@ -380,7 +384,8 @@
         "radiation",
         "immunotherapy"
       ],
-      "medical_tourism": false
+      "medical_tourism": false,
+      "name_ru": "Онкологический центр Сидни Киммель (Джонс Хопкинс)"
     },
     {
       "id": "stanford_cancer",
@@ -409,7 +414,8 @@
         "immunotherapy",
         "CAR-T"
       ],
-      "medical_tourism": false
+      "medical_tourism": false,
+      "name_ru": "Онкологический институт Стэнфорда"
     },
     {
       "id": "cleveland_clinic_onc",
@@ -437,7 +443,8 @@
         "immunotherapy",
         "proton therapy"
       ],
-      "medical_tourism": false
+      "medical_tourism": false,
+      "name_ru": "Онкологический институт Тауссиг (Кливлендская клиника)"
     },
     {
       "id": "city_of_hope",
@@ -466,7 +473,8 @@
         "CAR-T",
         "stem cell transplant"
       ],
-      "medical_tourism": false
+      "medical_tourism": false,
+      "name_ru": "Национальный медицинский центр Город Надежды"
     },
     {
       "id": "charite",
@@ -495,7 +503,8 @@
         "immunotherapy",
         "CAR-T"
       ],
-      "medical_tourism": true
+      "medical_tourism": true,
+      "name_ru": "Комплексный онкологический центр Шарите (Берлин)"
     },
     {
       "id": "gustave_roussy",
@@ -524,7 +533,8 @@
         "immunotherapy",
         "proton therapy"
       ],
-      "medical_tourism": true
+      "medical_tourism": true,
+      "name_ru": "Онкологический кампус Гюстав Русси"
     },
     {
       "id": "christie",
@@ -552,7 +562,8 @@
         "immunotherapy",
         "proton therapy"
       ],
-      "medical_tourism": false
+      "medical_tourism": false,
+      "name_ru": "Онкологический фонд NHS Christie (Манчестер)"
     },
     {
       "id": "nki_avl",
@@ -579,7 +590,8 @@
         "radiation",
         "immunotherapy"
       ],
-      "medical_tourism": false
+      "medical_tourism": false,
+      "name_ru": "Нидерландский институт рака (NKI-AVL)"
     },
     {
       "id": "ieo",
@@ -609,7 +621,8 @@
         "radiation",
         "immunotherapy"
       ],
-      "medical_tourism": true
+      "medical_tourism": true,
+      "name_ru": "Европейский онкологический институт (IEO, Милан)"
     },
     {
       "id": "karolinska_onc",
@@ -637,7 +650,8 @@
         "immunotherapy",
         "proton therapy"
       ],
-      "medical_tourism": false
+      "medical_tourism": false,
+      "name_ru": "Онкологический центр Каролинска (Стокгольм)"
     },
     {
       "id": "heidelberg_cancer",
@@ -665,7 +679,8 @@
         "immunotherapy",
         "proton therapy"
       ],
-      "medical_tourism": true
+      "medical_tourism": true,
+      "name_ru": "Национальный онкологический центр (NCT) Гейдельберг"
     },
     {
       "id": "sheba",
@@ -694,7 +709,8 @@
         "CAR-T",
         "proton therapy"
       ],
-      "medical_tourism": true
+      "medical_tourism": true,
+      "name_ru": "Онкологический центр медицинского центра Шиба"
     },
     {
       "id": "hadassah",
@@ -722,7 +738,8 @@
         "immunotherapy",
         "stem cell transplant"
       ],
-      "medical_tourism": true
+      "medical_tourism": true,
+      "name_ru": "Онкологический центр больницы Хадасса (Иерусалим)"
     },
     {
       "id": "acibadem_cancer",
@@ -748,7 +765,8 @@
         "immunotherapy",
         "proton therapy"
       ],
-      "medical_tourism": true
+      "medical_tourism": true,
+      "name_ru": "Онкологический центр Аджибадем"
     },
     {
       "id": "memorial_istanbul",
@@ -773,7 +791,8 @@
         "radiation",
         "immunotherapy"
       ],
-      "medical_tourism": true
+      "medical_tourism": true,
+      "name_ru": "Онкологический центр больницы Мемориал (Стамбул)"
     },
     {
       "id": "ncc_japan",
@@ -801,7 +820,8 @@
         "immunotherapy",
         "proton therapy"
       ],
-      "medical_tourism": false
+      "medical_tourism": false,
+      "name_ru": "Национальный онкологический центр (Япония)"
     },
     {
       "id": "asan_cancer",
@@ -829,7 +849,8 @@
         "immunotherapy",
         "proton therapy"
       ],
-      "medical_tourism": true
+      "medical_tourism": true,
+      "name_ru": "Онкологический институт Асан Медикал Центр (Сеул)"
     },
     {
       "id": "bumrungrad",
@@ -855,7 +876,8 @@
         "radiation",
         "immunotherapy"
       ],
-      "medical_tourism": true
+      "medical_tourism": true,
+      "name_ru": "Онкологический центр больницы Бумрунград (Бангкок)"
     },
     {
       "id": "singapore_cancer",
@@ -882,7 +904,8 @@
         "immunotherapy",
         "proton therapy"
       ],
-      "medical_tourism": true
+      "medical_tourism": true,
+      "name_ru": "Национальный онкологический центр Сингапура"
     },
     {
       "id": "apollo_cancer",
@@ -910,7 +933,8 @@
         "immunotherapy",
         "proton therapy"
       ],
-      "medical_tourism": true
+      "medical_tourism": true,
+      "name_ru": "Онкологические центры Аполло (Индия)"
     },
     {
       "id": "blokhin",
@@ -934,7 +958,8 @@
         "radiation",
         "immunotherapy"
       ],
-      "medical_tourism": false
+      "medical_tourism": false,
+      "name_ru": "НМИЦ онкологии им. Н.Н. Блохина (Москва)"
     },
     {
       "id": "hertzen",
@@ -958,7 +983,8 @@
         "chemo",
         "radiation"
       ],
-      "medical_tourism": false
+      "medical_tourism": false,
+      "name_ru": "Московский онкологический институт им. П.А. Герцена"
     },
     {
       "id": "inca_brazil",
@@ -982,7 +1008,8 @@
         "radiation",
         "immunotherapy"
       ],
-      "medical_tourism": false
+      "medical_tourism": false,
+      "name_ru": "Национальный институт рака Бразилии (INCA)"
     },
     {
       "id": "peter_mac",
@@ -1009,7 +1036,8 @@
         "immunotherapy",
         "proton therapy"
       ],
-      "medical_tourism": false
+      "medical_tourism": false,
+      "name_ru": "Онкологический центр Питера Маккаллума (Мельбурн)"
     },
     {
       "id": "pm_toronto",
@@ -1037,7 +1065,8 @@
         "immunotherapy",
         "proton therapy"
       ],
-      "medical_tourism": false
+      "medical_tourism": false,
+      "name_ru": "Онкологический центр принцессы Маргарет (Торонто)"
     },
     {
       "id": "hufeland",
@@ -1063,7 +1092,8 @@
         "high-dose vitamin C",
         "detox"
       ],
-      "description": "Integrative oncology, mistletoe therapy pioneer"
+      "description": "Integrative oncology, mistletoe therapy pioneer",
+      "name_ru": "Клиника Хуфеланд (Германия)"
     },
     {
       "id": "st_georg",
@@ -1089,7 +1119,8 @@
         "mistletoe",
         "ozone"
       ],
-      "description": "Known for hyperthermia and IPT protocols"
+      "description": "Known for hyperthermia and IPT protocols",
+      "name_ru": "Клиника Санкт-Георг (Германия)"
     },
     {
       "id": "hallwang",
@@ -1114,7 +1145,8 @@
         "peptide vaccines",
         "NK cell therapy"
       ],
-      "description": "Expensive experimental immunotherapy, off-label protocols"
+      "description": "Expensive experimental immunotherapy, off-label protocols",
+      "name_ru": "Частная онкологическая клиника Халльванг"
     },
     {
       "id": "oasis_hope",
@@ -1140,7 +1172,8 @@
         "antineoplastons",
         "coffee enemas"
       ],
-      "description": "60+ years alternative cancer treatment, US patients"
+      "description": "60+ years alternative cancer treatment, US patients",
+      "name_ru": "Больница Оазис Надежды (Тихуана)"
     },
     {
       "id": "hospital_angeles_tj",
@@ -1165,7 +1198,8 @@
         "coffee enemas",
         "stem cells"
       ],
-      "description": "Popular US border clinic for alternative cancer treatment"
+      "description": "Popular US border clinic for alternative cancer treatment",
+      "name_ru": "Больница Анхелес Тихуана"
     },
     {
       "id": "paracelsus",
@@ -1191,7 +1225,8 @@
         "detox",
         "diet therapy"
       ],
-      "description": "Swiss biological medicine clinic"
+      "description": "Swiss biological medicine clinic",
+      "name_ru": "Клиника Парацельс"
     },
     {
       "id": "klinik_arlesheim",
@@ -1216,7 +1251,8 @@
         "eurythmy therapy",
         "art therapy"
       ],
-      "description": "Anthroposophic medicine center, Iscador research"
+      "description": "Anthroposophic medicine center, Iscador research",
+      "name_ru": "Клиника Арлесхайм (Швейцария)"
     },
     {
       "id": "saisei_mirai",
@@ -1241,7 +1277,8 @@
         "gamma-delta T-cell therapy",
         "peptide vaccines"
       ],
-      "description": "Advanced immunotherapy, popular with international patients"
+      "description": "Advanced immunotherapy, popular with international patients",
+      "name_ru": "Клиника клеточной терапии Saisei Mirai (Япония)"
     },
     {
       "id": "burzynski",
@@ -1264,7 +1301,8 @@
         "gene-targeted therapy",
         "personalized targeted therapy"
       ],
-      "description": "Controversial antineoplaston therapy (not FDA-approved), brain tumor focus"
+      "description": "Controversial antineoplaston therapy (not FDA-approved), brain tumor focus",
+      "name_ru": "Клиника Бужинского (Хьюстон)"
     },
     {
       "id": "block_center",
@@ -1289,7 +1327,8 @@
         "mind-body medicine",
         "supplement protocols"
       ],
-      "description": "Evidence-based integrative oncology alongside conventional treatment"
+      "description": "Evidence-based integrative oncology alongside conventional treatment",
+      "name_ru": "Центр интегративного лечения рака Block"
     },
     {
       "id": "genesis_athens",
@@ -1314,7 +1353,8 @@
         "NK cells",
         "gamma delta T-cells"
       ],
-      "description": "Experimental immunotherapy clinic, European patients"
+      "description": "Experimental immunotherapy clinic, European patients",
+      "name_ru": "Клиника Genesis (Афины)"
     },
     {
       "id": "infusio",
@@ -1340,7 +1380,8 @@
         "ozone",
         "high-dose vitamin C"
       ],
-      "description": "Stem cell and regenerative medicine"
+      "description": "Stem cell and regenerative medicine",
+      "name_ru": "Клиника Infusio (Франкфурт)"
     },
     {
       "id": "mdanderson",
@@ -1363,7 +1404,8 @@
         "Proton therapy",
         "CAR-T"
       ],
-      "newsweek_rank": 1
+      "newsweek_rank": 1,
+      "name_ru": "Онкологический центр Андерсона (MD Anderson)"
     },
     {
       "id": "moffitt",
@@ -1383,7 +1425,8 @@
         "CAR-T",
         "Proton therapy"
       ],
-      "newsweek_rank": 4
+      "newsweek_rank": 4,
+      "name_ru": "Онкологический центр Моффитт"
     },
     {
       "id": "johns_hopkins_onco",
@@ -1403,7 +1446,8 @@
         "Radiation",
         "Immunotherapy",
         "Genomic profiling"
-      ]
+      ],
+      "name_ru": "Онкологический центр Сидни Киммель (Джонс Хопкинс)"
     },
     {
       "id": "ucsf_cancer",
@@ -1422,7 +1466,8 @@
         "Surgery",
         "Precision oncology",
         "Clinical trials"
-      ]
+      ],
+      "name_ru": "Онкологический центр UCSF (семьи Хелен Диллер)"
     },
     {
       "id": "cleveland_cancer",
@@ -1442,7 +1487,8 @@
         "Surgery",
         "Radiation",
         "Immunotherapy"
-      ]
+      ],
+      "name_ru": "Онкологический институт Тауссиг (Кливлендская клиника)"
     },
     {
       "id": "institut_curie",
@@ -1463,7 +1509,8 @@
         "Surgery",
         "Immunotherapy",
         "Clinical trials"
-      ]
+      ],
+      "name_ru": "Институт Кюри (Париж)"
     },
     {
       "id": "netherlands_cancer",
@@ -1483,7 +1530,8 @@
         "Surgery",
         "Immunotherapy",
         "Targeted therapy"
-      ]
+      ],
+      "name_ru": "Нидерландский институт рака (NKI-AVL)"
     },
     {
       "id": "royal_marsden",
@@ -1503,7 +1551,8 @@
         "All cancers",
         "Drug trials",
         "Precision medicine"
-      ]
+      ],
+      "name_ru": "Фонд Royal Marsden NHS"
     },
     {
       "id": "charite_cancer",
@@ -1523,7 +1572,8 @@
         "All major cancers",
         "Proton therapy",
         "CAR-T"
-      ]
+      ],
+      "name_ru": "Комплексный онкологический центр Шарите (Берлин)"
     },
     {
       "id": "ieo_milan",
@@ -1544,7 +1594,8 @@
         "GI",
         "Urological cancers",
         "Robotic surgery"
-      ]
+      ],
+      "name_ru": "Европейский онкологический институт (IEO, Милан)"
     },
     {
       "id": "int_milan",
@@ -1564,7 +1615,8 @@
         "Surgery",
         "Oncology",
         "Research"
-      ]
+      ],
+      "name_ru": "Национальный институт опухолей (Милан)"
     },
     {
       "id": "vall_hebron",
@@ -1583,7 +1635,8 @@
         "Precision oncology",
         "Clinical trials",
         "Immunotherapy"
-      ]
+      ],
+      "name_ru": "Онкологический институт Валь д'Эброн (VHIO, Барселона)"
     },
     {
       "id": "cnio_madrid",
@@ -1601,7 +1654,8 @@
       "treatments": [
         "Research",
         "Molecular oncology"
-      ]
+      ],
+      "name_ru": "Национальный центр онкологических исследований (CNIO, Мадрид)"
     },
     {
       "id": "karolinska_onco",
@@ -1621,7 +1675,8 @@
         "All cancers",
         "Proton therapy",
         "CAR-T"
-      ]
+      ],
+      "name_ru": "Комплексный онкологический центр Каролинска"
     },
     {
       "id": "oncocentre_zurich",
@@ -1641,7 +1696,8 @@
         "All major cancers",
         "Clinical trials",
         "Molecular tumor board"
-      ]
+      ],
+      "name_ru": "Комплексный онкологический центр Цюриха"
     },
     {
       "id": "ncc_tokyo",
@@ -1661,7 +1717,8 @@
         "Robotic surgery",
         "Proton therapy",
         "Immunotherapy"
-      ]
+      ],
+      "name_ru": "Национальный онкологический центр (Токио)"
     },
     {
       "id": "ncc_east_japan",
@@ -1680,7 +1737,8 @@
         "Proton therapy",
         "Endoscopy",
         "Clinical trials"
-      ]
+      ],
+      "name_ru": "Национальный онкологический центр Восток (Кашива)"
     },
     {
       "id": "samsung_cancer",
@@ -1699,7 +1757,8 @@
         "Proton therapy",
         "Robotic surgery",
         "CAR-T"
-      ]
+      ],
+      "name_ru": "Онкологический центр Samsung Medical Center (Сеул)"
     },
     {
       "id": "snuh_cancer",
@@ -1717,7 +1776,8 @@
       "treatments": [
         "All major cancers",
         "Precision medicine"
-      ]
+      ],
+      "name_ru": "Онкологический центр Сеульского национального университета"
     },
     {
       "id": "prince_wales_cancer",
@@ -1736,7 +1796,8 @@
         "Haematology",
         "Radiation",
         "Immunotherapy"
-      ]
+      ],
+      "name_ru": "Онкологический центр больницы принца Уэльского (Сидней)"
     },
     {
       "id": "princess_margaret",
@@ -1756,7 +1817,8 @@
         "Bone marrow transplant",
         "CAR-T",
         "Proton therapy"
-      ]
+      ],
+      "name_ru": "Онкологический центр принцессы Маргарет (Торонто)"
     },
     {
       "id": "bc_cancer",
@@ -1775,7 +1837,8 @@
         "All cancers",
         "Clinical trials",
         "Immunotherapy"
-      ]
+      ],
+      "name_ru": "Онкологический центр Британской Колумбии (Ванкувер)"
     },
     {
       "id": "sheba_cancer",
@@ -1795,7 +1858,8 @@
         "CAR-T",
         "Bone marrow transplant",
         "Immunotherapy"
-      ]
+      ],
+      "name_ru": "Онкологический центр медицинского центра Шиба"
     },
     {
       "id": "hadassah_cancer",
@@ -1814,7 +1878,8 @@
         "Haematology",
         "Bone marrow transplant",
         "GI oncology"
-      ]
+      ],
+      "name_ru": "Онкологический центр больницы Хадасса (Иерусалим)"
     },
     {
       "id": "tata_memorial",
@@ -1833,7 +1898,8 @@
         "All cancers",
         "Affordable care",
         "Regional cancer centers"
-      ]
+      ],
+      "name_ru": "Мемориальный центр Тата (Мумбаи)"
     },
     {
       "id": "aiims_cancer",
@@ -1852,7 +1918,8 @@
         "Surgery",
         "Radiation",
         "Chemotherapy"
-      ]
+      ],
+      "name_ru": "Онкологический институт AIIMS (Нью-Дели)"
     },
     {
       "id": "nmc_singapore",
@@ -1872,7 +1939,8 @@
         "All cancers",
         "Proton therapy",
         "Clinical trials"
-      ]
+      ],
+      "name_ru": "Национальный онкологический центр Сингапура"
     },
     {
       "id": "hk_cancer",
@@ -1892,7 +1960,8 @@
         "Liver",
         "Breast",
         "Clinical trials"
-      ]
+      ],
+      "name_ru": "Онкологический институт Гонконга"
     },
     {
       "id": "fudan_cancer",
@@ -1912,7 +1981,8 @@
         "GI",
         "Lung",
         "Liver cancers"
-      ]
+      ],
+      "name_ru": "Шанхайский онкологический центр (Фуданьский университет)"
     },
     {
       "id": "sun_yat_sen_cancer",
@@ -1931,7 +2001,8 @@
         "Nasopharyngeal",
         "Liver",
         "Colorectal"
-      ]
+      ],
+      "name_ru": "Онкологический центр Университета Сунь Ятсена (Гуанчжоу)"
     },
     {
       "id": "peking_cancer",
@@ -1951,7 +2022,8 @@
         "Gastric",
         "Liver",
         "Breast cancers"
-      ]
+      ],
+      "name_ru": "Онкологическая больница Пекинского университета"
     },
     {
       "id": "clearchoice_brazil",
@@ -1970,7 +2042,8 @@
       "treatments": [
         "All cancers",
         "Clinical trials"
-      ]
+      ],
+      "name_ru": "Онкологический центр A.C. Камарго (Сан-Паулу)"
     },
     {
       "id": "hospital_israelita",
@@ -1989,7 +2062,8 @@
         "All cancers",
         "CAR-T",
         "Robotic surgery"
-      ]
+      ],
+      "name_ru": "Онкология больницы Альберт Эйнштейн (Сан-Паулу)"
     },
     {
       "id": "uzleuven_cancer",
@@ -2010,7 +2084,8 @@
         "Breast",
         "GI",
         "Clinical trials"
-      ]
+      ],
+      "name_ru": "Онкологический центр UZ Leuven (Левен)"
     },
     {
       "id": "med_univ_vienna_cancer",
@@ -2029,7 +2104,8 @@
       "treatments": [
         "All cancers",
         "Bone marrow transplant"
-      ]
+      ],
+      "name_ru": "Комплексный онкологический центр MedUni Vienna / AKH"
     },
     {
       "id": "rigshospitalet_cancer",
@@ -2049,7 +2125,8 @@
         "Hematology",
         "Proton therapy",
         "Clinical trials"
-      ]
+      ],
+      "name_ru": "Центр рака и органных болезней Ригшоспиталет (Копенгаген)"
     },
     {
       "id": "maria_sklodowska_onco",
@@ -2068,7 +2145,8 @@
         "All cancers",
         "Clinical trials",
         "Radiation therapy"
-      ]
+      ],
+      "name_ru": "Национальный онкологический институт им. Склодовской-Кюри (Варшава)"
     },
     {
       "id": "masaryk_cancer",
@@ -2088,7 +2166,8 @@
         "All cancers",
         "PET/CT",
         "Robotic surgery"
-      ]
+      ],
+      "name_ru": "Онкологический институт им. Масарика (Брно)"
     },
     {
       "id": "groote_cancer",
@@ -2107,7 +2186,8 @@
         "Surgery",
         "Chemotherapy",
         "Radiation"
-      ]
+      ],
+      "name_ru": "Онкологический центр больницы Грут Схюр (Кейптаун)"
     },
     {
       "id": "nci_egypt",
@@ -2125,7 +2205,8 @@
       "treatments": [
         "All cancers",
         "Regional referral center"
-      ]
+      ],
+      "name_ru": "Национальный институт рака Каирского университета"
     },
     {
       "id": "alemana_chile_cancer",
@@ -2144,7 +2225,8 @@
         "All cancers",
         "Robotic surgery",
         "PET/CT"
-      ]
+      ],
+      "name_ru": "Онкологический центр Немецкой клиники (Сантьяго)"
     },
     {
       "id": "fundacion_cancer_arg",
@@ -2164,7 +2246,8 @@
         "GI",
         "Lung",
         "Clinical trials"
-      ]
+      ],
+      "name_ru": "Институт Александра Флеминга (Буэнос-Айрес)"
     },
     {
       "id": "king_faisal_cancer",
@@ -2183,7 +2266,8 @@
         "All cancers",
         "Bone marrow transplant",
         "Proton therapy"
-      ]
+      ],
+      "name_ru": "Онкологический центр Специализированной больницы короля Фейсала"
     },
     {
       "id": "shaukat_cancer_pak",
@@ -2202,7 +2286,8 @@
         "All cancers",
         "Affordable care",
         "Clinical trials"
-      ]
+      ],
+      "name_ru": "Онкологический центр им. Шауката Ханума (Лахор)"
     },
     {
       "id": "dharmais_cancer",
@@ -2220,7 +2305,8 @@
       "treatments": [
         "All cancers",
         "National referral center"
-      ]
+      ],
+      "name_ru": "Онкологическая больница Дхармаис (Джакарта)"
     },
     {
       "id": "k108_vietnam",
@@ -2238,7 +2324,8 @@
       "treatments": [
         "All cancers",
         "National referral center"
-      ]
+      ],
+      "name_ru": "Национальная онкологическая больница K (Ханой)"
     },
     {
       "id": "inco_colombia",
@@ -2256,7 +2343,8 @@
       "treatments": [
         "All cancers",
         "Public oncology referral"
-      ]
+      ],
+      "name_ru": "Национальный онкологический институт Колумбии (Богота)"
     },
     {
       "id": "inen_peru",
@@ -2274,7 +2362,8 @@
       "treatments": [
         "All cancers",
         "National referral center"
-      ]
+      ],
+      "name_ru": "Национальный институт онкологических болезней (INEN, Лима)"
     },
     {
       "id": "ipo_porto",
@@ -2293,7 +2382,8 @@
       "treatments": [
         "All cancers",
         "Bone marrow transplant"
-      ]
+      ],
+      "name_ru": "Португальский онкологический институт IPO Порту"
     },
     {
       "id": "hus_cancer_finland",
@@ -2312,7 +2402,8 @@
       "treatments": [
         "All cancers",
         "Nordic cooperation trials"
-      ]
+      ],
+      "name_ru": "Онкологический центр Хельсинкского университета"
     },
     {
       "id": "ous_cancer_norway",
@@ -2332,7 +2423,8 @@
         "All cancers",
         "Research",
         "Clinical trials"
-      ]
+      ],
+      "name_ru": "Онкологический центр Университетской больницы Осло"
     },
     {
       "id": "russe_blokhin",
@@ -2351,7 +2443,8 @@
         "All cancers",
         "Bone marrow transplant",
         "Pediatric oncology"
-      ]
+      ],
+      "name_ru": "НМИЦ онкологии им. Н.Н. Блохина (Москва)"
     },
     {
       "id": "nci_ukraine",
@@ -2369,7 +2462,8 @@
       "treatments": [
         "All cancers",
         "Bone marrow transplant"
-      ]
+      ],
+      "name_ru": "Национальный институт рака Украины (Киев)"
     },
     {
       "id": "tarbiat_cancer",
@@ -2387,7 +2481,8 @@
       "treatments": [
         "All cancers",
         "Bone marrow transplant"
-      ]
+      ],
+      "name_ru": "Онкологический институт больницы Шариати (Тегеран)"
     },
     {
       "id": "bumrungrad_cancer",
@@ -2406,7 +2501,8 @@
         "All cancers",
         "Proton therapy",
         "Medical tourism"
-      ]
+      ],
+      "name_ru": "Онкологический центр больницы Бумрунград (Бангкок)"
     },
     {
       "id": "cancer_istanbul",
@@ -2425,7 +2521,8 @@
         "All cancers",
         "Proton therapy",
         "Robotic surgery"
-      ]
+      ],
+      "name_ru": "Онкология группы Аджибадем (Стамбул)"
     },
     {
       "id": "ijcc_malaysia",
@@ -2443,7 +2540,8 @@
       "treatments": [
         "All cancers",
         "Medical tourism"
-      ]
+      ],
+      "name_ru": "Онкологический центр Айлэнд Хоспитал (Пинанг)"
     },
     {
       "id": "pgh_cancer_ph",
@@ -2461,7 +2559,8 @@
       "treatments": [
         "All cancers",
         "Affordable public care"
-      ]
+      ],
+      "name_ru": "Онкологический институт Philippine General Hospital (Манила)"
     },
     {
       "id": "luth_cancer_nigeria",
@@ -2480,7 +2579,8 @@
         "Surgery",
         "Chemotherapy",
         "Radiation"
-      ]
+      ],
+      "name_ru": "Онкологический центр Лагосского университета"
     },
     {
       "id": "knh_cancer_kenya",
@@ -2499,7 +2599,8 @@
         "Surgery",
         "Chemotherapy",
         "Radiation"
-      ]
+      ],
+      "name_ru": "Онкологический центр Национальной больницы Кениятта (Найроби)"
     },
     {
       "id": "nicrh_bangladesh",
@@ -2517,7 +2618,8 @@
       "treatments": [
         "All cancers",
         "Public referral center"
-      ]
+      ],
+      "name_ru": "Национальный институт онкологических исследований (Дакка)"
     },
     {
       "id": "incan_mexico",
@@ -2535,7 +2637,8 @@
       "treatments": [
         "All cancers",
         "Affordable public care"
-      ]
+      ],
+      "name_ru": "Национальный онкологический институт Мексики (INCan)"
     }
   ]
 }
