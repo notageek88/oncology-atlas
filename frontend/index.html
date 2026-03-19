@@ -84,6 +84,16 @@
         .bar-track { background: #0f1220; border-radius: 3px; height: 7px; overflow: hidden; }
         .bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
 
+        /* Sparkline */
+        .sparkline-row { margin: 10px 0; }
+        .sparkline-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+        .sparkline-label { font-size: 11px; color: #778; }
+        .sparkline-val { font-size: 12px; font-weight: 700; color: #4f8ef7; }
+        .sparkline-delta { font-size: 10px; margin-left: 5px; }
+        .sparkline-delta.up { color: #e05c5c; }
+        .sparkline-delta.down { color: #2db565; }
+        .sparkline-svg { display: block; overflow: visible; }
+
         /* Bool pills in panel */
         .pill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .pill { padding: 8px 10px; border-radius: 7px; font-size: 11px; display: flex; align-items: center; gap: 6px; }
@@ -256,11 +266,11 @@ const INFRA_LABELS = { cancer_surgery:"Cancer Surgery", cancer_registry:"Cancer 
 
 // ── State ──────────────────────────────────────────────────────────────────
 let dataByNumId = {}, allData = [];
-let worldData = null;
+let worldData = null, trendsData = {};
 let currentMetric = "death_cancer_all";
 let selectedEl = null;
 let compareMode = false;
-let compareList = []; // max 3 countries
+let compareList = [];
 let svg, g, pathGen, projection;
 
 // ── Helpers ────────────────────────────────────────────────────────────────
@@ -368,6 +378,10 @@ function openProfile(data, name) {
                 <h3>Cancer mortality (death / 100k)</h3>
                 ${deathRows.length ? barsHtml(deathRows) : '<div style="color:#334;font-size:11px">No data</div>'}
             </div>
+            <div class="panel-section" id="trend-section">
+                <h3>Trends over time</h3>
+                <div id="trend-charts"><div style="color:#334;font-size:11px">Loading...</div></div>
+            </div>
             <div class="panel-section">
                 <h3>Disease burden — DALYs / 100k</h3>
                 ${dalyrRows.length ? barsHtml(dalyrRows) : '<div style="color:#334;font-size:11px">No data</div>'}
@@ -376,6 +390,9 @@ function openProfile(data, name) {
                 <h3>Healthcare infrastructure</h3>
                 <div class="pill-grid">${pillsHtml}</div>
             </div>`;
+
+        // Render sparklines async
+        renderSparklines(data.country);
     }
 
     document.getElementById("side-panel").classList.add("open");
@@ -468,6 +485,83 @@ function updateMap() {
         .attr("fill", d => getColor(dataByNumId[+d.id], currentMetric));
 }
 
+// ── Sparklines ─────────────────────────────────────────────────────────────
+const TREND_LABELS = {
+    death_cancer_all: "All cancers mortality",
+    death_breast:     "Breast cancer mortality",
+    death_colon:      "Colorectal mortality",
+    death_liver:      "Liver cancer mortality",
+    death_mouth:      "Mouth cancer mortality",
+};
+const TREND_COLORS = {
+    death_cancer_all: "#4f8ef7",
+    death_breast:     "#7eb8f7",
+    death_colon:      "#5b9ef0",
+    death_liver:      "#3a80e0",
+    death_mouth:      "#9b7de8",
+};
+
+function renderSparklines(iso3) {
+    const container = document.getElementById("trend-charts");
+    if (!container) return;
+    const ctry = trendsData[iso3];
+    if (!ctry) { container.innerHTML = '<div style="color:#334;font-size:11px">No trend data available</div>'; return; }
+
+    const W = 300, H = 52;
+    let html = "";
+
+    for (const [key, label] of Object.entries(TREND_LABELS)) {
+        const series = ctry[key];
+        if (!series || series.length < 2) continue;
+
+        const color = TREND_COLORS[key] || "#4f8ef7";
+        const xs = series.map(d => d[0]);
+        const ys = series.map(d => d[1]);
+        const xMin = Math.min(...xs), xMax = Math.max(...xs);
+        const yMin = Math.min(...ys) * 0.92, yMax = Math.max(...ys) * 1.08;
+
+        const xScale = v => ((v - xMin) / (xMax - xMin || 1)) * (W - 20) + 10;
+        const yScale = v => H - ((v - yMin) / (yMax - yMin || 1)) * (H - 8) - 4;
+
+        const points = series.map(d => `${xScale(d[0]).toFixed(1)},${yScale(d[1]).toFixed(1)}`).join(" ");
+        const areaPoints = `10,${H} ` + points + ` ${xScale(xMax).toFixed(1)},${H}`;
+
+        const first = ys[0], last = ys[ys.length - 1];
+        const delta = ((last - first) / first * 100).toFixed(1);
+        const deltaSign = delta > 0 ? "+" : "";
+        const deltaCls = delta > 0 ? "up" : "down";
+
+        // Year labels
+        const yearLabels = xMin === xMax ? `<text x="10" y="${H+10}" fill="#334" font-size="9">${xMin}</text>` :
+            `<text x="10" y="${H+10}" fill="#334" font-size="9">${xMin}</text>
+             <text x="${W-10}" y="${H+10}" fill="#334" font-size="9" text-anchor="end">${xMax}</text>`;
+
+        html += `<div class="sparkline-row">
+            <div class="sparkline-header">
+                <span class="sparkline-label">${label}</span>
+                <span>
+                    <span class="sparkline-val">${last.toFixed(1)}</span>
+                    <span class="sparkline-delta ${deltaCls}">${deltaSign}${delta}%</span>
+                </span>
+            </div>
+            <svg class="sparkline-svg" width="${W}" height="${H+14}" viewBox="0 0 ${W} ${H+14}">
+                <defs>
+                    <linearGradient id="sg-${key}" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="${color}" stop-opacity="0.25"/>
+                        <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+                <polygon points="${areaPoints}" fill="url(#sg-${key})"/>
+                <polyline points="${points}" fill="none" stroke="${color}" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+                <circle cx="${xScale(xMax).toFixed(1)}" cy="${yScale(last).toFixed(1)}" r="3" fill="${color}"/>
+                ${yearLabels}
+            </svg>
+        </div>`;
+    }
+
+    container.innerHTML = html || '<div style="color:#334;font-size:11px">No trend data</div>';
+}
+
 // ── Search ─────────────────────────────────────────────────────────────────
 function onSearch(q) {
     const box = document.getElementById("suggest");
@@ -518,12 +612,14 @@ function selectCountry(iso3) {
 }
 
 async function init() {
-    const [world, cancer] = await Promise.all([
+    const [world, cancer, trends] = await Promise.all([
         d3.json("data/world-110m.json"),
-        d3.json("data/countries_cancer.json")
+        d3.json("data/countries_cancer.json"),
+        d3.json("data/trends.json").catch(() => ({}))
     ]);
     worldData = world;
     allData = cancer;
+    trendsData = trends;
     cancer.forEach(c => { if (c.numeric_id) dataByNumId[c.numeric_id] = c; });
     document.getElementById("stat-n").textContent = cancer.length;
     document.getElementById("meta-countries").textContent = cancer.length + " countries";
