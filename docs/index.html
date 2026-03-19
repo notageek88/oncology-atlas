@@ -648,9 +648,11 @@ function toggleFlows() {
         d3.json("data/clinics.json").then(data => {
             clinicsData = data;
             renderFlows();
+            if (clinicsVisible) renderClinics(); // keep clinics on top
         });
     } else {
         renderFlows();
+        if (clinicsVisible) renderClinics(); // keep clinics on top
     }
 }
 
@@ -711,8 +713,8 @@ function renderFlows() {
     g.selectAll(".flow-layer").remove();
     if (!flowsVisible || !clinicsData) return;
 
-    // Insert before clinic-layer so flows are under clinic dots
-    const layer = g.insert("g", ".clinic-layer").attr("class", "flow-layer");
+    // Append flow layer (under clinic dots — append first, then clinics on top)
+    const layer = g.append("g").attr("class", "flow-layer");
     const proj = projection;
 
     const fallback = {
@@ -751,8 +753,9 @@ function renderFlows() {
             .attr("fill", "none")
             .attr("stroke", "#4fb8f7")
             .attr("stroke-width", strokeW)
-            .attr("opacity", opacity)
-            .attr("stroke-dasharray", "4 3");
+            .attr("opacity", Math.min(opacity + 0.15, 0.75))
+            .attr("stroke-dasharray", "6 4")
+            .attr("marker-end", "url(#flow-arrow)");
     });
 }
 
@@ -1213,6 +1216,18 @@ async function init() {
     svg = d3.select("#svg").attr("width", W).attr("height", H);
     projection = d3.geoNaturalEarth1().scale(W/6.3).translate([W/2, H/2+20]);
     pathGen = d3.geoPath().projection(projection);
+    // Arrow marker for flow lines
+    svg.append("defs").append("marker")
+        .attr("id", "flow-arrow")
+        .attr("viewBox", "0 -4 8 8")
+        .attr("refX", 6).attr("refY", 0)
+        .attr("markerWidth", 4).attr("markerHeight", 4)
+        .attr("orient", "auto")
+        .append("path")
+        .attr("d", "M0,-4L8,0L0,4")
+        .attr("fill", "#4fb8f7")
+        .attr("opacity", 0.6);
+
     g = svg.append("g");
 
     svg.call(d3.zoom().scaleExtent([0.7,14]).on("zoom", e => g.attr("transform", e.transform)));
