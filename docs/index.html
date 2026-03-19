@@ -504,6 +504,17 @@
     <div id="leg-body"></div>
 </div>
 
+<div id="world-stats-bar" style="position:absolute;bottom:38px;left:50%;transform:translateX(-50%);background:#0b0d18cc;border:1px solid #1a1d2e;border-radius:8px;padding:6px 14px;display:flex;gap:18px;align-items:center;pointer-events:none;backdrop-filter:blur(6px);z-index:10">
+    <span style="font-size:10px;color:#4f8ef7;font-weight:600;text-transform:uppercase;letter-spacing:.05em" data-i18n="world_avg_label">World avg</span>
+    <span id="world-mean" style="font-size:13px;font-weight:700;color:#e0e8ff">—</span>
+    <span style="color:#1a1d2e">|</span>
+    <span style="font-size:10px;color:#556" data-i18n="world_max_label">Max</span>
+    <span id="world-max" style="font-size:12px;color:#a0c4ff">—</span>
+    <span style="color:#1a1d2e">|</span>
+    <span style="font-size:10px;color:#556" data-i18n="world_countries_label">Countries</span>
+    <span id="world-n" style="font-size:12px;color:#a0c4ff">—</span>
+</div>
+
 <div id="stats">
     <b id="stat-n">—</b> countries &nbsp;·&nbsp; <b>WHO GHO</b> &nbsp;·&nbsp; <span style="color:#556" title="WHO GHO publishes with 3-4 year lag. Latest available: 2021 (NCD mortality), 2019 (cancer deaths). GLOBOCAN 2022 integration planned.">Data: 2000–2021</span> &nbsp;·&nbsp; MIT
 </div>
@@ -545,6 +556,16 @@ const METRIC_GROUPS = {
             cancer_dept: "Cancer dept (tertiary)"
         },
         type: "boolean", nodata: "#0f1220"
+    },
+    research: {
+        label: "Research Activity",
+        options: {
+            research_index: "PubMed publications 2020–2025"
+        },
+        type: "numeric",
+        domain: [100, 1000, 5000, 20000, 50000],
+        colors: ["#0d1433","#1e3a6e","#1a7a4a","#27c76e","#7fffc4"],
+        nodata: "#0f1220"
     }
 };
 
@@ -573,6 +594,7 @@ let compareList = [];
 let svg, g, pathGen, projection;
 let trialsData = null, trialsVisible = false, trialsLayerEl = null;
 let extraMetrics = {};
+let worldStatsData = {};
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 function getCat(metric) {
@@ -808,6 +830,21 @@ function updateMap() {
         .attr("fill", d => getColor(dataByNumId[d.id], currentMetric));
     calibrateRangeSlider();
     if (rangeFilterMin > 0) applyMapFilter();
+    updateWorldStatsBar(currentMetric);
+}
+
+function updateWorldStatsBar(metric) {
+    const s = worldStatsData[metric];
+    const bar = document.getElementById("world-stats-bar");
+    if (!s || !bar) { if(bar) bar.style.display="none"; return; }
+    // Hide for non-numeric metrics
+    const cat = getCat(metric);
+    if (cat === "infra" || cat === "trials" || cat === "survival") { bar.style.display="none"; return; }
+    bar.style.display = "flex";
+    const unit = (cat==="daly") ? " DALYs" : "/100k";
+    document.getElementById("world-mean").textContent = s.global_mean.toFixed(1) + unit;
+    document.getElementById("world-max").textContent = s.global_max.toFixed(1);
+    document.getElementById("world-n").textContent = s.country_count;
 }
 
 // ── Clinics & Flows layer ─────────────────────────────────────────────────
@@ -1991,14 +2028,15 @@ document.addEventListener("keydown", e => {
 
 
 async function init() {
-    const [world, cancer, trends, ncds, i18n, trialsCt, extraRaw] = await Promise.all([
+    const [world, cancer, trends, ncds, i18n, trialsCt, extraRaw, worldStats] = await Promise.all([
         d3.json("data/world-110m.json"),
         d3.json("data/countries_cancer.json"),
         d3.json("data/trends.json").catch(() => ({})),
         d3.json("data/ncd_snapshots.json").catch(() => ({})),
         d3.json("data/i18n.json").catch(() => ({"en":{}})),
         d3.json("data/clinical_trials.json").catch(() => null),
-        d3.json("data/extra_metrics.json").catch(() => ({}))
+        d3.json("data/extra_metrics.json").catch(() => ({})),
+        d3.json("data/world_stats.json").catch(() => ({}))
     ]);
     worldData = world;
     allData = cancer;
@@ -2006,6 +2044,7 @@ async function init() {
     ncdSnapshots = ncds;
     i18nData = i18n;
     trialsData = trialsCt;
+    worldStatsData = worldStats.metrics || {};
     extraMetrics = extraRaw || {};
 
     // Apply URL params
@@ -2065,6 +2104,7 @@ async function init() {
 
     buildLegend(currentMetric);
     calibrateRangeSlider();
+    updateWorldStatsBar(currentMetric);
 
     // Auto-open country from URL param
     if (params.country) {

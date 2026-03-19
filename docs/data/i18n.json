@@ -127,7 +127,10 @@
     "phase4": "Phase 4",
     "click_country_hint": "Click a country on the map",
     "range_filter_label": "Range: ≥",
-    "range_reset": "reset"
+    "range_reset": "reset",
+    "world_avg_label": "World avg",
+    "world_max_label": "Max",
+    "world_countries_label": "Countries"
   },
   "ru": {
     "title": "OncologyAtlas",
@@ -257,7 +260,10 @@
     "phase4": "Фаза 4",
     "click_country_hint": "Нажмите на страну на карте",
     "range_filter_label": "От: ≥",
-    "range_reset": "сброс"
+    "range_reset": "сброс",
+    "world_avg_label": "Мир в среднем",
+    "world_max_label": "Макс",
+    "world_countries_label": "Стран"
   },
   "zh": {
     "title": "OncologyAtlas",
@@ -387,7 +393,10 @@
     "phase4": "第四期",
     "click_country_hint": "点击地图上的国家",
     "range_filter_label": "范围: ≥",
-    "range_reset": "重置"
+    "range_reset": "重置",
+    "world_avg_label": "全球平均",
+    "world_max_label": "最大",
+    "world_countries_label": "国家"
   },
   "es": {
     "title": "OncologyAtlas",
@@ -517,7 +526,10 @@
     "phase4": "Fase 4",
     "click_country_hint": "Haz clic en un país del mapa",
     "range_filter_label": "Rango: ≥",
-    "range_reset": "reiniciar"
+    "range_reset": "reiniciar",
+    "world_avg_label": "Promedio mundial",
+    "world_max_label": "Máx",
+    "world_countries_label": "Países"
   },
   "ar": {
     "title": "OncologyAtlas",
@@ -647,7 +659,10 @@
     "phase4": "المرحلة 4",
     "click_country_hint": "انقر على دولة في الخريطة",
     "range_filter_label": "نطاق: ≥",
-    "range_reset": "إعادة"
+    "range_reset": "إعادة",
+    "world_avg_label": "المتوسط العالمي",
+    "world_max_label": "الحد الأقصى",
+    "world_countries_label": "الدول"
   },
   "hi": {
     "title": "OncologyAtlas",
@@ -777,7 +792,10 @@
     "phase4": "चरण 4",
     "click_country_hint": "मानचित्र पर एक देश पर क्लिक करें",
     "range_filter_label": "श्रेणी: ≥",
-    "range_reset": "रीसेट"
+    "range_reset": "रीसेट",
+    "world_avg_label": "विश्व औसत",
+    "world_max_label": "अधिकतम",
+    "world_countries_label": "देश"
   },
   "pt": {
     "title": "OncologyAtlas",
@@ -907,7 +925,10 @@
     "phase4": "Fase 4",
     "click_country_hint": "Clique em um país no mapa",
     "range_filter_label": "Faixa: ≥",
-    "range_reset": "redefinir"
+    "range_reset": "redefinir",
+    "world_avg_label": "Média mundial",
+    "world_max_label": "Máx",
+    "world_countries_label": "Países"
   },
   "fr": {
     "title": "OncologyAtlas",
@@ -1037,7 +1058,10 @@
     "phase4": "Phase 4",
     "click_country_hint": "Cliquez sur un pays sur la carte",
     "range_filter_label": "Plage: ≥",
-    "range_reset": "réinitialiser"
+    "range_reset": "réinitialiser",
+    "world_avg_label": "Moy. mondiale",
+    "world_max_label": "Max",
+    "world_countries_label": "Pays"
   },
   "de": {
     "title": "OncologyAtlas",
@@ -1167,7 +1191,10 @@
     "phase4": "Phase 4",
     "click_country_hint": "Klicken Sie auf ein Land auf der Karte",
     "range_filter_label": "Bereich: ≥",
-    "range_reset": "zurücksetzen"
+    "range_reset": "zurücksetzen",
+    "world_avg_label": "Weltdurchschnitt",
+    "world_max_label": "Max",
+    "world_countries_label": "Länder"
   },
   "ja": {
     "title": "OncologyAtlas",
@@ -1297,7 +1324,10 @@
     "phase4": "フェーズ4",
     "click_country_hint": "地図で国をクリックしてください",
     "range_filter_label": "範囲: ≥",
-    "range_reset": "リセット"
+    "range_reset": "リセット",
+    "world_avg_label": "世界平均",
+    "world_max_label": "最大",
+    "world_countries_label": "国"
   },
   "id": {
     "title": "OncologyAtlas",
@@ -1427,6 +1457,9 @@
     "phase4": "Fase 4",
     "click_country_hint": "Klik negara di peta",
     "range_filter_label": "Rentang: ≥",
-    "range_reset": "setel ulang"
+    "range_reset": "setel ulang",
+    "world_avg_label": "Rata-rata dunia",
+    "world_max_label": "Maks",
+    "world_countries_label": "Negara"
   }
 }
