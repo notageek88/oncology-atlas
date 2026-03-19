@@ -6,6 +6,10 @@
     <title>OncologyAtlas — Global Cancer Data</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
     <style>
+        /* Hide default Leaflet marker if accidentally instantiated */
+        .leaflet-marker-pane, .leaflet-shadow-pane { display: none !important; }
+    </style>
+    <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         .leaflet-default-icon-path { display: none !important; }
         .leaflet-marker-icon, .leaflet-marker-shadow { display: none !important; }
@@ -291,7 +295,7 @@ function updateMap() {
 // Load data
 async function init() {
     // Load WHO cancer data
-    const resp = await fetch("../data/processed/countries_cancer.json");
+    const resp = await fetch("data/countries_cancer.json");
     const arr = await resp.json();
     arr.forEach(d => { cancerData[d.country] = d; });
     document.getElementById("stat-countries").textContent = arr.length;
