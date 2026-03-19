@@ -8,8 +8,8 @@
     "Medical Tourism Index",
     "Open source research"
   ],
-  "total": 41,
-  "standard_count": 29,
+  "total": 103,
+  "standard_count": 91,
   "nonstandard_count": 12,
   "migration_flows": [
     {
@@ -1341,6 +1341,1201 @@
         "high-dose vitamin C"
       ],
       "description": "Stem cell and regenerative medicine"
+    },
+    {
+      "id": "mdanderson",
+      "name": "MD Anderson Cancer Center",
+      "city": "Houston, TX",
+      "country": "USA",
+      "iso3": "USA",
+      "lat": 29.707,
+      "lon": -95.397,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "NCI",
+        "MAGNET"
+      ],
+      "treatments": [
+        "Surgery",
+        "Radiation",
+        "Immunotherapy",
+        "Proton therapy",
+        "CAR-T"
+      ],
+      "newsweek_rank": 1
+    },
+    {
+      "id": "moffitt",
+      "name": "Moffitt Cancer Center",
+      "city": "Tampa, FL",
+      "country": "USA",
+      "iso3": "USA",
+      "lat": 28.064,
+      "lon": -82.416,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "NCI"
+      ],
+      "treatments": [
+        "Total Cancer Care",
+        "CAR-T",
+        "Proton therapy"
+      ],
+      "newsweek_rank": 4
+    },
+    {
+      "id": "johns_hopkins_onco",
+      "name": "Johns Hopkins Sidney Kimmel Cancer Center",
+      "city": "Baltimore, MD",
+      "country": "USA",
+      "iso3": "USA",
+      "lat": 39.296,
+      "lon": -76.591,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "NCI"
+      ],
+      "treatments": [
+        "Surgery",
+        "Radiation",
+        "Immunotherapy",
+        "Genomic profiling"
+      ]
+    },
+    {
+      "id": "ucsf_cancer",
+      "name": "UCSF Helen Diller Family Cancer Center",
+      "city": "San Francisco, CA",
+      "country": "USA",
+      "iso3": "USA",
+      "lat": 37.763,
+      "lon": -122.457,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "NCI"
+      ],
+      "treatments": [
+        "Surgery",
+        "Precision oncology",
+        "Clinical trials"
+      ]
+    },
+    {
+      "id": "cleveland_cancer",
+      "name": "Cleveland Clinic Taussig Cancer Institute",
+      "city": "Cleveland, OH",
+      "country": "USA",
+      "iso3": "USA",
+      "lat": 41.502,
+      "lon": -81.622,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "NCI",
+        "MAGNET"
+      ],
+      "treatments": [
+        "Surgery",
+        "Radiation",
+        "Immunotherapy"
+      ]
+    },
+    {
+      "id": "institut_curie",
+      "name": "Institut Curie",
+      "city": "Paris",
+      "country": "France",
+      "iso3": "FRA",
+      "lat": 48.845,
+      "lon": 2.341,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO",
+        "OECI"
+      ],
+      "treatments": [
+        "Proton therapy",
+        "Surgery",
+        "Immunotherapy",
+        "Clinical trials"
+      ]
+    },
+    {
+      "id": "netherlands_cancer",
+      "name": "Netherlands Cancer Institute (NKI-AVL)",
+      "city": "Amsterdam",
+      "country": "Netherlands",
+      "iso3": "NLD",
+      "lat": 52.358,
+      "lon": 4.9,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO",
+        "OECI"
+      ],
+      "treatments": [
+        "Surgery",
+        "Immunotherapy",
+        "Targeted therapy"
+      ]
+    },
+    {
+      "id": "royal_marsden",
+      "name": "The Royal Marsden NHS Foundation Trust",
+      "city": "London",
+      "country": "United Kingdom",
+      "iso3": "GBR",
+      "lat": 51.493,
+      "lon": -0.175,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO",
+        "OECI"
+      ],
+      "treatments": [
+        "All cancers",
+        "Drug trials",
+        "Precision medicine"
+      ]
+    },
+    {
+      "id": "charite_cancer",
+      "name": "Charite Comprehensive Cancer Center",
+      "city": "Berlin",
+      "country": "Germany",
+      "iso3": "DEU",
+      "lat": 52.524,
+      "lon": 13.375,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO",
+        "DKG"
+      ],
+      "treatments": [
+        "All major cancers",
+        "Proton therapy",
+        "CAR-T"
+      ]
+    },
+    {
+      "id": "ieo_milan",
+      "name": "Istituto Europeo di Oncologia (IEO)",
+      "city": "Milan",
+      "country": "Italy",
+      "iso3": "ITA",
+      "lat": 45.45,
+      "lon": 9.191,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO",
+        "OECI"
+      ],
+      "treatments": [
+        "Breast",
+        "GI",
+        "Urological cancers",
+        "Robotic surgery"
+      ]
+    },
+    {
+      "id": "int_milan",
+      "name": "Istituto Nazionale dei Tumori",
+      "city": "Milan",
+      "country": "Italy",
+      "iso3": "ITA",
+      "lat": 45.458,
+      "lon": 9.19,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO",
+        "OECI"
+      ],
+      "treatments": [
+        "Surgery",
+        "Oncology",
+        "Research"
+      ]
+    },
+    {
+      "id": "vall_hebron",
+      "name": "Vall d'Hebron Institute of Oncology (VHIO)",
+      "city": "Barcelona",
+      "country": "Spain",
+      "iso3": "ESP",
+      "lat": 41.427,
+      "lon": 2.155,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO"
+      ],
+      "treatments": [
+        "Precision oncology",
+        "Clinical trials",
+        "Immunotherapy"
+      ]
+    },
+    {
+      "id": "cnio_madrid",
+      "name": "CNIO Madrid",
+      "city": "Madrid",
+      "country": "Spain",
+      "iso3": "ESP",
+      "lat": 40.404,
+      "lon": -3.673,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ESMO"
+      ],
+      "treatments": [
+        "Research",
+        "Molecular oncology"
+      ]
+    },
+    {
+      "id": "karolinska_onco",
+      "name": "Karolinska Comprehensive Cancer Center",
+      "city": "Stockholm",
+      "country": "Sweden",
+      "iso3": "SWE",
+      "lat": 59.348,
+      "lon": 18.03,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO",
+        "OECI"
+      ],
+      "treatments": [
+        "All cancers",
+        "Proton therapy",
+        "CAR-T"
+      ]
+    },
+    {
+      "id": "oncocentre_zurich",
+      "name": "Zurich Comprehensive Cancer Center",
+      "city": "Zurich",
+      "country": "Switzerland",
+      "iso3": "CHE",
+      "lat": 47.374,
+      "lon": 8.551,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO",
+        "OECI"
+      ],
+      "treatments": [
+        "All major cancers",
+        "Clinical trials",
+        "Molecular tumor board"
+      ]
+    },
+    {
+      "id": "ncc_tokyo",
+      "name": "National Cancer Center Hospital",
+      "city": "Tokyo",
+      "country": "Japan",
+      "iso3": "JPN",
+      "lat": 35.663,
+      "lon": 139.731,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "Endoscopy",
+        "Robotic surgery",
+        "Proton therapy",
+        "Immunotherapy"
+      ]
+    },
+    {
+      "id": "ncc_east_japan",
+      "name": "National Cancer Center Hospital East",
+      "city": "Kashiwa",
+      "country": "Japan",
+      "iso3": "JPN",
+      "lat": 35.871,
+      "lon": 139.962,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "Proton therapy",
+        "Endoscopy",
+        "Clinical trials"
+      ]
+    },
+    {
+      "id": "samsung_cancer",
+      "name": "Samsung Medical Center Cancer Center",
+      "city": "Seoul",
+      "country": "South Korea",
+      "iso3": "KOR",
+      "lat": 37.488,
+      "lon": 127.085,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "Proton therapy",
+        "Robotic surgery",
+        "CAR-T"
+      ]
+    },
+    {
+      "id": "snuh_cancer",
+      "name": "Seoul National University Hospital Cancer Center",
+      "city": "Seoul",
+      "country": "South Korea",
+      "iso3": "KOR",
+      "lat": 37.58,
+      "lon": 126.999,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "All major cancers",
+        "Precision medicine"
+      ]
+    },
+    {
+      "id": "prince_wales_cancer",
+      "name": "Prince of Wales Hospital Cancer Centre",
+      "city": "Sydney",
+      "country": "Australia",
+      "iso3": "AUS",
+      "lat": -33.925,
+      "lon": 151.23,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ESMO"
+      ],
+      "treatments": [
+        "Haematology",
+        "Radiation",
+        "Immunotherapy"
+      ]
+    },
+    {
+      "id": "princess_margaret",
+      "name": "Princess Margaret Cancer Centre",
+      "city": "Toronto",
+      "country": "Canada",
+      "iso3": "CAN",
+      "lat": 43.658,
+      "lon": -79.391,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "NCI",
+        "ESMO"
+      ],
+      "treatments": [
+        "Bone marrow transplant",
+        "CAR-T",
+        "Proton therapy"
+      ]
+    },
+    {
+      "id": "bc_cancer",
+      "name": "BC Cancer Vancouver Centre",
+      "city": "Vancouver",
+      "country": "Canada",
+      "iso3": "CAN",
+      "lat": 49.262,
+      "lon": -123.117,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ESMO"
+      ],
+      "treatments": [
+        "All cancers",
+        "Clinical trials",
+        "Immunotherapy"
+      ]
+    },
+    {
+      "id": "sheba_cancer",
+      "name": "Sheba Medical Center Cancer Center",
+      "city": "Tel Hashomer",
+      "country": "Israel",
+      "iso3": "ISR",
+      "lat": 32.041,
+      "lon": 34.841,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "JCI",
+        "ESMO"
+      ],
+      "treatments": [
+        "CAR-T",
+        "Bone marrow transplant",
+        "Immunotherapy"
+      ]
+    },
+    {
+      "id": "hadassah_cancer",
+      "name": "Hadassah Medical Center Oncology",
+      "city": "Jerusalem",
+      "country": "Israel",
+      "iso3": "ISR",
+      "lat": 31.762,
+      "lon": 35.178,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "Haematology",
+        "Bone marrow transplant",
+        "GI oncology"
+      ]
+    },
+    {
+      "id": "tata_memorial",
+      "name": "Tata Memorial Centre",
+      "city": "Mumbai",
+      "country": "India",
+      "iso3": "IND",
+      "lat": 19.004,
+      "lon": 72.842,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO"
+      ],
+      "treatments": [
+        "All cancers",
+        "Affordable care",
+        "Regional cancer centers"
+      ]
+    },
+    {
+      "id": "aiims_cancer",
+      "name": "AIIMS Cancer Institute",
+      "city": "New Delhi",
+      "country": "India",
+      "iso3": "IND",
+      "lat": 28.568,
+      "lon": 77.209,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MCI"
+      ],
+      "treatments": [
+        "Surgery",
+        "Radiation",
+        "Chemotherapy"
+      ]
+    },
+    {
+      "id": "nmc_singapore",
+      "name": "National Cancer Centre Singapore",
+      "city": "Singapore",
+      "country": "Singapore",
+      "iso3": "SGP",
+      "lat": 1.283,
+      "lon": 103.834,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "JCI",
+        "ESMO"
+      ],
+      "treatments": [
+        "All cancers",
+        "Proton therapy",
+        "Clinical trials"
+      ]
+    },
+    {
+      "id": "hk_cancer",
+      "name": "Hong Kong Cancer Institute",
+      "city": "Hong Kong",
+      "country": "China",
+      "iso3": "CHN",
+      "lat": 22.381,
+      "lon": 114.201,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO"
+      ],
+      "treatments": [
+        "Nasopharyngeal",
+        "Liver",
+        "Breast",
+        "Clinical trials"
+      ]
+    },
+    {
+      "id": "fudan_cancer",
+      "name": "Fudan University Shanghai Cancer Center",
+      "city": "Shanghai",
+      "country": "China",
+      "iso3": "CHN",
+      "lat": 31.194,
+      "lon": 121.4,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO"
+      ],
+      "treatments": [
+        "Breast",
+        "GI",
+        "Lung",
+        "Liver cancers"
+      ]
+    },
+    {
+      "id": "sun_yat_sen_cancer",
+      "name": "Sun Yat-sen University Cancer Center",
+      "city": "Guangzhou",
+      "country": "China",
+      "iso3": "CHN",
+      "lat": 23.133,
+      "lon": 113.269,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO"
+      ],
+      "treatments": [
+        "Nasopharyngeal",
+        "Liver",
+        "Colorectal"
+      ]
+    },
+    {
+      "id": "peking_cancer",
+      "name": "Peking University Cancer Hospital",
+      "city": "Beijing",
+      "country": "China",
+      "iso3": "CHN",
+      "lat": 39.968,
+      "lon": 116.363,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO"
+      ],
+      "treatments": [
+        "GI",
+        "Gastric",
+        "Liver",
+        "Breast cancers"
+      ]
+    },
+    {
+      "id": "clearchoice_brazil",
+      "name": "A.C. Camargo Cancer Center",
+      "city": "Sao Paulo",
+      "country": "Brazil",
+      "iso3": "BRA",
+      "lat": -23.558,
+      "lon": -46.659,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO",
+        "JCI"
+      ],
+      "treatments": [
+        "All cancers",
+        "Clinical trials"
+      ]
+    },
+    {
+      "id": "hospital_israelita",
+      "name": "Hospital Israelita Albert Einstein - Oncologia",
+      "city": "Sao Paulo",
+      "country": "Brazil",
+      "iso3": "BRA",
+      "lat": -23.599,
+      "lon": -46.718,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "All cancers",
+        "CAR-T",
+        "Robotic surgery"
+      ]
+    },
+    {
+      "id": "uzleuven_cancer",
+      "name": "UZ Leuven Cancer Centre",
+      "city": "Leuven",
+      "country": "Belgium",
+      "iso3": "BEL",
+      "lat": 50.879,
+      "lon": 4.7,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO",
+        "OECI"
+      ],
+      "treatments": [
+        "Hematology",
+        "Breast",
+        "GI",
+        "Clinical trials"
+      ]
+    },
+    {
+      "id": "med_univ_vienna_cancer",
+      "name": "MedUni Vienna AKH Comprehensive Cancer Center",
+      "city": "Vienna",
+      "country": "Austria",
+      "iso3": "AUT",
+      "lat": 48.217,
+      "lon": 16.348,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO",
+        "OECI"
+      ],
+      "treatments": [
+        "All cancers",
+        "Bone marrow transplant"
+      ]
+    },
+    {
+      "id": "rigshospitalet_cancer",
+      "name": "Rigshospitalet Center for Cancer and Organ Diseases",
+      "city": "Copenhagen",
+      "country": "Denmark",
+      "iso3": "DNK",
+      "lat": 55.697,
+      "lon": 12.564,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO",
+        "OECI"
+      ],
+      "treatments": [
+        "Hematology",
+        "Proton therapy",
+        "Clinical trials"
+      ]
+    },
+    {
+      "id": "maria_sklodowska_onco",
+      "name": "Maria Sklodowska-Curie National Research Institute of Oncology",
+      "city": "Warsaw",
+      "country": "Poland",
+      "iso3": "POL",
+      "lat": 52.27,
+      "lon": 21.026,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO"
+      ],
+      "treatments": [
+        "All cancers",
+        "Clinical trials",
+        "Radiation therapy"
+      ]
+    },
+    {
+      "id": "masaryk_cancer",
+      "name": "Masaryk Memorial Cancer Institute",
+      "city": "Brno",
+      "country": "Czech Republic",
+      "iso3": "CZE",
+      "lat": 49.199,
+      "lon": 16.601,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO",
+        "OECI"
+      ],
+      "treatments": [
+        "All cancers",
+        "PET/CT",
+        "Robotic surgery"
+      ]
+    },
+    {
+      "id": "groote_cancer",
+      "name": "Groote Schuur Hospital Oncology",
+      "city": "Cape Town",
+      "country": "South Africa",
+      "iso3": "ZAF",
+      "lat": -33.941,
+      "lon": 18.462,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "HPCSA"
+      ],
+      "treatments": [
+        "Surgery",
+        "Chemotherapy",
+        "Radiation"
+      ]
+    },
+    {
+      "id": "nci_egypt",
+      "name": "National Cancer Institute Cairo University",
+      "city": "Cairo",
+      "country": "Egypt",
+      "iso3": "EGY",
+      "lat": 30.06,
+      "lon": 31.23,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "MoH Egypt"
+      ],
+      "treatments": [
+        "All cancers",
+        "Regional referral center"
+      ]
+    },
+    {
+      "id": "alemana_chile_cancer",
+      "name": "Clinica Alemana Cancer Center",
+      "city": "Santiago",
+      "country": "Chile",
+      "iso3": "CHL",
+      "lat": -33.394,
+      "lon": -70.593,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "All cancers",
+        "Robotic surgery",
+        "PET/CT"
+      ]
+    },
+    {
+      "id": "fundacion_cancer_arg",
+      "name": "Instituto Alexander Fleming",
+      "city": "Buenos Aires",
+      "country": "Argentina",
+      "iso3": "ARG",
+      "lat": -34.581,
+      "lon": -58.412,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO"
+      ],
+      "treatments": [
+        "Breast",
+        "GI",
+        "Lung",
+        "Clinical trials"
+      ]
+    },
+    {
+      "id": "king_faisal_cancer",
+      "name": "King Faisal Specialist Hospital Oncology",
+      "city": "Riyadh",
+      "country": "Saudi Arabia",
+      "iso3": "SAU",
+      "lat": 24.692,
+      "lon": 46.675,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "All cancers",
+        "Bone marrow transplant",
+        "Proton therapy"
+      ]
+    },
+    {
+      "id": "shaukat_cancer_pak",
+      "name": "Shaukat Khanum Memorial Cancer Hospital",
+      "city": "Lahore",
+      "country": "Pakistan",
+      "iso3": "PAK",
+      "lat": 31.478,
+      "lon": 74.296,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "All cancers",
+        "Affordable care",
+        "Clinical trials"
+      ]
+    },
+    {
+      "id": "dharmais_cancer",
+      "name": "Dharmais Cancer Hospital",
+      "city": "Jakarta",
+      "country": "Indonesia",
+      "iso3": "IDN",
+      "lat": -6.195,
+      "lon": 106.782,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "Ministry Indonesia"
+      ],
+      "treatments": [
+        "All cancers",
+        "National referral center"
+      ]
+    },
+    {
+      "id": "k108_vietnam",
+      "name": "K Hospital National Cancer Hospital Vietnam",
+      "city": "Hanoi",
+      "country": "Vietnam",
+      "iso3": "VNM",
+      "lat": 21.039,
+      "lon": 105.833,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "MoH Vietnam"
+      ],
+      "treatments": [
+        "All cancers",
+        "National referral center"
+      ]
+    },
+    {
+      "id": "inco_colombia",
+      "name": "Instituto Nacional de Cancerologia Colombia",
+      "city": "Bogota",
+      "country": "Colombia",
+      "iso3": "COL",
+      "lat": 4.608,
+      "lon": -74.093,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "MoH Colombia"
+      ],
+      "treatments": [
+        "All cancers",
+        "Public oncology referral"
+      ]
+    },
+    {
+      "id": "inen_peru",
+      "name": "Instituto Nacional de Enfermedades Neoplasicas (INEN)",
+      "city": "Lima",
+      "country": "Peru",
+      "iso3": "PER",
+      "lat": -12.083,
+      "lon": -76.979,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "MoH Peru"
+      ],
+      "treatments": [
+        "All cancers",
+        "National referral center"
+      ]
+    },
+    {
+      "id": "ipo_porto",
+      "name": "IPO Porto Instituto Portugues de Oncologia",
+      "city": "Porto",
+      "country": "Portugal",
+      "iso3": "PRT",
+      "lat": 41.176,
+      "lon": -8.614,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO",
+        "OECI"
+      ],
+      "treatments": [
+        "All cancers",
+        "Bone marrow transplant"
+      ]
+    },
+    {
+      "id": "hus_cancer_finland",
+      "name": "Helsinki University Hospital Cancer Center",
+      "city": "Helsinki",
+      "country": "Finland",
+      "iso3": "FIN",
+      "lat": 60.196,
+      "lon": 24.949,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO",
+        "OECI"
+      ],
+      "treatments": [
+        "All cancers",
+        "Nordic cooperation trials"
+      ]
+    },
+    {
+      "id": "ous_cancer_norway",
+      "name": "Oslo University Hospital Cancer Centre",
+      "city": "Oslo",
+      "country": "Norway",
+      "iso3": "NOR",
+      "lat": 59.939,
+      "lon": 10.721,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ESMO",
+        "OECI"
+      ],
+      "treatments": [
+        "All cancers",
+        "Research",
+        "Clinical trials"
+      ]
+    },
+    {
+      "id": "russe_blokhin",
+      "name": "N.N. Blokhin National Medical Research Center of Oncology",
+      "city": "Moscow",
+      "country": "Russia",
+      "iso3": "RUS",
+      "lat": 55.692,
+      "lon": 37.65,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "All cancers",
+        "Bone marrow transplant",
+        "Pediatric oncology"
+      ]
+    },
+    {
+      "id": "nci_ukraine",
+      "name": "National Cancer Institute Ukraine",
+      "city": "Kyiv",
+      "country": "Ukraine",
+      "iso3": "UKR",
+      "lat": 50.432,
+      "lon": 30.468,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "MoH Ukraine"
+      ],
+      "treatments": [
+        "All cancers",
+        "Bone marrow transplant"
+      ]
+    },
+    {
+      "id": "tarbiat_cancer",
+      "name": "Shariati Hospital Cancer Institute",
+      "city": "Tehran",
+      "country": "Iran",
+      "iso3": "IRN",
+      "lat": 35.758,
+      "lon": 51.427,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Ministry Iran"
+      ],
+      "treatments": [
+        "All cancers",
+        "Bone marrow transplant"
+      ]
+    },
+    {
+      "id": "bumrungrad_cancer",
+      "name": "Bumrungrad International Hospital Cancer Center",
+      "city": "Bangkok",
+      "country": "Thailand",
+      "iso3": "THA",
+      "lat": 13.747,
+      "lon": 100.556,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "All cancers",
+        "Proton therapy",
+        "Medical tourism"
+      ]
+    },
+    {
+      "id": "cancer_istanbul",
+      "name": "Acibadem Healthcare Group Oncology",
+      "city": "Istanbul",
+      "country": "Turkey",
+      "iso3": "TUR",
+      "lat": 41.049,
+      "lon": 29.013,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "All cancers",
+        "Proton therapy",
+        "Robotic surgery"
+      ]
+    },
+    {
+      "id": "ijcc_malaysia",
+      "name": "Island Hospital Cancer Centre",
+      "city": "Penang",
+      "country": "Malaysia",
+      "iso3": "MYS",
+      "lat": 5.414,
+      "lon": 100.338,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "All cancers",
+        "Medical tourism"
+      ]
+    },
+    {
+      "id": "pgh_cancer_ph",
+      "name": "Philippine General Hospital Cancer Institute",
+      "city": "Manila",
+      "country": "Philippines",
+      "iso3": "PHL",
+      "lat": 14.574,
+      "lon": 121.013,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "PhilHealth"
+      ],
+      "treatments": [
+        "All cancers",
+        "Affordable public care"
+      ]
+    },
+    {
+      "id": "luth_cancer_nigeria",
+      "name": "Lagos University Teaching Hospital Oncology",
+      "city": "Lagos",
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "lat": 6.52,
+      "lon": 3.383,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MoH Nigeria"
+      ],
+      "treatments": [
+        "Surgery",
+        "Chemotherapy",
+        "Radiation"
+      ]
+    },
+    {
+      "id": "knh_cancer_kenya",
+      "name": "Kenyatta National Hospital Oncology",
+      "city": "Nairobi",
+      "country": "Kenya",
+      "iso3": "KEN",
+      "lat": -1.3,
+      "lon": 36.806,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MoH Kenya"
+      ],
+      "treatments": [
+        "Surgery",
+        "Chemotherapy",
+        "Radiation"
+      ]
+    },
+    {
+      "id": "nicrh_bangladesh",
+      "name": "National Institute of Cancer Research Hospital Bangladesh",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "lat": 23.78,
+      "lon": 90.36,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MoH Bangladesh"
+      ],
+      "treatments": [
+        "All cancers",
+        "Public referral center"
+      ]
+    },
+    {
+      "id": "incan_mexico",
+      "name": "Instituto Nacional de Cancerologia (INCan)",
+      "city": "Mexico City",
+      "country": "Mexico",
+      "iso3": "MEX",
+      "lat": 19.312,
+      "lon": -99.157,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "SSA"
+      ],
+      "treatments": [
+        "All cancers",
+        "Affordable public care"
+      ]
     }
   ]
 }
