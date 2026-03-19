@@ -114,6 +114,43 @@
         #compare-list .cmp-item .rm:hover { color: #e05c5c; }
         #compare-chart { padding: 0 20px 16px; }
 
+        /* ── Timeline Slider ── */
+        #timeline {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            z-index: 100; background: rgba(9,11,18,0.95); border: 1px solid #1a1d2e;
+            border-radius: 10px; padding: 10px 20px 8px;
+            display: none; align-items: center; gap: 14px;
+            backdrop-filter: blur(8px); min-width: 360px;
+        }
+        #timeline.visible { display: flex; }
+        #timeline-play {
+            background: #0d1e3a; border: 1px solid #1a3a6e; color: #4f8ef7;
+            width: 28px; height: 28px; border-radius: 50%; font-size: 12px;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        #timeline-play:hover { background: #1a3a6e; }
+        #year-slider {
+            -webkit-appearance: none; flex: 1; height: 3px;
+            background: #1a1d2e; border-radius: 2px; outline: none; cursor: pointer;
+        }
+        #year-slider::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 14px; height: 14px;
+            border-radius: 50%; background: #4f8ef7; cursor: pointer;
+            border: 2px solid #0b0d14;
+        }
+        #year-label { font-size: 16px; font-weight: 700; color: #4f8ef7; min-width: 38px; text-align: center; }
+
+        /* Top rankings */
+        .rank-row { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid #0d0f18; }
+        .rank-row:last-child { border: none; }
+        .rank-num { width: 18px; font-size: 10px; color: #334; text-align: right; flex-shrink: 0; }
+        .rank-bar-wrap { flex: 1; }
+        .rank-name { font-size: 11px; color: #889; margin-bottom: 2px; }
+        .rank-bar-track { background: #0f1220; border-radius: 2px; height: 5px; }
+        .rank-bar-fill { height: 100%; border-radius: 2px; }
+        .rank-val { font-size: 11px; font-weight: 600; min-width: 36px; text-align: right; flex-shrink: 0; }
+
         /* ── Tooltip ── */
         #tooltip {
             position: fixed; pointer-events: none; z-index: 300;
@@ -190,6 +227,7 @@
             max-height:200px;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,0.7)"></div>
     </div>
     <button class="compare-btn" id="compare-toggle" onclick="toggleCompare()">⚖ Compare</button>
+    <button class="compare-btn" id="timeline-toggle" onclick="toggleTimeline()" style="margin-left:4px">▶ Timeline</button>
     <a href="data/countries_cancer.csv" download style="margin-left:4px;background:#0d2a1a;color:#2db565;
         border:1px solid #1a5c35;padding:5px 12px;border-radius:5px;font-size:11px;text-decoration:none">
         ↓ CSV
@@ -207,6 +245,13 @@
         <button class="panel-close" onclick="closePanel()">✕</button>
     </div>
     <div id="panel-content"></div>
+</div>
+
+<!-- Timeline slider -->
+<div id="timeline">
+    <button id="timeline-play" onclick="togglePlay()">▶</button>
+    <span id="year-label">2000</span>
+    <input id="year-slider" type="range" min="2000" max="2021" step="1" value="2021" oninput="onYearSlide(this.value)">
 </div>
 
 <div id="legend">
@@ -389,7 +434,8 @@ function openProfile(data, name) {
             <div class="panel-section">
                 <h3>Healthcare infrastructure</h3>
                 <div class="pill-grid">${pillsHtml}</div>
-            </div>`;
+            </div>
+            ${buildRankings(data.country, data)}`;
 
         // Render sparklines async
         renderSparklines(data.country);
@@ -483,6 +529,125 @@ function updateMap() {
     buildLegend(currentMetric);
     d3.selectAll(".country").transition().duration(350)
         .attr("fill", d => getColor(dataByNumId[+d.id], currentMetric));
+}
+
+// ── Timeline ────────────────────────────────────────────────────────────────
+let ncdSnapshots = {};
+let timelineMode = false;
+let currentYear = 2021;
+let playInterval = null;
+
+const NCD_DOMAIN = [10, 18, 26, 34, 42];
+const NCD_COLORS = ["#0d1433","#1a2d7a","#2855c2","#4f8ef7","#a0c4ff"];
+const NCD_NODATA = "#0f1220";
+
+function getNcdColor(val) {
+    if (val == null) return NCD_NODATA;
+    return d3.scaleThreshold().domain(NCD_DOMAIN).range([NCD_NODATA, ...NCD_COLORS])(val);
+}
+
+function toggleTimeline() {
+    timelineMode = !timelineMode;
+    document.getElementById("timeline-toggle").classList.toggle("active", timelineMode);
+    document.getElementById("timeline").classList.toggle("visible", timelineMode);
+    if (timelineMode) {
+        // Switch map to NCD timeline view
+        document.getElementById("leg-title").textContent = "NCD mortality risk (%) age 30-70";
+        buildNcdLegend();
+        applyYearSnapshot(currentYear);
+    } else {
+        stopPlay();
+        updateMap(); // restore normal metric
+        buildLegend(currentMetric);
+    }
+}
+
+function buildNcdLegend() {
+    const body = document.getElementById("leg-body");
+    const d = NCD_DOMAIN, lo = d[0], mid = d[Math.floor(d.length/2)], hi = d[d.length-1];
+    body.innerHTML = `
+        <div id="leg-gradient" style="background:linear-gradient(to right,${[NCD_NODATA,...NCD_COLORS].join(",")})"></div>
+        <div id="leg-labels"><span>${lo}%</span><span>${mid}%</span><span>${hi}%+</span></div>
+        <div style="color:#2a2d40;font-size:9px;margin-top:5px;display:flex;align-items:center;gap:5px">
+            <div style="width:7px;height:7px;border-radius:50%;background:#0f1220;border:1px solid #1a1d2e"></div>No data
+        </div>`;
+    document.getElementById("leg-title").textContent = "NCD mortality risk % (30-70)";
+}
+
+function applyYearSnapshot(year) {
+    currentYear = year;
+    document.getElementById("year-label").textContent = year;
+    document.getElementById("year-slider").value = year;
+    const snap = ncdSnapshots[year] || {};
+    d3.selectAll(".country")
+        .transition().duration(playInterval ? 120 : 280)
+        .attr("fill", d => {
+            const iso3 = dataByNumId[+d.id]?.country;
+            return iso3 ? getNcdColor(snap[iso3]) : NCD_NODATA;
+        });
+}
+
+function onYearSlide(val) { applyYearSnapshot(+val); }
+
+function togglePlay() {
+    if (playInterval) { stopPlay(); return; }
+    document.getElementById("timeline-play").textContent = "⏹";
+    let y = currentYear >= 2021 ? 2000 : currentYear;
+    playInterval = setInterval(() => {
+        applyYearSnapshot(y);
+        if (y >= 2021) { stopPlay(); return; }
+        y++;
+    }, 400);
+}
+
+function stopPlay() {
+    clearInterval(playInterval); playInterval = null;
+    document.getElementById("timeline-play").textContent = "▶";
+}
+
+// ── Top rankings ────────────────────────────────────────────────────────────
+function buildRankings(iso3, data) {
+    if (!data) return "";
+    const metric = "death_cancer_all";
+    // Get all countries with this metric
+    const all = allData
+        .filter(c => c[metric] != null)
+        .map(c => ({ name: c.name || c.country, val: parseFloat(c[metric]), iso: c.country }))
+        .filter(c => !isNaN(c.val))
+        .sort((a,b) => b.val - a.val);
+
+    if (!all.length) return "";
+    const rank = all.findIndex(c => c.iso === iso3) + 1;
+    const maxVal = all[0].val;
+
+    // Top 5 worst + context around this country
+    const top5 = all.slice(0, 5);
+    const bottom5 = all.slice(-5).reverse();
+
+    const rowHtml = (c, i, colorFn) => `
+        <div class="rank-row">
+            <div class="rank-num">${i+1}</div>
+            <div class="rank-bar-wrap">
+                <div class="rank-name">${c.name}</div>
+                <div class="rank-bar-track">
+                    <div class="rank-bar-fill" style="width:${(c.val/maxVal*100).toFixed(1)}%;background:${colorFn(c.val)}"></div>
+                </div>
+            </div>
+            <div class="rank-val" style="color:${colorFn(c.val)}">${c.val.toFixed(1)}</div>
+        </div>`;
+
+    const thisRank = rank ? `<div style="color:#4f8ef7;font-size:11px;margin:8px 0 4px">
+        ${data.name}: ranked <b>#${rank}</b> of ${all.length} countries</div>` : "";
+
+    return `
+        <div class="panel-section">
+            <h3>Global ranking — all cancer mortality</h3>
+            ${thisRank}
+            <div style="font-size:9px;color:#334;margin-bottom:6px">HIGHEST MORTALITY</div>
+            ${top5.map((c,i) => rowHtml(c, i, v => d3.scaleThreshold().domain(NCD_DOMAIN).range([NCD_NODATA,...NCD_COLORS])(v/3))).join("")}
+            <div style="font-size:9px;color:#334;margin:10px 0 6px">LOWEST MORTALITY</div>
+            ${bottom5.map((c,i) => rowHtml(c, all.length-5+i, () => "#2db565")).join("")}
+        </div>`;
 }
 
 // ── Sparklines ─────────────────────────────────────────────────────────────
@@ -612,14 +777,16 @@ function selectCountry(iso3) {
 }
 
 async function init() {
-    const [world, cancer, trends] = await Promise.all([
+    const [world, cancer, trends, ncds] = await Promise.all([
         d3.json("data/world-110m.json"),
         d3.json("data/countries_cancer.json"),
-        d3.json("data/trends.json").catch(() => ({}))
+        d3.json("data/trends.json").catch(() => ({})),
+        d3.json("data/ncd_snapshots.json").catch(() => ({}))
     ]);
     worldData = world;
     allData = cancer;
     trendsData = trends;
+    ncdSnapshots = ncds;
     cancer.forEach(c => { if (c.numeric_id) dataByNumId[c.numeric_id] = c; });
     document.getElementById("stat-n").textContent = cancer.length;
     document.getElementById("meta-countries").textContent = cancer.length + " countries";
