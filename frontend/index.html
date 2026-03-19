@@ -8,89 +8,145 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0b0d14; color: #e0e0e0; overflow: hidden; }
 
+        /* ── Header ── */
         #header {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 200;
             padding: 11px 24px;
-            background: rgba(11,13,20,0.97);
-            border-bottom: 1px solid #1a1d2e;
+            background: rgba(11,13,20,0.97); border-bottom: 1px solid #1a1d2e;
             display: flex; align-items: center; gap: 12px;
             backdrop-filter: blur(10px);
         }
-        #header h1 { font-size: 17px; font-weight: 700; letter-spacing: -0.3px; }
-        #header h1 span { color: #4f8ef7; }
+        h1 { font-size: 17px; font-weight: 700; letter-spacing: -0.3px; }
+        h1 span { color: #4f8ef7; }
         .badge { background: #0d1e3a; color: #4f8ef7; font-size: 10px; padding: 2px 8px; border-radius: 99px; border: 1px solid #1a3a6e; }
-        .meta { color: #3a3f58; font-size: 11px; margin-left: auto; display: flex; gap: 14px; align-items: center; }
+        .meta { color: #333; font-size: 11px; margin-left: auto; display: flex; gap: 14px; align-items: center; }
         .meta a { color: #4f8ef7; text-decoration: none; }
-        .meta a:hover { text-decoration: underline; }
 
+        /* ── Controls ── */
         #controls {
-            position: fixed; top: 47px; left: 0; right: 0; z-index: 100;
+            position: fixed; top: 47px; left: 0; right: 0; z-index: 200;
             padding: 7px 20px;
-            background: rgba(9,11,18,0.95);
-            border-bottom: 1px solid #12151f;
+            background: rgba(9,11,18,0.96); border-bottom: 1px solid #12151f;
             display: flex; gap: 8px; align-items: center;
             backdrop-filter: blur(8px);
         }
-        .ctrl-label { font-size: 10px; color: #3a3f58; text-transform: uppercase; letter-spacing: 0.6px; white-space: nowrap; }
-        select {
-            background: #10131f; border: 1px solid #1a1d2e;
-            color: #aab; padding: 5px 10px;
-            border-radius: 5px; font-size: 12px; cursor: pointer;
-        }
+        .ctrl-label { font-size: 10px; color: #334; text-transform: uppercase; letter-spacing: 0.6px; white-space: nowrap; }
+        select { background: #10131f; border: 1px solid #1a1d2e; color: #aab; padding: 5px 10px; border-radius: 5px; font-size: 12px; cursor: pointer; }
         select:hover, select:focus { border-color: #4f8ef7; outline: none; color: #dde; }
         .sep { width: 1px; height: 20px; background: #1a1d2e; margin: 0 4px; }
+        .compare-btn {
+            margin-left: auto; background: #0d1e3a; color: #4f8ef7;
+            border: 1px solid #1a3a6e; padding: 5px 14px;
+            border-radius: 5px; font-size: 11px; cursor: pointer;
+        }
+        .compare-btn:hover { background: #1a3a6e; }
+        .compare-btn.active { background: #1a3a6e; border-color: #4f8ef7; }
 
-        #map-container { position: fixed; top: 83px; left: 0; right: 0; bottom: 0; }
+        /* ── Map ── */
+        #map-container { position: fixed; top: 83px; left: 0; right: 0; bottom: 0; transition: right 0.35s; }
+        #map-container.panel-open { right: 360px; }
         svg { width: 100%; height: 100%; cursor: grab; }
         svg:active { cursor: grabbing; }
+        .country { transition: opacity 0.1s; }
+        .country:hover { opacity: 0.75; }
+        .country.selected { stroke: #fff !important; stroke-width: 1.2px !important; opacity: 1 !important; }
 
-        .country { transition: opacity 0.12s, stroke 0.12s; }
-        .country:hover { opacity: 0.8; }
+        /* ── Side Panel ── */
+        #side-panel {
+            position: fixed; top: 83px; right: -360px; bottom: 0; width: 360px; z-index: 150;
+            background: #09090f; border-left: 1px solid #1a1d2e;
+            overflow-y: auto; transition: right 0.35s;
+            padding: 0 0 40px 0;
+        }
+        #side-panel.open { right: 0; }
 
+        .panel-header {
+            padding: 18px 20px 14px;
+            border-bottom: 1px solid #1a1d2e;
+            position: sticky; top: 0; background: #09090f; z-index: 10;
+        }
+        .panel-header h2 { font-size: 16px; font-weight: 700; color: #eee; }
+        .panel-header .sub { font-size: 11px; color: #444; margin-top: 2px; }
+        .panel-close {
+            position: absolute; top: 14px; right: 16px;
+            background: none; border: none; color: #444; font-size: 18px;
+            cursor: pointer; padding: 4px 8px; border-radius: 4px;
+        }
+        .panel-close:hover { color: #eee; background: #1a1d2e; }
+
+        .panel-section { padding: 16px 20px; border-bottom: 1px solid #0f1118; }
+        .panel-section h3 { font-size: 10px; color: #334; text-transform: uppercase; letter-spacing: 0.7px; margin-bottom: 12px; }
+
+        /* Bar chart in panel */
+        .bar-row { margin: 8px 0; }
+        .bar-label { font-size: 11px; color: #778; margin-bottom: 3px; display: flex; justify-content: space-between; }
+        .bar-label span { color: #4f8ef7; font-weight: 600; }
+        .bar-track { background: #0f1220; border-radius: 3px; height: 7px; overflow: hidden; }
+        .bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+
+        /* Bool pills in panel */
+        .pill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .pill { padding: 8px 10px; border-radius: 7px; font-size: 11px; display: flex; align-items: center; gap: 6px; }
+        .pill.yes { background: #0d2a1a; border: 1px solid #1a5c35; color: #2db565; }
+        .pill.no  { background: #2a0d0d; border: 1px solid #5c1a1a; color: #e05c5c; }
+        .pill.na  { background: #131520; border: 1px solid #1a1d2e; color: #444; }
+        .pill-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+        /* Compare mode */
+        #compare-list { padding: 12px 20px; }
+        #compare-list .cmp-item {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 8px 10px; margin: 4px 0;
+            background: #0f1220; border-radius: 7px; border: 1px solid #1a1d2e;
+            font-size: 12px;
+        }
+        #compare-list .cmp-item .rm { color: #444; cursor: pointer; font-size: 14px; }
+        #compare-list .cmp-item .rm:hover { color: #e05c5c; }
+        #compare-chart { padding: 0 20px 16px; }
+
+        /* ── Tooltip ── */
         #tooltip {
             position: fixed; pointer-events: none; z-index: 300;
             background: rgba(9,11,18,0.97); border: 1px solid #1a1d2e;
-            border-radius: 10px; padding: 13px 16px;
-            font-size: 12px; min-width: 220px; max-width: 280px;
-            display: none; box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+            border-radius: 9px; padding: 10px 14px;
+            font-size: 11px; min-width: 180px;
+            display: none; box-shadow: 0 10px 36px rgba(0,0,0,0.7);
         }
-        #tooltip h3 { font-size: 14px; margin-bottom: 10px; color: #eee; font-weight: 600; }
-        .t-section { font-size: 9px; color: #3a3f58; text-transform: uppercase; letter-spacing: 0.6px; margin: 8px 0 4px; }
-        .t-row { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; border-bottom: 1px solid #10131f; }
-        .t-row:last-child { border: none; }
-        .t-label { color: #555; font-size: 11px; }
-        .t-val { font-weight: 600; font-size: 11px; color: #4f8ef7; white-space: nowrap; }
-        .t-val.yes { color: #2db565; }
-        .t-val.no { color: #e05c5c; }
-        .t-val.partial { color: #f0a030; }
+        #tooltip h4 { font-size: 13px; margin-bottom: 6px; color: #eee; }
+        .tip-val { color: #4f8ef7; font-weight: 600; }
+        .tip-row { padding: 2px 0; color: #666; }
 
+        /* ── Legend ── */
         #legend {
             position: fixed; bottom: 20px; left: 16px; z-index: 100;
             background: rgba(9,11,18,0.95); border: 1px solid #1a1d2e;
-            border-radius: 9px; padding: 12px 15px; font-size: 11px; min-width: 150px;
+            border-radius: 9px; padding: 11px 15px; font-size: 11px;
             backdrop-filter: blur(8px);
         }
-        #legend h4 { font-size: 9px; color: #3a3f58; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+        #leg-title { font-size: 9px; color: #334; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
         #leg-gradient { height: 8px; border-radius: 4px; margin-bottom: 5px; }
-        #leg-labels { display: flex; justify-content: space-between; color: #3a3f58; font-size: 9px; }
-        .bool-row { display: flex; align-items: center; gap: 7px; margin: 3px 0; font-size: 11px; color: #888; }
-        .bool-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+        #leg-labels { display: flex; justify-content: space-between; color: #334; font-size: 9px; }
+        .bool-row { display: flex; align-items: center; gap: 7px; margin: 3px 0; color: #778; }
+        .bool-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
         #stats {
             position: fixed; bottom: 20px; right: 16px; z-index: 100;
             background: rgba(9,11,18,0.95); border: 1px solid #1a1d2e;
             border-radius: 7px; padding: 7px 14px;
-            font-size: 10px; color: #3a3f58;
+            font-size: 10px; color: #334;
+            transition: right 0.35s;
         }
+        #stats.panel-open { right: 376px; }
         #stats b { color: #4f8ef7; }
     </style>
 </head>
 <body>
+
 <div id="header">
     <h1>Oncology<span>Atlas</span></h1>
     <div class="badge">WHO GHO 2019–2022</div>
     <div class="meta">
-        <span>195 countries</span>
+        <span id="meta-countries">— countries</span>
         <span>18 metrics</span>
         <a href="https://github.com/notageek88/oncology-atlas" target="_blank">GitHub ↗</a>
     </div>
@@ -99,49 +155,57 @@
 <div id="controls">
     <span class="ctrl-label">Category</span>
     <select id="category" onchange="onCategoryChange()">
-        <option value="death">Cancer Mortality (death rate / 100k)</option>
-        <option value="daly">Disease Burden (DALYs / 100k)</option>
+        <option value="death">Cancer Mortality (/ 100k)</option>
+        <option value="daly">Disease Burden — DALYs (/ 100k)</option>
         <option value="infra">Healthcare Infrastructure</option>
     </select>
     <div class="sep"></div>
-    <span class="ctrl-label">Cancer type</span>
+    <span class="ctrl-label">Type</span>
     <select id="metric" onchange="updateMap()">
         <option value="death_cancer_all">All cancers combined</option>
         <option value="death_breast">Breast cancer</option>
         <option value="death_colon">Colorectal cancer</option>
         <option value="death_liver">Liver cancer</option>
         <option value="death_mouth">Mouth & oropharynx</option>
-        <option value="death_oesophagus">Oesophagus cancer</option>
+        <option value="death_oesophagus">Oesophagus</option>
     </select>
+    <button class="compare-btn" id="compare-toggle" onclick="toggleCompare()">⚖ Compare countries</button>
 </div>
 
 <div id="map-container"><svg id="svg"></svg></div>
 <div id="tooltip"></div>
 
+<!-- Side panel -->
+<div id="side-panel">
+    <div class="panel-header">
+        <h2 id="panel-title">Country Profile</h2>
+        <div class="sub" id="panel-sub">Click a country on the map</div>
+        <button class="panel-close" onclick="closePanel()">✕</button>
+    </div>
+    <div id="panel-content"></div>
+</div>
+
 <div id="legend">
-    <h4 id="leg-title">Death rate / 100k</h4>
+    <div id="leg-title">Death rate / 100k</div>
     <div id="leg-body"></div>
 </div>
 
 <div id="stats">
-    Countries: <b id="stat-n">—</b> &nbsp;·&nbsp; Source: <b>WHO GHO</b> &nbsp;·&nbsp; MIT License
+    <b id="stat-n">—</b> countries &nbsp;·&nbsp; <b>WHO GHO</b> &nbsp;·&nbsp; MIT
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson@3"></script>
 <script>
 
-// ── Metric definitions ──────────────────────────────────────────
+// ── Config ─────────────────────────────────────────────────────────────────
 const METRIC_GROUPS = {
     death: {
         label: "Death rate / 100k",
         options: {
-            death_cancer_all: "All cancers",
-            death_breast:     "Breast cancer",
-            death_colon:      "Colorectal",
-            death_liver:      "Liver cancer",
-            death_mouth:      "Mouth & oropharynx",
-            death_oesophagus: "Oesophagus",
+            death_cancer_all: "All cancers", death_breast: "Breast",
+            death_colon: "Colorectal", death_liver: "Liver",
+            death_mouth: "Mouth/oropharynx", death_oesophagus: "Oesophagus"
         },
         type: "numeric",
         domain: [20, 50, 80, 120, 180],
@@ -151,11 +215,8 @@ const METRIC_GROUPS = {
     daly: {
         label: "DALYs / 100k",
         options: {
-            daly_breast:     "Breast cancer",
-            daly_colon:      "Colorectal",
-            daly_liver:      "Liver cancer",
-            daly_mouth:      "Mouth & oropharynx",
-            daly_oesophagus: "Oesophagus",
+            daly_breast: "Breast", daly_colon: "Colorectal",
+            daly_liver: "Liver", daly_mouth: "Mouth/oropharynx", daly_oesophagus: "Oesophagus"
         },
         type: "numeric",
         domain: [50, 100, 160, 220, 320],
@@ -163,183 +224,281 @@ const METRIC_GROUPS = {
         nodata: "#0f1220"
     },
     infra: {
-        label: "Healthcare availability",
+        label: "Infrastructure",
         options: {
-            cancer_surgery:   "Cancer surgery",
-            cancer_registry:  "Cancer registry",
-            cancer_plan:      "National cancer plan",
-            breast_screening: "Breast cancer screening",
-            cancer_dept:      "Cancer department (tertiary)",
+            cancer_surgery: "Cancer surgery", cancer_registry: "Cancer registry",
+            cancer_plan: "National plan", breast_screening: "Breast screening",
+            cancer_dept: "Cancer dept (tertiary)"
         },
-        type: "boolean",
-        nodata: "#0f1220"
+        type: "boolean", nodata: "#0f1220"
     }
 };
 
 const BOOL_COLORS = { "Yes": "#2db565", "No": "#e05c5c" };
-const NODATA_COLOR = "#0f1220";
+const DEATH_MAX = { death_cancer_all:200, death_breast:30, death_colon:30, death_liver:20, death_mouth:10, death_oesophagus:10 };
+const DALY_MAX  = { daly_breast:350, daly_colon:350, daly_liver:200, daly_mouth:150, daly_oesophagus:150 };
+const INFRA_KEYS = ["cancer_surgery","cancer_registry","cancer_plan","breast_screening","cancer_dept"];
+const INFRA_LABELS = { cancer_surgery:"Cancer Surgery", cancer_registry:"Cancer Registry", cancer_plan:"National Cancer Plan", breast_screening:"Breast Screening", cancer_dept:"Cancer Dept" };
 
-// ── State ────────────────────────────────────────────────────────
-let dataByNumId = {};
+// ── State ──────────────────────────────────────────────────────────────────
+let dataByNumId = {}, allData = [];
 let worldData = null;
 let currentMetric = "death_cancer_all";
+let selectedEl = null;
+let compareMode = false;
+let compareList = []; // max 3 countries
 let svg, g, pathGen, projection;
 
-// ── Category change ──────────────────────────────────────────────
-function onCategoryChange() {
-    const cat = document.getElementById("category").value;
-    const group = METRIC_GROUPS[cat];
-    const metricSel = document.getElementById("metric");
-    metricSel.innerHTML = Object.entries(group.options)
-        .map(([k, v]) => `<option value="${k}">${v}</option>`).join("");
-    currentMetric = Object.keys(group.options)[0];
-    metricSel.value = currentMetric;
-    updateMap();
-}
-
-// ── Color scale ──────────────────────────────────────────────────
-function getColor(d, metric) {
-    const cat = getCat(metric);
-    const group = METRIC_GROUPS[cat];
-    if (!d) return group.nodata;
-    const val = d[metric];
-    if (val === undefined || val === null) return group.nodata;
-
-    if (group.type === "boolean") return BOOL_COLORS[val] || "#2a2d40";
-
-    const n = parseFloat(val);
-    if (isNaN(n)) return group.nodata;
-
-    const scale = d3.scaleThreshold()
-        .domain(group.domain)
-        .range([group.nodata, ...group.colors]);
-    return scale(n);
-}
-
+// ── Helpers ────────────────────────────────────────────────────────────────
 function getCat(metric) {
-    for (const [cat, g] of Object.entries(METRIC_GROUPS)) {
-        if (metric in g.options || (cat === "death" && metric === "death_cancer_all")) return cat;
-    }
+    for (const [cat, grp] of Object.entries(METRIC_GROUPS))
+        if (metric in grp.options || (cat==="death" && metric==="death_cancer_all")) return cat;
     return "death";
 }
 
-// ── Legend ───────────────────────────────────────────────────────
-function buildLegend(metric) {
-    const cat = getCat(metric);
-    const group = METRIC_GROUPS[cat];
-    document.getElementById("leg-title").textContent = group.label;
-    const body = document.getElementById("leg-body");
+function getColor(d, metric) {
+    const grp = METRIC_GROUPS[getCat(metric)];
+    if (!d) return grp.nodata;
+    const val = d[metric];
+    if (val == null) return grp.nodata;
+    if (grp.type === "boolean") return BOOL_COLORS[val] || "#2a2d40";
+    const n = parseFloat(val);
+    if (isNaN(n)) return grp.nodata;
+    return d3.scaleThreshold().domain(grp.domain).range([grp.nodata, ...grp.colors])(n);
+}
 
-    if (group.type === "boolean") {
-        body.innerHTML = [
-            ["Yes","#2db565"], ["No","#e05c5c"], ["No data","#2a2d40"]
-        ].map(([l, c]) =>
-            `<div class="bool-row"><div class="bool-dot" style="background:${c}"></div>${l}</div>`
-        ).join("");
+// ── Legend ─────────────────────────────────────────────────────────────────
+function buildLegend(metric) {
+    const grp = METRIC_GROUPS[getCat(metric)];
+    document.getElementById("leg-title").textContent = grp.label;
+    const body = document.getElementById("leg-body");
+    if (grp.type === "boolean") {
+        body.innerHTML = [["Yes","#2db565"],["No","#e05c5c"],["No data","#2a2d40"]]
+            .map(([l,c]) => `<div class="bool-row"><div class="bool-dot" style="background:${c}"></div>${l}</div>`).join("");
     } else {
-        const grad = [group.nodata, ...group.colors].join(", ");
-        const lo = group.domain[0], mid = group.domain[Math.floor(group.domain.length/2)], hi = group.domain[group.domain.length-1];
+        const d = grp.domain, lo=d[0], mid=d[Math.floor(d.length/2)], hi=d[d.length-1];
         body.innerHTML = `
-            <div id="leg-gradient" style="background:linear-gradient(to right,${grad})"></div>
+            <div id="leg-gradient" style="background:linear-gradient(to right,${[grp.nodata,...grp.colors].join(",")})"></div>
             <div id="leg-labels"><span>${lo}</span><span>${mid}</span><span>${hi}+</span></div>
             <div style="color:#2a2d40;font-size:9px;margin-top:5px;display:flex;align-items:center;gap:5px">
-                <div style="width:8px;height:8px;border-radius:50%;background:#0f1220;border:1px solid #1a1d2e"></div>No data
-            </div>`;
+                <div style="width:7px;height:7px;border-radius:50%;background:#0f1220;border:1px solid #1a1d2e"></div>No data</div>`;
     }
 }
 
-// ── Tooltip ──────────────────────────────────────────────────────
+// ── Tooltip ────────────────────────────────────────────────────────────────
 function showTip(event, d, data) {
     const tip = document.getElementById("tooltip");
-    const name = data?.name || d.properties.name;
-
-    let html = `<h3>${name}</h3>`;
-
-    if (data) {
-        // Mortality
-        html += `<div class="t-section">Mortality (death / 100k)</div>`;
-        [["All cancers", data.death_cancer_all], ["Breast", data.death_breast],
-         ["Colorectal", data.death_colon], ["Liver", data.death_liver],
-         ["Mouth", data.death_mouth]].forEach(([l, v]) => {
-            if (v) html += `<div class="t-row"><span class="t-label">${l}</span><span class="t-val">${typeof v === 'number' ? v.toFixed(1) : v}</span></div>`;
-        });
-
-        // Infrastructure
-        html += `<div class="t-section">Infrastructure</div>`;
-        [["Surgery", data.cancer_surgery], ["Registry", data.cancer_registry],
-         ["Plan", data.cancer_plan], ["Screening", data.breast_screening]].forEach(([l, v]) => {
-            if (v) {
-                const cls = v === "Yes" ? "yes" : v === "No" ? "no" : "";
-                html += `<div class="t-row"><span class="t-label">${l}</span><span class="t-val ${cls}">${v}</span></div>`;
-            }
-        });
-    } else {
-        html += `<div class="t-row"><span class="t-label">No data available</span></div>`;
-    }
-
-    tip.innerHTML = html;
+    const n = data?.name || d.properties.name;
+    const val = data ? data[currentMetric] : null;
+    const fv = val != null ? (typeof val === "number" ? val.toFixed(1) : val) : "No data";
+    const cat = getCat(currentMetric);
+    const metricLabel = METRIC_GROUPS[cat].options[currentMetric] || "All cancers";
+    tip.innerHTML = `<h4>${n}</h4>
+        <div class="tip-row">${metricLabel}: <span class="tip-val">${fv}</span></div>
+        <div class="tip-row" style="color:#334;margin-top:4px">Click for full profile</div>`;
     tip.style.display = "block";
     moveTip(event);
 }
-
-function moveTip(event) {
+function moveTip(e) {
     const tip = document.getElementById("tooltip");
-    let x = event.clientX + 14, y = event.clientY - 10;
-    if (x + 290 > window.innerWidth) x = event.clientX - 290;
-    if (y + 260 > window.innerHeight) y = event.clientY - 260;
+    let x = e.clientX + 14, y = e.clientY - 10;
+    if (x + 220 > window.innerWidth) x = e.clientX - 220;
+    if (y + 120 > window.innerHeight) y = e.clientY - 120;
     tip.style.left = x + "px"; tip.style.top = y + "px";
 }
 
-// ── Map update ───────────────────────────────────────────────────
+// ── Side Panel ─────────────────────────────────────────────────────────────
+function openProfile(data, name) {
+    if (!data) {
+        document.getElementById("panel-title").textContent = name;
+        document.getElementById("panel-sub").textContent = "No data available for this territory";
+        document.getElementById("panel-content").innerHTML = "";
+    } else {
+        document.getElementById("panel-title").textContent = data.name || name;
+        document.getElementById("panel-sub").textContent = `WHO Global Health Observatory • ${data.country}`;
+
+        // Build mortality bars
+        const deathRows = [
+            ["All cancers", data.death_cancer_all, DEATH_MAX.death_cancer_all, "#4f8ef7"],
+            ["Breast", data.death_breast, DEATH_MAX.death_breast, "#7eb8f7"],
+            ["Colorectal", data.death_colon, DEATH_MAX.death_colon, "#5b9ef0"],
+            ["Liver", data.death_liver, DEATH_MAX.death_liver, "#3a80e0"],
+            ["Mouth", data.death_mouth, DEATH_MAX.death_mouth, "#2566c8"],
+        ].filter(([,v]) => v != null);
+
+        const dalyrRows = [
+            ["Breast", data.daly_breast, DALY_MAX.daly_breast, "#2db565"],
+            ["Colorectal", data.daly_colon, DALY_MAX.daly_colon, "#25a058"],
+            ["Liver", data.daly_liver, DALY_MAX.daly_liver, "#1c8046"],
+            ["Mouth", data.daly_mouth, DALY_MAX.daly_mouth, "#166034"],
+        ].filter(([,v]) => v != null);
+
+        const barsHtml = (rows) => rows.map(([label, val, max, color]) => {
+            const n = parseFloat(val);
+            const pct = Math.min(100, (n / max) * 100);
+            return `<div class="bar-row">
+                <div class="bar-label">${label} <span>${n.toFixed(1)}</span></div>
+                <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${color}"></div></div>
+            </div>`;
+        }).join("");
+
+        const pillsHtml = INFRA_KEYS.map(k => {
+            const v = data[k];
+            const cls = v === "Yes" ? "yes" : v === "No" ? "no" : "na";
+            const dot = v === "Yes" ? "#2db565" : v === "No" ? "#e05c5c" : "#334";
+            return `<div class="pill ${cls}"><div class="pill-dot" style="background:${dot}"></div>${INFRA_LABELS[k]}</div>`;
+        }).join("");
+
+        document.getElementById("panel-content").innerHTML = `
+            <div class="panel-section">
+                <h3>Cancer mortality (death / 100k)</h3>
+                ${deathRows.length ? barsHtml(deathRows) : '<div style="color:#334;font-size:11px">No data</div>'}
+            </div>
+            <div class="panel-section">
+                <h3>Disease burden — DALYs / 100k</h3>
+                ${dalyrRows.length ? barsHtml(dalyrRows) : '<div style="color:#334;font-size:11px">No data</div>'}
+            </div>
+            <div class="panel-section">
+                <h3>Healthcare infrastructure</h3>
+                <div class="pill-grid">${pillsHtml}</div>
+            </div>`;
+    }
+
+    document.getElementById("side-panel").classList.add("open");
+    document.getElementById("map-container").classList.add("panel-open");
+    document.getElementById("stats").classList.add("panel-open");
+}
+
+function closePanel() {
+    document.getElementById("side-panel").classList.remove("open");
+    document.getElementById("map-container").classList.remove("panel-open");
+    document.getElementById("stats").classList.remove("panel-open");
+    if (selectedEl) { d3.select(selectedEl).classed("selected", false); selectedEl = null; }
+}
+
+// ── Compare mode ───────────────────────────────────────────────────────────
+function toggleCompare() {
+    compareMode = !compareMode;
+    document.getElementById("compare-toggle").classList.toggle("active", compareMode);
+    if (!compareMode) { compareList = []; closePanel(); }
+}
+
+function addToCompare(data, name) {
+    if (!data) return;
+    if (compareList.find(c => c.country === data.country)) return;
+    if (compareList.length >= 4) compareList.shift();
+    compareList.push(data);
+    renderCompare();
+}
+
+function renderCompare() {
+    const keys = Object.keys(METRIC_GROUPS.death.options);
+    const colors = ["#4f8ef7","#2db565","#f0a030","#e05c5c"];
+
+    const listHtml = compareList.map((c,i) =>
+        `<div class="cmp-item">
+            <div style="width:10px;height:10px;border-radius:50%;background:${colors[i]};flex-shrink:0"></div>
+            <span style="flex:1;margin-left:8px">${c.name || c.country}</span>
+            <span class="rm" onclick="removeCompare('${c.country}')">✕</span>
+        </div>`).join("");
+
+    const barsHtml = keys.map(k => {
+        const label = METRIC_GROUPS.death.options[k];
+        const max = DEATH_MAX[k] || 200;
+        const bars = compareList.map((c,i) => {
+            const v = parseFloat(c[k]);
+            if (isNaN(v)) return "";
+            const pct = Math.min(100, (v/max)*100);
+            return `<div style="margin:2px 0">
+                <div style="display:flex;justify-content:space-between;font-size:10px;color:#556">
+                    <span>${c.name||c.country}</span><span style="color:${colors[i]}">${v.toFixed(1)}</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${colors[i]}"></div></div>
+            </div>`;
+        }).join("");
+        return bars ? `<div style="margin:10px 0"><div style="font-size:10px;color:#334;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px">${label}</div>${bars}</div>` : "";
+    }).join("");
+
+    document.getElementById("panel-title").textContent = "Compare Countries";
+    document.getElementById("panel-sub").textContent = `${compareList.length} selected — click map to add`;
+    document.getElementById("panel-content").innerHTML = `
+        <div class="panel-section"><h3>Selected</h3><div id="compare-list">${listHtml}</div></div>
+        <div class="panel-section"><h3>Cancer mortality comparison</h3><div id="compare-chart">${barsHtml||'<div style="color:#334;font-size:11px">Add countries to compare</div>'}</div></div>`;
+
+    document.getElementById("side-panel").classList.add("open");
+    document.getElementById("map-container").classList.add("panel-open");
+    document.getElementById("stats").classList.add("panel-open");
+}
+
+function removeCompare(iso3) {
+    compareList = compareList.filter(c => c.country !== iso3);
+    if (compareList.length === 0) closePanel();
+    else renderCompare();
+}
+
+// ── Map ────────────────────────────────────────────────────────────────────
+function onCategoryChange() {
+    const cat = document.getElementById("category").value;
+    const grp = METRIC_GROUPS[cat];
+    const sel = document.getElementById("metric");
+    sel.innerHTML = Object.entries(grp.options).map(([k,v]) => `<option value="${k}">${v}</option>`).join("");
+    currentMetric = Object.keys(grp.options)[0];
+    sel.value = currentMetric;
+    updateMap();
+}
+
 function updateMap() {
     currentMetric = document.getElementById("metric").value;
     buildLegend(currentMetric);
-    if (!g) return;
-    d3.selectAll(".country")
-        .transition().duration(350)
+    d3.selectAll(".country").transition().duration(350)
         .attr("fill", d => getColor(dataByNumId[+d.id], currentMetric));
 }
 
-// ── Init ─────────────────────────────────────────────────────────
 async function init() {
     const [world, cancer] = await Promise.all([
         d3.json("data/world-110m.json"),
         d3.json("data/countries_cancer.json")
     ]);
-
     worldData = world;
+    allData = cancer;
     cancer.forEach(c => { if (c.numeric_id) dataByNumId[c.numeric_id] = c; });
     document.getElementById("stat-n").textContent = cancer.length;
+    document.getElementById("meta-countries").textContent = cancer.length + " countries";
 
-    const container = document.getElementById("map-container");
-    const W = container.clientWidth, H = container.clientHeight;
-
+    const cont = document.getElementById("map-container");
+    const W = cont.clientWidth, H = cont.clientHeight;
     svg = d3.select("#svg").attr("width", W).attr("height", H);
-    projection = d3.geoNaturalEarth1().scale(W / 6.3).translate([W / 2, H / 2 + 20]);
+    projection = d3.geoNaturalEarth1().scale(W/6.3).translate([W/2, H/2+20]);
     pathGen = d3.geoPath().projection(projection);
     g = svg.append("g");
 
-    // Zoom
-    svg.call(d3.zoom().scaleExtent([0.7, 14]).on("zoom", e => g.attr("transform", e.transform)));
+    svg.call(d3.zoom().scaleExtent([0.7,14]).on("zoom", e => g.attr("transform", e.transform)));
 
     const countries = topojson.feature(world, world.objects.countries);
 
     g.selectAll(".country")
-        .data(countries.features)
-        .join("path")
-        .attr("class", "country")
-        .attr("d", pathGen)
+        .data(countries.features).join("path")
+        .attr("class","country").attr("d", pathGen)
         .attr("fill", d => getColor(dataByNumId[+d.id], currentMetric))
-        .attr("stroke", "#070910")
-        .attr("stroke-width", 0.3)
+        .attr("stroke","#070910").attr("stroke-width", 0.3)
         .on("mousemove", (e, d) => { showTip(e, d, dataByNumId[+d.id]); moveTip(e); })
-        .on("mouseout", () => { document.getElementById("tooltip").style.display = "none"; });
+        .on("mouseout", () => { document.getElementById("tooltip").style.display = "none"; })
+        .on("click", (e, d) => {
+            document.getElementById("tooltip").style.display = "none";
+            const data = dataByNumId[+d.id];
+            const name = data?.name || d.properties.name;
+            if (selectedEl) d3.select(selectedEl).classed("selected", false);
+            selectedEl = e.currentTarget;
+            d3.select(selectedEl).classed("selected", true);
+            if (compareMode) addToCompare(data, name);
+            else openProfile(data, name);
+        });
 
     buildLegend(currentMetric);
 
     window.addEventListener("resize", () => {
-        const W2 = container.clientWidth, H2 = container.clientHeight;
-        projection.scale(W2 / 6.3).translate([W2 / 2, H2 / 2 + 20]);
+        const W2 = cont.clientWidth, H2 = cont.clientHeight;
+        projection.scale(W2/6.3).translate([W2/2, H2/2+20]);
         pathGen = d3.geoPath().projection(projection);
         d3.selectAll(".country").attr("d", pathGen);
     });
