@@ -8,8 +8,8 @@
     "Medical Tourism Index",
     "Open source research"
   ],
-  "total": 194,
-  "standard_count": 182,
+  "total": 329,
+  "standard_count": 317,
   "nonstandard_count": 12,
   "migration_flows": [
     {
@@ -4446,6 +4446,2735 @@
         "Иммунотерапия"
       ],
       "country": "Russia"
+    },
+    {
+      "id": "ipc_marseille",
+      "name": "Institut Paoli-Calmettes",
+      "name_ru": "Институт Паоли-Кальметт (Марсель)",
+      "city": "Marseille",
+      "country": "France",
+      "iso3": "FRA",
+      "lat": 43.302,
+      "lon": 5.397,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "OECI",
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "clb_lyon",
+      "name": "Centre Léon Bérard",
+      "name_ru": "Центр Леон Берар (Лион)",
+      "city": "Lyon",
+      "country": "France",
+      "iso3": "FRA",
+      "lat": 45.734,
+      "lon": 4.84,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "OECI"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Педиатрическая онкология"
+      ]
+    },
+    {
+      "id": "ico_nantes",
+      "name": "Institut de Cancérologie de l'Ouest — Nantes",
+      "name_ru": "Институт онкологии Запада (Нант)",
+      "city": "Nantes",
+      "country": "France",
+      "iso3": "FRA",
+      "lat": 47.218,
+      "lon": -1.553,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "OECI"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Радиотерапия"
+      ]
+    },
+    {
+      "id": "icm_montpellier",
+      "name": "Institut du Cancer de Montpellier",
+      "name_ru": "Институт рака Монпелье (Монпелье)",
+      "city": "Montpellier",
+      "country": "France",
+      "iso3": "FRA",
+      "lat": 43.607,
+      "lon": 3.872,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "OECI"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "bergonie_bordeaux",
+      "name": "Institut Bergonié",
+      "name_ru": "Институт Бержони (Бордо)",
+      "city": "Bordeaux",
+      "country": "France",
+      "iso3": "FRA",
+      "lat": 44.828,
+      "lon": -0.605,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "OECI"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Саркомы"
+      ]
+    },
+    {
+      "id": "oscar_lambret",
+      "name": "Centre Oscar Lambret",
+      "name_ru": "Центр Оскар Ламбре (Лилль)",
+      "city": "Lille",
+      "country": "France",
+      "iso3": "FRA",
+      "lat": 50.612,
+      "lon": 3.06,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "OECI"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "jean_perrin",
+      "name": "Centre Jean Perrin",
+      "name_ru": "Центр Жан Перрен (Клермон-Ферран)",
+      "city": "Clermont-Ferrand",
+      "country": "France",
+      "iso3": "FRA",
+      "lat": 45.772,
+      "lon": 3.087,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "OECI"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Гормональная терапия"
+      ]
+    },
+    {
+      "id": "francois_baclesse",
+      "name": "Centre François Baclesse",
+      "name_ru": "Центр Франсуа Баклес (Кан)",
+      "city": "Caen",
+      "country": "France",
+      "iso3": "FRA",
+      "lat": 49.191,
+      "lon": -0.36,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "OECI"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "claudius_regaud",
+      "name": "Institut Claudius Regaud (IUCT-Oncopole)",
+      "name_ru": "Институт Клодиус Рего — IUCT-Онкополь (Тулуза)",
+      "city": "Toulouse",
+      "country": "France",
+      "iso3": "FRA",
+      "lat": 43.573,
+      "lon": 1.417,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "OECI"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Иммунотерапия"
+      ]
+    },
+    {
+      "id": "rmh_london",
+      "name": "Royal Marsden Hospital",
+      "name_ru": "Королевский госпиталь Марсден (Лондон)",
+      "city": "London",
+      "country": "United Kingdom",
+      "iso3": "GBR",
+      "lat": 51.487,
+      "lon": -0.173,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "NHS",
+        "OECI"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Иммунотерапия",
+        "Хирургия",
+        "Протонная терапия"
+      ]
+    },
+    {
+      "id": "christie_manchester",
+      "name": "The Christie NHS Foundation Trust",
+      "name_ru": "Онкологический центр Кристи (Манчестер)",
+      "city": "Manchester",
+      "country": "United Kingdom",
+      "iso3": "GBR",
+      "lat": 53.445,
+      "lon": -2.224,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "NHS",
+        "OECI"
+      ],
+      "treatments": [
+        "Протонная терапия",
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Клинические испытания"
+      ]
+    },
+    {
+      "id": "ucl_cancer_london",
+      "name": "University College London Cancer Institute",
+      "name_ru": "Онкологический институт Университетского колледжа Лондона",
+      "city": "London",
+      "country": "United Kingdom",
+      "iso3": "GBR",
+      "lat": 51.524,
+      "lon": -0.134,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "NHS"
+      ],
+      "treatments": [
+        "Иммунотерапия",
+        "CAR-T",
+        "Онкохирургия",
+        "Гематология"
+      ]
+    },
+    {
+      "id": "cambridge_cancer",
+      "name": "Cambridge Cancer Research Hospital (Addenbrooke's)",
+      "name_ru": "Онкологический центр Кембриджа — Аддентрукс (Кембридж)",
+      "city": "Cambridge",
+      "country": "United Kingdom",
+      "iso3": "GBR",
+      "lat": 52.175,
+      "lon": 0.14,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "NHS"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Радиохирургия",
+        "Химиотерапия"
+      ]
+    },
+    {
+      "id": "beatson_glasgow",
+      "name": "Beatson West of Scotland Cancer Centre",
+      "name_ru": "Онкологический центр Битсон (Глазго)",
+      "city": "Glasgow",
+      "country": "United Kingdom",
+      "iso3": "GBR",
+      "lat": 55.877,
+      "lon": -4.297,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "NHS Scotland"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "velindre_cardiff",
+      "name": "Velindre Cancer Centre",
+      "name_ru": "Онкологический центр Велиндр (Кардифф)",
+      "city": "Cardiff",
+      "country": "United Kingdom",
+      "iso3": "GBR",
+      "lat": 51.525,
+      "lon": -3.218,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "NHS Wales"
+      ],
+      "treatments": [
+        "Лучевая терапия",
+        "Химиотерапия",
+        "Паллиативная помощь"
+      ]
+    },
+    {
+      "id": "leeds_cancer",
+      "name": "Leeds Cancer Centre (St James's University Hospital)",
+      "name_ru": "Онкологический центр Лидса — Больница Св. Джеймса (Лидс)",
+      "city": "Leeds",
+      "country": "United Kingdom",
+      "iso3": "GBR",
+      "lat": 53.809,
+      "lon": -1.519,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "NHS"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "ТКМ",
+        "Лучевая терапия",
+        "Химиотерапия"
+      ]
+    },
+    {
+      "id": "oxford_cancer",
+      "name": "Oxford University Hospitals Cancer Centre",
+      "name_ru": "Онкологический центр Оксфордского университета",
+      "city": "Oxford",
+      "country": "United Kingdom",
+      "iso3": "GBR",
+      "lat": 51.762,
+      "lon": -1.219,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "NHS"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Иммунотерапия"
+      ]
+    },
+    {
+      "id": "birmingham_qeh",
+      "name": "Queen Elizabeth Hospital Birmingham — Cancer Centre",
+      "name_ru": "Онкологический центр больницы королевы Елизаветы (Бирмингем)",
+      "city": "Birmingham",
+      "country": "United Kingdom",
+      "iso3": "GBR",
+      "lat": 52.452,
+      "lon": -1.944,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "NHS"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "western_general_edinburgh",
+      "name": "Western General Hospital — Edinburgh Cancer Centre",
+      "name_ru": "Эдинбургский онкологический центр — Вестерн Дженерал (Эдинбург)",
+      "city": "Edinburgh",
+      "country": "United Kingdom",
+      "iso3": "GBR",
+      "lat": 55.96,
+      "lon": -3.234,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "NHS Scotland"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Нейроонкология"
+      ]
+    },
+    {
+      "id": "ico_barcelona",
+      "name": "Institut Català d'Oncologia (ICO)",
+      "name_ru": "Каталонский онкологический институт (Барселона)",
+      "city": "Barcelona",
+      "country": "Spain",
+      "iso3": "ESP",
+      "lat": 41.347,
+      "lon": 2.111,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "OECI",
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Протонная терапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "md_anderson_madrid",
+      "name": "MD Anderson Cancer Center Madrid",
+      "name_ru": "Онкологический центр MD Anderson (Мадрид)",
+      "city": "Madrid",
+      "country": "Spain",
+      "iso3": "ESP",
+      "lat": 40.427,
+      "lon": -3.689,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI",
+        "OECI"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Иммунотерапия",
+        "Таргетная терапия"
+      ]
+    },
+    {
+      "id": "clinic_barcelona_onco",
+      "name": "Hospital Clínic de Barcelona — Oncology",
+      "name_ru": "Онкологический отдел госпиталя Клиник (Барселона)",
+      "city": "Barcelona",
+      "country": "Spain",
+      "iso3": "ESP",
+      "lat": 41.389,
+      "lon": 2.154,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "Гематология",
+        "Хирургия",
+        "Химиотерапия"
+      ]
+    },
+    {
+      "id": "hm_ciocc_madrid",
+      "name": "HM CIOCC Madrid",
+      "name_ru": "Онкологический центр HM CIOCC (Мадрид)",
+      "city": "Madrid",
+      "country": "Spain",
+      "iso3": "ESP",
+      "lat": 40.48,
+      "lon": -3.697,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "OECI"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Таргетная терапия",
+        "Иммунотерапия"
+      ]
+    },
+    {
+      "id": "val_oncologia_valencia",
+      "name": "Fundación Instituto Valenciano de Oncología",
+      "name_ru": "Валенсийский онкологический институт (Валенсия)",
+      "city": "Valencia",
+      "country": "Spain",
+      "iso3": "ESP",
+      "lat": 39.479,
+      "lon": -0.398,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "OECI"
+      ],
+      "treatments": [
+        "Брахитерапия",
+        "Онкохирургия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "vhio_barcelona",
+      "name": "Vall d'Hebron Institute of Oncology (VHIO)",
+      "name_ru": "Онкологический институт Валь д'Эброн (Барселона)",
+      "city": "Barcelona",
+      "country": "Spain",
+      "iso3": "ESP",
+      "lat": 41.43,
+      "lon": 2.131,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "OECI"
+      ],
+      "treatments": [
+        "Клинические испытания",
+        "Иммунотерапия",
+        "Молекулярная онкология"
+      ]
+    },
+    {
+      "id": "onkologikoa_san_sebastian",
+      "name": "Onkologikoa — Basque Cancer Centre",
+      "name_ru": "Баскский онкологический центр Онкологикоа (Сан-Себастьян)",
+      "city": "San Sebastián",
+      "country": "Spain",
+      "iso3": "ESP",
+      "lat": 43.302,
+      "lon": -1.983,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "OECI"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "pmci_melbourne",
+      "name": "Peter MacCallum Cancer Centre",
+      "name_ru": "Онкологический центр Питера МакКаллума (Мельбурн)",
+      "city": "Melbourne",
+      "country": "Australia",
+      "iso3": "AUS",
+      "lat": -37.806,
+      "lon": 144.957,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ACHS",
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Протонная терапия",
+        "Химиотерапия",
+        "Трансплантация КМ",
+        "Иммунотерапия"
+      ]
+    },
+    {
+      "id": "chris_ohrien_sydney",
+      "name": "Chris O'Brien Lifehouse",
+      "name_ru": "Онкологический центр Крис О'Брайен (Сидней)",
+      "city": "Sydney",
+      "country": "Australia",
+      "iso3": "AUS",
+      "lat": -33.889,
+      "lon": 151.186,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ACHS",
+        "JCI"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Паллиативная помощь"
+      ]
+    },
+    {
+      "id": "royal_brisbane_cancer",
+      "name": "Royal Brisbane and Women's Hospital — Cancer Alliance",
+      "name_ru": "Онкологический альянс Королевской больницы Брисбена (Квинсленд)",
+      "city": "Brisbane",
+      "country": "Australia",
+      "iso3": "AUS",
+      "lat": -27.447,
+      "lon": 153.017,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ACHS"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "perth_fiona_stanley",
+      "name": "Fiona Stanley Hospital Cancer Centre",
+      "name_ru": "Онкологический центр больницы Фиона Стэнли (Перт)",
+      "city": "Perth",
+      "country": "Australia",
+      "iso3": "AUS",
+      "lat": -32.038,
+      "lon": 115.837,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ACHS"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "flinders_cancer_adelaide",
+      "name": "Flinders Centre for Innovation in Cancer (FCIC)",
+      "name_ru": "Центр инноваций в онкологии Флиндерс (Аделаида)",
+      "city": "Adelaide",
+      "country": "Australia",
+      "iso3": "AUS",
+      "lat": -35.016,
+      "lon": 138.572,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ACHS"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Клинические испытания",
+        "Таргетная терапия"
+      ]
+    },
+    {
+      "id": "austin_cancer_melbourne",
+      "name": "Austin Health — Olivia Newton-John Cancer Centre",
+      "name_ru": "Онкологический центр Оливии Ньютон-Джон (Мельбурн)",
+      "city": "Melbourne",
+      "country": "Australia",
+      "iso3": "AUS",
+      "lat": -37.751,
+      "lon": 145.065,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ACHS"
+      ],
+      "treatments": [
+        "Иммунотерапия",
+        "Химиотерапия",
+        "Трансплантация КМ"
+      ]
+    },
+    {
+      "id": "calvary_act_cancer",
+      "name": "Canberra Hospital Cancer Services",
+      "name_ru": "Онкологическая служба больницы Канберры (Канберра)",
+      "city": "Canberra",
+      "country": "Australia",
+      "iso3": "AUS",
+      "lat": -35.349,
+      "lon": 149.083,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ACHS"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "mater_cancer_brisbane",
+      "name": "Mater Cancer Care Centre Brisbane",
+      "name_ru": "Онкологический центр Матер (Брисбен)",
+      "city": "Brisbane",
+      "country": "Australia",
+      "iso3": "AUS",
+      "lat": -27.502,
+      "lon": 153.03,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ACHS"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Таргетная терапия",
+        "Паллиативная помощь"
+      ]
+    },
+    {
+      "id": "avl_amsterdam",
+      "name": "Netherlands Cancer Institute (Antoni van Leeuwenhoek)",
+      "name_ru": "Нидерландский онкологический институт — Антони ван Левенгук (Амстердам)",
+      "city": "Amsterdam",
+      "country": "Netherlands",
+      "iso3": "NLD",
+      "lat": 52.361,
+      "lon": 4.882,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "OECI",
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Иммунотерапия",
+        "Протонная терапия",
+        "Роботическая хирургия"
+      ]
+    },
+    {
+      "id": "erasmus_cancer_rotterdam",
+      "name": "Erasmus MC Cancer Institute",
+      "name_ru": "Онкологический институт Эразмус МС (Роттердам)",
+      "city": "Rotterdam",
+      "country": "Netherlands",
+      "iso3": "NLD",
+      "lat": 51.912,
+      "lon": 4.468,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "OECI",
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Хирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "radboud_cancer_nijmegen",
+      "name": "Radboudumc Oncology Centre",
+      "name_ru": "Онкологический центр Радбауд (Неймеген)",
+      "city": "Nijmegen",
+      "country": "Netherlands",
+      "iso3": "NLD",
+      "lat": 51.835,
+      "lon": 5.865,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Иммунотерапия",
+        "Ядерная медицина"
+      ]
+    },
+    {
+      "id": "umcg_groningen_onco",
+      "name": "UMCG Oncology Centre Groningen",
+      "name_ru": "Онкологический центр УМГЦ (Гронинген)",
+      "city": "Groningen",
+      "country": "Netherlands",
+      "iso3": "NLD",
+      "lat": 53.223,
+      "lon": 6.56,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Гематология",
+        "Онкохирургия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "leiden_cancer_lumc",
+      "name": "LUMC Cancer Centre Leiden",
+      "name_ru": "Онкологический центр Лейденского университета (Лейден)",
+      "city": "Leiden",
+      "country": "Netherlands",
+      "iso3": "NLD",
+      "lat": 52.165,
+      "lon": 4.48,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "OECI"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Молекулярная диагностика",
+        "Таргетная терапия"
+      ]
+    },
+    {
+      "id": "catharinaziekenhuis_eindhoven",
+      "name": "Catharina Hospital Cancer Centre Eindhoven",
+      "name_ru": "Онкологический центр больницы Катарина (Эйндховен)",
+      "city": "Eindhoven",
+      "country": "Netherlands",
+      "iso3": "NLD",
+      "lat": 51.435,
+      "lon": 5.474,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Роботическая хирургия"
+      ]
+    },
+    {
+      "id": "karolinska_cancer",
+      "name": "Karolinska University Hospital — Cancer Theme",
+      "name_ru": "Онкологический центр Каролинского университета (Стокгольм)",
+      "city": "Stockholm",
+      "country": "Sweden",
+      "iso3": "SWE",
+      "lat": 59.349,
+      "lon": 17.987,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ISO 9001",
+        "OECI"
+      ],
+      "treatments": [
+        "Протонная терапия",
+        "Иммунотерапия",
+        "Хирургия",
+        "ТКМ"
+      ]
+    },
+    {
+      "id": "sahlgrenska_cancer_goteborg",
+      "name": "Sahlgrenska University Hospital — Oncology",
+      "name_ru": "Онкологический центр Сальгренской больницы (Гётеборг)",
+      "city": "Gothenburg",
+      "country": "Sweden",
+      "iso3": "SWE",
+      "lat": 57.683,
+      "lon": 11.975,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "akademiska_cancer_uppsala",
+      "name": "Uppsala University Hospital — Oncology",
+      "name_ru": "Онкологический центр Академической больницы Упсалы",
+      "city": "Uppsala",
+      "country": "Sweden",
+      "iso3": "SWE",
+      "lat": 59.845,
+      "lon": 17.633,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Таргетная терапия",
+        "Нейроонкология",
+        "Химиотерапия"
+      ]
+    },
+    {
+      "id": "skane_cancer_malmo",
+      "name": "Skåne University Hospital — Cancer Centre",
+      "name_ru": "Онкологический центр университетской больницы Сконе (Мальмё)",
+      "city": "Malmö",
+      "country": "Sweden",
+      "iso3": "SWE",
+      "lat": 55.6,
+      "lon": 13.002,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "linkoping_cancer",
+      "name": "Linköping University Hospital — Cancer Centre",
+      "name_ru": "Онкологический центр Линчёпингского университета",
+      "city": "Linköping",
+      "country": "Sweden",
+      "iso3": "SWE",
+      "lat": 58.409,
+      "lon": 15.624,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Иммунотерапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "umea_cancer",
+      "name": "Umeå University Hospital — Oncology",
+      "name_ru": "Онкологический центр Университетской больницы Умео",
+      "city": "Umeå",
+      "country": "Sweden",
+      "iso3": "SWE",
+      "lat": 63.828,
+      "lon": 20.266,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "msci_warsaw",
+      "name": "Maria Skłodowska-Curie National Research Institute of Oncology",
+      "name_ru": "Национальный онкологический институт им. Марии Склодовской-Кюри (Варшава)",
+      "city": "Warsaw",
+      "country": "Poland",
+      "iso3": "POL",
+      "lat": 52.22,
+      "lon": 20.986,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ISO 9001",
+        "OECI"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Брахитерапия"
+      ]
+    },
+    {
+      "id": "gliwice_cancer",
+      "name": "MSC National Research Institute — Gliwice Branch",
+      "name_ru": "Гливицкий филиал Института онкологии Склодовской-Кюри (Гливице)",
+      "city": "Gliwice",
+      "country": "Poland",
+      "iso3": "POL",
+      "lat": 50.29,
+      "lon": 18.673,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Лучевая терапия",
+        "Химиотерапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "bialystok_cancer",
+      "name": "Białystok Oncological Centre",
+      "name_ru": "Белостокский онкологический центр (Белосток)",
+      "city": "Białystok",
+      "country": "Poland",
+      "iso3": "POL",
+      "lat": 53.132,
+      "lon": 23.168,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "krakow_cancer",
+      "name": "Małopolska Cancer Centre Kraków",
+      "name_ru": "Онкологический центр Малопольши (Краков)",
+      "city": "Kraków",
+      "country": "Poland",
+      "iso3": "POL",
+      "lat": 50.085,
+      "lon": 19.92,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "poznan_cancer",
+      "name": "Greater Poland Cancer Centre",
+      "name_ru": "Онкологический центр Великопольши (Познань)",
+      "city": "Poznań",
+      "country": "Poland",
+      "iso3": "POL",
+      "lat": 52.399,
+      "lon": 16.939,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Протонная терапия",
+        "Химиотерапия",
+        "Брахитерапия"
+      ]
+    },
+    {
+      "id": "wroclaw_cancer",
+      "name": "Lower Silesia Oncology Centre",
+      "name_ru": "Онкологический центр Нижней Силезии (Вроцлав)",
+      "city": "Wrocław",
+      "country": "Poland",
+      "iso3": "POL",
+      "lat": 51.099,
+      "lon": 17.033,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "gdansk_cancer",
+      "name": "Gdańsk Medical University — Oncology Centre",
+      "name_ru": "Онкологический центр Гданьского медуниверситета (Гданьск)",
+      "city": "Gdańsk",
+      "country": "Poland",
+      "iso3": "POL",
+      "lat": 54.352,
+      "lon": 18.645,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "iob_bucharest",
+      "name": "Institute of Oncology Bucharest (Prof. Dr. Alexandru Trestioreanu)",
+      "name_ru": "Онкологический институт им. проф. Алексу Трестиоряну (Бухарест)",
+      "city": "Bucharest",
+      "country": "Romania",
+      "iso3": "ROU",
+      "lat": 44.433,
+      "lon": 26.106,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minsan Romania"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "clujnapoca_cancer",
+      "name": "Ion Chiricuță Oncology Institute Cluj-Napoca",
+      "name_ru": "Онкологический институт Ион Кирикуцэ (Клуж-Напока)",
+      "city": "Cluj-Napoca",
+      "country": "Romania",
+      "iso3": "ROU",
+      "lat": 46.769,
+      "lon": 23.587,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "iasi_cancer",
+      "name": "Regional Oncology Centre Iași",
+      "name_ru": "Региональный онкологический центр (Яссы)",
+      "city": "Iași",
+      "country": "Romania",
+      "iso3": "ROU",
+      "lat": 47.157,
+      "lon": 27.594,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minsan Romania"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "timisoara_cancer",
+      "name": "Timișoara Oncology Clinic",
+      "name_ru": "Онкологическая клиника (Тимишоара)",
+      "city": "Timișoara",
+      "country": "Romania",
+      "iso3": "ROU",
+      "lat": 45.751,
+      "lon": 21.226,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "angel_roffo_buenos_aires",
+      "name": "Instituto de Oncología Ángel Roffo",
+      "name_ru": "Онкологический институт Анхель Роффо (Буэнос-Айрес)",
+      "city": "Buenos Aires",
+      "country": "Argentina",
+      "iso3": "ARG",
+      "lat": -34.547,
+      "lon": -58.473,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "UBA"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Брахитерапия"
+      ]
+    },
+    {
+      "id": "fleni_cancer",
+      "name": "FLENI Oncology Institute",
+      "name_ru": "Онкологический институт ФЛЕНИ (Буэнос-Айрес)",
+      "city": "Buenos Aires",
+      "country": "Argentina",
+      "iso3": "ARG",
+      "lat": -34.568,
+      "lon": -58.415,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "Нейроонкология",
+        "Химиотерапия",
+        "Радиохирургия"
+      ]
+    },
+    {
+      "id": "austral_cancer_ba",
+      "name": "Hospital Universitario Austral — Oncology",
+      "name_ru": "Онкологический центр Университетской больницы Австраль (Пьяр)",
+      "city": "Pilar",
+      "country": "Argentina",
+      "iso3": "ARG",
+      "lat": -34.462,
+      "lon": -58.918,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "mater_dei_cancer",
+      "name": "Clínica Universitaria Mater Dei — Oncology",
+      "name_ru": "Онкологический центр клиники Матер Деи (Буэнос-Айрес)",
+      "city": "Buenos Aires",
+      "country": "Argentina",
+      "iso3": "ARG",
+      "lat": -34.61,
+      "lon": -58.43,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Иммунотерапия"
+      ]
+    },
+    {
+      "id": "sanatorio_guemes_cancer",
+      "name": "Sanatorio Güemes — Centro Oncológico",
+      "name_ru": "Онкологический центр Санаторио Гуэмес (Буэнос-Айрес)",
+      "city": "Buenos Aires",
+      "country": "Argentina",
+      "iso3": "ARG",
+      "lat": -34.587,
+      "lon": -58.431,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "groote_schuur_cancer",
+      "name": "Groote Schuur Hospital — Oncology",
+      "name_ru": "Онкологический отдел больницы Гроте Схюр (Кейптаун)",
+      "city": "Cape Town",
+      "country": "South Africa",
+      "iso3": "ZAF",
+      "lat": -33.941,
+      "lon": 18.461,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "COHSASA"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "donald_gordon_joburg",
+      "name": "Donald Gordon Medical Centre — Oncology",
+      "name_ru": "Онкологический центр медцентра Дональда Гордона (Йоханнесбург)",
+      "city": "Johannesburg",
+      "country": "South Africa",
+      "iso3": "ZAF",
+      "lat": -26.175,
+      "lon": 28.05,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "COHSASA",
+        "JCI"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Роботическая хирургия",
+        "Иммунотерапия"
+      ]
+    },
+    {
+      "id": "inkosi_durban",
+      "name": "Inkosi Albert Luthuli Central Hospital — Oncology",
+      "name_ru": "Онкологический центр больницы Инкоси Альберт Лутули (Дурбан)",
+      "city": "Durban",
+      "country": "South Africa",
+      "iso3": "ZAF",
+      "lat": -29.84,
+      "lon": 30.991,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "COHSASA"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "milpark_cancer",
+      "name": "Milpark Hospital — Oncology",
+      "name_ru": "Онкологический центр больницы Милпарк (Йоханнесбург)",
+      "city": "Johannesburg",
+      "country": "South Africa",
+      "iso3": "ZAF",
+      "lat": -26.192,
+      "lon": 27.999,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "pretoria_cancer",
+      "name": "Steve Biko Academic Hospital — Cancer Centre",
+      "name_ru": "Онкологический центр академической больницы Стив Бико (Претория)",
+      "city": "Pretoria",
+      "country": "South Africa",
+      "iso3": "ZAF",
+      "lat": -25.741,
+      "lon": 28.19,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "COHSASA"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "nci_cairo",
+      "name": "National Cancer Institute Cairo University",
+      "name_ru": "Национальный онкологический институт Каирского университета",
+      "city": "Cairo",
+      "country": "Egypt",
+      "iso3": "EGY",
+      "lat": 30.044,
+      "lon": 31.224,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "MOH Egypt"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Ядерная медицина"
+      ]
+    },
+    {
+      "id": "baheya_cairo",
+      "name": "Baheya Foundation Hospital for Breast Cancer",
+      "name_ru": "Больница фонда Бахия для лечения рака груди (Каир)",
+      "city": "Cairo",
+      "country": "Egypt",
+      "iso3": "EGY",
+      "lat": 30.08,
+      "lon": 31.288,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MOH Egypt"
+      ],
+      "treatments": [
+        "Рак груди",
+        "Химиотерапия",
+        "Хирургия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "alexandria_cancer",
+      "name": "Alexandria University Cancer Centre",
+      "name_ru": "Онкологический центр Александрийского университета (Александрия)",
+      "city": "Alexandria",
+      "country": "Egypt",
+      "iso3": "EGY",
+      "lat": 31.198,
+      "lon": 29.905,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MOH Egypt"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "misr_cancer",
+      "name": "Misr International Hospital — Oncology",
+      "name_ru": "Онкологический центр Международного госпиталя Миср (Каир)",
+      "city": "Cairo",
+      "country": "Egypt",
+      "iso3": "EGY",
+      "lat": 30.056,
+      "lon": 31.34,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "mansoura_cancer",
+      "name": "Mansoura University Cancer Centre",
+      "name_ru": "Онкологический центр Университета Мансуры",
+      "city": "Mansoura",
+      "country": "Egypt",
+      "iso3": "EGY",
+      "lat": 31.037,
+      "lon": 31.381,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MOH Egypt"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "imam_khomeini_cancer",
+      "name": "Cancer Institute of Iran (Imam Khomeini Hospital Complex)",
+      "name_ru": "Институт онкологии Ирана — Комплекс больниц Имама Хомейни (Тегеран)",
+      "city": "Tehran",
+      "country": "Iran",
+      "iso3": "IRN",
+      "lat": 35.697,
+      "lon": 51.394,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "MOH Iran"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Брахитерапия"
+      ]
+    },
+    {
+      "id": "shariati_cancer",
+      "name": "Shariati Hospital — Cancer Centre",
+      "name_ru": "Онкологический центр больницы Шариати (Тегеран)",
+      "city": "Tehran",
+      "country": "Iran",
+      "iso3": "IRN",
+      "lat": 35.762,
+      "lon": 51.445,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MOH Iran"
+      ],
+      "treatments": [
+        "Гематология",
+        "Трансплантация КМ",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "mahak_children",
+      "name": "MAHAK Children's Cancer Hospital",
+      "name_ru": "Детская онкологическая больница МАХАК (Тегеран)",
+      "city": "Tehran",
+      "country": "Iran",
+      "iso3": "IRN",
+      "lat": 35.743,
+      "lon": 51.488,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MOH Iran"
+      ],
+      "treatments": [
+        "Детская онкология",
+        "Лейкемия",
+        "Химиотерапия"
+      ]
+    },
+    {
+      "id": "mashhad_cancer",
+      "name": "Omid Oncology Hospital Mashhad",
+      "name_ru": "Онкологическая больница Омид (Мешхед)",
+      "city": "Mashhad",
+      "country": "Iran",
+      "iso3": "IRN",
+      "lat": 36.291,
+      "lon": 59.613,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MOH Iran"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "isfahan_cancer",
+      "name": "Sayed Al-Shuhada Cancer Hospital Isfahan",
+      "name_ru": "Онкологическая больница Саед аль-Шухада (Исфахан)",
+      "city": "Isfahan",
+      "country": "Iran",
+      "iso3": "IRN",
+      "lat": 32.644,
+      "lon": 51.665,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MOH Iran"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "kfmc_riyadh",
+      "name": "King Fahad Medical City — Oncology",
+      "name_ru": "Онкологический центр Медицинского города Короля Фахада (Эр-Рияд)",
+      "city": "Riyadh",
+      "country": "Saudi Arabia",
+      "iso3": "SAU",
+      "lat": 24.757,
+      "lon": 46.673,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI",
+        "CBAHI"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Трансплантация КМ"
+      ]
+    },
+    {
+      "id": "kfsh_cancer",
+      "name": "King Faisal Specialist Hospital — Oncology Centre",
+      "name_ru": "Онкологический центр Специализированной больницы Короля Фейсала (Эр-Рияд)",
+      "city": "Riyadh",
+      "country": "Saudi Arabia",
+      "iso3": "SAU",
+      "lat": 24.686,
+      "lon": 46.718,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "JCI",
+        "CBAHI"
+      ],
+      "treatments": [
+        "Трансплантация КМ",
+        "Онкохирургия",
+        "Иммунотерапия",
+        "Клинические испытания"
+      ]
+    },
+    {
+      "id": "kfsh_jeddah",
+      "name": "King Faisal Specialist Hospital Jeddah — Oncology",
+      "name_ru": "Онкологический центр КФШР (Джидда)",
+      "city": "Jeddah",
+      "country": "Saudi Arabia",
+      "iso3": "SAU",
+      "lat": 21.545,
+      "lon": 39.172,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI",
+        "CBAHI"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "soliman_cancer",
+      "name": "Soliman Fakeeh Hospital — Cancer Centre",
+      "name_ru": "Онкологический центр больницы Солиман Факих (Джидда)",
+      "city": "Jeddah",
+      "country": "Saudi Arabia",
+      "iso3": "SAU",
+      "lat": 21.569,
+      "lon": 39.143,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "ncc_riyadh",
+      "name": "National Cancer Centre — King Hussein Cancer Foundation (branch)",
+      "name_ru": "Национальный онкологический центр (Эр-Рияд)",
+      "city": "Riyadh",
+      "country": "Saudi Arabia",
+      "iso3": "SAU",
+      "lat": 24.718,
+      "lon": 46.651,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "CBAHI"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Паллиативная помощь"
+      ]
+    },
+    {
+      "id": "nmsc_malaysia",
+      "name": "National Cancer Society Malaysia",
+      "name_ru": "Национальное онкологическое общество Малайзии (Куала-Лумпур)",
+      "city": "Kuala Lumpur",
+      "country": "Malaysia",
+      "iso3": "MYS",
+      "lat": 3.157,
+      "lon": 101.695,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MOH Malaysia"
+      ],
+      "treatments": [
+        "Скрининг",
+        "Химиотерапия",
+        "Паллиативная помощь"
+      ]
+    },
+    {
+      "id": "sunmed_cancer",
+      "name": "Sunway Medical Centre — Cancer Centre",
+      "name_ru": "Онкологический центр Санвей Медикал (Сунгей Булох)",
+      "city": "Subang Jaya",
+      "country": "Malaysia",
+      "iso3": "MYS",
+      "lat": 3.076,
+      "lon": 101.596,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Таргетная терапия",
+        "Роботическая хирургия"
+      ]
+    },
+    {
+      "id": "gleneagles_cancer",
+      "name": "Gleneagles Hospital Kuala Lumpur — Oncology",
+      "name_ru": "Онкологический центр госпиталя Гленеглс (Куала-Лумпур)",
+      "city": "Kuala Lumpur",
+      "country": "Malaysia",
+      "iso3": "MYS",
+      "lat": 3.157,
+      "lon": 101.728,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "pantai_cancer",
+      "name": "Pantai Hospital — Cancer Centre",
+      "name_ru": "Онкологический центр больницы Пантай (Куала-Лумпур)",
+      "city": "Kuala Lumpur",
+      "country": "Malaysia",
+      "iso3": "MYS",
+      "lat": 3.119,
+      "lon": 101.663,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MOH Malaysia"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "inca_colombia",
+      "name": "Instituto Nacional de Cancerología Colombia",
+      "name_ru": "Национальный онкологический институт Колумбии (Богота)",
+      "city": "Bogotá",
+      "country": "Colombia",
+      "iso3": "COL",
+      "lat": 4.638,
+      "lon": -74.085,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "ICONTEC"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Брахитерапия"
+      ]
+    },
+    {
+      "id": "liga_cancer_bogota",
+      "name": "Liga Colombiana Contra el Cáncer",
+      "name_ru": "Колумбийская лига против рака (Богота)",
+      "city": "Bogotá",
+      "country": "Colombia",
+      "iso3": "COL",
+      "lat": 4.657,
+      "lon": -74.072,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ICONTEC"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Паллиативная помощь",
+        "Реабилитация"
+      ]
+    },
+    {
+      "id": "cimes_cancer_medellin",
+      "name": "CimesOnco — Medellín",
+      "name_ru": "Онкологический центр CIMES (Медельин)",
+      "city": "Medellín",
+      "country": "Colombia",
+      "iso3": "COL",
+      "lat": 6.218,
+      "lon": -75.572,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Таргетная терапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "oncosalud_colombia",
+      "name": "OncólogosAsociados del Caribe — Barranquilla",
+      "name_ru": "Онкологи Карибского бассейна (Барранкилья)",
+      "city": "Barranquilla",
+      "country": "Colombia",
+      "iso3": "COL",
+      "lat": 11.003,
+      "lon": -74.832,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "vno_hanoi",
+      "name": "Vietnam National Cancer Hospital (K Hospital)",
+      "name_ru": "Национальная онкологическая больница Вьетнама — Больница К (Ханой)",
+      "city": "Hanoi",
+      "country": "Vietnam",
+      "iso3": "VNM",
+      "lat": 21.037,
+      "lon": 105.84,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "MOH Vietnam"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Брахитерапия"
+      ]
+    },
+    {
+      "id": "unmedical_cancer",
+      "name": "University Medical Centre Ho Chi Minh City — Oncology",
+      "name_ru": "Онкологический центр Университетской медицины (Хошимин)",
+      "city": "Ho Chi Minh City",
+      "country": "Vietnam",
+      "iso3": "VNM",
+      "lat": 10.765,
+      "lon": 106.66,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MOH Vietnam"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "ung_buou_hcm",
+      "name": "Ho Chi Minh City Oncological Hospital",
+      "name_ru": "Хошиминская онкологическая больница (Хошимин)",
+      "city": "Ho Chi Minh City",
+      "country": "Vietnam",
+      "iso3": "VNM",
+      "lat": 10.755,
+      "lon": 106.675,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MOH Vietnam"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия",
+        "Паллиативная помощь"
+      ]
+    },
+    {
+      "id": "vinmec_cancer",
+      "name": "Vinmec International Hospital — Oncology",
+      "name_ru": "Онкологический центр Международного госпиталя Винмек (Ханой)",
+      "city": "Hanoi",
+      "country": "Vietnam",
+      "iso3": "VNM",
+      "lat": 21.03,
+      "lon": 105.797,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Таргетная терапия",
+        "Диагностика"
+      ]
+    },
+    {
+      "id": "pgh_cancer",
+      "name": "Philippine General Hospital — Cancer Institute",
+      "name_ru": "Онкологический институт при Филиппинском генеральном госпитале (Манила)",
+      "city": "Manila",
+      "country": "Philippines",
+      "iso3": "PHL",
+      "lat": 14.574,
+      "lon": 120.986,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "PhilHealth"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "pcc_cancer",
+      "name": "Philippine Children's Medical Centre — Oncology",
+      "name_ru": "Детский медцентр Филиппин — Онкология (Кесон-Сити)",
+      "city": "Quezon City",
+      "country": "Philippines",
+      "iso3": "PHL",
+      "lat": 14.65,
+      "lon": 121.043,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "PhilHealth"
+      ],
+      "treatments": [
+        "Детская онкология",
+        "Лейкемия",
+        "Химиотерапия"
+      ]
+    },
+    {
+      "id": "medcity_cancer",
+      "name": "Medical City Hospital — Cancer Centre",
+      "name_ru": "Онкологический центр больницы Медикал Сити (Пасиг)",
+      "city": "Pasig",
+      "country": "Philippines",
+      "iso3": "PHL",
+      "lat": 14.572,
+      "lon": 121.069,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия",
+        "Таргетная терапия"
+      ]
+    },
+    {
+      "id": "cebu_cancer",
+      "name": "Cebu Cancer Centre (Vicente Sotto Memorial Medical)",
+      "name_ru": "Онкологический центр Себу — Медицинский центр Висенте Сотто (Себу)",
+      "city": "Cebu City",
+      "country": "Philippines",
+      "iso3": "PHL",
+      "lat": 10.305,
+      "lon": 123.885,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "PhilHealth"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "nsicu_cancer",
+      "name": "National Cancer Institute Ukraine",
+      "name_ru": "Национальный институт рака Украины (Киев)",
+      "city": "Kyiv",
+      "country": "Ukraine",
+      "iso3": "UKR",
+      "lat": 50.457,
+      "lon": 30.524,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "MOH Ukraine"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Брахитерапия"
+      ]
+    },
+    {
+      "id": "kharkiv_cancer",
+      "name": "Grigoriev Institute for Medical Radiology",
+      "name_ru": "Институт медицинской радиологии им. Григорьева (Харьков)",
+      "city": "Kharkiv",
+      "country": "Ukraine",
+      "iso3": "UKR",
+      "lat": 49.992,
+      "lon": 36.23,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MOH Ukraine"
+      ],
+      "treatments": [
+        "Радиотерапия",
+        "Ядерная медицина",
+        "Химиотерапия"
+      ]
+    },
+    {
+      "id": "lviv_cancer",
+      "name": "Lviv Regional Oncological Centre",
+      "name_ru": "Львовский областной онкологический диспансер (Львов)",
+      "city": "Lviv",
+      "country": "Ukraine",
+      "iso3": "UKR",
+      "lat": 49.833,
+      "lon": 24.015,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MOH Ukraine"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "dnipro_cancer",
+      "name": "Dnipropetrovsk Regional Cancer Centre",
+      "name_ru": "Днепровский областной онкологический диспансер (Днепр)",
+      "city": "Dnipro",
+      "country": "Ukraine",
+      "iso3": "UKR",
+      "lat": 48.464,
+      "lon": 34.997,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MOH Ukraine"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "odesa_cancer",
+      "name": "Odessa Regional Oncological Dispensary",
+      "name_ru": "Одесский областной онкологический диспансер (Одесса)",
+      "city": "Odessa",
+      "country": "Ukraine",
+      "iso3": "UKR",
+      "lat": 46.482,
+      "lon": 30.733,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MOH Ukraine"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "mou_brno",
+      "name": "Masaryk Memorial Cancer Institute",
+      "name_ru": "Онкологический институт им. Масарика (Брно)",
+      "city": "Brno",
+      "country": "Czech Republic",
+      "iso3": "CZE",
+      "lat": 49.19,
+      "lon": 16.565,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "OECI",
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Лучевая терапия",
+        "Химиотерапия",
+        "Клинические испытания"
+      ]
+    },
+    {
+      "id": "fn_motol_cancer",
+      "name": "Motol University Hospital — Cancer Centre",
+      "name_ru": "Онкологический центр Университетской больницы Мотол (Прага)",
+      "city": "Prague",
+      "country": "Czech Republic",
+      "iso3": "CZE",
+      "lat": 50.075,
+      "lon": 14.335,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Педиатрическая онкология",
+        "Химиотерапия"
+      ]
+    },
+    {
+      "id": "fn_olomouc_cancer",
+      "name": "Olomouc University Hospital — Oncology",
+      "name_ru": "Онкологический центр Университетской больницы Оломоуц (Оломоуц)",
+      "city": "Olomouc",
+      "country": "Czech Republic",
+      "iso3": "CZE",
+      "lat": 49.597,
+      "lon": 17.251,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "fn_hradec_cancer",
+      "name": "Hradec Králové University Hospital — Oncology",
+      "name_ru": "Онкологический центр Университетской больницы Градец-Кралове",
+      "city": "Hradec Králové",
+      "country": "Czech Republic",
+      "iso3": "CZE",
+      "lat": 50.208,
+      "lon": 15.832,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "shaukat_khanum",
+      "name": "Shaukat Khanum Memorial Cancer Hospital Lahore",
+      "name_ru": "Мемориальная онкологическая больница Шаукат Ханум (Лахор)",
+      "city": "Lahore",
+      "country": "Pakistan",
+      "iso3": "PAK",
+      "lat": 31.498,
+      "lon": 74.341,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Таргетная терапия"
+      ]
+    },
+    {
+      "id": "shaukat_khanum_karachi",
+      "name": "Shaukat Khanum Memorial Cancer Hospital Karachi",
+      "name_ru": "Мемориальная онкологическая больница Шаукат Ханум (Карачи)",
+      "city": "Karachi",
+      "country": "Pakistan",
+      "iso3": "PAK",
+      "lat": 24.907,
+      "lon": 67.076,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "nori_islamabad",
+      "name": "Nuclear Institute for Oncology & Radiology (NORI)",
+      "name_ru": "Ядерный институт онкологии и радиологии НОРИ (Исламабад)",
+      "city": "Islamabad",
+      "country": "Pakistan",
+      "iso3": "PAK",
+      "lat": 33.691,
+      "lon": 73.064,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "PAEC"
+      ],
+      "treatments": [
+        "Ядерная медицина",
+        "Лучевая терапия",
+        "Химиотерапия"
+      ]
+    },
+    {
+      "id": "aga_khan_cancer",
+      "name": "Aga Khan University Hospital — Oncology",
+      "name_ru": "Онкологический центр Больницы университета Ага Хана (Карачи)",
+      "city": "Karachi",
+      "country": "Pakistan",
+      "iso3": "PAK",
+      "lat": 24.898,
+      "lon": 67.079,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Таргетная терапия"
+      ]
+    },
+    {
+      "id": "nicrh_dhaka",
+      "name": "National Institute of Cancer Research & Hospital",
+      "name_ru": "Национальный институт онкологических исследований и больница (Дакка)",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "lat": 23.762,
+      "lon": 90.368,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "MOH Bangladesh"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "delta_cancer_dhaka",
+      "name": "Delta Medical College & Hospital — Oncology",
+      "name_ru": "Онкологический центр Дельта медицинского колледжа (Дакка)",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "lat": 23.754,
+      "lon": 90.364,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MOH Bangladesh"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "cmch_cancer",
+      "name": "Chittagong Medical College Hospital — Oncology",
+      "name_ru": "Онкологический центр медицинского колледжа Читтагонга",
+      "city": "Chittagong",
+      "country": "Bangladesh",
+      "iso3": "BGD",
+      "lat": 22.354,
+      "lon": 91.798,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MOH Bangladesh"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "luth_cancer",
+      "name": "Lagos University Teaching Hospital — Oncology",
+      "name_ru": "Онкологический центр Университетской больницы Лагоса (Лагос)",
+      "city": "Lagos",
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "lat": 6.505,
+      "lon": 3.362,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "MDCN"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Паллиативная помощь"
+      ]
+    },
+    {
+      "id": "luth_radio_cancer",
+      "name": "National Hospital Abuja — Oncology",
+      "name_ru": "Онкологический центр Национальной больницы (Абуджа)",
+      "city": "Abuja",
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "lat": 9.058,
+      "lon": 7.494,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MDCN"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия",
+        "Паллиативная помощь"
+      ]
+    },
+    {
+      "id": "ucth_cancer",
+      "name": "University of Calabar Teaching Hospital — Oncology",
+      "name_ru": "Онкологический центр Учебной больницы Калабарского университета",
+      "city": "Calabar",
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "lat": 4.96,
+      "lon": 8.341,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MDCN"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "usth_ibadan",
+      "name": "University College Hospital Ibadan — Cancer Centre",
+      "name_ru": "Онкологический центр Университетской клинической больницы (Ибадан)",
+      "city": "Ibadan",
+      "country": "Nigeria",
+      "iso3": "NGA",
+      "lat": 7.395,
+      "lon": 3.908,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "MDCN"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "rs_hasan_sadikin",
+      "name": "Hasan Sadikin Hospital — Cancer Centre",
+      "name_ru": "Онкологический центр больницы Хасан Садикин (Бандунг)",
+      "city": "Bandung",
+      "country": "Indonesia",
+      "iso3": "IDN",
+      "lat": -6.91,
+      "lon": 107.615,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "KARS"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "rscm_cancer",
+      "name": "Dr. Cipto Mangunkusumo Hospital — Oncology",
+      "name_ru": "Онкологический центр Национальной больницы Сипто Мангункусумо (Джакарта)",
+      "city": "Jakarta",
+      "country": "Indonesia",
+      "iso3": "IDN",
+      "lat": -6.201,
+      "lon": 106.848,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "KARS"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Педиатрическая онкология"
+      ]
+    },
+    {
+      "id": "wahidin_cancer",
+      "name": "Wahidin Sudirohusodo Hospital — Oncology",
+      "name_ru": "Онкологический центр больницы Вахидин Судирохусодо (Макасар)",
+      "city": "Makassar",
+      "country": "Indonesia",
+      "iso3": "IDN",
+      "lat": -5.135,
+      "lon": 119.423,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "KARS"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "ipolfg_lisbon",
+      "name": "Instituto Português de Oncologia Lisboa",
+      "name_ru": "Португальский онкологический институт (Лиссабон)",
+      "city": "Lisbon",
+      "country": "Portugal",
+      "iso3": "PRT",
+      "lat": 38.744,
+      "lon": -9.168,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "OECI",
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Брахитерапия"
+      ]
+    },
+    {
+      "id": "ipolfc_porto",
+      "name": "Instituto Português de Oncologia Porto",
+      "name_ru": "Португальский онкологический институт (Порту)",
+      "city": "Porto",
+      "country": "Portugal",
+      "iso3": "PRT",
+      "lat": 41.173,
+      "lon": -8.643,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "OECI",
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "hff_cancer",
+      "name": "Hospital Prof. Doutor Fernando Fonseca — Oncology",
+      "name_ru": "Онкологический центр больницы Фернандо Фонсека (Амадора)",
+      "city": "Amadora",
+      "country": "Portugal",
+      "iso3": "PRT",
+      "lat": 38.753,
+      "lon": -9.234,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия"
+      ]
+    },
+    {
+      "id": "cha_cancer_coimbra",
+      "name": "Centro Hospitalar de Coimbra — Oncology",
+      "name_ru": "Онкологический центр Университетского госпиталя Коимбры",
+      "city": "Coimbra",
+      "country": "Portugal",
+      "iso3": "PRT",
+      "lat": 40.207,
+      "lon": -8.416,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "metaxas_cancer",
+      "name": "Metropolitan Hospital Metaxas — Cancer Centre",
+      "name_ru": "Онкологический центр больницы Метаксас (Пирей)",
+      "city": "Piraeus",
+      "country": "Greece",
+      "iso3": "GRC",
+      "lat": 37.947,
+      "lon": 23.652,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "aretaieio_cancer",
+      "name": "Aretaieio Hospital — Oncology (University of Athens)",
+      "name_ru": "Онкологический центр Аретайейо — Афинский университет (Афины)",
+      "city": "Athens",
+      "country": "Greece",
+      "iso3": "GRC",
+      "lat": 37.982,
+      "lon": 23.75,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Клинические испытания"
+      ]
+    },
+    {
+      "id": "hygeia_cancer",
+      "name": "Hygeia Hospital — Cancer Centre Athens",
+      "name_ru": "Онкологический центр госпиталя Хигея (Афины)",
+      "city": "Athens",
+      "country": "Greece",
+      "iso3": "GRC",
+      "lat": 38.003,
+      "lon": 23.784,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Таргетная терапия",
+        "Иммунотерапия"
+      ]
+    },
+    {
+      "id": "ahepa_cancer",
+      "name": "AHEPA University Hospital — Oncology (Thessaloniki)",
+      "name_ru": "Онкологический центр Университетской больницы АХЕПА (Салоники)",
+      "city": "Thessaloniki",
+      "country": "Greece",
+      "iso3": "GRC",
+      "lat": 40.622,
+      "lon": 22.962,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "ncc_singapore",
+      "name": "National Cancer Centre Singapore",
+      "name_ru": "Национальный онкологический центр Сингапура",
+      "city": "Singapore",
+      "country": "Singapore",
+      "iso3": "SGP",
+      "lat": 1.278,
+      "lon": 103.836,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "JCI",
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Иммунотерапия",
+        "Химиотерапия",
+        "Проtonная терапия",
+        "Роботическая хирургия"
+      ]
+    },
+    {
+      "id": "nuh_cancer",
+      "name": "National University Hospital Cancer Programme",
+      "name_ru": "Онкологическая программа Национального университетского госпиталя (Сингапур)",
+      "city": "Singapore",
+      "country": "Singapore",
+      "iso3": "SGP",
+      "lat": 1.296,
+      "lon": 103.782,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Иммунотерапия"
+      ]
+    },
+    {
+      "id": "parkway_cancer",
+      "name": "Parkway Cancer Centre (Mount Elizabeth)",
+      "name_ru": "Онкологический центр Parkway (гора Елизавета, Сингапур)",
+      "city": "Singapore",
+      "country": "Singapore",
+      "iso3": "SGP",
+      "lat": 1.305,
+      "lon": 103.832,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Таргетная терапия",
+        "Роботическая хирургия"
+      ]
+    },
+    {
+      "id": "nci_thailand",
+      "name": "National Cancer Institute Thailand",
+      "name_ru": "Национальный онкологический институт Таиланда (Бангкок)",
+      "city": "Bangkok",
+      "country": "Thailand",
+      "iso3": "THA",
+      "lat": 13.771,
+      "lon": 100.503,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "MOH Thailand",
+        "HA Thailand"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Брахитерапия"
+      ]
+    },
+    {
+      "id": "siriraj_cancer",
+      "name": "Siriraj Hospital — Division of Medical Oncology",
+      "name_ru": "Онкологический центр больницы Сирирадж (Бангкок)",
+      "city": "Bangkok",
+      "country": "Thailand",
+      "iso3": "THA",
+      "lat": 13.758,
+      "lon": 100.487,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "HA Thailand"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ]
+    },
+    {
+      "id": "praram9_cancer",
+      "name": "Praram 9 Hospital — Cancer Centre",
+      "name_ru": "Онкологический центр госпиталя Прарам 9 (Бангкок)",
+      "city": "Bangkok",
+      "country": "Thailand",
+      "iso3": "THA",
+      "lat": 13.726,
+      "lon": 100.56,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "ISO 9001"
+      ],
+      "treatments": [
+        "Химиотерапия",
+        "Онкохирургия"
+      ]
     }
   ]
 }
