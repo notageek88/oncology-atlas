@@ -125,7 +125,9 @@
     "phase2": "Phase 2",
     "phase3": "Phase 3",
     "phase4": "Phase 4",
-    "click_country_hint": "Click a country on the map"
+    "click_country_hint": "Click a country on the map",
+    "range_filter_label": "Range: ≥",
+    "range_reset": "reset"
   },
   "ru": {
     "title": "OncologyAtlas",
@@ -253,7 +255,9 @@
     "phase2": "Фаза 2",
     "phase3": "Фаза 3",
     "phase4": "Фаза 4",
-    "click_country_hint": "Нажмите на страну на карте"
+    "click_country_hint": "Нажмите на страну на карте",
+    "range_filter_label": "От: ≥",
+    "range_reset": "сброс"
   },
   "zh": {
     "title": "OncologyAtlas",
@@ -381,7 +385,9 @@
     "phase2": "第二期",
     "phase3": "第三期",
     "phase4": "第四期",
-    "click_country_hint": "点击地图上的国家"
+    "click_country_hint": "点击地图上的国家",
+    "range_filter_label": "范围: ≥",
+    "range_reset": "重置"
   },
   "es": {
     "title": "OncologyAtlas",
@@ -509,7 +515,9 @@
     "phase2": "Fase 2",
     "phase3": "Fase 3",
     "phase4": "Fase 4",
-    "click_country_hint": "Haz clic en un país del mapa"
+    "click_country_hint": "Haz clic en un país del mapa",
+    "range_filter_label": "Rango: ≥",
+    "range_reset": "reiniciar"
   },
   "ar": {
     "title": "OncologyAtlas",
@@ -637,7 +645,9 @@
     "phase2": "المرحلة 2",
     "phase3": "المرحلة 3",
     "phase4": "المرحلة 4",
-    "click_country_hint": "انقر على دولة في الخريطة"
+    "click_country_hint": "انقر على دولة في الخريطة",
+    "range_filter_label": "نطاق: ≥",
+    "range_reset": "إعادة"
   },
   "hi": {
     "title": "OncologyAtlas",
@@ -765,7 +775,9 @@
     "phase2": "चरण 2",
     "phase3": "चरण 3",
     "phase4": "चरण 4",
-    "click_country_hint": "मानचित्र पर एक देश पर क्लिक करें"
+    "click_country_hint": "मानचित्र पर एक देश पर क्लिक करें",
+    "range_filter_label": "श्रेणी: ≥",
+    "range_reset": "रीसेट"
   },
   "pt": {
     "title": "OncologyAtlas",
@@ -893,7 +905,9 @@
     "phase2": "Fase 2",
     "phase3": "Fase 3",
     "phase4": "Fase 4",
-    "click_country_hint": "Clique em um país no mapa"
+    "click_country_hint": "Clique em um país no mapa",
+    "range_filter_label": "Faixa: ≥",
+    "range_reset": "redefinir"
   },
   "fr": {
     "title": "OncologyAtlas",
@@ -1021,7 +1035,9 @@
     "phase2": "Phase 2",
     "phase3": "Phase 3",
     "phase4": "Phase 4",
-    "click_country_hint": "Cliquez sur un pays sur la carte"
+    "click_country_hint": "Cliquez sur un pays sur la carte",
+    "range_filter_label": "Plage: ≥",
+    "range_reset": "réinitialiser"
   },
   "de": {
     "title": "OncologyAtlas",
@@ -1149,7 +1165,9 @@
     "phase2": "Phase 2",
     "phase3": "Phase 3",
     "phase4": "Phase 4",
-    "click_country_hint": "Klicken Sie auf ein Land auf der Karte"
+    "click_country_hint": "Klicken Sie auf ein Land auf der Karte",
+    "range_filter_label": "Bereich: ≥",
+    "range_reset": "zurücksetzen"
   },
   "ja": {
     "title": "OncologyAtlas",
@@ -1277,7 +1295,9 @@
     "phase2": "フェーズ2",
     "phase3": "フェーズ3",
     "phase4": "フェーズ4",
-    "click_country_hint": "地図で国をクリックしてください"
+    "click_country_hint": "地図で国をクリックしてください",
+    "range_filter_label": "範囲: ≥",
+    "range_reset": "リセット"
   },
   "id": {
     "title": "OncologyAtlas",
@@ -1405,6 +1425,8 @@
     "phase2": "Fase 2",
     "phase3": "Fase 3",
     "phase4": "Fase 4",
-    "click_country_hint": "Klik negara di peta"
+    "click_country_hint": "Klik negara di peta",
+    "range_filter_label": "Rentang: ≥",
+    "range_reset": "setel ulang"
   }
 }
