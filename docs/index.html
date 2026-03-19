@@ -280,6 +280,22 @@
         .nodata-reason { font-size: 10px; color: #556; margin-top: 4px; font-style: italic; }
 
 
+
+        /* ── Button tooltips (data-tip) ── */
+        [data-tip] { position: relative; }
+        [data-tip]::after {
+            content: attr(data-tip-text);
+            position: absolute; bottom: calc(100% + 6px); left: 50%;
+            transform: translateX(-50%);
+            background: #0d0f1a; border: 1px solid #1a3a6e;
+            color: #889; font-size: 10px; white-space: nowrap;
+            padding: 5px 9px; border-radius: 6px;
+            pointer-events: none; opacity: 0; transition: opacity 0.15s;
+            z-index: 900; max-width: 260px; white-space: normal; text-align: center;
+            line-height: 1.4;
+        }
+        [data-tip]:hover::after { opacity: 1; }
+
         /* ── Metric explanations ── */
         .metric-explain {
             font-size: 10px; color: #445; margin-bottom: 10px;
@@ -375,7 +391,7 @@
         <span>18 metrics</span>
         <a href="https://github.com/notageek88/oncology-atlas" target="_blank">GitHub ↗</a>
         <a href="https://www.threads.net/@mashin_aa" target="_blank" style="color:#778;font-size:11px">by @mashin_aa</a>
-        <button onclick="openSources()" style="background:none;border:1px solid #1a1d2e;color:#778;padding:3px 10px;border-radius:5px;font-size:11px;cursor:pointer">📚 Sources</button>
+        <button onclick="openSources()" style="background:none;border:1px solid #1a1d2e;color:#778;padding:3px 10px;border-radius:5px;font-size:11px;cursor:pointer" data-tip="btn_tooltip_sources" data-i18n-title="btn_tooltip_sources">📚 Sources</button>
     </div>
 </div>
 
@@ -406,12 +422,12 @@
             background:#0d0f1a;border:1px solid #1a1d2e;border-radius:7px;z-index:500;
             max-height:200px;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,0.7)"></div>
     </div>
-    <button class="compare-btn" id="compare-toggle" onclick="toggleCompare()">⚖ Compare</button>
-    <button class="compare-btn" id="timeline-toggle" onclick="toggleTimeline()" style="margin-left:4px" data-i18n="timeline">▶ Timeline</button>
-    <button class="compare-btn" id="trials-toggle" onclick="toggleTrials()" style="margin-left:4px" data-i18n="trials_btn">🔬 Trials</button>
-    <button class="compare-btn" id="clinics-toggle" onclick="toggleClinics()" style="margin-left:4px" data-i18n="clinics_btn">🏥 Clinics</button>
-    <button class="compare-btn" id="flows-toggle" onclick="toggleFlows()" style="margin-left:4px" data-i18n="flows_btn">✈ Flows</button>
-    <button class="compare-btn" id="filter-toggle" onclick="toggleFilterPanel()" style="margin-left:4px">⚡ Filter</button>
+    <button class="compare-btn" id="compare-toggle" onclick="toggleCompare()" data-i18n="compare" data-tip="btn_tooltip_compare">⚖ Compare</button>
+    <button class="compare-btn" id="timeline-toggle" onclick="toggleTimeline()" style="margin-left:4px" data-i18n="timeline" data-tip="btn_tooltip_timeline">▶ Timeline</button>
+    <button class="compare-btn" id="trials-toggle" onclick="toggleTrials()" style="margin-left:4px" data-i18n="trials_btn" data-tip="btn_tooltip_trials">🔬 Trials</button>
+    <button class="compare-btn" id="clinics-toggle" onclick="toggleClinics()" style="margin-left:4px" data-i18n="clinics_btn" data-tip="btn_tooltip_clinics">🏥 Clinics</button>
+    <button class="compare-btn" id="flows-toggle" onclick="toggleFlows()" style="margin-left:4px" data-i18n="flows_btn" data-tip="btn_tooltip_flows">✈ Flows</button>
+    <button class="compare-btn" id="filter-toggle" onclick="toggleFilterPanel()" style="margin-left:4px" data-i18n="filter_btn" data-tip="btn_tooltip_filter">⚡ Filter</button>
     <div style="position:relative;margin-left:4px">
         <button id="lang-btn" onclick="toggleLangMenu()">🌐 EN</button>
         <div id="lang-menu"></div>
@@ -425,22 +441,22 @@
 <div id="filter-panel" style="display:none;background:#0b0d18;border-bottom:1px solid #1a1d2e;padding:10px 20px;display:none;gap:16px;align-items:center;flex-wrap:wrap">
     <div style="display:flex;align-items:center;gap:8px">
         <span style="font-size:11px;color:#556">Highlight:</span>
-        <button class="compare-btn filter-opt active" data-filter="all" onclick="setMapFilter('all')">All countries</button>
-        <button class="compare-btn filter-opt" data-filter="top20" onclick="setMapFilter('top20')">Top 20 highest</button>
-        <button class="compare-btn filter-opt" data-filter="bot20" onclick="setMapFilter('bot20')">Top 20 lowest</button>
-        <button class="compare-btn filter-opt" data-filter="above_avg" onclick="setMapFilter('above_avg')">Above average</button>
-        <button class="compare-btn filter-opt" data-filter="below_avg" onclick="setMapFilter('below_avg')">Below average</button>
+        <button class="compare-btn filter-opt active" data-filter="all" onclick="setMapFilter('all')" data-i18n="all_countries">All countries</button>
+        <button class="compare-btn filter-opt" data-filter="top20" onclick="setMapFilter('top20')" data-i18n="top20_highest">Top 20 highest</button>
+        <button class="compare-btn filter-opt" data-filter="bot20" onclick="setMapFilter('bot20')" data-i18n="top20_lowest">Top 20 lowest</button>
+        <button class="compare-btn filter-opt" data-filter="above_avg" onclick="setMapFilter('above_avg')" data-i18n="above_avg">Above average</button>
+        <button class="compare-btn filter-opt" data-filter="below_avg" onclick="setMapFilter('below_avg')" data-i18n="below_avg">Below average</button>
     </div>
     <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
-        <span style="font-size:11px;color:#556">Region:</span>
+        <span style="font-size:11px;color:#556" data-i18n="region_label">Region:</span>
         <select id="region-filter" onchange="setRegionFilter()" style="background:#0b0d18;color:#889;border:1px solid #1a1d2e;border-radius:5px;font-size:11px;padding:3px 6px">
-            <option value="">All regions</option>
-            <option value="EUR">Europe</option>
-            <option value="AMR">Americas</option>
-            <option value="WPR">Western Pacific</option>
-            <option value="SEA">South-East Asia</option>
-            <option value="EMR">Eastern Mediterranean</option>
-            <option value="AFR">Africa</option>
+            <option value="" data-i18n="region_all">All regions</option>
+            <option value="EUR" data-i18n="region_eur">Europe</option>
+            <option value="AMR" data-i18n="region_amr">Americas</option>
+            <option value="WPR" data-i18n="region_wpr">Western Pacific</option>
+            <option value="SEA" data-i18n="region_sea">South-East Asia</option>
+            <option value="EMR" data-i18n="region_emr">Eastern Mediterranean</option>
+            <option value="AFR" data-i18n="region_afr">Africa</option>
         </select>
     </div>
 </div>
@@ -461,7 +477,7 @@
 
 <!-- Timeline slider -->
 <div id="timeline">
-    <button id="timeline-play" onclick="togglePlay()">▶</button>
+    <button id="timeline-play" onclick="togglePlay()" data-tip="timeline_play_tip">▶</button>
     <span id="year-label">2000</span>
     <input id="year-slider" type="range" min="2000" max="2021" step="1" value="2021" oninput="onYearSlide(this.value)">
 </div>
@@ -1312,6 +1328,11 @@ function applyLang(lang) {
         const key = el.dataset.i18n;
         if (L[key]) el.textContent = (el.id === "timeline-toggle" ? "▶ " : "") + L[key];
     });
+    // Update button tooltips (data-tip → data-tip-text)
+    document.querySelectorAll("[data-tip]").forEach(el => {
+        const tipKey = el.getAttribute("data-tip");
+        if (tipKey && L[tipKey]) el.setAttribute("data-tip-text", L[tipKey]);
+    });
     // Dropdowns
     updateCategoryOptions();
     updateMetricOptions();
@@ -1858,7 +1879,9 @@ async function init() {
 
     // Apply URL params
     const params = parseUrlParams();
-    if (params.lang && i18nData[params.lang]) applyLang(params.lang);
+    // Init tooltips with default language first
+    applyLang(params.lang && i18nData[params.lang] ? params.lang : "en");
+    if (params.lang && i18nData[params.lang] && params.lang !== "en") applyLang(params.lang);
     if (params.metric) {
         currentMetric = params.metric;
         const sel = document.getElementById("metric");
