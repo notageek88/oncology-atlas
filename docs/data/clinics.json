@@ -8,8 +8,8 @@
     "Medical Tourism Index",
     "Open source research"
   ],
-  "total": 125,
-  "standard_count": 113,
+  "total": 194,
+  "standard_count": 182,
   "nonstandard_count": 12,
   "migration_flows": [
     {
@@ -3091,6 +3091,1361 @@
         "Химиотерапия",
         "Лучевая терапия"
       ]
+    },
+    {
+      "id": "moscow_onco1",
+      "name": "Moscow City Oncological Hospital #62",
+      "name_ru": "Московская городская онкологическая больница №62",
+      "city": "Moscow",
+      "iso3": "RUS",
+      "lat": 55.831,
+      "lon": 37.363,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Иммунотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "moscow_onco_mos",
+      "name": "Moscow City Oncological Dispensary #1",
+      "name_ru": "Московский городской онкологический диспансер №1",
+      "city": "Moscow",
+      "iso3": "RUS",
+      "lat": 55.779,
+      "lon": 37.648,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Диагностика",
+        "Химиотерапия",
+        "Амбулаторное лечение"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "belgorod_onco",
+      "name": "Belgorod Regional Oncological Dispensary",
+      "name_ru": "Белгородский областной онкологический диспансер",
+      "city": "Belgorod",
+      "iso3": "RUS",
+      "lat": 50.595,
+      "lon": 36.587,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "bryansk_onco",
+      "name": "Bryansk Regional Oncological Dispensary",
+      "name_ru": "Брянский областной онкологический диспансер",
+      "city": "Bryansk",
+      "iso3": "RUS",
+      "lat": 53.244,
+      "lon": 34.365,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "vladimir_onco",
+      "name": "Vladimir Regional Clinical Oncological Dispensary",
+      "name_ru": "Владимирский областной клинический онкологический диспансер",
+      "city": "Vladimir",
+      "iso3": "RUS",
+      "lat": 56.129,
+      "lon": 40.407,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "ivanovo_onco",
+      "name": "Ivanovo Regional Oncological Dispensary",
+      "name_ru": "Ивановский областной онкологический диспансер",
+      "city": "Ivanovo",
+      "iso3": "RUS",
+      "lat": 57.0,
+      "lon": 40.973,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "kaluga_onco",
+      "name": "Kaluga Regional Oncological Dispensary",
+      "name_ru": "Калужский областной онкологический диспансер",
+      "city": "Kaluga",
+      "iso3": "RUS",
+      "lat": 54.513,
+      "lon": 36.261,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "kostroma_onco",
+      "name": "Kostroma Regional Oncological Dispensary",
+      "name_ru": "Костромской областной онкологический диспансер",
+      "city": "Kostroma",
+      "iso3": "RUS",
+      "lat": 57.767,
+      "lon": 40.927,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "kursk_onco",
+      "name": "Kursk Regional Oncological Dispensary",
+      "name_ru": "Курский областной онкологический диспансер",
+      "city": "Kursk",
+      "iso3": "RUS",
+      "lat": 51.73,
+      "lon": 36.193,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "lipetsk_onco",
+      "name": "Lipetsk Regional Oncological Dispensary",
+      "name_ru": "Липецкий областной онкологический диспансер",
+      "city": "Lipetsk",
+      "iso3": "RUS",
+      "lat": 52.607,
+      "lon": 39.599,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "orel_onco",
+      "name": "Orel Regional Oncological Dispensary",
+      "name_ru": "Орловский областной онкологический диспансер",
+      "city": "Orel",
+      "iso3": "RUS",
+      "lat": 52.969,
+      "lon": 36.064,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "ryazan_onco",
+      "name": "Ryazan Regional Clinical Oncological Dispensary",
+      "name_ru": "Рязанский областной клинический онкологический диспансер",
+      "city": "Ryazan",
+      "iso3": "RUS",
+      "lat": 54.629,
+      "lon": 39.734,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "smolensk_onco",
+      "name": "Smolensk Regional Oncological Clinical Dispensary",
+      "name_ru": "Смоленский областной онкологический клинический диспансер",
+      "city": "Smolensk",
+      "iso3": "RUS",
+      "lat": 54.782,
+      "lon": 32.045,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "tambov_onco",
+      "name": "Tambov Regional Oncological Clinical Dispensary",
+      "name_ru": "Тамбовский областной онкологический клинический диспансер",
+      "city": "Tambov",
+      "iso3": "RUS",
+      "lat": 52.721,
+      "lon": 41.452,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "tver_onco",
+      "name": "Tver Regional Oncological Clinical Dispensary",
+      "name_ru": "Тверской областной клинический онкологический диспансер",
+      "city": "Tver",
+      "iso3": "RUS",
+      "lat": 56.859,
+      "lon": 35.912,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "tula_onco",
+      "name": "Tula Regional Oncological Dispensary",
+      "name_ru": "Тульский областной онкологический диспансер",
+      "city": "Tula",
+      "iso3": "RUS",
+      "lat": 54.193,
+      "lon": 37.617,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "yaroslavl_onco",
+      "name": "Yaroslavl Regional Clinical Oncological Hospital",
+      "name_ru": "Ярославская областная клиническая онкологическая больница",
+      "city": "Yaroslavl",
+      "iso3": "RUS",
+      "lat": 57.626,
+      "lon": 39.893,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "arkhangelsk_onco",
+      "name": "Arkhangelsk Clinical Oncological Dispensary",
+      "name_ru": "Архангельский клинический онкологический диспансер",
+      "city": "Arkhangelsk",
+      "iso3": "RUS",
+      "lat": 64.539,
+      "lon": 40.519,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "vologda_onco",
+      "name": "Vologda Regional Oncological Dispensary",
+      "name_ru": "Вологодский областной онкологический диспансер",
+      "city": "Vologda",
+      "iso3": "RUS",
+      "lat": 59.22,
+      "lon": 39.891,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "kaliningrad_onco",
+      "name": "Kaliningrad Regional Oncological Dispensary",
+      "name_ru": "Калининградский областной онкологический диспансер",
+      "city": "Kaliningrad",
+      "iso3": "RUS",
+      "lat": 54.71,
+      "lon": 20.512,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "karelia_onco",
+      "name": "Republic of Karelia Oncological Dispensary",
+      "name_ru": "Онкологический диспансер Республики Карелия (Петрозаводск)",
+      "city": "Petrozavodsk",
+      "iso3": "RUS",
+      "lat": 61.784,
+      "lon": 34.346,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "komi_onco",
+      "name": "Komi Republic Oncological Dispensary",
+      "name_ru": "Коми республиканский онкологический диспансер (Сыктывкар)",
+      "city": "Syktyvkar",
+      "iso3": "RUS",
+      "lat": 61.669,
+      "lon": 50.836,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "murmansk_onco",
+      "name": "Murmansk Regional Oncological Dispensary",
+      "name_ru": "Мурманский областной онкологический диспансер",
+      "city": "Murmansk",
+      "iso3": "RUS",
+      "lat": 68.97,
+      "lon": 33.075,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "novgorod_onco",
+      "name": "Novgorod Regional Clinical Oncological Dispensary",
+      "name_ru": "Новгородский областной клинический онкологический диспансер",
+      "city": "Veliky Novgorod",
+      "iso3": "RUS",
+      "lat": 58.522,
+      "lon": 31.269,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "pskov_onco",
+      "name": "Pskov Regional Oncological Dispensary",
+      "name_ru": "Псковский областной онкологический диспансер",
+      "city": "Pskov",
+      "iso3": "RUS",
+      "lat": 57.819,
+      "lon": 28.332,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "adygea_onco",
+      "name": "Adygea Republic Oncological Dispensary",
+      "name_ru": "Онкологический диспансер Республики Адыгея (Майкоп)",
+      "city": "Maykop",
+      "iso3": "RUS",
+      "lat": 44.608,
+      "lon": 40.107,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "astrakhan_onco",
+      "name": "Astrakhan Regional Oncological Dispensary",
+      "name_ru": "Астраханский областной онкологический диспансер",
+      "city": "Astrakhan",
+      "iso3": "RUS",
+      "lat": 46.347,
+      "lon": 48.033,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "volgograd_onco",
+      "name": "Volgograd Regional Clinical Oncological Dispensary",
+      "name_ru": "Волгоградский областной клинический онкологический диспансер",
+      "city": "Volgograd",
+      "iso3": "RUS",
+      "lat": 48.707,
+      "lon": 44.517,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "kalmykia_onco",
+      "name": "Kalmykia Republic Oncological Dispensary",
+      "name_ru": "Онкологический диспансер Республики Калмыкия (Элиста)",
+      "city": "Elista",
+      "iso3": "RUS",
+      "lat": 46.308,
+      "lon": 44.268,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "crimea_onco",
+      "name": "Crimea Republican Clinical Oncological Dispensary",
+      "name_ru": "Крымский республиканский клинический онкологический диспансер (Симферополь)",
+      "city": "Simferopol",
+      "iso3": "RUS",
+      "lat": 44.952,
+      "lon": 34.102,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "dagestan_onco",
+      "name": "Dagestan Republic Clinical Oncological Dispensary",
+      "name_ru": "Дагестанский республиканский клинический онкологический диспансер (Махачкала)",
+      "city": "Makhachkala",
+      "iso3": "RUS",
+      "lat": 42.982,
+      "lon": 47.504,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "stavropol_onco",
+      "name": "Stavropol Regional Oncological Dispensary",
+      "name_ru": "Ставропольский краевой клинический онкологический диспансер",
+      "city": "Stavropol",
+      "iso3": "RUS",
+      "lat": 45.043,
+      "lon": 41.97,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "kabardino_onco",
+      "name": "Kabardino-Balkaria Republic Oncological Dispensary",
+      "name_ru": "Онкологический диспансер Кабардино-Балкарии (Нальчик)",
+      "city": "Nalchik",
+      "iso3": "RUS",
+      "lat": 43.499,
+      "lon": 43.618,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "chechnya_onco",
+      "name": "Chechnya Republic Oncological Dispensary",
+      "name_ru": "Онкологический диспансер Чеченской Республики (Грозный)",
+      "city": "Grozny",
+      "iso3": "RUS",
+      "lat": 43.312,
+      "lon": 45.7,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "ingushetia_onco",
+      "name": "Ingushetia Republic Oncological Dispensary",
+      "name_ru": "Онкологический диспансер Республики Ингушетия (Назрань)",
+      "city": "Nazran",
+      "iso3": "RUS",
+      "lat": 43.225,
+      "lon": 44.769,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "ossetia_onco",
+      "name": "North Ossetia Republic Oncological Dispensary",
+      "name_ru": "Онкологический диспансер Республики Северная Осетия (Владикавказ)",
+      "city": "Vladikavkaz",
+      "iso3": "RUS",
+      "lat": 43.024,
+      "lon": 44.682,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "kirov_onco",
+      "name": "Kirov Regional Clinical Oncological Dispensary",
+      "name_ru": "Кировский областной клинический онкологический диспансер",
+      "city": "Kirov",
+      "iso3": "RUS",
+      "lat": 58.603,
+      "lon": 49.668,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "mordovia_onco",
+      "name": "Mordovia Republic Oncological Dispensary",
+      "name_ru": "Мордовский республиканский онкологический диспансер (Саранск)",
+      "city": "Saransk",
+      "iso3": "RUS",
+      "lat": 54.187,
+      "lon": 45.183,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "orenburg_onco",
+      "name": "Orenburg Regional Clinical Oncological Dispensary",
+      "name_ru": "Оренбургский областной клинический онкологический диспансер",
+      "city": "Orenburg",
+      "iso3": "RUS",
+      "lat": 51.768,
+      "lon": 55.097,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "penza_onco",
+      "name": "Penza Regional Oncological Dispensary",
+      "name_ru": "Пензенский областной онкологический диспансер",
+      "city": "Penza",
+      "iso3": "RUS",
+      "lat": 53.195,
+      "lon": 45.018,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "saratov_onco",
+      "name": "Saratov Regional Oncological Dispensary",
+      "name_ru": "Саратовский областной онкологический диспансер",
+      "city": "Saratov",
+      "iso3": "RUS",
+      "lat": 51.533,
+      "lon": 46.034,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "udmurtia_onco",
+      "name": "Udmurtia Republic Oncological Dispensary",
+      "name_ru": "Онкологический диспансер Удмуртской Республики (Ижевск)",
+      "city": "Izhevsk",
+      "iso3": "RUS",
+      "lat": 56.852,
+      "lon": 53.206,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "ulyanovsk_onco",
+      "name": "Ulyanovsk Regional Oncological Dispensary",
+      "name_ru": "Ульяновский областной онкологический диспансер",
+      "city": "Ulyanovsk",
+      "iso3": "RUS",
+      "lat": 54.317,
+      "lon": 48.402,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "chuvashia_onco",
+      "name": "Chuvashia Republic Oncological Dispensary",
+      "name_ru": "Онкологический диспансер Чувашской Республики (Чебоксары)",
+      "city": "Cheboksary",
+      "iso3": "RUS",
+      "lat": 56.134,
+      "lon": 47.252,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "mariel_onco",
+      "name": "Mari El Republic Oncological Dispensary",
+      "name_ru": "Онкологический диспансер Республики Марий Эл (Йошкар-Ола)",
+      "city": "Yoshkar-Ola",
+      "iso3": "RUS",
+      "lat": 56.638,
+      "lon": 47.9,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "kurgan_onco",
+      "name": "Kurgan Regional Oncological Dispensary",
+      "name_ru": "Курганский областной онкологический диспансер",
+      "city": "Kurgan",
+      "iso3": "RUS",
+      "lat": 55.441,
+      "lon": 65.341,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "tyumen_onco",
+      "name": "Tyumen Regional Oncological Dispensary",
+      "name_ru": "Тюменский областной онкологический диспансер",
+      "city": "Tyumen",
+      "iso3": "RUS",
+      "lat": 57.153,
+      "lon": 68.996,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "khmao_onco",
+      "name": "Khanty-Mansiysk Autonomous Okrug Oncological Dispensary",
+      "name_ru": "Онкологический диспансер ХМАО-Югры (Ханты-Мансийск)",
+      "city": "Khanty-Mansiysk",
+      "iso3": "RUS",
+      "lat": 61.004,
+      "lon": 69.017,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "yanao_onco",
+      "name": "Yamalo-Nenets Autonomous Okrug Oncological Dispensary",
+      "name_ru": "Онкологический диспансер ЯНАО (Ноябрьск)",
+      "city": "Noyabrsk",
+      "iso3": "RUS",
+      "lat": 63.197,
+      "lon": 75.457,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "altai_onco",
+      "name": "Altai Regional Oncological Dispensary",
+      "name_ru": "Алтайский краевой онкологический диспансер (Барнаул)",
+      "city": "Barnaul",
+      "iso3": "RUS",
+      "lat": 53.347,
+      "lon": 83.776,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "buryatia_onco",
+      "name": "Buryatia Republic Oncological Dispensary",
+      "name_ru": "Онкологический диспансер Республики Бурятия (Улан-Удэ)",
+      "city": "Ulan-Ude",
+      "iso3": "RUS",
+      "lat": 51.827,
+      "lon": 107.606,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "irkutsk_onco",
+      "name": "Irkutsk Regional Oncological Dispensary",
+      "name_ru": "Иркутский областной онкологический диспансер",
+      "city": "Irkutsk",
+      "iso3": "RUS",
+      "lat": 52.286,
+      "lon": 104.28,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "kemerovo_onco",
+      "name": "Kemerovo Regional Oncological Dispensary",
+      "name_ru": "Кемеровский областной онкологический диспансер",
+      "city": "Kemerovo",
+      "iso3": "RUS",
+      "lat": 55.355,
+      "lon": 86.087,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "tomsk_onco",
+      "name": "Tomsk National Research Medical Center - Oncology",
+      "name_ru": "Томский НМИЦ онкологии — НИИ онкологии (Томск)",
+      "city": "Tomsk",
+      "iso3": "RUS",
+      "lat": 56.481,
+      "lon": 84.978,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "Minzdrav RF",
+        "NMRC"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия",
+        "Ядерная медицина",
+        "Фотодинамическая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "tuva_onco",
+      "name": "Tuva Republic Oncological Dispensary",
+      "name_ru": "Онкологический диспансер Республики Тыва (Кызыл)",
+      "city": "Kyzyl",
+      "iso3": "RUS",
+      "lat": 51.719,
+      "lon": 94.438,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "khakassia_onco",
+      "name": "Khakassia Republic Oncological Dispensary",
+      "name_ru": "Онкологический диспансер Республики Хакасия (Абакан)",
+      "city": "Abakan",
+      "iso3": "RUS",
+      "lat": 53.721,
+      "lon": 91.442,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "chita_onco",
+      "name": "Zabaykalsky Krai Oncological Dispensary",
+      "name_ru": "Забайкальский краевой онкологический диспансер (Чита)",
+      "city": "Chita",
+      "iso3": "RUS",
+      "lat": 52.034,
+      "lon": 113.5,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "amur_onco",
+      "name": "Amur Regional Oncological Dispensary",
+      "name_ru": "Амурский областной онкологический диспансер (Благовещенск)",
+      "city": "Blagoveshchensk",
+      "iso3": "RUS",
+      "lat": 50.29,
+      "lon": 127.527,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "vladivostok_onco",
+      "name": "Primorsky Krai Oncological Dispensary",
+      "name_ru": "Приморский краевой онкологический диспансер (Владивосток)",
+      "city": "Vladivostok",
+      "iso3": "RUS",
+      "lat": 43.116,
+      "lon": 131.887,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "khabarovsk_onco",
+      "name": "Khabarovsk Krai Oncological Dispensary",
+      "name_ru": "Краевой клинический центр онкологии (Хабаровск)",
+      "city": "Khabarovsk",
+      "iso3": "RUS",
+      "lat": 48.48,
+      "lon": 135.082,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия",
+        "Лучевая терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "kamchatka_onco",
+      "name": "Kamchatka Regional Oncological Dispensary",
+      "name_ru": "Камчатский краевой онкологический диспансер (Петропавловск-Камчатский)",
+      "city": "Petropavlovsk-Kamchatsky",
+      "iso3": "RUS",
+      "lat": 53.05,
+      "lon": 158.65,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "magadan_onco",
+      "name": "Magadan Regional Oncological Dispensary",
+      "name_ru": "Магаданский областной онкологический диспансер",
+      "city": "Magadan",
+      "iso3": "RUS",
+      "lat": 59.568,
+      "lon": 150.808,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "sakhalin_onco",
+      "name": "Sakhalin Regional Oncological Dispensary",
+      "name_ru": "Сахалинский областной онкологический диспансер (Южно-Сахалинск)",
+      "city": "Yuzhno-Sakhalinsk",
+      "iso3": "RUS",
+      "lat": 46.959,
+      "lon": 142.738,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "yakutia_onco",
+      "name": "Sakha Republic Oncological Dispensary",
+      "name_ru": "Онкологический диспансер Республики Саха (Якутия) (Якутск)",
+      "city": "Yakutsk",
+      "iso3": "RUS",
+      "lat": 62.028,
+      "lon": 129.733,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Онкохирургия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "roppa_moscow",
+      "name": "Russian Oncological Research Center (RONC) named after Blokhin",
+      "name_ru": "НМИЦ онкологии им. Н.Н. Блохина — Педиатрическое отделение (Москва)",
+      "city": "Moscow",
+      "iso3": "RUS",
+      "lat": 55.692,
+      "lon": 37.651,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Детская онкология",
+        "Нейробластома",
+        "Лейкемия",
+        "Нефробластома"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "sechenov_onco",
+      "name": "Sechenov University Oncology Clinic",
+      "name_ru": "Онкологическая клиника Сеченовского университета (Москва)",
+      "city": "Moscow",
+      "iso3": "RUS",
+      "lat": 55.766,
+      "lon": 37.564,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Диагностика",
+        "Хирургия",
+        "Таргетная терапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "ryzhikh_institute",
+      "name": "A.N. Ryzhikh National Medical Research Center of Coloproctology",
+      "name_ru": "НМИЦ колопроктологии им. А.Н. Рыжих (Москва) — онкология толстой кишки",
+      "city": "Moscow",
+      "iso3": "RUS",
+      "lat": 55.784,
+      "lon": 37.698,
+      "type": "standard",
+      "tier": "flagship",
+      "accreditation": [
+        "Minzdrav RF"
+      ],
+      "treatments": [
+        "Рак толстой кишки",
+        "Рак прямой кишки",
+        "Лапароскопия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "alta_clinica",
+      "name": "Alta Clinica Oncology",
+      "name_ru": "Клиника Альта — Онкология (Москва)",
+      "city": "Moscow",
+      "iso3": "RUS",
+      "lat": 55.736,
+      "lon": 37.621,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "Roszdravnadzor"
+      ],
+      "treatments": [
+        "ПЭТ/КТ",
+        "Таргетная терапия",
+        "Химиотерапия"
+      ],
+      "country": "Russia"
+    },
+    {
+      "id": "medicina_onco",
+      "name": "Medicina JSC Oncology Center",
+      "name_ru": "Онкологический центр АО «Медицина» (Москва)",
+      "city": "Moscow",
+      "iso3": "RUS",
+      "lat": 55.775,
+      "lon": 37.605,
+      "type": "standard",
+      "tier": "top",
+      "accreditation": [
+        "JCI",
+        "Roszdravnadzor"
+      ],
+      "treatments": [
+        "Диагностика онкологии",
+        "Химиотерапия",
+        "Иммунотерапия"
+      ],
+      "country": "Russia"
     }
   ]
 }
