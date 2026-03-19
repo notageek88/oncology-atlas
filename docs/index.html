@@ -744,7 +744,7 @@ function updateMap() {
     currentMetric = document.getElementById("metric").value;
     buildLegend(currentMetric);
     d3.selectAll(".country").transition().duration(350)
-        .attr("fill", d => getColor(dataByNumId[+d.id], currentMetric));
+        .attr("fill", d => getColor(dataByNumId[d.id], currentMetric));
 }
 
 // ── Clinics & Flows layer ─────────────────────────────────────────────────
@@ -1315,7 +1315,7 @@ function applyYearSnapshot(year) {
     d3.selectAll(".country")
         .transition().duration(playInterval ? 120 : 280)
         .attr("fill", d => {
-            const iso3 = dataByNumId[+d.id]?.country;
+            const iso3 = dataByNumId[d.id]?.country;
             return iso3 ? getNcdColor(snap[iso3]) : NCD_NODATA;
         });
 }
@@ -1491,7 +1491,7 @@ function selectCountry(iso3) {
     if (!data) return;
     // highlight on map
     if (selectedEl) d3.select(selectedEl).classed("selected", false);
-    const el = g.selectAll(".country").filter(d => dataByNumId[+d.id]?.country === iso3);
+    const el = g.selectAll(".country").filter(d => dataByNumId[d.id]?.country === iso3);
     if (!el.empty()) {
         selectedEl = el.node();
         d3.select(selectedEl).classed("selected", true);
@@ -1732,7 +1732,7 @@ async function init() {
         const sel = document.getElementById("metric");
         if (sel) sel.value = params.metric;
     }
-    cancer.forEach(c => { if (c.numeric_id) dataByNumId[c.numeric_id] = c; });
+    cancer.forEach(c => { if (c.numeric_id) dataByNumId[String(c.numeric_id).padStart(3,'0')] = c; });
     document.getElementById("stat-n").textContent = cancer.length;
     document.getElementById("meta-countries").textContent = cancer.length + " countries";
 
@@ -1762,13 +1762,13 @@ async function init() {
     g.selectAll(".country")
         .data(countries.features).join("path")
         .attr("class","country").attr("d", pathGen)
-        .attr("fill", d => getColor(dataByNumId[+d.id], currentMetric))
+        .attr("fill", d => getColor(dataByNumId[d.id], currentMetric))
         .attr("stroke","#070910").attr("stroke-width", 0.3)
-        .on("mousemove", (e, d) => { showTip(e, d, dataByNumId[+d.id]); moveTip(e); })
+        .on("mousemove", (e, d) => { showTip(e, d, dataByNumId[d.id]); moveTip(e); })
         .on("mouseout", () => { document.getElementById("tooltip").style.display = "none"; })
         .on("click", (e, d) => {
             document.getElementById("tooltip").style.display = "none";
-            const data = dataByNumId[+d.id];
+            const data = dataByNumId[d.id];
             const name = data?.name || d.properties.name;
             if (selectedEl) d3.select(selectedEl).classed("selected", false);
             selectedEl = e.currentTarget;
