@@ -1,78 +1,115 @@
 # 🌍 OncologyAtlas
 
-> Interactive global cancer data — 195 countries, 18 WHO metrics, open source.
+> Interactive global cancer data — 165 countries, 18 WHO metrics, open source.
 
-**Live map:** https://notageek88.github.io/oncology-atlas/
+**Live map:** https://notageek88.github.io/oncology-atlas/  
+**Author:** [@mashin_aa](https://www.threads.net/@mashin_aa)
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Data: WHO GHO](https://img.shields.io/badge/data-WHO%20GHO-green.svg)](https://www.who.int/data/gho)
-[![Countries](https://img.shields.io/badge/countries-195-orange.svg)](docs/data/countries_cancer.csv)
+[![Countries](https://img.shields.io/badge/countries-165-orange.svg)](docs/data/countries_cancer.csv)
+[![ClinicalTrials](https://img.shields.io/badge/trials-ClinicalTrials.gov-blue.svg)](docs/data/clinical_trials.json)
 
 ---
 
 ## What is this?
 
-OncologyAtlas is an open-source interactive map of global cancer burden data. Built for researchers, journalists, and curious people who want to explore how cancer affects different countries.
+OncologyAtlas is an open-source interactive map of global cancer data. Built for researchers, journalists, patients, and curious people who want to understand how cancer affects different countries — and why outcomes differ so dramatically.
 
 **No paywalls. No logins. All data is free and open.**
 
+---
+
 ## Features
 
-- **Choropleth map** — D3.js Natural Earth projection (like NYT/Guardian)
-- **18 metrics** across 3 categories:
-  - Cancer mortality rates (5 cancer types, per 100k)
-  - Disease burden — DALYs (5 cancer types, per 100k)
-  - Healthcare infrastructure (surgery, registry, screening, plan)
-- **Country profiles** — click any country for full breakdown with bar charts
-- **Compare mode** — select up to 4 countries for side-by-side comparison
-- **Downloadable CSV** — `docs/data/countries_cancer.csv`
+| Feature | Description |
+|---------|-------------|
+| 🗺 Choropleth map | D3.js Natural Earth projection — same approach as NYT/Guardian |
+| 📊 18 metrics | Mortality, DALYs, healthcare infrastructure |
+| ⏱ Timeline 2000–2021 | NCD mortality slider — see how countries changed over 22 years |
+| 🏥 Oncology clinics | 41 top clinics in 21 countries with profiles and accreditations |
+| ✈ Migration flows | 37 patient migration routes with hover tooltips |
+| 🔬 Clinical trials | ClinicalTrials.gov data — 46 countries, active studies by phase |
+| 📈 Survival rates | 5-year survival for 5 cancer types across 26 countries (EUROCARE/CONCORD-3) |
+| 📉 Trend sparklines | Per-country trend lines for 7 metrics |
+| 🌐 11 languages | EN/RU/ZH/ES/AR/HI/PT/FR/DE/JA/ID — full UI + profile translation |
+| ⓘ Explanations | Every metric explained in plain language with examples |
+| 📚 Sources modal | All data sources documented with links and methodology |
+| 🔗 Shareable URLs | `?country=RUS&lang=ru&metric=death_breast` |
+| 📱 Mobile-friendly | Bottom sheet panel on mobile |
+| ⬇ CSV download | Full dataset as spreadsheet |
+
+---
 
 ## Data Sources
 
-| Source | What | Coverage |
-|--------|------|----------|
-| [WHO GHO](https://ghoapi.azureedge.net/api) | Cancer mortality, DALYs, infrastructure | 194 countries, 2019–2022 |
-| [ISO 3166](https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes) | Country code mapping | 249 countries |
+| Source | Metrics | Coverage |
+|--------|---------|----------|
+| [WHO GHO](https://ghoapi.azureedge.net/api) | Mortality, DALYs, infrastructure, NCD 30-70 | 165+ countries, 2000–2022 |
+| [ClinicalTrials.gov](https://clinicaltrials.gov/api/v2/) | Active trials by country and phase | 46 countries |
+| [EUROCARE-5 / CONCORD-3](https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(17)33326-3) | 5-year survival rates | 26 countries, 5 cancer types |
+| [Natural Earth / world-atlas](https://github.com/topojson/world-atlas) | Map geometries | 177 countries |
 
 ### Metrics included
 
 **Mortality (age-standardized death rate / 100k):**
-- All cancers combined (`SA_0000001807`)
-- Breast cancer (`SA_0000001438`)
-- Colorectal cancer (`SA_0000001439`)
-- Liver cancer (`SA_0000001445`)
-- Mouth & oropharynx (`SA_0000001448`)
-- Oesophagus cancer (`SA_0000001449`)
+- All cancers combined
+- Breast, Colorectal, Liver, Mouth/oropharynx, Oesophagus
 
 **Disease Burden — DALYs / 100k:**
-- Breast cancer (`SA_0000001419`)
-- Colorectal cancer (`SA_0000001420`)
-- Liver cancer (`SA_0000001426`)
-- Mouth & oropharynx (`SA_0000001429`)
-- Oesophagus cancer (`SA_0000001430`)
+- Breast, Colorectal, Liver, Mouth/oropharynx, Oesophagus
 
-**Healthcare Infrastructure:**
-- Cancer surgery in public sector (`NCD_CCS_cancer_surgery`)
-- Population-based cancer registry (`NCD_CCS_CancerRegNational`)
-- National cancer action plan (`NCD_CCS_CancerPlan`)
-- Breast cancer screening program (`NCD_CCS_breastcancerscreening`)
-- Cancer department at tertiary level (`NCD_CCS_CANCER_DEPT`)
+**Healthcare Infrastructure (Yes/No):**
+- Cancer surgery in public sector
+- Population-based cancer registry
+- National cancer action plan
+- Breast cancer screening program
+- Cancer department at tertiary level
 
-## Download Data
+---
 
-```
-docs/data/countries_cancer.json  — full dataset (JSON)
-docs/data/countries_cancer.csv   — spreadsheet-ready (CSV)
-```
+## Roadmap
 
-## Tech Stack
+This project is actively developed. Contributions welcome for any of the items below.
 
-- **Frontend:** D3.js v7 + TopoJSON (no framework, no build step)
-- **Map data:** world-atlas@2 (Natural Earth 110m)
-- **Pipeline:** Python 3 (see `backend/app/who_pipeline.py`)
-- **Hosting:** GitHub Pages (`/docs` branch)
+### v0.4 — Filters & Discovery
+- [ ] **Filter by cancer type on map** — show only countries with specific cancer type dominant
+- [ ] **Search by metric range** — "show countries where breast cancer mortality > 20"
+- [ ] **Country comparison export** — download comparison as PNG/PDF
+- [ ] **Cervical cancer screening coverage** (WHO GHO `NCD_CCS_cervicalcancerscreening`)
+- [ ] **Prostate cancer data** — add to profile panel
 
-## Run locally
+### v0.5 — Deeper Data
+- [ ] **SEER data** — US state-level cancer statistics (50 states, 50+ years)
+- [ ] **Alcohol-attributable cancer deaths** (WHO GHO `SA_0000001468`)
+- [ ] **Tobacco-attributable cancer deaths**
+- [ ] **Cancer treatment costs by country** — affordability layer
+- [ ] **Age-specific rates** — pediatric vs adult vs elderly breakdown
+- [ ] **Urban vs rural incidence** where available (GLOBOCAN sub-national)
+
+### v0.6 — Social & Media Intelligence
+- [ ] **Social media mentions layer** — Reddit/Twitter/news discussion volume per country, mapped via GDELT or Pushshift
+- [ ] **Research activity index** — PubMed publication count by country, overlaid on map
+- [ ] **NGO presence** — mapping of major cancer charities and advocacy groups per country
+- [ ] **News timeline** — key policy events (smoking bans, screening programs launch) on the timeline slider
+
+### v0.7 — Access & API
+- [ ] **Embed widget** — `<iframe src="https://notageek88.github.io/oncology-atlas/embed.html?country=RUS">` for journalists/researchers
+- [ ] **Public API** — `/api/v1/cancer?country=RUS&metric=death_breast&year=2019`
+- [ ] **Data freshness indicator** — when each metric was last updated
+- [ ] **Alert/notification system** — subscribe to data updates for a country
+
+### v1.0 — Platform
+- [ ] **User contributions** — submit corrections or local data via PR template
+- [ ] **Patient stories** — qualitative layer on top of quantitative data
+- [ ] **Researcher mode** — advanced filters, multi-metric scatter plots, regression lines
+- [ ] **Country report PDF** — auto-generated 1-page PDF for any country
+
+---
+
+## How to contribute
+
+Ideas, data corrections, translations, UI improvements — all welcome.
 
 ```bash
 git clone https://github.com/notageek88/oncology-atlas
@@ -81,29 +118,38 @@ python3 -m http.server 8080
 # open http://localhost:8080
 ```
 
-## Refresh data
+**Easiest contributions:**
+1. Fix a data error — open an issue with source link
+2. Add a translation key to `docs/data/i18n.json`
+3. Add a clinic to `docs/data/clinics.json` (with source)
+4. Improve metric explanations in `METRIC_EXPLAIN` (index.html)
 
-```bash
-pip install requests
-python3 backend/app/who_pipeline.py
+---
+
+## Tech Stack
+
+- **Frontend:** D3.js v7 + TopoJSON — no framework, no build step
+- **Map data:** world-atlas@2 (Natural Earth 110m, 177 countries)
+- **Data pipeline:** Python 3 (`backend/app/who_pipeline.py`)
+- **Hosting:** GitHub Pages (`/docs`)
+
+---
+
+## Download Data
+
+```
+docs/data/countries_cancer.json    — full dataset (JSON, 165 countries, 18 metrics)
+docs/data/countries_cancer.csv     — spreadsheet-ready (CSV)
+docs/data/trends.json              — time series 2000–2021 (7 metrics)
+docs/data/ncd_snapshots.json       — NCD mortality by year for timeline
+docs/data/clinical_trials.json     — ClinicalTrials.gov aggregated by country
+docs/data/clinics.json             — oncology clinics data
 ```
 
-## Roadmap
-
-- [ ] SEER data — US state-level (50 states, 50 years)
-- [ ] Trend charts — show change over time per country
-- [ ] Search bar — find country by name
-- [ ] Embed widget — `<iframe>` for journalists/researchers
-- [ ] API endpoint — `/api/cancer?country=RUS&type=breast`
-- [ ] Cervical cancer screening coverage (%)
-- [ ] Alcohol-attributable cancer deaths
-
-## Contributing
-
-PRs welcome. Data corrections, new metrics, UI improvements — all good.
+---
 
 ## License
 
 MIT — use freely, attribution appreciated.
 
-**Data:** WHO Global Health Observatory, public domain.
+**Data:** WHO Global Health Observatory (public domain), ClinicalTrials.gov (public domain), EUROCARE-5/CONCORD-3 (academic public summary data).

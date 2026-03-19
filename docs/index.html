@@ -411,6 +411,7 @@
     <button class="compare-btn" id="trials-toggle" onclick="toggleTrials()" style="margin-left:4px" data-i18n="trials_btn">🔬 Trials</button>
     <button class="compare-btn" id="clinics-toggle" onclick="toggleClinics()" style="margin-left:4px" data-i18n="clinics_btn">🏥 Clinics</button>
     <button class="compare-btn" id="flows-toggle" onclick="toggleFlows()" style="margin-left:4px" data-i18n="flows_btn">✈ Flows</button>
+    <button class="compare-btn" id="filter-toggle" onclick="toggleFilterPanel()" style="margin-left:4px">⚡ Filter</button>
     <div style="position:relative;margin-left:4px">
         <button id="lang-btn" onclick="toggleLangMenu()">🌐 EN</button>
         <div id="lang-menu"></div>
@@ -419,6 +420,29 @@
         border:1px solid #1a5c35;padding:5px 12px;border-radius:5px;font-size:11px;text-decoration:none">
         ↓ CSV
     </a>
+</div>
+
+<div id="filter-panel" style="display:none;background:#0b0d18;border-bottom:1px solid #1a1d2e;padding:10px 20px;display:none;gap:16px;align-items:center;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:11px;color:#556">Highlight:</span>
+        <button class="compare-btn filter-opt active" data-filter="all" onclick="setMapFilter('all')">All countries</button>
+        <button class="compare-btn filter-opt" data-filter="top20" onclick="setMapFilter('top20')">Top 20 highest</button>
+        <button class="compare-btn filter-opt" data-filter="bot20" onclick="setMapFilter('bot20')">Top 20 lowest</button>
+        <button class="compare-btn filter-opt" data-filter="above_avg" onclick="setMapFilter('above_avg')">Above average</button>
+        <button class="compare-btn filter-opt" data-filter="below_avg" onclick="setMapFilter('below_avg')">Below average</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
+        <span style="font-size:11px;color:#556">Region:</span>
+        <select id="region-filter" onchange="setRegionFilter()" style="background:#0b0d18;color:#889;border:1px solid #1a1d2e;border-radius:5px;font-size:11px;padding:3px 6px">
+            <option value="">All regions</option>
+            <option value="EUR">Europe</option>
+            <option value="AMR">Americas</option>
+            <option value="WPR">Western Pacific</option>
+            <option value="SEA">South-East Asia</option>
+            <option value="EMR">Eastern Mediterranean</option>
+            <option value="AFR">Africa</option>
+        </select>
+    </div>
 </div>
 
 <div id="map-container"><svg id="svg"></svg></div>
@@ -1168,6 +1192,104 @@ document.addEventListener("click", e => {
 
 function openSources() { document.getElementById("sources-modal").classList.add("open"); }
 function closeSources() { document.getElementById("sources-modal").classList.remove("open"); }
+
+
+// ── Map Filters ─────────────────────────────────────────────────────────
+let activeFilter = "all";
+let activeRegion = "";
+let filterPanelOpen = false;
+
+// WHO region per ISO3 (partial)
+const ISO3_REGION = {
+    // Europe
+    "RUS":"EUR","DEU":"EUR","FRA":"EUR","GBR":"EUR","ITA":"EUR","ESP":"EUR","NLD":"EUR",
+    "SWE":"EUR","NOR":"EUR","DNK":"EUR","FIN":"EUR","BEL":"EUR","CHE":"EUR","AUT":"EUR",
+    "POL":"EUR","CZE":"EUR","HUN":"EUR","ROU":"EUR","BGR":"EUR","SVK":"EUR","HRV":"EUR",
+    "SRB":"EUR","GRC":"EUR","PRT":"EUR","UKR":"EUR","BLR":"EUR","MDA":"EUR","LTU":"EUR",
+    "LVA":"EUR","EST":"EUR","SVN":"EUR","ALB":"EUR","MKD":"EUR","BIH":"EUR","MNE":"EUR",
+    "ISL":"EUR","IRL":"EUR","LUX":"EUR","MLT":"EUR","CYP":"EUR","GEO":"EUR","ARM":"EUR",
+    "AZE":"EUR","KAZ":"EUR","UZB":"EUR","KGZ":"EUR","TJK":"EUR","TKM":"EUR",
+    // Americas
+    "USA":"AMR","CAN":"AMR","MEX":"AMR","BRA":"AMR","ARG":"AMR","COL":"AMR","CHL":"AMR",
+    "PER":"AMR","VEN":"AMR","ECU":"AMR","BOL":"AMR","PRY":"AMR","URY":"AMR","GUY":"AMR",
+    "SUR":"AMR","CUB":"AMR","DOM":"AMR","JAM":"AMR","HTI":"AMR","GTM":"AMR","HND":"AMR",
+    "SLV":"AMR","NIC":"AMR","CRI":"AMR","PAN":"AMR","TTO":"AMR",
+    // Western Pacific
+    "CHN":"WPR","JPN":"WPR","KOR":"WPR","AUS":"WPR","NZL":"WPR","PHL":"WPR","VNM":"WPR",
+    "MYS":"WPR","IDN":"WPR","THA":"WPR","SGP":"WPR","MMR":"WPR","KHM":"WPR","LAO":"WPR",
+    "MNG":"WPR","PNG":"WPR","FJI":"WPR","TWN":"WPR",
+    // South-East Asia
+    "IND":"SEA","BGD":"SEA","NPL":"SEA","LKA":"SEA","PAK":"SEA","BTN":"SEA","MDV":"SEA",
+    "TLS":"SEA",
+    // Eastern Mediterranean
+    "SAU":"EMR","IRN":"EMR","EGY":"EMR","TUR":"EMR","ISR":"EMR","IRQ":"EMR","SYR":"EMR",
+    "JOR":"EMR","LBN":"EMR","ARE":"EMR","KWT":"EMR","OMN":"EMR","BHR":"EMR","QAT":"EMR",
+    "YEM":"EMR","AFG":"EMR","MAR":"EMR","TUN":"EMR","LBY":"EMR","DZA":"EMR","SDN":"EMR",
+    "SOM":"EMR","DJI":"EMR","PAK":"EMR",
+    // Africa
+    "NGA":"AFR","ETH":"AFR","COD":"AFR","TZA":"AFR","KEN":"AFR","UGA":"AFR","MOZ":"AFR",
+    "MDG":"AFR","GHA":"AFR","CIV":"AFR","CMR":"AFR","NER":"AFR","ZAF":"AFR","AGO":"AFR",
+    "MLI":"AFR","SEN":"AFR","ZMB":"AFR","ZWE":"AFR","RWA":"AFR","BDI":"AFR","TCD":"AFR",
+    "SSD":"AFR","GIN":"AFR","BEN":"AFR","BFA":"AFR","HTI":"AFR","BWA":"AFR","NAM":"AFR",
+    "GAB":"AFR","COG":"AFR","MWI":"AFR","LSO":"AFR","SWZ":"AFR","ERI":"AFR","TGO":"AFR",
+};
+
+function toggleFilterPanel() {
+    filterPanelOpen = !filterPanelOpen;
+    const p = document.getElementById("filter-panel");
+    p.style.display = filterPanelOpen ? "flex" : "none";
+    document.getElementById("filter-toggle").classList.toggle("active", filterPanelOpen);
+}
+
+function setMapFilter(f) {
+    activeFilter = f;
+    document.querySelectorAll(".filter-opt").forEach(b => b.classList.toggle("active", b.dataset.filter === f));
+    applyMapFilter();
+}
+
+function setRegionFilter() {
+    activeRegion = document.getElementById("region-filter").value;
+    applyMapFilter();
+}
+
+function applyMapFilter() {
+    if (!allData || !allData.length) return;
+    const metric = currentMetric;
+    const cat = getCat(metric);
+    if (cat === "infra") { clearMapFilter(); return; }
+    
+    // Get all values
+    const vals = allData.map(d => parseFloat(d[metric])).filter(v => !isNaN(v)).sort((a,b)=>b-a);
+    const avg = vals.reduce((s,v)=>s+v,0)/vals.length;
+    const top20val = vals[19] || 0;
+    const bot20val = vals[vals.length-20] || 0;
+    
+    g.selectAll(".country").each(function(d) {
+        const cd = dataByNumId[d.id];
+        if (!cd) return;
+        const v = parseFloat(cd[metric]);
+        const iso3 = cd.country;
+        
+        // Region filter
+        if (activeRegion && ISO3_REGION[iso3] !== activeRegion) {
+            d3.select(this).attr("opacity", 0.12);
+            return;
+        }
+        
+        let highlight = true;
+        if (activeFilter === "top20") highlight = v >= top20val;
+        else if (activeFilter === "bot20") highlight = !isNaN(v) && v <= bot20val;
+        else if (activeFilter === "above_avg") highlight = v > avg;
+        else if (activeFilter === "below_avg") highlight = !isNaN(v) && v < avg;
+        
+        d3.select(this).attr("opacity", highlight ? 1 : 0.12);
+    });
+}
+
+function clearMapFilter() {
+    g.selectAll(".country").attr("opacity", 1);
+}
+
 
 // ── i18n ──────────────────────────────────────────────────────────────────
 let i18nData = {}, currentLang = "en";
