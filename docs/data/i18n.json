@@ -129,8 +129,15 @@
     "range_filter_label": "Range: ≥",
     "range_reset": "reset",
     "world_avg_label": "World avg",
-    "world_max_label": "Max",
-    "world_countries_label": "Countries"
+    "world_max_label": "Max country",
+    "world_countries_label": "Countries",
+    "world_with_data": "with data",
+    "unit_death_hint": "deaths / 100k pop. (age-standardized)",
+    "unit_daly_hint": "disability-adj. life years / 100k",
+    "unit_research_hint": "PubMed cancer papers 2020–2025",
+    "unit_death_max_hint": "highest mortality",
+    "unit_daly_max_hint": "highest burden",
+    "unit_research_max_hint": "most publications"
   },
   "ru": {
     "title": "OncologyAtlas",
@@ -262,8 +269,15 @@
     "range_filter_label": "От: ≥",
     "range_reset": "сброс",
     "world_avg_label": "Мир в среднем",
-    "world_max_label": "Макс",
-    "world_countries_label": "Стран"
+    "world_max_label": "Макс страна",
+    "world_countries_label": "Стран",
+    "world_with_data": "с данными",
+    "unit_death_hint": "смертей / 100 тыс. нас. (стандартиз.)",
+    "unit_daly_hint": "DALY / 100 тыс. населения",
+    "unit_research_hint": "публ. PubMed по онкологии 2020–2025",
+    "unit_death_max_hint": "наибольшая смертность",
+    "unit_daly_max_hint": "наибольшая нагрузка",
+    "unit_research_max_hint": "больше всего публикаций"
   },
   "zh": {
     "title": "OncologyAtlas",
@@ -395,8 +409,15 @@
     "range_filter_label": "范围: ≥",
     "range_reset": "重置",
     "world_avg_label": "全球平均",
-    "world_max_label": "最大",
-    "world_countries_label": "国家"
+    "world_max_label": "最高国家",
+    "world_countries_label": "国家",
+    "world_with_data": "有数据",
+    "unit_death_hint": "每10万人死亡数（年龄标化）",
+    "unit_daly_hint": "每10万人DALY",
+    "unit_research_hint": "PubMed癌症论文2020–2025",
+    "unit_death_max_hint": "最高死亡率",
+    "unit_daly_max_hint": "最高负担",
+    "unit_research_max_hint": "最多发表"
   },
   "es": {
     "title": "OncologyAtlas",
@@ -528,8 +549,15 @@
     "range_filter_label": "Rango: ≥",
     "range_reset": "reiniciar",
     "world_avg_label": "Promedio mundial",
-    "world_max_label": "Máx",
-    "world_countries_label": "Países"
+    "world_max_label": "País máx.",
+    "world_countries_label": "Países",
+    "world_with_data": "con datos",
+    "unit_death_hint": "muertes / 100k hab. (estandarizada)",
+    "unit_daly_hint": "AVAD / 100k hab.",
+    "unit_research_hint": "artículos PubMed oncología 2020–2025",
+    "unit_death_max_hint": "mayor mortalidad",
+    "unit_daly_max_hint": "mayor carga",
+    "unit_research_max_hint": "más publicaciones"
   },
   "ar": {
     "title": "OncologyAtlas",
@@ -661,8 +689,15 @@
     "range_filter_label": "نطاق: ≥",
     "range_reset": "إعادة",
     "world_avg_label": "المتوسط العالمي",
-    "world_max_label": "الحد الأقصى",
-    "world_countries_label": "الدول"
+    "world_max_label": "أعلى دولة",
+    "world_countries_label": "الدول",
+    "world_with_data": "مع بيانات",
+    "unit_death_hint": "وفيات / 100 ألف (معيارية)",
+    "unit_daly_hint": "DALY / 100 ألف",
+    "unit_research_hint": "مقالات PubMed للأورام 2020–2025",
+    "unit_death_max_hint": "أعلى وفيات",
+    "unit_daly_max_hint": "أعلى عبء",
+    "unit_research_max_hint": "أكثر منشورات"
   },
   "hi": {
     "title": "OncologyAtlas",
@@ -794,8 +829,15 @@
     "range_filter_label": "श्रेणी: ≥",
     "range_reset": "रीसेट",
     "world_avg_label": "विश्व औसत",
-    "world_max_label": "अधिकतम",
-    "world_countries_label": "देश"
+    "world_max_label": "अधिकतम देश",
+    "world_countries_label": "देश",
+    "world_with_data": "डेटा सहित",
+    "unit_death_hint": "मृत्यु / 1 लाख जन. (मानकीकृत)",
+    "unit_daly_hint": "DALY / 1 लाख जन.",
+    "unit_research_hint": "PubMed ऑन्कोलॉजी 2020–2025",
+    "unit_death_max_hint": "सर्वाधिक मृत्यु दर",
+    "unit_daly_max_hint": "सर्वाधिक बोझ",
+    "unit_research_max_hint": "सर्वाधिक प्रकाशन"
   },
   "pt": {
     "title": "OncologyAtlas",
@@ -927,8 +969,15 @@
     "range_filter_label": "Faixa: ≥",
     "range_reset": "redefinir",
     "world_avg_label": "Média mundial",
-    "world_max_label": "Máx",
-    "world_countries_label": "Países"
+    "world_max_label": "País máx.",
+    "world_countries_label": "Países",
+    "world_with_data": "com dados",
+    "unit_death_hint": "mortes / 100k hab. (padronizada)",
+    "unit_daly_hint": "AVAD / 100k hab.",
+    "unit_research_hint": "artigos PubMed oncologia 2020–2025",
+    "unit_death_max_hint": "maior mortalidade",
+    "unit_daly_max_hint": "maior carga",
+    "unit_research_max_hint": "mais publicações"
   },
   "fr": {
     "title": "OncologyAtlas",
@@ -1060,8 +1109,15 @@
     "range_filter_label": "Plage: ≥",
     "range_reset": "réinitialiser",
     "world_avg_label": "Moy. mondiale",
-    "world_max_label": "Max",
-    "world_countries_label": "Pays"
+    "world_max_label": "Pays max",
+    "world_countries_label": "Pays",
+    "world_with_data": "avec données",
+    "unit_death_hint": "décès / 100k hab. (standardisé)",
+    "unit_daly_hint": "AVCI / 100k hab.",
+    "unit_research_hint": "articles PubMed oncologie 2020–2025",
+    "unit_death_max_hint": "mortalité la plus élevée",
+    "unit_daly_max_hint": "charge la plus élevée",
+    "unit_research_max_hint": "plus de publications"
   },
   "de": {
     "title": "OncologyAtlas",
@@ -1193,8 +1249,15 @@
     "range_filter_label": "Bereich: ≥",
     "range_reset": "zurücksetzen",
     "world_avg_label": "Weltdurchschnitt",
-    "world_max_label": "Max",
-    "world_countries_label": "Länder"
+    "world_max_label": "Höchst-Land",
+    "world_countries_label": "Länder",
+    "world_with_data": "mit Daten",
+    "unit_death_hint": "Todesfälle / 100k Bev. (standardisiert)",
+    "unit_daly_hint": "DALY / 100k Bev.",
+    "unit_research_hint": "PubMed Onkologie 2020–2025",
+    "unit_death_max_hint": "höchste Sterblichkeit",
+    "unit_daly_max_hint": "höchste Belastung",
+    "unit_research_max_hint": "meiste Publikationen"
   },
   "ja": {
     "title": "OncologyAtlas",
@@ -1326,8 +1389,15 @@
     "range_filter_label": "範囲: ≥",
     "range_reset": "リセット",
     "world_avg_label": "世界平均",
-    "world_max_label": "最大",
-    "world_countries_label": "国"
+    "world_max_label": "最大国",
+    "world_countries_label": "国",
+    "world_with_data": "データあり",
+    "unit_death_hint": "死亡数 / 10万人（年齢調整済）",
+    "unit_daly_hint": "DALY / 10万人",
+    "unit_research_hint": "PubMed腫瘍学論文 2020–2025",
+    "unit_death_max_hint": "最高死亡率",
+    "unit_daly_max_hint": "最高負担",
+    "unit_research_max_hint": "最多発表"
   },
   "id": {
     "title": "OncologyAtlas",
@@ -1459,7 +1529,14 @@
     "range_filter_label": "Rentang: ≥",
     "range_reset": "setel ulang",
     "world_avg_label": "Rata-rata dunia",
-    "world_max_label": "Maks",
-    "world_countries_label": "Negara"
+    "world_max_label": "Maks negara",
+    "world_countries_label": "Negara",
+    "world_with_data": "dengan data",
+    "unit_death_hint": "kematian / 100rb penduduk (terstandar)",
+    "unit_daly_hint": "DALY / 100rb penduduk",
+    "unit_research_hint": "artikel PubMed onkologi 2020–2025",
+    "unit_death_max_hint": "mortalitas tertinggi",
+    "unit_daly_max_hint": "beban tertinggi",
+    "unit_research_max_hint": "publikasi terbanyak"
   }
 }
