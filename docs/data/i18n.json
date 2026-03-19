@@ -69,7 +69,15 @@
     "clinic_founded": "Founded",
     "clinic_beds": "Beds",
     "clinic_accreditation": "Accreditation",
-    "clinic_newsweek": "Newsweek rank"
+    "clinic_newsweek": "Newsweek rank",
+    "no_data_territory": "No data available for this territory",
+    "survival_title": "5-year survival rate",
+    "trials_title": "Clinical Trials",
+    "no_trials": "No trials data",
+    "trials_total": "Total studies",
+    "trials_active": "Active / Recruiting",
+    "trials_link": "Search trials →",
+    "trials_btn": "🔬 Trials"
   },
   "ru": {
     "title": "OncologyAtlas",
@@ -141,7 +149,15 @@
     "clinic_founded": "Основана",
     "clinic_beds": "Коек",
     "clinic_accreditation": "Аккредитация",
-    "clinic_newsweek": "Рейтинг Newsweek"
+    "clinic_newsweek": "Рейтинг Newsweek",
+    "no_data_territory": "Нет данных для этой территории",
+    "survival_title": "5-летняя выживаемость",
+    "trials_title": "Клинические исследования",
+    "no_trials": "Нет данных исследований",
+    "trials_total": "Всего исследований",
+    "trials_active": "Активных / Набор",
+    "trials_link": "Найти исследования →",
+    "trials_btn": "🔬 Испытания"
   },
   "zh": {
     "title": "OncologyAtlas",
@@ -213,7 +229,15 @@
     "clinic_founded": "成立年份",
     "clinic_beds": "床位",
     "clinic_accreditation": "认证",
-    "clinic_newsweek": "新闻周刊排名"
+    "clinic_newsweek": "新闻周刊排名",
+    "no_data_territory": "该地区无数据",
+    "survival_title": "5年生存率",
+    "trials_title": "临床试验",
+    "no_trials": "无试验数据",
+    "trials_total": "总研究数",
+    "trials_active": "招募中",
+    "trials_link": "查找试验 →",
+    "trials_btn": "🔬 试验"
   },
   "es": {
     "title": "OncologyAtlas",
@@ -285,7 +309,15 @@
     "clinic_founded": "Fundada",
     "clinic_beds": "Camas",
     "clinic_accreditation": "Acreditación",
-    "clinic_newsweek": "Ranking Newsweek"
+    "clinic_newsweek": "Ranking Newsweek",
+    "no_data_territory": "Sin datos disponibles",
+    "survival_title": "Supervivencia a 5 años",
+    "trials_title": "Ensayos clínicos",
+    "no_trials": "Sin datos de ensayos",
+    "trials_total": "Total de estudios",
+    "trials_active": "Activos / Reclutando",
+    "trials_link": "Buscar ensayos →",
+    "trials_btn": "🔬 Ensayos"
   },
   "ar": {
     "title": "OncologyAtlas",
@@ -357,7 +389,15 @@
     "clinic_founded": "تأسست",
     "clinic_beds": "أسرة",
     "clinic_accreditation": "الاعتماد",
-    "clinic_newsweek": "تصنيف نيوزويك"
+    "clinic_newsweek": "تصنيف نيوزويك",
+    "no_data_territory": "لا تتوفر بيانات",
+    "survival_title": "5-year survival rate",
+    "trials_title": "Clinical Trials",
+    "no_trials": "No trials data",
+    "trials_total": "Total studies",
+    "trials_active": "Active / Recruiting",
+    "trials_link": "Search trials →",
+    "trials_btn": "🔬 Trials"
   },
   "hi": {
     "title": "OncologyAtlas",
@@ -429,7 +469,15 @@
     "clinic_founded": "स्थापित",
     "clinic_beds": "बिस्तर",
     "clinic_accreditation": "मान्यता",
-    "clinic_newsweek": "न्यूज़वीक रैंक"
+    "clinic_newsweek": "न्यूज़वीक रैंक",
+    "no_data_territory": "डेटा उपलब्ध नहीं",
+    "survival_title": "5-year survival rate",
+    "trials_title": "Clinical Trials",
+    "no_trials": "No trials data",
+    "trials_total": "Total studies",
+    "trials_active": "Active / Recruiting",
+    "trials_link": "Search trials →",
+    "trials_btn": "🔬 Trials"
   },
   "pt": {
     "title": "OncologyAtlas",
@@ -501,7 +549,15 @@
     "clinic_founded": "Fundada",
     "clinic_beds": "Leitos",
     "clinic_accreditation": "Acreditação",
-    "clinic_newsweek": "Ranking Newsweek"
+    "clinic_newsweek": "Ranking Newsweek",
+    "no_data_territory": "Sem dados disponíveis",
+    "survival_title": "5-year survival rate",
+    "trials_title": "Clinical Trials",
+    "no_trials": "No trials data",
+    "trials_total": "Total studies",
+    "trials_active": "Active / Recruiting",
+    "trials_link": "Search trials →",
+    "trials_btn": "🔬 Trials"
   },
   "fr": {
     "title": "OncologyAtlas",
@@ -573,7 +629,15 @@
     "clinic_founded": "Fondée",
     "clinic_beds": "Lits",
     "clinic_accreditation": "Accréditation",
-    "clinic_newsweek": "Classement Newsweek"
+    "clinic_newsweek": "Classement Newsweek",
+    "no_data_territory": "Aucune donnée disponible",
+    "survival_title": "Survie à 5 ans",
+    "trials_title": "Essais cliniques",
+    "no_trials": "Pas de données",
+    "trials_total": "Total études",
+    "trials_active": "Actifs / Recrutement",
+    "trials_link": "Rechercher →",
+    "trials_btn": "🔬 Essais"
   },
   "de": {
     "title": "OncologyAtlas",
@@ -645,7 +709,15 @@
     "clinic_founded": "Gegründet",
     "clinic_beds": "Betten",
     "clinic_accreditation": "Akkreditierung",
-    "clinic_newsweek": "Newsweek-Rang"
+    "clinic_newsweek": "Newsweek-Rang",
+    "no_data_territory": "Keine Daten verfügbar",
+    "survival_title": "5-Jahres-Überlebensrate",
+    "trials_title": "Klinische Studien",
+    "no_trials": "Keine Daten",
+    "trials_total": "Studien gesamt",
+    "trials_active": "Aktiv / Rekrutierung",
+    "trials_link": "Studien suchen →",
+    "trials_btn": "🔬 Studien"
   },
   "ja": {
     "title": "OncologyAtlas",
@@ -717,7 +789,15 @@
     "clinic_founded": "設立",
     "clinic_beds": "病床数",
     "clinic_accreditation": "認定",
-    "clinic_newsweek": "Newsweekランク"
+    "clinic_newsweek": "Newsweekランク",
+    "no_data_territory": "データなし",
+    "survival_title": "5-year survival rate",
+    "trials_title": "Clinical Trials",
+    "no_trials": "No trials data",
+    "trials_total": "Total studies",
+    "trials_active": "Active / Recruiting",
+    "trials_link": "Search trials →",
+    "trials_btn": "🔬 Trials"
   },
   "id": {
     "title": "OncologyAtlas",
@@ -789,6 +869,14 @@
     "clinic_founded": "Didirikan",
     "clinic_beds": "Tempat tidur",
     "clinic_accreditation": "Akreditasi",
-    "clinic_newsweek": "Peringkat Newsweek"
+    "clinic_newsweek": "Peringkat Newsweek",
+    "no_data_territory": "Tidak ada data tersedia",
+    "survival_title": "5-year survival rate",
+    "trials_title": "Clinical Trials",
+    "no_trials": "No trials data",
+    "trials_total": "Total studies",
+    "trials_active": "Active / Recruiting",
+    "trials_link": "Search trials →",
+    "trials_btn": "🔬 Trials"
   }
 }

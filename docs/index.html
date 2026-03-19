@@ -504,7 +504,16 @@ const BOOL_COLORS = { "Yes": "#2db565", "No": "#e05c5c" };
 const DEATH_MAX = { death_cancer_all:200, death_breast:30, death_colon:30, death_liver:20, death_mouth:10, death_oesophagus:10 };
 const DALY_MAX  = { daly_breast:350, daly_colon:350, daly_liver:200, daly_mouth:150, daly_oesophagus:150 };
 const INFRA_KEYS = ["cancer_surgery","cancer_registry","cancer_plan","breast_screening","cancer_dept"];
-const INFRA_LABELS = { cancer_surgery:"Cancer Surgery", cancer_registry:"Cancer Registry", cancer_plan:"National Cancer Plan", breast_screening:"Breast Screening", cancer_dept:"Cancer Dept" };
+function getInfraLabel(k) {
+    const M = {
+        cancer_surgery: t("surgery","Cancer Surgery"),
+        cancer_registry: t("registry","Cancer Registry"),
+        cancer_plan: t("plan","National Plan"),
+        breast_screening: t("screening","Breast Screening"),
+        cancer_dept: t("dept","Cancer Dept")
+    };
+    return M[k] || k;
+}
 
 // ── State ──────────────────────────────────────────────────────────────────
 let dataByNumId = {}, allData = [];
@@ -585,26 +594,26 @@ function moveTip(e) {
 function openProfile(data, name) {
     if (!data) {
         document.getElementById("panel-title").textContent = name;
-        document.getElementById("panel-sub").textContent = "No data available for this territory";
+        document.getElementById("panel-sub").textContent = t("no_data_territory","No data available for this territory");
         document.getElementById("panel-content").innerHTML = "";
     } else {
         document.getElementById("panel-title").textContent = data.name || name;
-        document.getElementById("panel-sub").textContent = `WHO Global Health Observatory • ${data.country}`;
+        document.getElementById("panel-sub").textContent = `${t("profile_source","WHO Global Health Observatory")} • ${data.country}`;
 
         // Build mortality bars
         const deathRows = [
-            ["All cancers", data.death_cancer_all, DEATH_MAX.death_cancer_all, "#4f8ef7"],
-            ["Breast", data.death_breast, DEATH_MAX.death_breast, "#7eb8f7"],
-            ["Colorectal", data.death_colon, DEATH_MAX.death_colon, "#5b9ef0"],
-            ["Liver", data.death_liver, DEATH_MAX.death_liver, "#3a80e0"],
-            ["Mouth", data.death_mouth, DEATH_MAX.death_mouth, "#2566c8"],
+            [t("all_cancers","All cancers"), data.death_cancer_all, DEATH_MAX.death_cancer_all, "#4f8ef7"],
+            [t("breast","Breast"), data.death_breast, DEATH_MAX.death_breast, "#7eb8f7"],
+            [t("colon","Colorectal"), data.death_colon, DEATH_MAX.death_colon, "#5b9ef0"],
+            [t("liver","Liver"), data.death_liver, DEATH_MAX.death_liver, "#3a80e0"],
+            [t("mouth","Mouth"), data.death_mouth, DEATH_MAX.death_mouth, "#2566c8"],
         ].filter(([,v]) => v != null);
 
         const dalyrRows = [
-            ["Breast", data.daly_breast, DALY_MAX.daly_breast, "#2db565"],
-            ["Colorectal", data.daly_colon, DALY_MAX.daly_colon, "#25a058"],
-            ["Liver", data.daly_liver, DALY_MAX.daly_liver, "#1c8046"],
-            ["Mouth", data.daly_mouth, DALY_MAX.daly_mouth, "#166034"],
+            [t("daly_breast","Breast"), data.daly_breast, DALY_MAX.daly_breast, "#2db565"],
+            [t("daly_colon","Colorectal"), data.daly_colon, DALY_MAX.daly_colon, "#25a058"],
+            [t("daly_liver","Liver"), data.daly_liver, DALY_MAX.daly_liver, "#1c8046"],
+            [t("daly_mouth","Mouth"), data.daly_mouth, DALY_MAX.daly_mouth, "#166034"],
         ].filter(([,v]) => v != null);
 
         const barsHtml = (rows) => rows.map(([label, val, max, color]) => {
@@ -620,27 +629,27 @@ function openProfile(data, name) {
             const v = data[k];
             const cls = v === "Yes" ? "yes" : v === "No" ? "no" : "na";
             const dot = v === "Yes" ? "#2db565" : v === "No" ? "#e05c5c" : "#334";
-            return `<div class="pill ${cls}"><div class="pill-dot" style="background:${dot}"></div>${INFRA_LABELS[k]}</div>`;
+            return `<div class="pill ${cls}"><div class="pill-dot" style="background:${dot}"></div>${getInfraLabel(k)}</div>`;
         }).join("");
 
         document.getElementById("panel-content").innerHTML = `
             <div class="panel-section">
-                <h3>Cancer mortality (death / 100k) <span class="info-icon" onmouseenter="showExplain('death_cancer_all',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
+                <h3>${t("mortality_section","Cancer mortality (death / 100k)")} <span class="info-icon" onmouseenter="showExplain('death_cancer_all',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
                 <div class="metric-explain">Число людей, умерших от рака, на каждые <strong>100 000 жителей</strong> в год. Показатель стандартизован по возрасту — страны разного размера и структуры населения можно сравнивать напрямую. <strong>Чем ниже — тем лучше.</strong></div>
-                ${deathRows.length ? barsHtml(deathRows) : '<div style="color:#334;font-size:11px">No data</div>'}
+                ${deathRows.length ? barsHtml(deathRows) : `<div style='color:#334;font-size:11px'>${t('no_data','No data')}</div>`}
             </div>
             <div class="panel-section" id="trend-section">
-                <h3>Trends over time</h3>
+                <h3>${t("trends_section","Trends over time")}</h3>
                 <div class="metric-explain">Как менялась смертность за последние 15–20 лет. <strong>Красный тренд ↑</strong> = рост, <strong>зелёный ↓</strong> = снижение. Снижение обычно означает улучшение ранней диагностики или появление новых методов лечения.</div>
                 <div id="trend-charts"><div style="color:#334;font-size:11px">Loading...</div></div>
             </div>
             <div class="panel-section">
-                <h3>Disease burden — DALYs / 100k <span class="info-icon" onmouseenter="showExplain('daly_breast',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
+                <h3>${t("daly_section","Disease burden — DALYs / 100k")} <span class="info-icon" onmouseenter="showExplain('daly_breast',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
                 <div class="metric-explain"><strong>DALY = год здоровой жизни, потерянный из-за болезни.</strong> Включает и преждевременную смерть, и годы жизни с болезнью. 1 DALY = 1 потерянный год. Отражает общее бремя болезни, не только смерти.</div>
-                ${dalyrRows.length ? barsHtml(dalyrRows) : '<div style="color:#334;font-size:11px">No data</div>'}
+                ${dalyrRows.length ? barsHtml(dalyrRows) : `<div style='color:#334;font-size:11px'>${t('no_data','No data')}</div>`}
             </div>
             <div class="panel-section">
-                <h3>Healthcare infrastructure <span class="info-icon" onmouseenter="showExplain('cancer_registry',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
+                <h3>${t("infra_section","Healthcare infrastructure")} <span class="info-icon" onmouseenter="showExplain('cancer_registry',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
                 <div class="metric-explain">Базовые возможности системы здравоохранения страны в области онкологии. Зелёный ✅ = есть, красный ✗ = нет. Даже богатые страны иногда имеют пробелы в отдельных областях.</div>
                 <div class="pill-grid">${pillsHtml}</div>
             </div>
@@ -1371,15 +1380,15 @@ function buildRankings(iso3, data) {
         </div>`;
 
     const thisRank = rank ? `<div style="color:#4f8ef7;font-size:11px;margin:8px 0 4px">
-        ${data.name}: ranked <b>#${rank}</b> of ${all.length} countries</div>` : "";
+        ${data.name}: ${t("ranked","ranked")} <b>#${rank}</b> ${t("of","of")} ${all.length} ${t("countries","countries")}</div>` : "";
 
     return `
         <div class="panel-section">
             <h3>Global ranking — all cancer mortality</h3>
             ${thisRank}
-            <div style="font-size:9px;color:#334;margin-bottom:6px">HIGHEST MORTALITY</div>
+            <div style="font-size:9px;color:#334;margin-bottom:6px">${t("highest","HIGHEST MORTALITY").toUpperCase()}</div>
             ${top5.map((c,i) => rowHtml(c, i, v => d3.scaleThreshold().domain(NCD_DOMAIN).range([NCD_NODATA,...NCD_COLORS])(v/3))).join("")}
-            <div style="font-size:9px;color:#334;margin:10px 0 6px">LOWEST MORTALITY</div>
+            <div style="font-size:9px;color:#334;margin:10px 0 6px">${t("lowest","LOWEST MORTALITY").toUpperCase()}</div>
             ${bottom5.map((c,i) => rowHtml(c, all.length-5+i, () => "#2db565")).join("")}
         </div>`;
 }
@@ -1556,7 +1565,7 @@ function buildSurvival(iso3) {
             <div class="survival-pct" style="color:${pct>=70?"#2db565":pct>=50?"#f7a04f":"#e05c5c"}">${pct}%</div>
         </div>`).join("");
     return `<div class="panel-section">
-        <h3>${t("survival_title","5-year survival rate")} <span class="info-icon" onmouseenter="showExplain('survival_5yr',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
+        <h3>${t("survival_title",t("survival_title","5-year survival rate"))} <span class="info-icon" onmouseenter="showExplain('survival_5yr',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
         <div class="metric-explain">Процент пациентов, живущих <strong>5 и более лет</strong> после диагноза. Главный международный показатель качества онкологической помощи. Зависит от ранней диагностики и доступности лечения.</div>
         <div style="font-size:9px;color:#445;margin-bottom:10px">Source: EUROCARE-5 / CONCORD-3</div>
         ${rows}
@@ -1568,8 +1577,8 @@ function buildTrialsSection(iso3) {
     if (!trialsData || !trialsData.countries) return "";
     const d = trialsData.countries[iso3];
     if (!d) return `<div class="panel-section">
-        <h3>${t("trials_title","Clinical Trials")}</h3>
-        <div style="color:#334;font-size:11px">${t("no_trials","No trials data available")}</div>
+        <h3>${t("trials_title",t("trials_title","Clinical Trials"))}</h3>
+        <div style="color:#334;font-size:11px">${t("no_trials",t("no_trials","No trials data available"))}</div>
     </div>`;
     
     const phases = d.phases || {};
@@ -1588,23 +1597,23 @@ function buildTrialsSection(iso3) {
     }).join("");
     
     return `<div class="panel-section">
-        <h3>${t("trials_title","Clinical Trials")} <span class="info-icon" onmouseenter="showExplain('trials_total',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
+        <h3>${t("trials_title",t("trials_title","Clinical Trials"))} <span class="info-icon" onmouseenter="showExplain('trials_total',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
         <div class="metric-explain">Число зарегистрированных научных испытаний новых методов лечения рака. <strong>Фаза 3</strong> — финальная перед одобрением препарата. Участие в испытаниях может дать доступ к новейшему лечению бесплатно.</div>
         <div style="display:flex;gap:20px;margin-bottom:12px">
             <div>
                 <div style="font-size:22px;font-weight:700;color:#4f8ef7">${d.total}</div>
-                <div style="font-size:9px;color:#445;text-transform:uppercase">${t("trials_total","Total studies")}</div>
+                <div style="font-size:9px;color:#445;text-transform:uppercase">${t("trials_total",t("trials_total","Total studies"))}</div>
             </div>
             <div>
                 <div style="font-size:22px;font-weight:700;color:#2db565">${d.active}</div>
-                <div style="font-size:9px;color:#445;text-transform:uppercase">${t("trials_active","Active / Recruiting")}</div>
+                <div style="font-size:9px;color:#445;text-transform:uppercase">${t("trials_active",t("trials_active","Active / Recruiting"))}</div>
             </div>
         </div>
         ${phaseRows}
         <div style="margin-top:10px">
             <a href="https://clinicaltrials.gov/search?cond=cancer&locStr=${iso3}&distance=0" target="_blank"
                style="color:#4f8ef7;font-size:11px;text-decoration:none">
-               ${t("trials_link","Search trials →")}
+               ${t("trials_link",t("trials_link","Search trials →"))}
             </a>
         </div>
     </div>`;
