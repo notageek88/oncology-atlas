@@ -584,6 +584,217 @@ const METRIC_GROUPS = {
 
 const BOOL_COLORS = { "Yes": "#2db565", "No": "#e05c5c" };
 const DEATH_MAX = { death_cancer_all:200, death_breast:30, death_colon:30, death_liver:20, death_mouth:10, death_oesophagus:10 };
+
+// Country name localization lookup (ISO3 → {ru, zh, es, fr, ar})
+const COUNTRY_NAMES = {
+  AFG:{ru:"Афганистан",zh:"阿富汗",es:"Afganistán",ar:"أفغانستان",fr:"Afghanistan",de:"Afghanistan"},
+  ALB:{ru:"Албания",zh:"阿尔巴尼亚",es:"Albania",ar:"ألبانيا",fr:"Albanie",de:"Albanien"},
+  DZA:{ru:"Алжир",zh:"阿尔及利亚",es:"Argelia",ar:"الجزائر",fr:"Algérie",de:"Algerien"},
+  AND:{ru:"Андорра",zh:"安道尔",es:"Andorra",ar:"أندورا",fr:"Andorre",de:"Andorra"},
+  AGO:{ru:"Ангола",zh:"安哥拉",es:"Angola",ar:"أنغولا",fr:"Angola",de:"Angola"},
+  ARG:{ru:"Аргентина",zh:"阿根廷",es:"Argentina",ar:"الأرجنتين",fr:"Argentine",de:"Argentinien"},
+  ARM:{ru:"Армения",zh:"亚美尼亚",es:"Armenia",ar:"أرمينيا",fr:"Arménie",de:"Armenien"},
+  AUS:{ru:"Австралия",zh:"澳大利亚",es:"Australia",ar:"أستراليا",fr:"Australie",de:"Australien"},
+  AUT:{ru:"Австрия",zh:"奥地利",es:"Austria",ar:"النمسا",fr:"Autriche",de:"Österreich"},
+  AZE:{ru:"Азербайджан",zh:"阿塞拜疆",es:"Azerbaiyán",ar:"أذربيجان",fr:"Azerbaïdjan",de:"Aserbaidschan"},
+  BHS:{ru:"Багамы",zh:"巴哈马",es:"Bahamas",ar:"جزر البهاما",fr:"Bahamas",de:"Bahamas"},
+  BHR:{ru:"Бахрейн",zh:"巴林",es:"Baréin",ar:"البحرين",fr:"Bahreïn",de:"Bahrain"},
+  BGD:{ru:"Бангладеш",zh:"孟加拉国",es:"Bangladesh",ar:"بنغلاديش",fr:"Bangladesh",de:"Bangladesch"},
+  BLR:{ru:"Беларусь",zh:"白俄罗斯",es:"Bielorrusia",ar:"بيلاروسيا",fr:"Biélorussie",de:"Weißrussland"},
+  BEL:{ru:"Бельгия",zh:"比利时",es:"Bélgica",ar:"بلجيكا",fr:"Belgique",de:"Belgien"},
+  BLZ:{ru:"Белиз",zh:"伯利兹",es:"Belice",ar:"بليز",fr:"Belize",de:"Belize"},
+  BEN:{ru:"Бенин",zh:"贝宁",es:"Benín",ar:"بنين",fr:"Bénin",de:"Benin"},
+  BTN:{ru:"Бутан",zh:"不丹",es:"Bután",ar:"بوتان",fr:"Bhoutan",de:"Bhutan"},
+  BOL:{ru:"Боливия",zh:"玻利维亚",es:"Bolivia",ar:"بوليفيا",fr:"Bolivie",de:"Bolivien"},
+  BIH:{ru:"Босния и Герцеговина",zh:"波斯尼亚和黑塞哥维那",es:"Bosnia y Herzegovina",ar:"البوسنة والهرسك",fr:"Bosnie-Herzégovine",de:"Bosnien und Herzegowina"},
+  BWA:{ru:"Ботсвана",zh:"博茨瓦纳",es:"Botsuana",ar:"بوتسوانا",fr:"Botswana",de:"Botswana"},
+  BRA:{ru:"Бразилия",zh:"巴西",es:"Brasil",ar:"البرازيل",fr:"Brésil",de:"Brasilien"},
+  BRN:{ru:"Бруней",zh:"文莱",es:"Brunéi",ar:"بروناي",fr:"Brunéi",de:"Brunei"},
+  BGR:{ru:"Болгария",zh:"保加利亚",es:"Bulgaria",ar:"بلغاريا",fr:"Bulgarie",de:"Bulgarien"},
+  BFA:{ru:"Буркина-Фасо",zh:"布基纳法索",es:"Burkina Faso",ar:"بوركينا فاسو",fr:"Burkina Faso",de:"Burkina Faso"},
+  BDI:{ru:"Бурунди",zh:"布隆迪",es:"Burundi",ar:"بوروندي",fr:"Burundi",de:"Burundi"},
+  CPV:{ru:"Кабо-Верде",zh:"佛得角",es:"Cabo Verde",ar:"الرأس الأخضر",fr:"Cap-Vert",de:"Kap Verde"},
+  KHM:{ru:"Камбоджа",zh:"柬埔寨",es:"Camboya",ar:"كمبوديا",fr:"Cambodge",de:"Kambodscha"},
+  CMR:{ru:"Камерун",zh:"喀麦隆",es:"Camerún",ar:"الكاميرون",fr:"Cameroun",de:"Kamerun"},
+  CAN:{ru:"Канада",zh:"加拿大",es:"Canadá",ar:"كندا",fr:"Canada",de:"Kanada"},
+  CAF:{ru:"ЦАР",zh:"中非共和国",es:"República Centroafricana",ar:"جمهورية أفريقيا الوسطى",fr:"République centrafricaine",de:"Zentralafrikanische Republik"},
+  TCD:{ru:"Чад",zh:"乍得",es:"Chad",ar:"تشاد",fr:"Tchad",de:"Tschad"},
+  CHL:{ru:"Чили",zh:"智利",es:"Chile",ar:"تشيلي",fr:"Chili",de:"Chile"},
+  CHN:{ru:"Китай",zh:"中国",es:"China",ar:"الصين",fr:"Chine",de:"China"},
+  COL:{ru:"Колумбия",zh:"哥伦比亚",es:"Colombia",ar:"كولومبيا",fr:"Colombie",de:"Kolumbien"},
+  COM:{ru:"Коморы",zh:"科摩罗",es:"Comoras",ar:"جزر القمر",fr:"Comores",de:"Komoren"},
+  COD:{ru:"ДР Конго",zh:"刚果民主共和国",es:"Rep. Dem. del Congo",ar:"الكونغو الديمقراطية",fr:"RD Congo",de:"Kongo, Dem. Rep."},
+  COG:{ru:"Конго",zh:"刚果共和国",es:"Rep. del Congo",ar:"الكونغو",fr:"Congo",de:"Kongo"},
+  CRI:{ru:"Коста-Рика",zh:"哥斯达黎加",es:"Costa Rica",ar:"كوستاريكا",fr:"Costa Rica",de:"Costa Rica"},
+  HRV:{ru:"Хорватия",zh:"克罗地亚",es:"Croacia",ar:"كرواتيا",fr:"Croatie",de:"Kroatien"},
+  CUB:{ru:"Куба",zh:"古巴",es:"Cuba",ar:"كوبا",fr:"Cuba",de:"Kuba"},
+  CYP:{ru:"Кипр",zh:"塞浦路斯",es:"Chipre",ar:"قبرص",fr:"Chypre",de:"Zypern"},
+  CZE:{ru:"Чехия",zh:"捷克",es:"Chequia",ar:"جمهورية التشيك",fr:"Tchéquie",de:"Tschechien"},
+  DNK:{ru:"Дания",zh:"丹麦",es:"Dinamarca",ar:"الدنمارك",fr:"Danemark",de:"Dänemark"},
+  DJI:{ru:"Джибути",zh:"吉布提",es:"Yibuti",ar:"جيبوتي",fr:"Djibouti",de:"Dschibuti"},
+  DOM:{ru:"Доминикана",zh:"多米尼加共和国",es:"Rep. Dominicana",ar:"جمهورية الدومينيكان",fr:"République dominicaine",de:"Dominikanische Republik"},
+  ECU:{ru:"Эквадор",zh:"厄瓜多尔",es:"Ecuador",ar:"الإكوادور",fr:"Équateur",de:"Ecuador"},
+  EGY:{ru:"Египет",zh:"埃及",es:"Egipto",ar:"مصر",fr:"Égypte",de:"Ägypten"},
+  SLV:{ru:"Сальвадор",zh:"萨尔瓦多",es:"El Salvador",ar:"السلفادور",fr:"Salvador",de:"El Salvador"},
+  GNQ:{ru:"Экваториальная Гвинея",zh:"赤道几内亚",es:"Guinea Ecuatorial",ar:"غينيا الاستوائية",fr:"Guinée équatoriale",de:"Äquatorialguinea"},
+  ERI:{ru:"Эритрея",zh:"厄立特里亚",es:"Eritrea",ar:"إريتريا",fr:"Érythrée",de:"Eritrea"},
+  EST:{ru:"Эстония",zh:"爱沙尼亚",es:"Estonia",ar:"إستونيا",fr:"Estonie",de:"Estland"},
+  SWZ:{ru:"Эсватини",zh:"斯威士兰",es:"Esuatini",ar:"إسواتيني",fr:"Eswatini",de:"Eswatini"},
+  ETH:{ru:"Эфиопия",zh:"埃塞俄比亚",es:"Etiopía",ar:"إثيوبيا",fr:"Éthiopie",de:"Äthiopien"},
+  FJI:{ru:"Фиджи",zh:"斐济",es:"Fiyi",ar:"فيجي",fr:"Fidji",de:"Fidschi"},
+  FIN:{ru:"Финляндия",zh:"芬兰",es:"Finlandia",ar:"فنلندا",fr:"Finlande",de:"Finnland"},
+  FRA:{ru:"Франция",zh:"法国",es:"Francia",ar:"فرنسا",fr:"France",de:"Frankreich"},
+  GAB:{ru:"Габон",zh:"加蓬",es:"Gabón",ar:"الغابون",fr:"Gabon",de:"Gabun"},
+  GMB:{ru:"Гамбия",zh:"冈比亚",es:"Gambia",ar:"غامبيا",fr:"Gambie",de:"Gambia"},
+  GEO:{ru:"Грузия",zh:"格鲁吉亚",es:"Georgia",ar:"جورجيا",fr:"Géorgie",de:"Georgien"},
+  DEU:{ru:"Германия",zh:"德国",es:"Alemania",ar:"ألمانيا",fr:"Allemagne",de:"Deutschland"},
+  GHA:{ru:"Гана",zh:"加纳",es:"Ghana",ar:"غانا",fr:"Ghana",de:"Ghana"},
+  GRC:{ru:"Греция",zh:"希腊",es:"Grecia",ar:"اليونان",fr:"Grèce",de:"Griechenland"},
+  GTM:{ru:"Гватемала",zh:"危地马拉",es:"Guatemala",ar:"غواتيمالا",fr:"Guatemala",de:"Guatemala"},
+  GIN:{ru:"Гвинея",zh:"几内亚",es:"Guinea",ar:"غينيا",fr:"Guinée",de:"Guinea"},
+  GNB:{ru:"Гвинея-Бисау",zh:"几内亚比绍",es:"Guinea-Bisáu",ar:"غينيا بيساو",fr:"Guinée-Bissau",de:"Guinea-Bissau"},
+  GUY:{ru:"Гайана",zh:"圭亚那",es:"Guyana",ar:"غيانا",fr:"Guyana",de:"Guyana"},
+  HTI:{ru:"Гаити",zh:"海地",es:"Haití",ar:"هايتي",fr:"Haïti",de:"Haiti"},
+  HND:{ru:"Гондурас",zh:"洪都拉斯",es:"Honduras",ar:"هندوراس",fr:"Honduras",de:"Honduras"},
+  HUN:{ru:"Венгрия",zh:"匈牙利",es:"Hungría",ar:"المجر",fr:"Hongrie",de:"Ungarn"},
+  ISL:{ru:"Исландия",zh:"冰岛",es:"Islandia",ar:"آيسلندا",fr:"Islande",de:"Island"},
+  IND:{ru:"Индия",zh:"印度",es:"India",ar:"الهند",fr:"Inde",de:"Indien"},
+  IDN:{ru:"Индонезия",zh:"印度尼西亚",es:"Indonesia",ar:"إندونيسيا",fr:"Indonésie",de:"Indonesien"},
+  IRN:{ru:"Иран",zh:"伊朗",es:"Irán",ar:"إيران",fr:"Iran",de:"Iran"},
+  IRQ:{ru:"Ирак",zh:"伊拉克",es:"Irak",ar:"العراق",fr:"Irak",de:"Irak"},
+  IRL:{ru:"Ирландия",zh:"爱尔兰",es:"Irlanda",ar:"أيرلندا",fr:"Irlande",de:"Irland"},
+  ISR:{ru:"Израиль",zh:"以色列",es:"Israel",ar:"إسرائيل",fr:"Israël",de:"Israel"},
+  ITA:{ru:"Италия",zh:"意大利",es:"Italia",ar:"إيطاليا",fr:"Italie",de:"Italien"},
+  JAM:{ru:"Ямайка",zh:"牙买加",es:"Jamaica",ar:"جامايكا",fr:"Jamaïque",de:"Jamaika"},
+  JPN:{ru:"Япония",zh:"日本",es:"Japón",ar:"اليابان",fr:"Japon",de:"Japan"},
+  JOR:{ru:"Иордания",zh:"约旦",es:"Jordania",ar:"الأردن",fr:"Jordanie",de:"Jordanien"},
+  KAZ:{ru:"Казахстан",zh:"哈萨克斯坦",es:"Kazajistán",ar:"كازاخستان",fr:"Kazakhstan",de:"Kasachstan"},
+  KEN:{ru:"Кения",zh:"肯尼亚",es:"Kenia",ar:"كينيا",fr:"Kenya",de:"Kenia"},
+  PRK:{ru:"Северная Корея",zh:"朝鲜",es:"Corea del Norte",ar:"كوريا الشمالية",fr:"Corée du Nord",de:"Nordkorea"},
+  KOR:{ru:"Южная Корея",zh:"韩国",es:"Corea del Sur",ar:"كوريا الجنوبية",fr:"Corée du Sud",de:"Südkorea"},
+  KWT:{ru:"Кувейт",zh:"科威特",es:"Kuwait",ar:"الكويت",fr:"Koweït",de:"Kuwait"},
+  KGZ:{ru:"Кыргызстан",zh:"吉尔吉斯斯坦",es:"Kirguistán",ar:"قيرغيزستان",fr:"Kirghizistan",de:"Kirgisistan"},
+  LAO:{ru:"Лаос",zh:"老挝",es:"Laos",ar:"لاوس",fr:"Laos",de:"Laos"},
+  LVA:{ru:"Латвия",zh:"拉脱维亚",es:"Letonia",ar:"لاتفيا",fr:"Lettonie",de:"Lettland"},
+  LBN:{ru:"Ливан",zh:"黎巴嫩",es:"Líbano",ar:"لبنان",fr:"Liban",de:"Libanon"},
+  LSO:{ru:"Лесото",zh:"莱索托",es:"Lesoto",ar:"ليسوتو",fr:"Lesotho",de:"Lesotho"},
+  LBR:{ru:"Либерия",zh:"利比里亚",es:"Liberia",ar:"ليبيريا",fr:"Libéria",de:"Liberia"},
+  LBY:{ru:"Ливия",zh:"利比亚",es:"Libia",ar:"ليبيا",fr:"Libye",de:"Libyen"},
+  LIE:{ru:"Лихтенштейн",zh:"列支敦士登",es:"Liechtenstein",ar:"ليختنشتاين",fr:"Liechtenstein",de:"Liechtenstein"},
+  LTU:{ru:"Литва",zh:"立陶宛",es:"Lituania",ar:"ليتوانيا",fr:"Lituanie",de:"Litauen"},
+  LUX:{ru:"Люксембург",zh:"卢森堡",es:"Luxemburgo",ar:"لوكسمبورغ",fr:"Luxembourg",de:"Luxemburg"},
+  MDG:{ru:"Мадагаскар",zh:"马达加斯加",es:"Madagascar",ar:"مدغشقر",fr:"Madagascar",de:"Madagaskar"},
+  MWI:{ru:"Малави",zh:"马拉维",es:"Malaui",ar:"ملاوي",fr:"Malawi",de:"Malawi"},
+  MYS:{ru:"Малайзия",zh:"马来西亚",es:"Malasia",ar:"ماليزيا",fr:"Malaisie",de:"Malaysia"},
+  MDV:{ru:"Мальдивы",zh:"马尔代夫",es:"Maldivas",ar:"جزر المالديف",fr:"Maldives",de:"Malediven"},
+  MLI:{ru:"Мали",zh:"马里",es:"Malí",ar:"مالي",fr:"Mali",de:"Mali"},
+  MLT:{ru:"Мальта",zh:"马耳他",es:"Malta",ar:"مالطا",fr:"Malte",de:"Malta"},
+  MRT:{ru:"Мавритания",zh:"毛里塔尼亚",es:"Mauritania",ar:"موريتانيا",fr:"Mauritanie",de:"Mauretanien"},
+  MUS:{ru:"Маврикий",zh:"毛里求斯",es:"Mauricio",ar:"موريشيوس",fr:"Maurice",de:"Mauritius"},
+  MEX:{ru:"Мексика",zh:"墨西哥",es:"México",ar:"المكسيك",fr:"Mexique",de:"Mexiko"},
+  MDA:{ru:"Молдова",zh:"摩尔多瓦",es:"Moldavia",ar:"مولدوفا",fr:"Moldavie",de:"Moldau"},
+  MCO:{ru:"Монако",zh:"摩纳哥",es:"Mónaco",ar:"موناكو",fr:"Monaco",de:"Monaco"},
+  MNG:{ru:"Монголия",zh:"蒙古",es:"Mongolia",ar:"منغوليا",fr:"Mongolie",de:"Mongolei"},
+  MNE:{ru:"Черногория",zh:"黑山",es:"Montenegro",ar:"الجبل الأسود",fr:"Monténégro",de:"Montenegro"},
+  MAR:{ru:"Марокко",zh:"摩洛哥",es:"Marruecos",ar:"المغرب",fr:"Maroc",de:"Marokko"},
+  MOZ:{ru:"Мозамбик",zh:"莫桑比克",es:"Mozambique",ar:"موزمبيق",fr:"Mozambique",de:"Mozambique"},
+  MMR:{ru:"Мьянма",zh:"缅甸",es:"Myanmar",ar:"ميانمار",fr:"Myanmar",de:"Myanmar"},
+  NAM:{ru:"Намибия",zh:"纳米比亚",es:"Namibia",ar:"ناميبيا",fr:"Namibie",de:"Namibia"},
+  NPL:{ru:"Непал",zh:"尼泊尔",es:"Nepal",ar:"نيبال",fr:"Népal",de:"Nepal"},
+  NLD:{ru:"Нидерланды",zh:"荷兰",es:"Países Bajos",ar:"هولندا",fr:"Pays-Bas",de:"Niederlande"},
+  NZL:{ru:"Новая Зеландия",zh:"新西兰",es:"Nueva Zelanda",ar:"نيوزيلندا",fr:"Nouvelle-Zélande",de:"Neuseeland"},
+  NIC:{ru:"Никарагуа",zh:"尼加拉瓜",es:"Nicaragua",ar:"نيكاراغوا",fr:"Nicaragua",de:"Nicaragua"},
+  NER:{ru:"Нигер",zh:"尼日尔",es:"Níger",ar:"النيجر",fr:"Niger",de:"Niger"},
+  NGA:{ru:"Нигерия",zh:"尼日利亚",es:"Nigeria",ar:"نيجيريا",fr:"Nigéria",de:"Nigeria"},
+  MKD:{ru:"Северная Македония",zh:"北马其顿",es:"Macedonia del Norte",ar:"مقدونيا الشمالية",fr:"Macédoine du Nord",de:"Nordmazedonien"},
+  NOR:{ru:"Норвегия",zh:"挪威",es:"Noruega",ar:"النرويج",fr:"Norvège",de:"Norwegen"},
+  OMN:{ru:"Оман",zh:"阿曼",es:"Omán",ar:"عُمان",fr:"Oman",de:"Oman"},
+  PAK:{ru:"Пакистан",zh:"巴基斯坦",es:"Pakistán",ar:"باكستان",fr:"Pakistan",de:"Pakistan"},
+  PAN:{ru:"Панама",zh:"巴拿马",es:"Panamá",ar:"بنما",fr:"Panama",de:"Panama"},
+  PNG:{ru:"Папуа Новая Гвинея",zh:"巴布亚新几内亚",es:"Papúa Nueva Guinea",ar:"بابوا غينيا الجديدة",fr:"Papouasie-Nouvelle-Guinée",de:"Papua-Neuguinea"},
+  PRY:{ru:"Парагвай",zh:"巴拉圭",es:"Paraguay",ar:"باراغواي",fr:"Paraguay",de:"Paraguay"},
+  PER:{ru:"Перу",zh:"秘鲁",es:"Perú",ar:"بيرو",fr:"Pérou",de:"Peru"},
+  PHL:{ru:"Филиппины",zh:"菲律宾",es:"Filipinas",ar:"الفلبين",fr:"Philippines",de:"Philippinen"},
+  POL:{ru:"Польша",zh:"波兰",es:"Polonia",ar:"بولندا",fr:"Pologne",de:"Polen"},
+  PRT:{ru:"Португалия",zh:"葡萄牙",es:"Portugal",ar:"البرتغال",fr:"Portugal",de:"Portugal"},
+  QAT:{ru:"Катар",zh:"卡塔尔",es:"Catar",ar:"قطر",fr:"Qatar",de:"Katar"},
+  ROU:{ru:"Румыния",zh:"罗马尼亚",es:"Rumanía",ar:"رومانيا",fr:"Roumanie",de:"Rumänien"},
+  RUS:{ru:"Россия",zh:"俄罗斯",es:"Rusia",ar:"روسيا",fr:"Russie",de:"Russland"},
+  RWA:{ru:"Руанда",zh:"卢旺达",es:"Ruanda",ar:"رواندا",fr:"Rwanda",de:"Ruanda"},
+  SAU:{ru:"Саудовская Аравия",zh:"沙特阿拉伯",es:"Arabia Saudí",ar:"المملكة العربية السعودية",fr:"Arabie saoudite",de:"Saudi-Arabien"},
+  SEN:{ru:"Сенегал",zh:"塞内加尔",es:"Senegal",ar:"السنغال",fr:"Sénégal",de:"Senegal"},
+  SRB:{ru:"Сербия",zh:"塞尔维亚",es:"Serbia",ar:"صربيا",fr:"Serbie",de:"Serbien"},
+  SLE:{ru:"Сьерра-Леоне",zh:"塞拉利昂",es:"Sierra Leona",ar:"سيراليون",fr:"Sierra Leone",de:"Sierra Leone"},
+  SGP:{ru:"Сингапур",zh:"新加坡",es:"Singapur",ar:"سنغافورة",fr:"Singapour",de:"Singapur"},
+  SVK:{ru:"Словакия",zh:"斯洛伐克",es:"Eslovaquia",ar:"سلوفاكيا",fr:"Slovaquie",de:"Slowakei"},
+  SVN:{ru:"Словения",zh:"斯洛文尼亚",es:"Eslovenia",ar:"سلوفينيا",fr:"Slovénie",de:"Slowenien"},
+  SOM:{ru:"Сомали",zh:"索马里",es:"Somalia",ar:"الصومال",fr:"Somalie",de:"Somalia"},
+  ZAF:{ru:"ЮАР",zh:"南非",es:"Sudáfrica",ar:"جنوب أفريقيا",fr:"Afrique du Sud",de:"Südafrika"},
+  SSD:{ru:"Южный Судан",zh:"南苏丹",es:"Sudán del Sur",ar:"جنوب السودان",fr:"Soudan du Sud",de:"Südsudan"},
+  ESP:{ru:"Испания",zh:"西班牙",es:"España",ar:"إسبانيا",fr:"Espagne",de:"Spanien"},
+  LKA:{ru:"Шри-Ланка",zh:"斯里兰卡",es:"Sri Lanka",ar:"سريلانكا",fr:"Sri Lanka",de:"Sri Lanka"},
+  SDN:{ru:"Судан",zh:"苏丹",es:"Sudán",ar:"السودان",fr:"Soudan",de:"Sudan"},
+  SUR:{ru:"Суринам",zh:"苏里南",es:"Surinam",ar:"سورينام",fr:"Suriname",de:"Surinam"},
+  SWE:{ru:"Швеция",zh:"瑞典",es:"Suecia",ar:"السويد",fr:"Suède",de:"Schweden"},
+  CHE:{ru:"Швейцария",zh:"瑞士",es:"Suiza",ar:"سويسرا",fr:"Suisse",de:"Schweiz"},
+  SYR:{ru:"Сирия",zh:"叙利亚",es:"Siria",ar:"سوريا",fr:"Syrie",de:"Syrien"},
+  TWN:{ru:"Тайвань",zh:"台湾",es:"Taiwán",ar:"تايوان",fr:"Taïwan",de:"Taiwan"},
+  TJK:{ru:"Таджикистан",zh:"塔吉克斯坦",es:"Tayikistán",ar:"طاجيكستان",fr:"Tadjikistan",de:"Tadschikistan"},
+  TZA:{ru:"Танзания",zh:"坦桑尼亚",es:"Tanzania",ar:"تنزانيا",fr:"Tanzanie",de:"Tansania"},
+  THA:{ru:"Таиланд",zh:"泰国",es:"Tailandia",ar:"تايلاند",fr:"Thaïlande",de:"Thailand"},
+  TLS:{ru:"Тимор-Лесте",zh:"东帝汶",es:"Timor-Leste",ar:"تيمور الشرقية",fr:"Timor-Leste",de:"Osttimor"},
+  TGO:{ru:"Того",zh:"多哥",es:"Togo",ar:"توغو",fr:"Togo",de:"Togo"},
+  TTO:{ru:"Тринидад и Тобаго",zh:"特立尼达和多巴哥",es:"Trinidad y Tobago",ar:"ترينيداد وتوباغو",fr:"Trinité-et-Tobago",de:"Trinidad und Tobago"},
+  TUN:{ru:"Тунис",zh:"突尼斯",es:"Túnez",ar:"تونس",fr:"Tunisie",de:"Tunesien"},
+  TUR:{ru:"Турция",zh:"土耳其",es:"Turquía",ar:"تركيا",fr:"Turquie",de:"Türkei"},
+  TKM:{ru:"Туркменистан",zh:"土库曼斯坦",es:"Turkmenistán",ar:"تركمانستان",fr:"Turkménistan",de:"Turkmenistan"},
+  UGA:{ru:"Уганда",zh:"乌干达",es:"Uganda",ar:"أوغندا",fr:"Ouganda",de:"Uganda"},
+  UKR:{ru:"Украина",zh:"乌克兰",es:"Ucrania",ar:"أوكرانيا",fr:"Ukraine",de:"Ukraine"},
+  ARE:{ru:"ОАЭ",zh:"阿联酋",es:"Emiratos Árabes Unidos",ar:"الإمارات العربية المتحدة",fr:"Émirats arabes unis",de:"Vereinigte Arabische Emirate"},
+  GBR:{ru:"Великобритания",zh:"英国",es:"Reino Unido",ar:"المملكة المتحدة",fr:"Royaume-Uni",de:"Vereinigtes Königreich"},
+  USA:{ru:"США",zh:"美国",es:"Estados Unidos",ar:"الولايات المتحدة",fr:"États-Unis",de:"Vereinigte Staaten"},
+  URY:{ru:"Уругвай",zh:"乌拉圭",es:"Uruguay",ar:"أوروغواي",fr:"Uruguay",de:"Uruguay"},
+  UZB:{ru:"Узбекистан",zh:"乌兹别克斯坦",es:"Uzbekistán",ar:"أوزبكستان",fr:"Ouzbékistan",de:"Usbekistan"},
+  VEN:{ru:"Венесуэла",zh:"委内瑞拉",es:"Venezuela",ar:"فنزويلا",fr:"Venezuela",de:"Venezuela"},
+  VNM:{ru:"Вьетнам",zh:"越南",es:"Vietnam",ar:"فيتنام",fr:"Viêt Nam",de:"Vietnam"},
+  YEM:{ru:"Йемен",zh:"也门",es:"Yemen",ar:"اليمن",fr:"Yémen",de:"Jemen"},
+  ZMB:{ru:"Замбия",zh:"赞比亚",es:"Zambia",ar:"زامبيا",fr:"Zambie",de:"Sambia"},
+  ZWE:{ru:"Зимбабве",zh:"津巴布韦",es:"Zimbabue",ar:"زمبابوي",fr:"Zimbabwe",de:"Simbabwe"},
+  KOS:{ru:"Косово",zh:"科索沃",es:"Kosovo",ar:"كوسوفو",fr:"Kosovo",de:"Kosovo"},
+  PSE:{ru:"Палестина",zh:"巴勒斯坦",es:"Palestina",ar:"فلسطين",fr:"Palestine",de:"Palästina"},
+  CIV:{ru:"Кот-д'Ивуар",zh:"科特迪瓦",es:"Costa de Marfil",ar:"ساحل العاج",fr:"Côte d'Ivoire",de:"Elfenbeinküste"},
+  MHL:{ru:"Маршалловы острова",zh:"马绍尔群岛",es:"Islas Marshall",ar:"جزر مارشال",fr:"Îles Marshall",de:"Marshallinseln"},
+  FSM:{ru:"Микронезия",zh:"密克罗尼西亚",es:"Micronesia",ar:"ميكرونيزيا",fr:"Micronésie",de:"Mikronesien"},
+  PLW:{ru:"Палау",zh:"帕劳",es:"Palaos",ar:"بالاو",fr:"Palaos",de:"Palau"},
+  SLB:{ru:"Соломоновы острова",zh:"所罗门群岛",es:"Islas Salomón",ar:"جزر سليمان",fr:"Îles Salomon",de:"Salomonen"},
+  TON:{ru:"Тонга",zh:"汤加",es:"Tonga",ar:"تونغا",fr:"Tonga",de:"Tonga"},
+  VUT:{ru:"Вануату",zh:"瓦努阿图",es:"Vanuatu",ar:"فانواتو",fr:"Vanuatu",de:"Vanuatu"},
+  WSM:{ru:"Самоа",zh:"萨摩亚",es:"Samoa",ar:"ساموا",fr:"Samoa",de:"Samoa"},
+  KIR:{ru:"Кирибати",zh:"基里巴斯",es:"Kiribati",ar:"كيريباتي",fr:"Kiribati",de:"Kiribati"},
+  MDG:{ru:"Мадагаскар"},
+  STP:{ru:"Сан-Томе и Принсипи",zh:"圣多美和普林西比",es:"Santo Tomé y Príncipe",ar:"ساو تومي وبرينسيبي",fr:"Sao Tomé-et-Príncipe"},
+  DMA:{ru:"Доминика"},
+  GRD:{ru:"Гренада"},
+  LCA:{ru:"Сент-Люсия"},
+  VCT:{ru:"Сент-Винсент и Гренадины"},
+  ATG:{ru:"Антигуа и Барбуда"},
+  KNA:{ru:"Сент-Китс и Невис"},
+  BRB:{ru:"Барбадос"},
+  TUV:{ru:"Тувалу"},
+  NRU:{ru:"Науру"},
+  MNP:{ru:"Северные Марианские острова"},
+  GUM:{ru:"Гуам"},
+  PRI:{ru:"Пуэрто-Рико"},
+  HKG:{ru:"Гонконг",zh:"香港"},
+  MAC:{ru:"Макао",zh:"澳门"}
+};
+
+// Get localized country name
+function getCountryName(iso3, fallback) {
+  const ln = COUNTRY_NAMES[iso3];
+  if (!ln) return fallback || iso3;
+  return ln[currentLang] || ln["en"] || fallback || iso3;
+}
 const DALY_MAX  = { daly_breast:350, daly_colon:350, daly_liver:200, daly_mouth:150, daly_oesophagus:150 };
 const INFRA_KEYS = ["cancer_surgery","cancer_registry","cancer_plan","breast_screening","cancer_dept"];
 function getInfraLabel(k) {
@@ -648,21 +859,22 @@ function buildLegend(metric) {
 // ── Tooltip ────────────────────────────────────────────────────────────────
 function showTip(event, d, data) {
     const tip = document.getElementById("tooltip");
-    const n = data?.name || d.properties.name;
+    const iso3 = data?.country || "";
+    const n = getCountryName(iso3, data?.name || d.properties?.name || "");
     const val = data ? data[currentMetric] : null;
     const fv = val != null ? (typeof val === "number" ? val.toFixed(1) : val) : null;
     const cat = getCat(currentMetric);
-    const metricLabel = METRIC_GROUPS[cat].options[currentMetric] || "All cancers";
+    const metricLabel = METRIC_GROUPS[cat].options[currentMetric] || t("all_cancers","All cancers");
     const unitLine = cat === "death"
-        ? `<div style="font-size:9px;color:#445;margin-top:2px">смертей на 100 000 жителей в год</div>`
+        ? `<div style="font-size:9px;color:#445;margin-top:2px">${t("tip_unit_death","deaths per 100,000 per year")}</div>`
         : cat === "daly"
-        ? `<div style="font-size:9px;color:#445;margin-top:2px">лет здоровой жизни потеряно на 100 000</div>`
+        ? `<div style="font-size:9px;color:#445;margin-top:2px">${t("tip_unit_daly","DALYs lost per 100,000")}</div>`
         : "";
     tip.innerHTML = `<h4>${n}</h4>
         ${fv != null
             ? `<div class="tip-row">${metricLabel}: <span class="tip-val">${fv}</span></div>${unitLine}`
-            : `<div class="tip-row" style="color:#334">Нет данных — страна не отчитывается в ВОЗ</div>`}
-        <div class="tip-row" style="color:#445;margin-top:4px;font-size:10px">Кликни для полного профиля →</div>`;
+            : `<div class="tip-row" style="color:#334">${t("tip_no_data","No data — not reported to WHO")}</div>`}
+        <div class="tip-row" style="color:#445;margin-top:4px;font-size:10px">${t("tip_click_hint","Click for full profile →")}</div>`;
     tip.style.display = "block";
     moveTip(event);
 }
@@ -681,7 +893,7 @@ function openProfile(data, name) {
         document.getElementById("panel-sub").textContent = t("no_data_territory","No data available for this territory");
         document.getElementById("panel-content").innerHTML = "";
     } else {
-        document.getElementById("panel-title").textContent = data.name || name;
+        document.getElementById("panel-title").textContent = getCountryName(data.country, data.name || name);
         document.getElementById("panel-sub").textContent = `${t("profile_source","WHO Global Health Observatory")} • ${data.country}`;
 
         // Build mortality bars
@@ -717,25 +929,24 @@ function openProfile(data, name) {
         }).join("");
 
         document.getElementById("panel-content").innerHTML = `
-            ${buildCancerExplain()}
             <div class="panel-section">
-                <h3>${t("mortality_section","Cancer mortality (death / 100k)")} <span class="info-icon" onmouseenter="showExplain('death_cancer_all',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
-                <div class="metric-explain">Число людей, умерших от рака, на каждые <strong>100 000 жителей</strong> в год. Показатель стандартизован по возрасту — страны разного размера и структуры населения можно сравнивать напрямую. <strong>Чем ниже — тем лучше.</strong></div>
+                <h3>${t("mortality_section","Cancer mortality")} <span style="color:#556;font-size:10px;font-weight:400">/ 100k</span></h3>
+                <div class="metric-explain">${t("explain_mortality_short","Age-standardized death rate per 100,000. Lower is better.")}</div>
                 ${deathRows.length ? barsHtml(deathRows) : `<div style='color:#334;font-size:11px'>${t('no_data','No data')}</div>`}
             </div>
             <div class="panel-section" id="trend-section">
                 <h3>${t("trends_section","Trends over time")}</h3>
-                <div class="metric-explain">Как менялась смертность за последние 15–20 лет. <strong>Красный тренд ↑</strong> = рост, <strong>зелёный ↓</strong> = снижение. Снижение обычно означает улучшение ранней диагностики или появление новых методов лечения.</div>
+                <div class="metric-explain">${t("explain_trends_short","How mortality changed 2000–2021. ↑ red = rising, ↓ green = falling.")}</div>
                 <div id="trend-charts"><div style="color:#334;font-size:11px">${t("loading_text","Loading...")}</div></div>
             </div>
             <div class="panel-section">
-                <h3>${t("daly_section","Disease burden — DALYs / 100k")} <span class="info-icon" onmouseenter="showExplain('daly_breast',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
-                <div class="metric-explain"><strong>DALY = год здоровой жизни, потерянный из-за болезни.</strong> Включает и преждевременную смерть, и годы жизни с болезнью. 1 DALY = 1 потерянный год. Отражает общее бремя болезни, не только смерти.</div>
+                <h3>${t("daly_section","Disease burden")} <span style="color:#556;font-size:10px;font-weight:400">DALYs / 100k</span></h3>
+                <div class="metric-explain">${t("explain_daly_short","Years of healthy life lost. 1 DALY = 1 year lost to illness or early death.")}</div>
                 ${dalyrRows.length ? barsHtml(dalyrRows) : `<div style='color:#334;font-size:11px'>${t('no_data','No data')}</div>`}
             </div>
             <div class="panel-section">
-                <h3>${t("infra_section","Healthcare infrastructure")} <span class="info-icon" onmouseenter="showExplain('cancer_registry',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
-                <div class="metric-explain">Базовые возможности системы здравоохранения страны в области онкологии. Зелёный ✅ = есть, красный ✗ = нет. Даже богатые страны иногда имеют пробелы в отдельных областях.</div>
+                <h3>${t("infra_section","Healthcare infrastructure")}</h3>
+                <div class="metric-explain">${t("explain_infra_short","Core oncology capabilities. Green = available, red = not available.")}</div>
                 <div class="pill-grid">${pillsHtml}</div>
             </div>
             ${buildRankings(data.country, data)}

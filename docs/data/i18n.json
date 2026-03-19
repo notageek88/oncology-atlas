@@ -140,7 +140,15 @@
     "unit_research_max_hint": "most publications",
     "cat_research": "Research Activity",
     "type_label": "Type",
-    "research_index_label": "PubMed publications 2020–2025"
+    "research_index_label": "PubMed publications 2020–2025",
+    "tip_unit_death": "deaths per 100,000 per year",
+    "tip_unit_daly": "DALYs lost per 100,000",
+    "tip_no_data": "No data — not reported to WHO",
+    "tip_click_hint": "Click for full profile →",
+    "explain_mortality_short": "Age-standardized death rate per 100,000. Lower = better.",
+    "explain_trends_short": "How mortality changed 2000–2021. ↑ red = rising, ↓ green = falling.",
+    "explain_daly_short": "Years of healthy life lost. 1 DALY = 1 year lost to illness or early death.",
+    "explain_infra_short": "Core oncology capabilities. Green = available, red = not available."
   },
   "ru": {
     "title": "OncologyAtlas",
@@ -283,7 +291,15 @@
     "unit_research_max_hint": "больше всего публикаций",
     "cat_research": "Научная активность",
     "type_label": "Тип",
-    "research_index_label": "Публикаций PubMed 2020–2025"
+    "research_index_label": "Публикаций PubMed 2020–2025",
+    "tip_unit_death": "смертей на 100 000 жителей в год",
+    "tip_unit_daly": "DALY потеряно на 100 000",
+    "tip_no_data": "Нет данных — страна не отчитывается в ВОЗ",
+    "tip_click_hint": "Кликни для полного профиля →",
+    "explain_mortality_short": "Стандартизованный по возрасту показатель смертности на 100 000. Чем ниже — тем лучше.",
+    "explain_trends_short": "Как менялась смертность с 2000 по 2021. ↑ красный = рост, ↓ зелёный = снижение.",
+    "explain_daly_short": "Годы здоровой жизни, потерянные из-за болезни. 1 DALY = 1 потерянный год.",
+    "explain_infra_short": "Онкологические возможности системы здравоохранения. Зелёный = есть, красный = нет."
   },
   "zh": {
     "title": "OncologyAtlas",
@@ -426,7 +442,15 @@
     "unit_research_max_hint": "最多发表",
     "cat_research": "科研活动",
     "type_label": "类型",
-    "research_index_label": "PubMed癌症论文 2020–2025"
+    "research_index_label": "PubMed癌症论文 2020–2025",
+    "tip_unit_death": "每10万人死亡数（年）",
+    "tip_unit_daly": "每10万人损失DALY数",
+    "tip_no_data": "无数据 — 未向WHO报告",
+    "tip_click_hint": "点击查看完整资料 →",
+    "explain_mortality_short": "年龄标准化死亡率，每10万人。数值越低越好。",
+    "explain_trends_short": "2000–2021年死亡率变化。↑红色=上升，↓绿色=下降。",
+    "explain_daly_short": "损失的健康生命年。1 DALY = 1年因疾病或早死损失的健康年。",
+    "explain_infra_short": "核心肿瘤学能力。绿色=具备，红色=不具备。"
   },
   "es": {
     "title": "OncologyAtlas",
@@ -569,7 +593,15 @@
     "unit_research_max_hint": "más publicaciones",
     "cat_research": "Actividad investigadora",
     "type_label": "Tipo",
-    "research_index_label": "Publicaciones PubMed 2020–2025"
+    "research_index_label": "Publicaciones PubMed 2020–2025",
+    "tip_unit_death": "muertes por 100,000 al año",
+    "tip_unit_daly": "AVAD perdidos por 100,000",
+    "tip_no_data": "Sin datos — no reportado a la OMS",
+    "tip_click_hint": "Clic para perfil completo →",
+    "explain_mortality_short": "Tasa de mortalidad estandarizada por edad por 100,000. Menor = mejor.",
+    "explain_trends_short": "Cómo cambió la mortalidad 2000–2021. ↑ rojo = subida, ↓ verde = bajada.",
+    "explain_daly_short": "Años de vida sana perdidos. 1 AVAD = 1 año perdido por enfermedad o muerte prematura.",
+    "explain_infra_short": "Capacidades oncológicas básicas. Verde = disponible, rojo = no disponible."
   },
   "ar": {
     "title": "OncologyAtlas",
@@ -712,7 +744,15 @@
     "unit_research_max_hint": "أكثر منشورات",
     "cat_research": "النشاط البحثي",
     "type_label": "النوع",
-    "research_index_label": "منشورات PubMed 2020–2025"
+    "research_index_label": "منشورات PubMed 2020–2025",
+    "tip_unit_death": "وفيات لكل 100,000 سنوياً",
+    "tip_unit_daly": "DALY مفقودة لكل 100,000",
+    "tip_no_data": "لا بيانات — لم يُبلَّغ عنها للمنظمة",
+    "tip_click_hint": "انقر للملف الكامل →",
+    "explain_mortality_short": "معدل وفيات معياري حسب العمر لكل 100,000. أقل = أفضل.",
+    "explain_trends_short": "كيف تغيرت الوفيات 2000–2021. ↑ أحمر = ارتفاع، ↓ أخضر = انخفاض.",
+    "explain_daly_short": "سنوات الحياة الصحية المفقودة. 1 DALY = سنة مفقودة بسبب المرض.",
+    "explain_infra_short": "القدرات الأساسية في مجال الأورام. أخضر = متاح، أحمر = غير متاح."
   },
   "hi": {
     "title": "OncologyAtlas",
@@ -855,7 +895,15 @@
     "unit_research_max_hint": "सर्वाधिक प्रकाशन",
     "cat_research": "अनुसंधान गतिविधि",
     "type_label": "प्रकार",
-    "research_index_label": "PubMed प्रकाशन 2020–2025"
+    "research_index_label": "PubMed प्रकाशन 2020–2025",
+    "tip_unit_death": "प्रति 1 लाख मृत्यु प्रति वर्ष",
+    "tip_unit_daly": "प्रति 1 लाख DALY खोए",
+    "tip_no_data": "कोई डेटा नहीं — WHO को रिपोर्ट नहीं",
+    "tip_click_hint": "पूर्ण प्रोफ़ाइल के लिए क्लिक करें →",
+    "explain_mortality_short": "आयु-मानकीकृत मृत्यु दर प्रति 1 लाख। कम = बेहतर।",
+    "explain_trends_short": "2000–2021 में मृत्यु दर कैसे बदली। ↑ लाल = बढ़त, ↓ हरा = गिरावट।",
+    "explain_daly_short": "स्वस्थ जीवन के खोए वर्ष। 1 DALY = 1 वर्ष खोया।",
+    "explain_infra_short": "मूल ऑन्कोलॉजी क्षमताएं। हरा = उपलब्ध, लाल = अनुपलब्ध।"
   },
   "pt": {
     "title": "OncologyAtlas",
@@ -998,7 +1046,15 @@
     "unit_research_max_hint": "mais publicações",
     "cat_research": "Atividade de investigação",
     "type_label": "Tipo",
-    "research_index_label": "Publicações PubMed 2020–2025"
+    "research_index_label": "Publicações PubMed 2020–2025",
+    "tip_unit_death": "mortes por 100.000 por ano",
+    "tip_unit_daly": "AVAD perdidos por 100.000",
+    "tip_no_data": "Sem dados — não reportado à OMS",
+    "tip_click_hint": "Clique para perfil completo →",
+    "explain_mortality_short": "Taxa de mortalidade padronizada por idade por 100.000. Menor = melhor.",
+    "explain_trends_short": "Como a mortalidade mudou 2000–2021. ↑ vermelho = subida, ↓ verde = queda.",
+    "explain_daly_short": "Anos de vida saudável perdidos. 1 AVAD = 1 ano perdido por doença.",
+    "explain_infra_short": "Capacidades oncológicas básicas. Verde = disponível, vermelho = não disponível."
   },
   "fr": {
     "title": "OncologyAtlas",
@@ -1141,7 +1197,15 @@
     "unit_research_max_hint": "plus de publications",
     "cat_research": "Activité de recherche",
     "type_label": "Type",
-    "research_index_label": "Publications PubMed 2020–2025"
+    "research_index_label": "Publications PubMed 2020–2025",
+    "tip_unit_death": "décès pour 100 000 par an",
+    "tip_unit_daly": "AVCI perdus pour 100 000",
+    "tip_no_data": "Pas de données — non déclaré à l'OMS",
+    "tip_click_hint": "Clic pour le profil complet →",
+    "explain_mortality_short": "Taux de mortalité standardisé par âge pour 100 000. Plus bas = meilleur.",
+    "explain_trends_short": "Évolution de la mortalité 2000–2021. ↑ rouge = hausse, ↓ vert = baisse.",
+    "explain_daly_short": "Années de vie en bonne santé perdues. 1 AVCI = 1 année perdue.",
+    "explain_infra_short": "Capacités oncologiques de base. Vert = disponible, rouge = non disponible."
   },
   "de": {
     "title": "OncologyAtlas",
@@ -1284,7 +1348,15 @@
     "unit_research_max_hint": "meiste Publikationen",
     "cat_research": "Forschungsaktivität",
     "type_label": "Typ",
-    "research_index_label": "PubMed-Publikationen 2020–2025"
+    "research_index_label": "PubMed-Publikationen 2020–2025",
+    "tip_unit_death": "Todesfälle pro 100.000 pro Jahr",
+    "tip_unit_daly": "DALYs verloren pro 100.000",
+    "tip_no_data": "Keine Daten — nicht an WHO gemeldet",
+    "tip_click_hint": "Klick für vollständiges Profil →",
+    "explain_mortality_short": "Altersstandarisierte Sterblichkeitsrate pro 100.000. Niedriger = besser.",
+    "explain_trends_short": "Sterblichkeitsentwicklung 2000–2021. ↑ rot = steigend, ↓ grün = sinkend.",
+    "explain_daly_short": "Verlorene gesunde Lebensjahre. 1 DALY = 1 Jahr durch Krankheit oder frühzeitigen Tod.",
+    "explain_infra_short": "Grundlegende Onkologiekapazitäten. Grün = vorhanden, rot = nicht vorhanden."
   },
   "ja": {
     "title": "OncologyAtlas",
@@ -1427,7 +1499,15 @@
     "unit_research_max_hint": "最多発表",
     "cat_research": "研究活動",
     "type_label": "種類",
-    "research_index_label": "PubMed論文数 2020–2025"
+    "research_index_label": "PubMed論文数 2020–2025",
+    "tip_unit_death": "人口10万人当たり死亡数（年）",
+    "tip_unit_daly": "人口10万人当たりDALY損失数",
+    "tip_no_data": "データなし — WHOへ未報告",
+    "tip_click_hint": "クリックして詳細を見る →",
+    "explain_mortality_short": "年齢標準化死亡率（10万人当たり）。低いほど良い。",
+    "explain_trends_short": "2000〜2021年の死亡率の変化。↑赤=上昇、↓緑=低下。",
+    "explain_daly_short": "失われた健康寿命年数。1 DALY = 疾患や早死による1年の損失。",
+    "explain_infra_short": "腫瘍学の基本的能力。緑=あり、赤=なし。"
   },
   "id": {
     "title": "OncologyAtlas",
@@ -1570,6 +1650,14 @@
     "unit_research_max_hint": "publikasi terbanyak",
     "cat_research": "Aktivitas riset",
     "type_label": "Jenis",
-    "research_index_label": "Publikasi PubMed 2020–2025"
+    "research_index_label": "Publikasi PubMed 2020–2025",
+    "tip_unit_death": "kematian per 100.000 per tahun",
+    "tip_unit_daly": "DALY hilang per 100.000",
+    "tip_no_data": "Tidak ada data — tidak dilaporkan ke WHO",
+    "tip_click_hint": "Klik untuk profil lengkap →",
+    "explain_mortality_short": "Tingkat kematian standar usia per 100.000. Lebih rendah = lebih baik.",
+    "explain_trends_short": "Bagaimana mortalitas berubah 2000–2021. ↑ merah = naik, ↓ hijau = turun.",
+    "explain_daly_short": "Tahun kehidupan sehat yang hilang. 1 DALY = 1 tahun hilang karena penyakit.",
+    "explain_infra_short": "Kemampuan onkologi dasar. Hijau = tersedia, merah = tidak tersedia."
   }
 }
