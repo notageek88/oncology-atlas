@@ -286,8 +286,8 @@
     </div>
     <button class="compare-btn" id="compare-toggle" onclick="toggleCompare()">⚖ Compare</button>
     <button class="compare-btn" id="timeline-toggle" onclick="toggleTimeline()" style="margin-left:4px" data-i18n="timeline">▶ Timeline</button>
-    <button class="compare-btn" id="clinics-toggle" onclick="toggleClinics()" style="margin-left:4px">🏥 Clinics</button>
-    <button class="compare-btn" id="flows-toggle" onclick="toggleFlows()" style="margin-left:4px">✈ Flows</button>
+    <button class="compare-btn" id="clinics-toggle" onclick="toggleClinics()" style="margin-left:4px" data-i18n="clinics_btn">🏥 Clinics</button>
+    <button class="compare-btn" id="flows-toggle" onclick="toggleFlows()" style="margin-left:4px" data-i18n="flows_btn">✈ Flows</button>
     <div style="position:relative;margin-left:4px">
         <button id="lang-btn" onclick="toggleLangMenu()">🌐 EN</button>
         <div id="lang-menu"></div>
@@ -319,12 +319,12 @@
 </div>
 
 <div class="clinic-legend" id="clinic-legend">
-    <div style="font-size:9px;color:#334;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:7px">Cancer Clinics</div>
-    <div class="clinic-legend-row"><div class="clinic-legend-dot" style="background:#4fc88a"></div><span style="color:#aab">Standard (FDA/EMA approved)</span></div>
-    <div class="clinic-legend-row"><div class="clinic-legend-dot" style="background:#f7a04f"></div><span style="color:#aab">Integrative / Alternative</span></div>
-    <div class="clinic-legend-row"><div class="clinic-legend-dot" style="background:#c84ff7"></div><span style="color:#aab">Experimental</span></div>
-    <div class="clinic-legend-row"><div class="clinic-legend-dot" style="background:#f74f4f"></div><span style="color:#aab">Controversial</span></div>
-    <div class="clinic-legend-row"><div style="width:10px;height:2px;background:#4fb8f7;border-radius:1px"></div><span style="color:#aab">✈ Migration flow</span></div>
+    <div style="font-size:9px;color:#334;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:7px" data-i18n="clinic_legend_title">Cancer Clinics</div>
+    <div class="clinic-legend-row"><div class="clinic-legend-dot" style="background:#4fc88a"></div><span style="color:#aab" data-i18n="clinic_standard">Standard (FDA/EMA approved)</span></div>
+    <div class="clinic-legend-row"><div class="clinic-legend-dot" style="background:#f7a04f"></div><span style="color:#aab" data-i18n="clinic_integrative">Integrative / Alternative</span></div>
+    <div class="clinic-legend-row"><div class="clinic-legend-dot" style="background:#c84ff7"></div><span style="color:#aab" data-i18n="clinic_experimental">Experimental</span></div>
+    <div class="clinic-legend-row"><div class="clinic-legend-dot" style="background:#f74f4f"></div><span style="color:#aab" data-i18n="clinic_controversial">Controversial</span></div>
+    <div class="clinic-legend-row"><div style="width:10px;height:2px;background:#4fb8f7;border-radius:1px"></div><span style="color:#aab" data-i18n="clinic_flow">✈ Migration flow</span></div>
 </div>
 
 <div id="legend">
@@ -774,8 +774,8 @@ function showClinicTooltip(clinic, cx, cy) {
         <div class="ct-name">${clinic.name}</div>
         <div class="ct-city">${clinic.city}, ${clinic.country}</div>
         <span class="ct-tag ${clinic.type}" style="background:${col}18;color:${col};border-color:${col}44">${clinic.type === "standard" ? "Standard" : (clinic.category||clinic.tier)}</span>
-        ${clinic.medical_tourism ? '<span class="ct-tag tourism">✈ Medical tourism</span>' : ""}
-        ${clinic.tier === "flagship" ? '<span class="ct-tag standard">Flagship</span>' : ""}
+        ${clinic.medical_tourism ? `<span class="ct-tag tourism">✈ ${t("clinic_medical_tourism","Medical tourism")}</span>` : ""}
+        ${clinic.tier === "flagship" ? `<span class="ct-tag standard">${t("clinic_flagship","Flagship")}</span>` : ""}
         ${clinic.rank_newsweek ? `<div style="margin-top:5px;font-size:10px;color:#667">Newsweek #${clinic.rank_newsweek}</div>` : ""}
         ${clinic.accreditation?.length ? `<div style="font-size:10px;color:#667;margin-top:3px">${clinic.accreditation.join(" · ")}</div>` : ""}
         <div style="margin-top:6px;font-size:10px;color:#556">${(clinic.treatments||[]).slice(0,3).join(", ")}</div>
@@ -796,32 +796,32 @@ function showClinicPanel(clinic) {
 
     document.getElementById("panel-content").innerHTML = `
         <div style="padding:20px 20px 0">
-            <div style="font-size:10px;color:#334;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:6px">Cancer Clinic</div>
+            <div style="font-size:10px;color:#334;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:6px">${t("clinic_panel_label","Cancer Clinic")}</div>
             <h2 style="font-size:17px;font-weight:700;color:#dde;margin-bottom:4px">${clinic.name}</h2>
             <div style="font-size:12px;color:#667;margin-bottom:12px">${clinic.city}, ${clinic.country}</div>
             <span style="background:${col}18;color:${col};border:1px solid ${col}44;border-radius:99px;padding:2px 10px;font-size:10px;font-weight:600">
-                ${clinic.type === "standard" ? "✅ Standard medicine" : "⚗ " + (clinic.category||clinic.tier)}
+                ${clinic.type === "standard" ? "✅ " + t("clinic_standard_medicine","Standard medicine") : "⚗ " + (clinic.category||clinic.tier)}
             </span>
-            ${clinic.medical_tourism ? '<span style="background:#0d2a3a;color:#4fb8f7;border:1px solid #1a5a6e;border-radius:99px;padding:2px 10px;font-size:10px;margin-left:6px">✈ Medical tourism</span>' : ""}
+            ${clinic.medical_tourism ? `<span style="background:#0d2a3a;color:#4fb8f7;border:1px solid #1a5a6e;border-radius:99px;padding:2px 10px;font-size:10px;margin-left:6px">✈ ${t("clinic_medical_tourism","Medical tourism")}</span>` : ""}
         </div>
         <div style="padding:14px 20px">
             ${clinic.description ? `<div style="font-size:12px;color:#889;line-height:1.5;margin-bottom:14px">${clinic.description}</div>` : ""}
             <div class="panel-section">
-                <h3>Treatments offered</h3>
+                <h3>${t("clinic_treatments","Treatments offered")}</h3>
                 <div style="margin-top:6px">${treatStr}</div>
             </div>
             ${(clinic.specialties||[]).length ? `
             <div class="panel-section">
-                <h3>Specialties</h3>
+                <h3>${t("clinic_specialties","Specialties")}</h3>
                 <div style="font-size:11px;color:#889;margin-top:4px">${clinic.specialties.join(" · ")}</div>
             </div>` : ""}
             <div class="panel-section">
                 <h3>Details</h3>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px">
-                    ${clinic.founded ? `<div><div style="font-size:9px;color:#334;text-transform:uppercase">Founded</div><div style="font-size:13px;color:#aab">${clinic.founded}</div></div>` : ""}
-                    ${clinic.beds ? `<div><div style="font-size:9px;color:#334;text-transform:uppercase">Beds</div><div style="font-size:13px;color:#aab">${clinic.beds}</div></div>` : ""}
-                    <div><div style="font-size:9px;color:#334;text-transform:uppercase">Accreditation</div><div style="font-size:11px;color:#4f8ef7">${accStr}</div></div>
-                    ${clinic.rank_newsweek ? `<div><div style="font-size:9px;color:#334;text-transform:uppercase">Newsweek rank</div><div style="font-size:13px;color:#4fc88a">#${clinic.rank_newsweek}</div></div>` : ""}
+                    ${clinic.founded ? `<div><div style="font-size:9px;color:#334;text-transform:uppercase">${t("clinic_founded","Founded")}</div><div style="font-size:13px;color:#aab">${clinic.founded}</div></div>` : ""}
+                    ${clinic.beds ? `<div><div style="font-size:9px;color:#334;text-transform:uppercase">${t("clinic_beds","Beds")}</div><div style="font-size:13px;color:#aab">${clinic.beds}</div></div>` : ""}
+                    <div><div style="font-size:9px;color:#334;text-transform:uppercase">${t("clinic_accreditation","Accreditation")}</div><div style="font-size:11px;color:#4f8ef7">${accStr}</div></div>
+                    ${clinic.rank_newsweek ? `<div><div style="font-size:9px;color:#334;text-transform:uppercase">${t("clinic_newsweek","Newsweek rank")}</div><div style="font-size:13px;color:#4fc88a">#${clinic.rank_newsweek}</div></div>` : ""}
                 </div>
             </div>
             ${clinic.url ? `<div style="margin-top:14px"><a href="${clinic.url}" target="_blank" style="color:#4f8ef7;font-size:11px;text-decoration:none">🔗 ${clinic.url.replace("https://","")}</a></div>` : ""}
