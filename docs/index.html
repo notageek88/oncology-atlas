@@ -376,6 +376,20 @@
         }
         #embed-badge:hover { color: #4f8ef7; }
 
+        /* ── Insights cards ── */
+        .insight-card {
+            background: #0b0d18; border: 1px solid #1a1d2e; border-radius: 10px;
+            padding: 14px; position: relative; overflow: hidden;
+        }
+        .insight-card.positive { border-color: #1a5a2e; }
+        .insight-card.negative { border-color: #5a1a1a; }
+        .insight-pct {
+            font-size: 26px; font-weight: 800; letter-spacing: -1px; line-height: 1;
+        }
+        .insight-text { font-size: 11px; color: #889; margin-top:5px; line-height:1.4; }
+        .insight-n { font-size: 9px; color: #334; margin-top:5px; }
+        @media (max-width: 520px) { #insights-cards { grid-template-columns: 1fr; } }
+
         /* ── Embed modal ── */
         #embed-modal {
             display: none; position: fixed; inset: 0; z-index: 1200;
@@ -572,6 +586,7 @@
     <button class="compare-btn" id="flows-toggle" onclick="toggleFlows()" style="margin-left:4px" data-i18n="flows_btn" data-tip="btn_tooltip_flows">✈ Flows</button>
     <button class="compare-btn" id="filter-toggle" onclick="toggleFilterPanel()" style="margin-left:4px" data-i18n="filter_btn" data-tip="btn_tooltip_filter">⚡ Filter</button>
     <button class="compare-btn" id="scatter-toggle" onclick="openScatter()" style="margin-left:4px" data-i18n="scatter_btn" data-tip="btn_tooltip_scatter">📊 Scatter</button>
+    <button class="compare-btn" onclick="openInsights()" style="margin-left:4px" data-i18n="insights_btn" title="Auto-generated data insights">💡 Insights</button>
     <button class="compare-btn" onclick="openEmbedModal()" style="margin-left:4px" data-i18n="embed_btn" title="Get embed code for your website">📋 Embed</button>
     <div style="position:relative;margin-left:4px">
         <button id="lang-btn" onclick="toggleLangMenu()">🌐 EN</button>
@@ -2985,6 +3000,109 @@ function buildBenchmark(iso3, data) {
     </div>`;
 }
 
+// ── Correlation Insights ────────────────────────────────────────────────────
+// Compares group A (indicator=Yes) vs group B (No) on a numeric metric
+// Returns {pctDiff, nA, nB, avgA, avgB} or null if insufficient data
+function groupCompare(boolKey, numKey, higherIsBetter) {
+    if (!allData) return null;
+    const groupA = allData.filter(d => d[boolKey] === "Yes" && d[numKey] != null).map(d => parseFloat(d[numKey]));
+    const groupB = allData.filter(d => d[boolKey] === "No"  && d[numKey] != null).map(d => parseFloat(d[numKey]));
+    if (groupA.length < 5 || groupB.length < 5) return null;
+    const avgA = groupA.reduce((s,v)=>s+v,0)/groupA.length;
+    const avgB = groupB.reduce((s,v)=>s+v,0)/groupB.length;
+    if (!avgB) return null;
+    const pct = ((avgA - avgB) / avgB * 100);
+    return { pctDiff: Math.round(pct), nA: groupA.length, nB: groupB.length, avgA, avgB, positive: higherIsBetter ? pct > 0 : pct < 0 };
+}
+
+function pearsonCorr(xKey, yKey) {
+    if (!allData) return null;
+    const pts = allData.map(d => ({ x: parseFloat(d[xKey]), y: parseFloat(d[yKey]) })).filter(p => !isNaN(p.x) && !isNaN(p.y));
+    if (pts.length < 20) return null;
+    const n = pts.length;
+    const mx = pts.reduce((s,p)=>s+p.x,0)/n;
+    const my = pts.reduce((s,p)=>s+p.y,0)/n;
+    const num = pts.reduce((s,p)=>s+(p.x-mx)*(p.y-my),0);
+    const den = Math.sqrt(pts.reduce((s,p)=>s+(p.x-mx)**2,0)*pts.reduce((s,p)=>s+(p.y-my)**2,0));
+    return den ? { r: +(num/den).toFixed(2), n } : null;
+}
+
+function computeInsights() {
+    const cards = [];
+
+    // Boolean comparisons
+    const boolInsights = [
+        ["cancer_plan",   "death_cancer_all", false, "Countries WITH a national cancer plan", "lower all-cancer mortality"],
+        ["cancer_registry","death_cancer_all", false, "Countries WITH a cancer registry", "lower all-cancer mortality"],
+        ["breast_screening","death_breast",    false, "Countries WITH breast screening programs", "lower breast cancer mortality"],
+        ["cancer_surgery", "daly_breast",      false, "Countries WITH cancer surgery available", "lower breast cancer DALYs"],
+        ["cancer_dept",    "death_cancer_all", false, "Countries WITH a cancer department (tertiary)", "lower all-cancer mortality"],
+        ["cervical_screening","death_breast",  false, "Countries WITH cervical screening", "lower breast cancer mortality"],
+        ["cancer_registry","research_index",   true,  "Countries WITH cancer registries", "higher research publication index"],
+        ["cancer_plan",    "research_index",   true,  "Countries WITH national cancer plans", "higher research activity"],
+    ];
+
+    boolInsights.forEach(([bk, nk, hib, labelYes, outcome]) => {
+        const r = groupCompare(bk, nk, hib);
+        if (!r) return;
+        const pctAbs = Math.abs(r.pctDiff);
+        if (pctAbs < 3) return; // skip trivial
+        const direction = r.positive ? "lower" : "higher";
+        const sign = r.pctDiff < 0 ? "" : "+";
+        cards.push({
+            pct: sign + r.pctDiff + "%",
+            positive: r.positive,
+            text: `${labelYes} have <strong>${pctAbs}% ${direction}</strong> ${outcome} on average`,
+            n: `n=${r.nA} vs n=${r.nB} countries`,
+        });
+    });
+
+    // Pearson correlations
+    const corrInsights = [
+        ["research_index", "death_cancer_all",  "Research activity vs all-cancer mortality"],
+        ["death_cancer_all","daly_breast",       "All-cancer mortality vs breast DALYs"],
+        ["death_breast",    "daly_breast",       "Breast mortality vs breast DALYs"],
+    ];
+    corrInsights.forEach(([xk, yk, label]) => {
+        const r = pearsonCorr(xk, yk);
+        if (!r) return;
+        const strength = Math.abs(r.r) >= 0.7 ? "strong" : Math.abs(r.r) >= 0.4 ? "moderate" : "weak";
+        const dir = r.r > 0 ? "positive" : "negative";
+        cards.push({
+            pct: `r=${r.r}`,
+            positive: r.r < 0,
+            text: `${label}: <strong>${strength} ${dir} correlation</strong>`,
+            n: `n=${r.n} countries · Pearson r`,
+        });
+    });
+
+    return cards;
+}
+
+let insightsCache = null;
+
+function openInsights() {
+    const modal = document.getElementById("insights-modal");
+    modal.style.display = "flex";
+    if (insightsCache) return;
+    insightsCache = computeInsights();
+    const container = document.getElementById("insights-cards");
+    if (!insightsCache.length) {
+        container.innerHTML = `<div style="color:#445;font-size:12px;padding:20px;grid-column:1/-1">Loading data…</div>`;
+        return;
+    }
+    container.innerHTML = insightsCache.map(c => `
+        <div class="insight-card ${c.positive?"positive":"negative"}">
+            <div class="insight-pct" style="color:${c.positive?"#2db565":"#e05c5c"}">${esc(c.pct)}</div>
+            <div class="insight-text">${c.text}</div>
+            <div class="insight-n">${esc(c.n)}</div>
+        </div>`).join("");
+}
+
+function closeInsights() {
+    document.getElementById("insights-modal").style.display = "none";
+}
+
 // ── Sparklines ─────────────────────────────────────────────────────────────
 const TREND_LABEL_KEYS = {
     death_cancer_all: "all_cancers",
@@ -3473,6 +3591,18 @@ initMobile();
     </div>
     <div id="scatter-svg-wrap" style="width:100%;height:420px;position:relative"></div>
     <div style="font-size:10px;color:#334;margin-top:10px" data-i18n="scatter_hint">Hover a dot for country details. Dots sized by population (where available).</div>
+  </div>
+</div>
+
+<div id="insights-modal" onclick="if(event.target===this)closeInsights()" style="display:none;position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,0.8);align-items:center;justify-content:center">
+  <div style="background:#0e1020;border:1px solid #1a1d2e;border-radius:14px;padding:24px;width:min(90vw,680px);max-height:88vh;overflow-y:auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <h2 style="font-size:16px;color:#eee" data-i18n="insights_title">💡 Data Insights</h2>
+      <button onclick="closeInsights()" style="background:none;border:none;color:#445;font-size:18px;cursor:pointer">✕</button>
+    </div>
+    <div style="font-size:11px;color:#445;margin-bottom:16px" data-i18n="insights_desc">Auto-generated statistical findings from WHO cancer data across 165 countries.</div>
+    <div id="insights-cards" style="display:grid;grid-template-columns:1fr 1fr;gap:12px"></div>
+    <div style="font-size:10px;color:#334;margin-top:16px" data-i18n="insights_note">Statistical associations, not causal claims. Based on WHO GHO data. n = countries with available data.</div>
   </div>
 </div>
 
