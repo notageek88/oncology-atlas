@@ -376,6 +376,28 @@
         }
         #embed-badge:hover { color: #4f8ef7; }
 
+        /* ── Clinic search modal ── */
+        #clinic-search-modal {
+            display: none; position: fixed; inset: 0; z-index: 1100;
+            background: rgba(0,0,0,0.8); align-items: center; justify-content: center;
+        }
+        #clinic-search-modal.open { display: flex; }
+        #clinic-search-inner {
+            background: #0e1020; border: 1px solid #1a1d2e; border-radius: 14px;
+            padding: 20px 24px; width: min(92vw, 720px); max-height: 88vh; overflow-y: auto;
+        }
+        .clinic-result {
+            background: #0b0d18; border: 1px solid #1a1d2e; border-radius: 8px;
+            padding: 10px 14px; cursor: pointer; transition: border-color 0.15s;
+        }
+        .clinic-result:hover { border-color: #4f8ef7; }
+        .clinic-result-name { font-size: 13px; font-weight: 600; color: #ccd; }
+        .clinic-result-meta { font-size: 11px; color: #556; margin-top: 2px; }
+        .clinic-result-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 5px; }
+        .clinic-tag { font-size: 9px; padding: 1px 7px; border-radius: 99px; border: 1px solid; }
+        #clinic-results-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+        @media (max-width: 560px) { #clinic-results-list { grid-template-columns: 1fr; } }
+
         /* ── Insights cards ── */
         .insight-card {
             background: #0b0d18; border: 1px solid #1a1d2e; border-radius: 10px;
@@ -586,6 +608,7 @@
     <button class="compare-btn" id="flows-toggle" onclick="toggleFlows()" style="margin-left:4px" data-i18n="flows_btn" data-tip="btn_tooltip_flows">✈ Flows</button>
     <button class="compare-btn" id="filter-toggle" onclick="toggleFilterPanel()" style="margin-left:4px" data-i18n="filter_btn" data-tip="btn_tooltip_filter">⚡ Filter</button>
     <button class="compare-btn" id="scatter-toggle" onclick="openScatter()" style="margin-left:4px" data-i18n="scatter_btn" data-tip="btn_tooltip_scatter">📊 Scatter</button>
+    <button class="compare-btn" onclick="openClinicSearch()" style="margin-left:4px" data-i18n="clinic_search_btn" title="Find a cancer clinic">🔍 Clinics</button>
     <button class="compare-btn" onclick="openInsights()" style="margin-left:4px" data-i18n="insights_btn" title="Auto-generated data insights">💡 Insights</button>
     <button class="compare-btn" onclick="openEmbedModal()" style="margin-left:4px" data-i18n="embed_btn" title="Get embed code for your website">📋 Embed</button>
     <div style="position:relative;margin-left:4px">
@@ -1620,7 +1643,7 @@ function showClinicPanel(clinic) {
             ${clinic.url ? `<div style="margin-top:14px"><a href="${clinic.url}" target="_blank" style="color:#4f8ef7;font-size:11px;text-decoration:none">🔗 ${clinic.url.replace("https://","")}</a></div>` : ""}
         </div>`;
 
-    document.getElementById("panel").classList.add("open");
+    document.getElementById("side-panel").classList.add("open");
     document.getElementById("map-container").classList.add("panel-open");
     document.getElementById("stats").classList.add("panel-open");
 }
@@ -3000,6 +3023,80 @@ function buildBenchmark(iso3, data) {
     </div>`;
 }
 
+// ── Clinic Search ────────────────────────────────────────────────────────────
+function openClinicSearch() {
+    const modal = document.getElementById("clinic-search-modal");
+    modal.classList.add("open");
+    loadClinicsData(() => {
+        // Populate country dropdown once
+        const sel = document.getElementById("cs-country");
+        if (sel.options.length === 1 && clinicsData?.clinics) {
+            const countries = [...new Set(clinicsData.clinics.map(c => c.country))].sort();
+            countries.forEach(c => {
+                const opt = document.createElement("option");
+                opt.value = c; opt.textContent = c;
+                sel.appendChild(opt);
+            });
+        }
+        filterClinics();
+    });
+}
+
+function closeClinicSearch() {
+    document.getElementById("clinic-search-modal").classList.remove("open");
+}
+
+function filterClinics() {
+    if (!clinicsData?.clinics) return;
+    const text      = document.getElementById("cs-text").value.toLowerCase();
+    const country   = document.getElementById("cs-country").value;
+    const type      = document.getElementById("cs-type").value;
+    const treatment = document.getElementById("cs-treatment").value;
+
+    let results = clinicsData.clinics.filter(c => {
+        if (text && !((c.name||"").toLowerCase().includes(text) || (c.city||"").toLowerCase().includes(text))) return false;
+        if (country && c.country !== country) return false;
+        if (type && c.type !== type) return false;
+        if (treatment && !(c.treatments||[]).includes(treatment)) return false;
+        return true;
+    });
+
+    // Sort: standard first, then by newsweek rank
+    results.sort((a,b) => {
+        if (a.type !== b.type) return a.type === "standard" ? -1 : 1;
+        const rA = a.rank_newsweek || 9999;
+        const rB = b.rank_newsweek || 9999;
+        return rA - rB;
+    });
+
+    const countEl = document.getElementById("cs-count");
+    countEl.textContent = `${results.length} clinic${results.length !== 1 ? "s" : ""} found`;
+
+    const container = document.getElementById("clinic-results-list");
+    const shown = results.slice(0, 40);
+    if (!shown.length) {
+        container.innerHTML = `<div style="color:#445;font-size:12px;padding:20px;grid-column:1/-1">No clinics match your filters.</div>`;
+        return;
+    }
+
+    container.innerHTML = shown.map(c => {
+        const col = clinicColor(c);
+        const tags = (c.treatments||[]).slice(0,3).map(tx =>
+            `<span class="clinic-tag" style="color:${col};border-color:${col}50;background:${col}10">${esc(tx)}</span>`).join("");
+        const rankTag = c.rank_newsweek ? `<span class="clinic-tag" style="color:#4fc88a;border-color:#4fc88a50;background:#4fc88a10">#${c.rank_newsweek} Newsweek</span>` : "";
+        const jciTag = (c.accreditation||[]).includes("JCI") ? `<span class="clinic-tag" style="color:#4f8ef7;border-color:#4f8ef750;background:#4f8ef710">JCI</span>` : "";
+        return `<div class="clinic-result" onclick="closeClinicSearch();showClinicPanel(${JSON.stringify(c).replace(/</g,'\\u003c')})">
+            <div class="clinic-result-name">${esc(getClinicName(c))}</div>
+            <div class="clinic-result-meta">${esc(c.city)}, ${esc(c.country)}</div>
+            <div class="clinic-result-tags">${rankTag}${jciTag}${tags}</div>
+        </div>`;
+    }).join("");
+
+    if (results.length > 40) {
+        container.innerHTML += `<div style="color:#334;font-size:11px;padding:8px;grid-column:1/-1">Showing first 40 of ${results.length}. Narrow your search to see more.</div>`;
+    }
+}
+
 // ── Correlation Insights ────────────────────────────────────────────────────
 // Compares group A (indicator=Yes) vs group B (No) on a numeric metric
 // Returns {pctDiff, nA, nB, avgA, avgB} or null if insufficient data
@@ -3591,6 +3688,38 @@ initMobile();
     </div>
     <div id="scatter-svg-wrap" style="width:100%;height:420px;position:relative"></div>
     <div style="font-size:10px;color:#334;margin-top:10px" data-i18n="scatter_hint">Hover a dot for country details. Dots sized by population (where available).</div>
+  </div>
+</div>
+
+<div id="clinic-search-modal" onclick="if(event.target===this)closeClinicSearch()">
+  <div id="clinic-search-inner">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <h2 style="font-size:16px;color:#eee" data-i18n="clinic_search_title">🔍 Find a Cancer Clinic</h2>
+      <button onclick="closeClinicSearch()" style="background:none;border:none;color:#445;font-size:18px;cursor:pointer">✕</button>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+      <input id="cs-text" type="text" placeholder="Search by name or city…" oninput="filterClinics()"
+        style="flex:2;min-width:140px;background:#10131f;border:1px solid #1a1d2e;color:#ccd;padding:6px 10px;border-radius:5px;font-size:12px">
+      <select id="cs-country" onchange="filterClinics()" style="flex:1;min-width:110px;background:#10131f;border:1px solid #1a1d2e;color:#aab;padding:6px 8px;border-radius:5px;font-size:12px">
+        <option value="">All countries</option>
+      </select>
+      <select id="cs-type" onchange="filterClinics()" style="flex:1;min-width:100px;background:#10131f;border:1px solid #1a1d2e;color:#aab;padding:6px 8px;border-radius:5px;font-size:12px">
+        <option value="">All types</option>
+        <option value="standard">Standard (FDA/EMA)</option>
+        <option value="nonstandard">Non-standard</option>
+      </select>
+      <select id="cs-treatment" onchange="filterClinics()" style="flex:1;min-width:110px;background:#10131f;border:1px solid #1a1d2e;color:#aab;padding:6px 8px;border-radius:5px;font-size:12px">
+        <option value="">All treatments</option>
+        <option value="surgery">Surgery</option>
+        <option value="chemo">Chemotherapy</option>
+        <option value="radiation">Radiation</option>
+        <option value="immunotherapy">Immunotherapy</option>
+        <option value="proton therapy">Proton therapy</option>
+        <option value="CAR-T">CAR-T</option>
+      </select>
+    </div>
+    <div id="cs-count" style="font-size:11px;color:#445;margin-bottom:8px"></div>
+    <div id="clinic-results-list"></div>
   </div>
 </div>
 
