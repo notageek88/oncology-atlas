@@ -42,6 +42,10 @@ OncologyAtlas is an open-source interactive map of global cancer data. Built for
 | 🍷 Risk factors | Alcohol-attributable cancer deaths layer |
 | 📅 Data freshness | Every tooltip and profile shows the year of data |
 | 📖 Citation generator | One-click APA citation for researchers |
+| 📄 PDF Report | One-click printable country report: all metrics, survival, trials, citation |
+| 💊 Treatment matrix | Surgery/chemo/radiation/targeted/immunotherapy/proton by 100+ countries |
+| 📋 Embed widget | Copy `<iframe>` code for any country + metric combo for journalists |
+| 📊 Scatter plot | Correlation explorer — plot any two metrics, Pearson r, trend line |
 
 ---
 
@@ -98,26 +102,25 @@ This project is actively developed. Contributions welcome for any of the items b
 - [ ] **News timeline** — key policy events (smoking bans, screening programs launch) on the timeline slider
 
 ### v0.7 — Access & API
-- [ ] **Embed widget** — `<iframe src="https://notageek88.github.io/oncology-atlas/embed.html?country=RUS">` for journalists/researchers
+- [x] **Embed widget** — `<iframe src="https://notageek88.github.io/oncology-atlas/index.html?embed=1&country=RUS&metric=death_breast">` for journalists/researchers
 - [ ] **Public API** — `/api/v1/cancer?country=RUS&metric=death_breast&year=2019`
 - [x] **Data freshness indicator** — every tooltip and profile panel shows data year
 - [ ] **Alert/notification system** — subscribe to data updates for a country
 - [x] **Citation generator** — one-click APA citation in every country profile
 
 ### v0.8 — Patient & Clinic Value
-- [ ] **Treatment availability matrix** — surgery/chemo/radiation/immunotherapy/proton by country
+- [x] **Treatment availability matrix** — surgery/chemo/radiation/immunotherapy/proton by country (100+ countries, WHO/IAEA 2023)
 - [ ] **Cost comparison** — average cancer treatment costs (public vs private) per country
 - [ ] **"Find a clinic" search** — filter by country, specialty, accreditation, tier
 - [ ] **Medical tourism guide** — visa requirements + wait times near clinic profiles
 - [ ] **Support resources** — hotlines, NGOs, patient groups per country
 
 ### v0.9 — Research Tools
-- [ ] **Scatter plot mode** — plot any two metrics against each other, all countries
-- [ ] **Country report PDF** — auto-generated 1-page PDF: metrics, charts, regional comparison
+- [x] **Scatter plot mode** — plot any two metrics against each other, all countries (Pearson r, trend line)
+- [x] **Country report PDF** — auto-generated print-ready report: mortality, DALYs, infrastructure, survival, treatments, APA citation
 - [ ] **Prevention score** — composite index: screening + infrastructure + registry + national plan
 - [ ] **Benchmarking tool** — compare country vs peer group (by GDP, region, population)
 - [ ] **Correlation insights** — auto-generated "Countries with X have Y% lower Z" cards
-- [ ] **Embed widget** — `<iframe>` for journalists and bloggers (viral distribution)
 - [ ] **Downloadable infographics** — auto-generated PNG per country for social media
 
 ### v1.0 — Platform
