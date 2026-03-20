@@ -229,25 +229,73 @@
 
         /* ── Mobile ── */
         @media (max-width: 768px) {
-            #header { padding: 8px 14px; }
-            h1 { font-size: 15px; }
-            .meta span:not(:last-child) { display: none; }
-            #controls { padding: 6px 10px; gap: 6px; flex-wrap: wrap; }
-            #controls select { font-size: 11px; padding: 4px 6px; max-width: 130px; }
-            #map-container { top: 75px; }
-            #map-container.panel-open { right: 0; bottom: 50vh; }
+            /* Header */
+            #header { padding: 8px 12px; gap: 8px; }
+            h1 { font-size: 14px; }
+            .badge { display: none; }
+            /* Hide all meta items except github link */
+            .meta { gap: 8px; }
+            .meta span { display: none; }
+            .meta a:not(:last-of-type) { display: none; }
+
+            /* Controls: only selects + search, no extra buttons */
+            #controls {
+                padding: 5px 10px;
+                gap: 6px;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            #controls::-webkit-scrollbar { display: none; }
+            #controls .ctrl-label { display: none; }
+            #controls .sep { display: none; }
+            #controls select { font-size: 12px; padding: 5px 6px; max-width: 140px; flex-shrink: 0; }
+            #controls #search { width: 130px !important; flex-shrink: 0; }
+            /* Hide secondary buttons — shown via FAB instead */
+            #controls .compare-btn { display: none; }
+            #controls > a[download] { display: none; }
+            #controls > div[style*="position:relative"] { display: none; } /* lang btn wrapper */
+
+            /* Map */
+            #map-container { top: 83px; }
+            #map-container.panel-open { right: 0; bottom: 55vh; }
+
+            /* Side panel as bottom sheet */
             #side-panel {
                 top: auto !important; right: 0 !important; left: 0 !important;
-                bottom: -50vh; width: 100% !important;
-                height: 50vh; border-left: none;
+                bottom: -55vh; width: 100% !important;
+                height: 55vh; border-left: none;
                 border-top: 1px solid #1a1d2e;
                 border-radius: 14px 14px 0 0;
                 transition: bottom 0.35s !important;
             }
             #side-panel.open { bottom: 0 !important; }
-            #timeline { min-width: 280px; left: 50%; transform: translateX(-50%); }
+
+            /* Timeline */
+            #timeline { min-width: 260px; bottom: 70px; }
+
+            /* World stats bar */
+            #world-stats-bar { display: none; }
+
+            /* Legend */
+            #legend { bottom: 70px; left: 10px; padding: 8px 12px; }
+            #legend #leg-title { font-size: 8px; }
+
+            /* Clinic legend */
+            .clinic-legend { bottom: 70px; }
+
+            /* Stats bar */
             #stats { display: none; }
-            .compare-btn span.btn-label { display: none; }
+
+            /* Filter panel */
+            #filter-panel { flex-wrap: wrap; gap: 8px; padding: 8px 10px; }
+            #filter-panel .compare-btn { padding: 4px 8px; font-size: 10px; }
+
+            /* FAB */
+            #mob-fab { display: flex; }
+            #mob-menu { display: none; }
+            #mob-menu.open { display: flex; }
         }
 
         /* ── Keyboard / Focus ── */
@@ -537,6 +585,54 @@
 <div id="stats">
     <b id="stat-n">—</b> countries &nbsp;·&nbsp; <b>WHO GHO</b> &nbsp;·&nbsp; <span style="color:#556" title="WHO GHO publishes with 3-4 year lag. Latest available: 2021 (NCD mortality), 2019 (cancer deaths). GLOBOCAN 2022 integration planned.">Data: 2000–2021</span> &nbsp;·&nbsp; MIT
 </div>
+
+<!-- Mobile FAB -->
+<div id="mob-fab" style="display:none;position:fixed;bottom:16px;right:16px;z-index:500;flex-direction:column;align-items:flex-end;gap:8px">
+    <!-- FAB menu items (shown when open) -->
+    <div id="mob-menu" style="flex-direction:column;align-items:flex-end;gap:8px">
+        <div style="display:flex;align-items:center;gap:8px">
+            <span style="background:#0b0d18;border:1px solid #1a1d2e;color:#889;font-size:11px;padding:4px 10px;border-radius:20px;white-space:nowrap">🌐 Lang</span>
+            <button onclick="toggleLangMenu()" style="width:40px;height:40px;border-radius:50%;background:#10131f;border:1px solid #1a1d2e;color:#778;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">🌐</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+            <span style="background:#0b0d18;border:1px solid #1a1d2e;color:#889;font-size:11px;padding:4px 10px;border-radius:20px;white-space:nowrap" data-i18n="filter_btn">Filter</span>
+            <button onclick="toggleFilterPanel()" style="width:40px;height:40px;border-radius:50%;background:#10131f;border:1px solid #1a1d2e;color:#4f8ef7;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">⚡</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+            <span style="background:#0b0d18;border:1px solid #1a1d2e;color:#889;font-size:11px;padding:4px 10px;border-radius:20px;white-space:nowrap" data-i18n="flows_btn">Flows</span>
+            <button onclick="toggleFlows()" style="width:40px;height:40px;border-radius:50%;background:#10131f;border:1px solid #1a1d2e;color:#4f8ef7;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">✈</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+            <span style="background:#0b0d18;border:1px solid #1a1d2e;color:#889;font-size:11px;padding:4px 10px;border-radius:20px;white-space:nowrap" data-i18n="clinics_btn">Clinics</span>
+            <button onclick="toggleClinics()" style="width:40px;height:40px;border-radius:50%;background:#10131f;border:1px solid #1a1d2e;color:#4f8ef7;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">🏥</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+            <span style="background:#0b0d18;border:1px solid #1a1d2e;color:#889;font-size:11px;padding:4px 10px;border-radius:20px;white-space:nowrap" data-i18n="trials_btn">Trials</span>
+            <button onclick="toggleTrials()" style="width:40px;height:40px;border-radius:50%;background:#10131f;border:1px solid #1a1d2e;color:#4f8ef7;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">🔬</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+            <span style="background:#0b0d18;border:1px solid #1a1d2e;color:#889;font-size:11px;padding:4px 10px;border-radius:20px;white-space:nowrap" data-i18n="timeline">Timeline</span>
+            <button onclick="toggleTimeline()" style="width:40px;height:40px;border-radius:50%;background:#10131f;border:1px solid #1a1d2e;color:#4f8ef7;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">▶</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+            <span style="background:#0b0d18;border:1px solid #1a1d2e;color:#889;font-size:11px;padding:4px 10px;border-radius:20px;white-space:nowrap" data-i18n="compare">Compare</span>
+            <button onclick="toggleCompare()" style="width:40px;height:40px;border-radius:50%;background:#10131f;border:1px solid #1a1d2e;color:#4f8ef7;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">⚖</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+            <span style="background:#0b0d18;border:1px solid #1a1d2e;color:#889;font-size:11px;padding:4px 10px;border-radius:20px;white-space:nowrap">📚 Sources</span>
+            <button onclick="openSources()" style="width:40px;height:40px;border-radius:50%;background:#10131f;border:1px solid #1a1d2e;color:#4f8ef7;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">📚</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+            <span style="background:#0b0d18;border:1px solid #1a1d2e;color:#889;font-size:11px;padding:4px 10px;border-radius:20px;white-space:nowrap">↓ CSV</span>
+            <a href="data/countries_cancer.csv" download style="width:40px;height:40px;border-radius:50%;background:#0d2a1a;border:1px solid #1a5c35;color:#2db565;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;text-decoration:none">↓</a>
+        </div>
+    </div>
+    <!-- Main FAB button -->
+    <button id="fab-main" onclick="toggleMobMenu()" style="width:52px;height:52px;border-radius:50%;background:#4f8ef7;border:none;color:#fff;font-size:22px;cursor:pointer;box-shadow:0 4px 16px rgba(79,142,247,0.5);display:flex;align-items:center;justify-content:center;transition:transform 0.2s">☰</button>
+</div>
+
+<!-- Lang menu for mobile (positioned fixed) -->
+<div id="lang-menu-mob" style="display:none;position:fixed;bottom:80px;right:16px;z-index:600;background:#0d0f1a;border:1px solid #1a1d2e;border-radius:8px;min-width:160px;box-shadow:0 8px 24px rgba(0,0,0,0.7);overflow:hidden"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson@3"></script>
@@ -1845,7 +1941,39 @@ function updateMetricOptions() {
     sel.innerHTML = (opts[cat]||opts.death).map(([v,l]) => `<option value="${v}"${v===cur?" selected":""}>${l}</option>`).join("");
 }
 
+function isMobile() { return window.innerWidth <= 768; }
+
+function toggleMobMenu() {
+    const menu = document.getElementById("mob-menu");
+    const btn = document.getElementById("fab-main");
+    const isOpen = menu.classList.contains("open");
+    if (isOpen) {
+        menu.classList.remove("open");
+        menu.style.display = "none";
+        btn.textContent = "☰";
+        btn.style.transform = "";
+    } else {
+        menu.classList.add("open");
+        menu.style.display = "flex";
+        btn.textContent = "✕";
+        btn.style.transform = "rotate(90deg)";
+    }
+}
+
 function toggleLangMenu() {
+    if (isMobile()) {
+        // Use mobile lang menu
+        const menu = document.getElementById("lang-menu-mob");
+        if (menu.style.display === "block") { menu.style.display = "none"; return; }
+        menu.innerHTML = Object.entries(LANG_FLAGS).map(([code, flag]) =>
+            `<div class="lang-item${code===currentLang?" active":""}" onclick="applyLang('${code}');document.getElementById('lang-menu-mob').style.display='none'">
+                ${flag} <span>${LANG_NAMES[code]||code}</span>
+            </div>`
+        ).join("");
+        menu.style.display = "block";
+        setTimeout(() => document.addEventListener("click", () => { menu.style.display = "none"; }, {once:true}), 50);
+        return;
+    }
     const menu = document.getElementById("lang-menu");
     if (menu.classList.contains("open")) { menu.classList.remove("open"); return; }
     menu.innerHTML = Object.entries(LANG_FLAGS).map(([code, flag]) =>
@@ -1861,6 +1989,17 @@ function closeLangMenu(e) {
     if (!document.getElementById("lang-btn")?.contains(e.target))
         document.getElementById("lang-menu")?.classList.remove("open");
 }
+
+// Show FAB on mobile
+function initMobile() {
+    if (isMobile()) {
+        document.getElementById("mob-fab").style.display = "flex";
+    }
+}
+window.addEventListener("resize", () => {
+    const fab = document.getElementById("mob-fab");
+    if (fab) fab.style.display = isMobile() ? "flex" : "none";
+});
 
 // ── URL params ─────────────────────────────────────────────────────────────
 function parseUrlParams() {
@@ -2440,6 +2579,7 @@ async function init() {
 }
 
 init();
+initMobile();
 </script>
 
 <div id="sources-modal" onclick="if(event.target===this)closeSources()">
