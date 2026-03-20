@@ -25,7 +25,7 @@ OncologyAtlas is an open-source interactive map of global cancer data. Built for
 | Feature | Description |
 |---------|-------------|
 | 🗺 Choropleth map | D3.js Natural Earth projection — same approach as NYT/Guardian |
-| 📊 19 metrics | Mortality, DALYs, healthcare infrastructure, cancer system readiness |
+| 📊 22+ metrics | Mortality, DALYs, incidence (GLOBOCAN 2022), readiness, risk factors |
 | ⏱ Timeline 2000–2021 | NCD mortality slider — see how countries changed over 22 years |
 | 🏥 Oncology clinics | 41 top clinics in 21 countries with profiles and accreditations |
 | ✈ Migration flows | 37 patient migration routes with hover tooltips |

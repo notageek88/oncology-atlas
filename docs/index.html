@@ -581,6 +581,7 @@
         <option value="research" data-i18n="cat_research">Research Activity</option>
         <option value="risk" data-i18n="cat_risk">Risk Factors</option>
         <option value="readiness" data-i18n="cat_readiness">Cancer System Readiness</option>
+        <option value="incidence" data-i18n="cat_incidence">Cancer Incidence (new cases)</option>
     </select>
     <div class="sep"></div>
     <span class="ctrl-label" data-i18n="type_label">Type</span>
@@ -857,6 +858,18 @@ const METRIC_GROUPS = {
         type: "numeric",
         domain: [10, 30, 50, 70, 90],
         colors: ["#1a0d2a","#3a1a6e","#6a3aae","#c06af7","#f0c4ff"],
+        nodata: "#0f1220"
+    },
+    incidence: {
+        label: "Incidence (new cases / 100k)",
+        options: {
+            incidence_all: "All cancers combined",
+            incidence_breast: "Breast cancer",
+            incidence_colon: "Colorectal cancer"
+        },
+        type: "numeric",
+        domain: [80, 150, 230, 320, 430],
+        colors: ["#0d1a1a","#0d3a3a","#1a7a6e","#2dc4b4","#7afff0"],
         nodata: "#0f1220"
     }
 };
@@ -1157,7 +1170,7 @@ function showTip(event, d, data) {
         : cat === "daly"
         ? `<div style="font-size:9px;color:#445;margin-top:2px">${t("tip_unit_daly","DALYs lost per 100,000")}</div>`
         : "";
-    const tipUnit = cat === "death" ? "/ 100k" : cat === "daly" ? "DALYs" : cat === "readiness" ? "/ 100" : "";
+    const tipUnit = cat === "death" ? "/ 100k" : cat === "daly" ? "DALYs" : cat === "readiness" ? "/ 100" : cat === "incidence" ? "/ 100k" : "";
     const yearField = currentMetric + "_year";
     const dataYear = data && data[yearField] ? `<div style="font-size:9px;color:#334;margin-top:3px">Data: ${data[yearField]}</div>` : "";
     tip.innerHTML = `<div class="tip-country">${n}</div>
@@ -1239,6 +1252,19 @@ function openProfile(data, name) {
                 </div>
                 <div id="trend-charts"><div class="no-data-msg">${t("loading_text","Loading...")}</div></div>
             </div>
+            ${(data.incidence_all || data.incidence_breast) ? `
+            <div class="panel-section">
+                <div class="section-header">
+                    <h3>${t("incidence_section","Cancer incidence (new cases)")}</h3>
+                    <span class="section-unit">/ 100k / yr</span>
+                </div>
+                ${barsHtml([
+                    [t("all_cancers","All cancers"), data.incidence_all, 500, "#2dc4b4"],
+                    [t("breast","Breast"), data.incidence_breast, 115, "#4fb8f7"],
+                    [t("colon","Colorectal"), data.incidence_colon, 75, "#3aade0"],
+                ].filter(([,v]) => v != null))}
+                <div style="font-size:9px;color:#334;margin-top:6px">Source: GLOBOCAN 2022 (IARC/WHO)</div>
+            </div>` : ""}
             <div class="panel-section">
                 <div class="section-header">
                     <h3>${t("daly_section","Disease burden")}</h3>
@@ -1366,6 +1392,8 @@ function downloadCompareReport() {
         ["Cancer registry",       "cancer_registry",   ""],
         ["National cancer plan",  "cancer_plan",       ""],
         ["Breast screening",      "breast_screening",  ""],
+        ["All-cancer incidence",  "incidence_all",     "new/100k/yr"],
+        ["Breast incidence",      "incidence_breast",  "new/100k/yr"],
         ["Research index",        "research_index",    ""],
         ["Tobacco deaths/100k",   "tobacco_cancer",    ""],
         ["Readiness score",       "_score",            "/100"],
@@ -2914,6 +2942,9 @@ const SCATTER_METRICS = [
     ["daly_colon",       "Colorectal DALYs (/ 100k)"],
     ["daly_liver",       "Liver cancer DALYs (/ 100k)"],
     ["death_prostate",   "Prostate cancer mortality (/ 100k)"],
+    ["incidence_all",    "All-cancer incidence (new cases / 100k)"],
+    ["incidence_breast", "Breast cancer incidence (/ 100k)"],
+    ["incidence_colon",  "Colorectal cancer incidence (/ 100k)"],
     ["research_index",   "Cancer research publications"],
     ["cervical_screening","Cervical screening (0=No, 1=Yes)"],
     ["alcohol_cancer",   "Alcohol-attributable cancer deaths"],
@@ -4278,7 +4309,7 @@ async function init() {
         document.body.appendChild(badge);
     }
     // Merge extraMetrics (cervical_screening, alcohol_cancer) into allData records
-    const extraKeys = ["cervical_screening", "alcohol_cancer", "tobacco_cancer", "death_prostate"];
+    const extraKeys = ["cervical_screening", "alcohol_cancer", "tobacco_cancer", "death_prostate", "incidence_all", "incidence_breast", "incidence_colon"];
     cancer.forEach(c => {
         extraKeys.forEach(key => {
             const map = extraMetrics[key];
