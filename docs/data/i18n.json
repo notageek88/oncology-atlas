@@ -216,7 +216,17 @@
     "vs_income_group": "vs income group avg",
     "vs_usa": "vs USA ($150k)",
     "cost_source_note": "Source: OECD/WHO estimates, academic literature. Approximate.",
-    "cat_costs": "Treatment Costs"
+    "cat_costs": "Treatment Costs",
+    "shortcuts_title": "Keyboard Shortcuts",
+    "sk_search": "Focus country search",
+    "sk_timeline": "Toggle timeline",
+    "sk_compare": "Toggle compare mode",
+    "sk_scatter": "Open scatter plot",
+    "sk_filter": "Toggle filter panel",
+    "sk_arrows": "Step timeline year",
+    "sk_esc": "Close panel / stop play",
+    "sk_help": "Show this help",
+    "btn_tooltip_shortcuts": "Keyboard shortcuts"
   },
   "ru": {
     "title": "OncologyAtlas",
@@ -435,7 +445,17 @@
     "vs_income_group": "vs среднее по доходной группе",
     "vs_usa": "vs США ($150k)",
     "cost_source_note": "Источник: оценки ОЭСР/ВОЗ, академическая литература. Приблизительно.",
-    "cat_costs": "Стоимость лечения"
+    "cat_costs": "Стоимость лечения",
+    "shortcuts_title": "Горячие клавиши",
+    "sk_search": "Фокус на поиск стран",
+    "sk_timeline": "Переключить таймлайн",
+    "sk_compare": "Режим сравнения",
+    "sk_scatter": "Открыть диаграмму рассеяния",
+    "sk_filter": "Панель фильтров",
+    "sk_arrows": "Шаг по годам",
+    "sk_esc": "Закрыть панель / остановить",
+    "sk_help": "Показать эту справку",
+    "btn_tooltip_shortcuts": "Горячие клавиши"
   },
   "zh": {
     "title": "OncologyAtlas",
@@ -654,7 +674,17 @@
     "vs_income_group": "vs 收入组平均",
     "vs_usa": "vs 美国($15万)",
     "cost_source_note": "来源：经合组织/世卫组织估算，学术文献。近似值。",
-    "cat_costs": "治疗费用"
+    "cat_costs": "治疗费用",
+    "shortcuts_title": "键盘快捷键",
+    "sk_search": "聚焦国家搜索",
+    "sk_timeline": "切换时间轴",
+    "sk_compare": "对比模式",
+    "sk_scatter": "打开散点图",
+    "sk_filter": "切换筛选面板",
+    "sk_arrows": "时间轴年份步进",
+    "sk_esc": "关闭面板/停止播放",
+    "sk_help": "显示帮助",
+    "btn_tooltip_shortcuts": "键盘快捷键"
   },
   "es": {
     "title": "OncologyAtlas",
@@ -873,7 +903,17 @@
     "vs_income_group": "vs promedio del grupo de ingresos",
     "vs_usa": "vs EE.UU. ($150k)",
     "cost_source_note": "Fuente: estimaciones OCDE/OMS, literatura académica. Aproximado.",
-    "cat_costs": "Costos de tratamiento"
+    "cat_costs": "Costos de tratamiento",
+    "shortcuts_title": "Atajos de teclado",
+    "sk_search": "Buscar país",
+    "sk_timeline": "Activar línea de tiempo",
+    "sk_compare": "Modo comparación",
+    "sk_scatter": "Abrir diagrama de dispersión",
+    "sk_filter": "Panel de filtros",
+    "sk_arrows": "Avanzar año en línea de tiempo",
+    "sk_esc": "Cerrar panel / detener",
+    "sk_help": "Mostrar ayuda",
+    "btn_tooltip_shortcuts": "Atajos de teclado"
   },
   "ar": {
     "title": "OncologyAtlas",
@@ -1092,7 +1132,17 @@
     "vs_income_group": "مقارنة بمتوسط المجموعة الدخلية",
     "vs_usa": "مقارنة بالولايات المتحدة ($150k)",
     "cost_source_note": "المصدر: تقديرات منظمة التعاون الاقتصادي والتنمية/منظمة الصحة العالمية. تقريبي.",
-    "cat_costs": "تكاليف العلاج"
+    "cat_costs": "تكاليف العلاج",
+    "shortcuts_title": "اختصارات لوحة المفاتيح",
+    "sk_search": "البحث عن دولة",
+    "sk_timeline": "تبديل الجدول الزمني",
+    "sk_compare": "وضع المقارنة",
+    "sk_scatter": "فتح مخطط التشتت",
+    "sk_filter": "لوحة التصفية",
+    "sk_arrows": "التقدم بالسنة",
+    "sk_esc": "إغلاق اللوحة",
+    "sk_help": "عرض التعليمات",
+    "btn_tooltip_shortcuts": "اختصارات لوحة المفاتيح"
   },
   "hi": {
     "title": "OncologyAtlas",
@@ -1311,7 +1361,17 @@
     "vs_income_group": "आय समूह औसत से तुलना",
     "vs_usa": "अमेरिका ($150k) से तुलना",
     "cost_source_note": "स्रोत: OECD/WHO अनुमान, शैक्षणिक साहित्य। अनुमानित।",
-    "cat_costs": "उपचार लागत"
+    "cat_costs": "उपचार लागत",
+    "shortcuts_title": "कीबोर्ड शॉर्टकट",
+    "sk_search": "देश खोज",
+    "sk_timeline": "टाइमलाइन टॉगल",
+    "sk_compare": "तुलना मोड",
+    "sk_scatter": "स्कैटर प्लॉट",
+    "sk_filter": "फिल्टर पैनल",
+    "sk_arrows": "वर्ष आगे बढ़ाएं",
+    "sk_esc": "पैनल बंद करें",
+    "sk_help": "सहायता",
+    "btn_tooltip_shortcuts": "कीबोर्ड शॉर्टकट"
   },
   "pt": {
     "title": "OncologyAtlas",
@@ -1530,7 +1590,17 @@
     "vs_income_group": "vs média do grupo de renda",
     "vs_usa": "vs EUA ($150k)",
     "cost_source_note": "Fonte: estimativas OCDE/OMS, literatura académica. Aproximado.",
-    "cat_costs": "Custos de tratamento"
+    "cat_costs": "Custos de tratamento",
+    "shortcuts_title": "Atalhos de teclado",
+    "sk_search": "Pesquisar país",
+    "sk_timeline": "Alternar linha do tempo",
+    "sk_compare": "Modo comparação",
+    "sk_scatter": "Abrir gráfico de dispersão",
+    "sk_filter": "Painel de filtros",
+    "sk_arrows": "Avançar ano",
+    "sk_esc": "Fechar painel",
+    "sk_help": "Mostrar ajuda",
+    "btn_tooltip_shortcuts": "Atalhos de teclado"
   },
   "fr": {
     "title": "OncologyAtlas",
@@ -1749,7 +1819,17 @@
     "vs_income_group": "vs moyenne du groupe de revenu",
     "vs_usa": "vs États-Unis ($150k)",
     "cost_source_note": "Source : estimations OCDE/OMS, littérature académique. Approximatif.",
-    "cat_costs": "Coûts de traitement"
+    "cat_costs": "Coûts de traitement",
+    "shortcuts_title": "Raccourcis clavier",
+    "sk_search": "Recherche pays",
+    "sk_timeline": "Activer la chronologie",
+    "sk_compare": "Mode comparaison",
+    "sk_scatter": "Ouvrir nuage de points",
+    "sk_filter": "Panneau de filtres",
+    "sk_arrows": "Avancer l'année",
+    "sk_esc": "Fermer / arrêter",
+    "sk_help": "Aide",
+    "btn_tooltip_shortcuts": "Raccourcis clavier"
   },
   "de": {
     "title": "OncologyAtlas",
@@ -1968,7 +2048,17 @@
     "vs_income_group": "vs Einkommensgruppen-Durchschnitt",
     "vs_usa": "vs USA ($150k)",
     "cost_source_note": "Quelle: OECD/WHO-Schätzungen, Fachliteratur. Näherungswert.",
-    "cat_costs": "Behandlungskosten"
+    "cat_costs": "Behandlungskosten",
+    "shortcuts_title": "Tastaturkürzel",
+    "sk_search": "Ländersuche fokussieren",
+    "sk_timeline": "Zeitleiste umschalten",
+    "sk_compare": "Vergleichsmodus",
+    "sk_scatter": "Streudiagramm öffnen",
+    "sk_filter": "Filterbereich",
+    "sk_arrows": "Jahr weiterschalten",
+    "sk_esc": "Panel schließen / stoppen",
+    "sk_help": "Hilfe anzeigen",
+    "btn_tooltip_shortcuts": "Tastaturkürzel"
   },
   "ja": {
     "title": "OncologyAtlas",
@@ -2187,7 +2277,17 @@
     "vs_income_group": "所得グループ平均との比較",
     "vs_usa": "米国($150k)との比較",
     "cost_source_note": "出典：OECD/WHO推定、学術文献。近似値。",
-    "cat_costs": "治療費用"
+    "cat_costs": "治療費用",
+    "shortcuts_title": "キーボードショートカット",
+    "sk_search": "国名検索にフォーカス",
+    "sk_timeline": "タイムライン切替",
+    "sk_compare": "比較モード",
+    "sk_scatter": "散布図を開く",
+    "sk_filter": "フィルターパネル",
+    "sk_arrows": "年を進める",
+    "sk_esc": "パネルを閉じる",
+    "sk_help": "ヘルプを表示",
+    "btn_tooltip_shortcuts": "キーボードショートカット"
   },
   "id": {
     "title": "OncologyAtlas",
@@ -2406,6 +2506,16 @@
     "vs_income_group": "vs rata-rata kelompok pendapatan",
     "vs_usa": "vs AS ($150k)",
     "cost_source_note": "Sumber: perkiraan OECD/WHO, literatur akademik. Perkiraan.",
-    "cat_costs": "Biaya Pengobatan"
+    "cat_costs": "Biaya Pengobatan",
+    "shortcuts_title": "Pintasan Keyboard",
+    "sk_search": "Cari negara",
+    "sk_timeline": "Aktifkan garis waktu",
+    "sk_compare": "Mode bandingkan",
+    "sk_scatter": "Buka scatter plot",
+    "sk_filter": "Panel filter",
+    "sk_arrows": "Maju tahun",
+    "sk_esc": "Tutup panel",
+    "sk_help": "Tampilkan bantuan",
+    "btn_tooltip_shortcuts": "Pintasan Keyboard"
   }
 }

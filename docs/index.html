@@ -614,6 +614,7 @@
     <button class="compare-btn" onclick="openClinicSearch()" style="margin-left:4px" data-i18n="clinic_search_btn" title="Find a cancer clinic">🔍 Clinics</button>
     <button class="compare-btn" onclick="openInsights()" style="margin-left:4px" data-i18n="insights_btn" title="Auto-generated data insights">💡 Insights</button>
     <button class="compare-btn" onclick="openEmbedModal()" style="margin-left:4px" data-i18n="embed_btn" title="Get embed code for your website">📋 Embed</button>
+    <button class="compare-btn" onclick="toggleShortcutsModal()" style="margin-left:4px" title="Keyboard shortcuts (? or h)" data-tip="btn_tooltip_shortcuts">⌨</button>
     <div style="position:relative;margin-left:4px">
         <button id="lang-btn" onclick="toggleLangMenu()">🌐 EN</button>
         <div id="lang-menu"></div>
@@ -4511,11 +4512,60 @@ function renderTrials() {
 
 // ── Keyboard navigation ──────────────────────────────────────────────────
 document.addEventListener("keydown", e => {
+    const tag = document.activeElement?.tagName?.toLowerCase();
+    const inInput = tag === "input" || tag === "textarea" || tag === "select";
     if (e.key === "Escape") {
         closePanel();
         stopPlay();
+        // Close any open modal
+        ["scatter-modal","clinic-search-modal","embed-modal","sources-modal","shortcuts-modal"].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) { el.style.display = "none"; el.classList.remove("open"); }
+        });
+        return;
+    }
+    if (inInput) return; // don't fire shortcuts while typing
+    switch (e.key) {
+        case "/": case "s":
+            e.preventDefault();
+            document.getElementById("search")?.focus();
+            break;
+        case "t":
+            toggleTimeline(); break;
+        case "c":
+            toggleCompare(); break;
+        case "p":
+            openScatter(); break;
+        case "f":
+            document.getElementById("filter-toggle")?.click(); break;
+        case "?": case "h":
+            toggleShortcutsModal(); break;
+        case "ArrowRight":
+            if (playInterval) stopPlay(); else advanceTimeline(1); break;
+        case "ArrowLeft":
+            if (playInterval) stopPlay(); else advanceTimeline(-1); break;
     }
 });
+
+function advanceTimeline(dir) {
+    const slider = document.getElementById("year-slider");
+    if (!slider) return;
+    const v = parseInt(slider.value) + dir;
+    if (v >= parseInt(slider.min) && v <= parseInt(slider.max)) {
+        slider.value = v;
+        slider.dispatchEvent(new Event("input"));
+    }
+}
+
+function toggleShortcutsModal() {
+    const m = document.getElementById("shortcuts-modal");
+    if (!m) return;
+    const isOpen = m.style.display === "flex";
+    m.style.display = isOpen ? "none" : "flex";
+}
+
+// ── Resize — пересчитываем оверлеи ──────────────────────────────────────
+// (resize уже вызывает pathGen пересчёт — добавим rerenderOverlays)
 
 // ── Resize — пересчитываем оверлеи ──────────────────────────────────────
 // (resize уже вызывает pathGen пересчёт — добавим rerenderOverlays)
@@ -4837,6 +4887,34 @@ initMobile();
     <div style="margin-top:18px;padding-top:14px;border-top:1px solid #1a1d2e;font-size:10px;color:#334">
       Все данные открытые. Репо: <a href="https://github.com/notageek88/oncology-atlas" target="_blank" style="color:#4f8ef7">github.com/notageek88/oncology-atlas</a>
       · Лицензия MIT · Последнее обновление данных: март 2026
+    </div>
+  </div>
+</div>
+
+<!-- Keyboard Shortcuts Modal -->
+<div id="shortcuts-modal" onclick="if(event.target===this)toggleShortcutsModal()" style="display:none;position:fixed;inset:0;z-index:800;background:rgba(0,0,0,0.85);backdrop-filter:blur(4px);align-items:center;justify-content:center">
+  <div style="background:#09090f;border:1px solid #1a1d2e;border-radius:14px;padding:20px 28px;width:min(92vw,480px);max-height:90vh;overflow-y:auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <h2 style="font-size:15px;color:#eee" data-i18n="shortcuts_title">⌨ Keyboard Shortcuts</h2>
+      <button onclick="toggleShortcutsModal()" style="background:none;border:none;color:#445;font-size:18px;cursor:pointer">✕</button>
+    </div>
+    <div style="display:grid;grid-template-columns:auto 1fr;gap:5px 16px">
+      <kbd style="background:#1a1d2e;border:1px solid #2a2d3e;border-radius:4px;padding:2px 8px;font-size:11px;color:#aab;white-space:nowrap">/ or s</kbd>
+      <span style="font-size:12px;color:#889" data-i18n="sk_search">Focus country search</span>
+      <kbd style="background:#1a1d2e;border:1px solid #2a2d3e;border-radius:4px;padding:2px 8px;font-size:11px;color:#aab">t</kbd>
+      <span style="font-size:12px;color:#889" data-i18n="sk_timeline">Toggle timeline</span>
+      <kbd style="background:#1a1d2e;border:1px solid #2a2d3e;border-radius:4px;padding:2px 8px;font-size:11px;color:#aab">c</kbd>
+      <span style="font-size:12px;color:#889" data-i18n="sk_compare">Toggle compare mode</span>
+      <kbd style="background:#1a1d2e;border:1px solid #2a2d3e;border-radius:4px;padding:2px 8px;font-size:11px;color:#aab">p</kbd>
+      <span style="font-size:12px;color:#889" data-i18n="sk_scatter">Open scatter plot</span>
+      <kbd style="background:#1a1d2e;border:1px solid #2a2d3e;border-radius:4px;padding:2px 8px;font-size:11px;color:#aab">f</kbd>
+      <span style="font-size:12px;color:#889" data-i18n="sk_filter">Toggle filter panel</span>
+      <kbd style="background:#1a1d2e;border:1px solid #2a2d3e;border-radius:4px;padding:2px 8px;font-size:11px;color:#aab">← →</kbd>
+      <span style="font-size:12px;color:#889" data-i18n="sk_arrows">Step timeline year</span>
+      <kbd style="background:#1a1d2e;border:1px solid #2a2d3e;border-radius:4px;padding:2px 8px;font-size:11px;color:#aab">Esc</kbd>
+      <span style="font-size:12px;color:#889" data-i18n="sk_esc">Close panel / stop play</span>
+      <kbd style="background:#1a1d2e;border:1px solid #2a2d3e;border-radius:4px;padding:2px 8px;font-size:11px;color:#aab">? or h</kbd>
+      <span style="font-size:12px;color:#889" data-i18n="sk_help">Show this help</span>
     </div>
   </div>
 </div>
