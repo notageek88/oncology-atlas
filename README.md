@@ -114,7 +114,7 @@ This project is actively developed. Contributions welcome for any of the items b
 - [x] **Treatment availability matrix** — surgery/chemo/radiation/immunotherapy/proton by country (100+ countries, WHO/IAEA 2023)
 - [ ] **Cost comparison** — average cancer treatment costs (public vs private) per country
 - [x] **"Find a clinic" search** — filter by country, specialty, accreditation, tier (331 clinics)
-- [ ] **Medical tourism guide** — visa requirements + wait times near clinic profiles
+- [x] **Medical tourism guide** — visa requirements, wait times, cost estimates for 23 destination countries
 - [x] **Support resources** — hotlines, NGOs, patient groups per country (30+ countries)
 
 ### v0.9 — Research Tools

@@ -195,6 +195,12 @@
     "link_copied": "Link copied!",
     "compare_export": "📄 Export comparison PDF",
     "share_card_downloaded": "📸 SVG card downloaded",
+    "medical_tourism_title": "Medical Tourism Guide",
+    "medical_tourism_contact": "Contact clinic directly for international patient services and visa support.",
+    "tourism_visa": "Visa",
+    "tourism_wait": "Wait time",
+    "tourism_cost": "Cost estimate",
+    "tourism_clinics": "accredited clinics",
     "data_as_of": "data"
   },
   "ru": {
@@ -393,6 +399,12 @@
     "link_copied": "Ссылка скопирована!",
     "compare_export": "📄 Экспорт сравнения в PDF",
     "share_card_downloaded": "📸 SVG-карточка скачана",
+    "medical_tourism_title": "Медицинский туризм",
+    "medical_tourism_contact": "Свяжитесь с клиникой напрямую по вопросам международного обслуживания и визовой поддержки.",
+    "tourism_visa": "Виза",
+    "tourism_wait": "Время ожидания",
+    "tourism_cost": "Стоимость",
+    "tourism_clinics": "аккредитованных клиник",
     "data_as_of": "данные"
   },
   "zh": {
@@ -591,6 +603,12 @@
     "link_copied": "链接已复制！",
     "compare_export": "📄 导出对比 PDF",
     "share_card_downloaded": "📸 SVG 卡片已下载",
+    "medical_tourism_title": "医疗旅游指南",
+    "medical_tourism_contact": "请直接联系诊所了解国际患者服务和签证支持。",
+    "tourism_visa": "签证",
+    "tourism_wait": "等待时间",
+    "tourism_cost": "费用估算",
+    "tourism_clinics": "获认证诊所",
     "data_as_of": "数据"
   },
   "es": {
@@ -789,6 +807,12 @@
     "link_copied": "¡Enlace copiado!",
     "compare_export": "📄 Exportar comparación PDF",
     "share_card_downloaded": "📸 Tarjeta SVG descargada",
+    "medical_tourism_title": "Guía de Turismo Médico",
+    "medical_tourism_contact": "Contacte directamente la clínica para servicios a pacientes internacionales y soporte de visa.",
+    "tourism_visa": "Visa",
+    "tourism_wait": "Tiempo de espera",
+    "tourism_cost": "Estimación de costos",
+    "tourism_clinics": "clínicas acreditadas",
     "data_as_of": "datos"
   },
   "ar": {
@@ -987,6 +1011,12 @@
     "link_copied": "تم نسخ الرابط!",
     "compare_export": "📄 تصدير مقارنة PDF",
     "share_card_downloaded": "📸 تم تنزيل بطاقة SVG",
+    "medical_tourism_title": "دليل السياحة الطبية",
+    "medical_tourism_contact": "اتصل بالعيادة مباشرةً للحصول على خدمات المرضى الدوليين ودعم التأشيرة.",
+    "tourism_visa": "التأشيرة",
+    "tourism_wait": "وقت الانتظار",
+    "tourism_cost": "تقدير التكلفة",
+    "tourism_clinics": "عيادات معتمدة",
     "data_as_of": "بيانات"
   },
   "hi": {
@@ -1185,6 +1215,12 @@
     "link_copied": "लिंक कॉपी हो गया!",
     "compare_export": "📄 तुलना PDF निर्यात करें",
     "share_card_downloaded": "📸 SVG कार्ड डाउनलोड हुई",
+    "medical_tourism_title": "चिकित्सा पर्यटन मार्गदर्शिका",
+    "medical_tourism_contact": "अंतर्राष्ट्रीय रोगी सेवाओं और वीज़ा सहायता के लिए सीधे क्लिनिक से संपर्क करें।",
+    "tourism_visa": "वीज़ा",
+    "tourism_wait": "प्रतीक्षा समय",
+    "tourism_cost": "लागत अनुमान",
+    "tourism_clinics": "मान्यता प्राप्त क्लीनिक",
     "data_as_of": "डेटा"
   },
   "pt": {
@@ -1383,6 +1419,12 @@
     "link_copied": "Link copiado!",
     "compare_export": "📄 Exportar comparação PDF",
     "share_card_downloaded": "📸 Cartão SVG baixado",
+    "medical_tourism_title": "Guia de Turismo Médico",
+    "medical_tourism_contact": "Entre em contato diretamente com a clínica para serviços a pacientes internacionais e suporte de visto.",
+    "tourism_visa": "Visto",
+    "tourism_wait": "Tempo de espera",
+    "tourism_cost": "Estimativa de custo",
+    "tourism_clinics": "clínicas credenciadas",
     "data_as_of": "dados"
   },
   "fr": {
@@ -1581,6 +1623,12 @@
     "link_copied": "Lien copié !",
     "compare_export": "📄 Exporter la comparaison PDF",
     "share_card_downloaded": "📸 Carte SVG téléchargée",
+    "medical_tourism_title": "Guide du Tourisme Médical",
+    "medical_tourism_contact": "Contactez directement la clinique pour les services aux patients internationaux et le support visa.",
+    "tourism_visa": "Visa",
+    "tourism_wait": "Délai d'attente",
+    "tourism_cost": "Estimation des coûts",
+    "tourism_clinics": "cliniques accréditées",
     "data_as_of": "données"
   },
   "de": {
@@ -1779,6 +1827,12 @@
     "link_copied": "Link kopiert!",
     "compare_export": "📄 Vergleich als PDF exportieren",
     "share_card_downloaded": "📸 SVG-Karte heruntergeladen",
+    "medical_tourism_title": "Medizintourismus-Leitfaden",
+    "medical_tourism_contact": "Kontaktieren Sie die Klinik direkt für internationale Patientendienste und Visaunterstützung.",
+    "tourism_visa": "Visum",
+    "tourism_wait": "Wartezeit",
+    "tourism_cost": "Kostenschätzung",
+    "tourism_clinics": "akkreditierte Kliniken",
     "data_as_of": "Daten"
   },
   "ja": {
@@ -1977,6 +2031,12 @@
     "link_copied": "リンクをコピーしました！",
     "compare_export": "📄 比較PDFをエクスポート",
     "share_card_downloaded": "📸 SVGカードをダウンロード",
+    "medical_tourism_title": "医療ツーリズムガイド",
+    "medical_tourism_contact": "国際患者サービスおよびビザサポートについては、クリニックに直接お問い合わせください。",
+    "tourism_visa": "ビザ",
+    "tourism_wait": "待機時間",
+    "tourism_cost": "費用概算",
+    "tourism_clinics": "認定クリニック数",
     "data_as_of": "データ"
   },
   "id": {
@@ -2175,6 +2235,12 @@
     "link_copied": "Tautan disalin!",
     "compare_export": "📄 Ekspor perbandingan PDF",
     "share_card_downloaded": "📸 Kartu SVG diunduh",
+    "medical_tourism_title": "Panduan Wisata Medis",
+    "medical_tourism_contact": "Hubungi klinik langsung untuk layanan pasien internasional dan dukungan visa.",
+    "tourism_visa": "Visa",
+    "tourism_wait": "Waktu tunggu",
+    "tourism_cost": "Estimasi biaya",
+    "tourism_clinics": "klinik terakreditasi",
     "data_as_of": "data"
   }
 }

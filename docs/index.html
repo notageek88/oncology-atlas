@@ -1717,6 +1717,40 @@ function hideClinicTooltip() {
     if (clinicTooltipEl) clinicTooltipEl.style.display = "none";
 }
 
+function buildMedicalTourismSection(clinic) {
+    if (!clinic.medical_tourism) return "";
+    const iso3 = clinic.iso3 || "";
+    const info = MEDICAL_TOURISM_INFO[iso3];
+    if (!info) return `
+        <div class="panel-section" style="margin-top:8px">
+            <h3>✈ ${t("medical_tourism_title","Medical Tourism Guide")}</h3>
+            <div style="font-size:11px;color:#667;margin-top:6px">${t("medical_tourism_contact","Contact clinic directly for international patient services and visa support.")}</div>
+        </div>`;
+    return `
+        <div class="panel-section" style="margin-top:8px">
+            <h3>✈ ${t("medical_tourism_title","Medical Tourism Guide")}</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
+                <div style="background:#0a0e1a;border:1px solid #1a2540;border-radius:8px;padding:10px">
+                    <div style="font-size:9px;color:#334;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">${t("tourism_visa","Visa")}</div>
+                    <div style="font-size:11px;color:#aab;line-height:1.4">${info.visa}</div>
+                </div>
+                <div style="background:#0a0e1a;border:1px solid #1a2540;border-radius:8px;padding:10px">
+                    <div style="font-size:9px;color:#334;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">${t("tourism_wait","Wait time")}</div>
+                    <div style="font-size:11px;color:#4fc88a;font-weight:600">${info.wait}</div>
+                </div>
+                <div style="background:#0a0e1a;border:1px solid #1a2540;border-radius:8px;padding:10px">
+                    <div style="font-size:9px;color:#334;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">${t("tourism_cost","Cost estimate")}</div>
+                    <div style="font-size:11px;color:#f7c04f;font-weight:600">${info.cost}</div>
+                </div>
+                <div style="background:#0a0e1a;border:1px solid #1a2540;border-radius:8px;padding:10px">
+                    <div style="font-size:9px;color:#334;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">JCI ${t("tourism_clinics","accredited clinics")}</div>
+                    <div style="font-size:13px;color:#4f8ef7;font-weight:700">${info.jci}</div>
+                </div>
+            </div>
+            <div style="font-size:11px;color:#778;margin-top:10px;line-height:1.5;padding:8px;background:#0a0e1a;border-radius:6px">${info.note}</div>
+        </div>`;
+}
+
 function showClinicPanel(clinic) {
     const col = clinicColor(clinic);
     const treatStr = (clinic.treatments||[]).map(t => `<span style="background:${col}15;color:${col};border:1px solid ${col}30;border-radius:99px;padding:1px 8px;font-size:10px;margin:2px;display:inline-block">${t}</span>`).join("");
@@ -1753,6 +1787,7 @@ function showClinicPanel(clinic) {
                 </div>
             </div>
             ${clinic.url ? `<div style="margin-top:14px"><a href="${clinic.url}" target="_blank" style="color:#4f8ef7;font-size:11px;text-decoration:none">🔗 ${clinic.url.replace("https://","")}</a></div>` : ""}
+            ${buildMedicalTourismSection(clinic)}
         </div>`;
 
     document.getElementById("side-panel").classList.add("open");
@@ -1760,6 +1795,34 @@ function showClinicPanel(clinic) {
     document.getElementById("stats").classList.add("panel-open");
 }
 
+
+// ── Medical Tourism Info ──────────────────────────────────────────────────
+// Source: WHO, IATA, NationMaster, JCI databases (2023)
+const MEDICAL_TOURISM_INFO = {
+    "THA": { visa: "visa-free (60+ countries)", wait: "1–2 weeks", cost: "0.25–0.40× US costs", note: "Top global oncology destination; Bangkok hospitals internationally accredited", jci: 66 },
+    "DEU": { visa: "Schengen visa (non-EU)", wait: "2–4 weeks", cost: "0.60–0.80× US costs", note: "Advanced proton therapy and immunotherapy; DRG reimbursement system", jci: 14 },
+    "ISR": { visa: "visa-free (most countries)", wait: "1–3 weeks", cost: "0.50–0.70× US costs", note: "CAR-T therapy, proton center at Sheba; high research output", jci: 8 },
+    "IND": { visa: "e-visa available", wait: "1–2 weeks", cost: "0.10–0.25× US costs", note: "Low-cost high-volume oncology; Tata Memorial, Apollo, Fortis flagship centers", jci: 32 },
+    "TUR": { visa: "e-visa available", wait: "1–2 weeks", cost: "0.20–0.40× US costs", note: "EU-grade technology at lower cost; strong in stem cell transplant", jci: 34 },
+    "SGP": { visa: "visa-free (most countries)", wait: "1–3 weeks", cost: "0.50–0.70× US costs", note: "Asia's oncology hub; National Cancer Centre ranked globally", jci: 24 },
+    "KOR": { visa: "visa-free (many countries)", wait: "1–2 weeks", cost: "0.30–0.55× US costs", note: "K-medical brand; Samsung Medical Center, Severance specialized oncology", jci: 5 },
+    "MEX": { visa: "visa-free (most countries)", wait: "1–2 weeks", cost: "0.25–0.45× US costs", note: "Popular for US/Canada patients; Tijuana corridor, Mexico City flagship hospitals", jci: 12 },
+    "ESP": { visa: "Schengen visa (non-EU)", wait: "2–4 weeks", cost: "0.55–0.75× US costs", note: "Advanced radiation oncology; Proton therapy center in Madrid", jci: 6 },
+    "CHE": { visa: "Schengen visa (non-EU)", wait: "2–4 weeks", cost: "0.90–1.10× US costs", note: "Elite oncology; Inselspital, USZ — cutting-edge trials and expertise", jci: 4 },
+    "JPN": { visa: "requires visa (most countries)", wait: "3–6 weeks", cost: "0.40–0.65× US costs", note: "Proton & heavy-ion therapy leader; specialized gastric/liver oncology", jci: 27 },
+    "POL": { visa: "Schengen visa (non-EU)", wait: "1–3 weeks", cost: "0.30–0.50× US costs", note: "EU-standard care at lower EU prices; growing medical tourism sector", jci: 3 },
+    "HUN": { visa: "Schengen visa (non-EU)", wait: "1–3 weeks", cost: "0.30–0.55× US costs", note: "Strong dental/surgical oncology; Budapest hub for EU patients", jci: 2 },
+    "CZE": { visa: "Schengen visa (non-EU)", wait: "1–3 weeks", cost: "0.35–0.55× US costs", note: "Proton therapy at Proton Therapy Center Prague", jci: 1 },
+    "MYS": { visa: "visa-free (many countries)", wait: "1–2 weeks", cost: "0.20–0.40× US costs", note: "Affordable private oncology; Gleneagles, Prince Court medical centers", jci: 16 },
+    "ZAF": { visa: "visa-free (many countries)", wait: "1–2 weeks", cost: "0.25–0.45× US costs", note: "Gateway for African patients; Netcare, Life Healthcare accredited groups", jci: 4 },
+    "IRN": { visa: "visa-on-arrival available", wait: "1–2 weeks", cost: "0.10–0.20× US costs", note: "Major destination for CIS/MENA region; Tehran academic medical centers", jci: 0 },
+    "JOR": { visa: "visa-on-arrival available", wait: "1–2 weeks", cost: "0.20–0.35× US costs", note: "MENA oncology hub; King Hussein Cancer Center (JCI accredited)", jci: 3 },
+    "UAE": { visa: "visa-on-arrival (most countries)", wait: "1–2 weeks", cost: "0.60–0.85× US costs", note: "Dubai/Abu Dhabi medical free zones; Cleveland Clinic Abu Dhabi", jci: 10 },
+    "SAU": { visa: "e-visa available", wait: "2–4 weeks", cost: "0.50–0.75× US costs", note: "King Faisal Specialist Hospital; major investment in oncology infrastructure", jci: 3 },
+    "CHN": { visa: "requires visa (most countries)", wait: "2–4 weeks", cost: "0.25–0.45× US costs", note: "Heavy-ion therapy at SPHIC; traditional+modern integrative oncology", jci: 6 },
+    "BLR": { visa: "visa-free (CIS region)", wait: "1–2 weeks", cost: "0.15–0.30× US costs", note: "Affordable for CIS patients; N.N. Alexandrov Center specialized oncology", jci: 0 },
+    "GEO": { visa: "visa-free (most countries)", wait: "1–2 weeks", cost: "0.15–0.30× US costs", note: "Emerging destination for CIS/EU patients; Tbilisi private clinics growing", jci: 0 },
+};
 
 // 5-year survival rates (%) by country, EUROCARE-5 + CONCORD-3 (public summary)
 const SURVIVAL_5YR = {
