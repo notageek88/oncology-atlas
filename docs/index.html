@@ -867,10 +867,16 @@ const METRIC_GROUPS = {
         options: {
             incidence_all: "All cancers combined",
             incidence_breast: "Breast cancer",
-            incidence_colon: "Colorectal cancer"
+            incidence_colon: "Colorectal cancer",
+            incidence_age_u20: "Pediatric cancers (age 0–19)",
+            incidence_age_65plus: "Elderly cancers (age 65+)"
         },
         type: "numeric",
         domain: [80, 150, 230, 320, 430],
+        metricDomains: {
+            incidence_age_u20: [6, 9, 12, 15, 18],
+            incidence_age_65plus: [300, 500, 700, 900, 1100]
+        },
         colors: ["#0d1a1a","#0d3a3a","#1a7a6e","#2dc4b4","#7afff0"],
         nodata: "#0f1220"
     },
@@ -1146,7 +1152,8 @@ function getColor(d, metric) {
     if (grp.type === "boolean") return BOOL_COLORS[val] || "#2a2d40";
     const n = parseFloat(val);
     if (isNaN(n)) return grp.nodata;
-    return d3.scaleThreshold().domain(grp.domain).range([grp.nodata, ...grp.colors])(n);
+    const domain = (grp.metricDomains && grp.metricDomains[metric]) || grp.domain;
+    return d3.scaleThreshold().domain(domain).range([grp.nodata, ...grp.colors])(n);
 }
 
 // ── Legend ─────────────────────────────────────────────────────────────────
@@ -1158,7 +1165,8 @@ function buildLegend(metric) {
         body.innerHTML = [[t("yes","Yes"),"#2db565"],[t("no","No"),"#e05c5c"],[t("legend_nodata","No data"),"#2a2d40"]]
             .map(([l,c]) => `<div class="bool-row"><div class="bool-dot" style="background:${c}"></div>${l}</div>`).join("");
     } else {
-        const d = grp.domain, lo=d[0], mid=d[Math.floor(d.length/2)], hi=d[d.length-1];
+        const domainToUse = (grp.metricDomains && grp.metricDomains[metric]) || grp.domain;
+        const d = domainToUse, lo=d[0], mid=d[Math.floor(d.length/2)], hi=d[d.length-1];
         body.innerHTML = `
             <div id="leg-gradient" style="background:linear-gradient(to right,${[grp.nodata,...grp.colors].join(",")})"></div>
             <div id="leg-labels"><span>${lo}</span><span>${mid}</span><span>${hi}+</span></div>
@@ -1264,7 +1272,7 @@ function openProfile(data, name) {
                 </div>
                 <div id="trend-charts"><div class="no-data-msg">${t("loading_text","Loading...")}</div></div>
             </div>
-            ${(data.incidence_all || data.incidence_breast) ? `
+            ${(data.incidence_all || data.incidence_breast || data.incidence_age_u20) ? `
             <div class="panel-section">
                 <div class="section-header">
                     <h3>${t("incidence_section","Cancer incidence (new cases)")}</h3>
@@ -1275,6 +1283,14 @@ function openProfile(data, name) {
                     [t("breast","Breast"), data.incidence_breast, 115, "#4fb8f7"],
                     [t("colon","Colorectal"), data.incidence_colon, 75, "#3aade0"],
                 ].filter(([,v]) => v != null))}
+                ${(data.incidence_age_u20 || data.incidence_age_65plus) ? `
+                <div style="margin-top:8px;padding-top:6px;border-top:1px solid #1a1d2e">
+                    <div style="font-size:9px;color:#4f8ef7;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">${t("age_groups","Age groups")}</div>
+                    ${barsHtml([
+                        [t("age_u20","Pediatric (0–19)"), data.incidence_age_u20, 25, "#f7c04f"],
+                        [t("age_65plus","Elderly (65+)"), data.incidence_age_65plus, 1400, "#c06af7"],
+                    ].filter(([,v]) => v != null))}
+                </div>` : ""}
                 <div style="font-size:9px;color:#334;margin-top:6px">Source: GLOBOCAN 2022 (IARC/WHO)</div>
             </div>` : ""}
             <div class="panel-section">
@@ -3017,6 +3033,8 @@ const SCATTER_METRICS = [
     ["alcohol_cancer",   "Alcohol-attributable cancer deaths"],
     ["tobacco_cancer",   "Tobacco-attributable cancer deaths"],
     ["treatment_cost_usd", "Est. treatment cost (USD/year)"],
+    ["incidence_age_u20",  "Pediatric cancer incidence (0–19, /100k)"],
+    ["incidence_age_65plus","Elderly cancer incidence (65+, /100k)"],
 ];
 
 function openScatter() {
@@ -4613,7 +4631,7 @@ async function init() {
         document.body.appendChild(badge);
     }
     // Merge extraMetrics (cervical_screening, alcohol_cancer) into allData records
-    const extraKeys = ["cervical_screening", "alcohol_cancer", "tobacco_cancer", "death_prostate", "incidence_all", "incidence_breast", "incidence_colon", "treatment_cost_usd"];
+    const extraKeys = ["cervical_screening", "alcohol_cancer", "tobacco_cancer", "death_prostate", "incidence_all", "incidence_breast", "incidence_colon", "treatment_cost_usd", "incidence_age_u20", "incidence_age_65plus"];
     cancer.forEach(c => {
         extraKeys.forEach(key => {
             const map = extraMetrics[key];

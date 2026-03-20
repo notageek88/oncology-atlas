@@ -226,7 +226,10 @@
     "sk_arrows": "Step timeline year",
     "sk_esc": "Close panel / stop play",
     "sk_help": "Show this help",
-    "btn_tooltip_shortcuts": "Keyboard shortcuts"
+    "btn_tooltip_shortcuts": "Keyboard shortcuts",
+    "age_groups": "Age groups",
+    "age_u20": "Pediatric (0–19)",
+    "age_65plus": "Elderly (65+)"
   },
   "ru": {
     "title": "OncologyAtlas",
@@ -455,7 +458,10 @@
     "sk_arrows": "Шаг по годам",
     "sk_esc": "Закрыть панель / остановить",
     "sk_help": "Показать эту справку",
-    "btn_tooltip_shortcuts": "Горячие клавиши"
+    "btn_tooltip_shortcuts": "Горячие клавиши",
+    "age_groups": "Возрастные группы",
+    "age_u20": "Педиатрия (0–19)",
+    "age_65plus": "Пожилые (65+)"
   },
   "zh": {
     "title": "OncologyAtlas",
@@ -684,7 +690,10 @@
     "sk_arrows": "时间轴年份步进",
     "sk_esc": "关闭面板/停止播放",
     "sk_help": "显示帮助",
-    "btn_tooltip_shortcuts": "键盘快捷键"
+    "btn_tooltip_shortcuts": "键盘快捷键",
+    "age_groups": "年龄组",
+    "age_u20": "儿科 (0–19)",
+    "age_65plus": "老年 (65+)"
   },
   "es": {
     "title": "OncologyAtlas",
@@ -913,7 +922,10 @@
     "sk_arrows": "Avanzar año en línea de tiempo",
     "sk_esc": "Cerrar panel / detener",
     "sk_help": "Mostrar ayuda",
-    "btn_tooltip_shortcuts": "Atajos de teclado"
+    "btn_tooltip_shortcuts": "Atajos de teclado",
+    "age_groups": "Grupos de edad",
+    "age_u20": "Pediátrico (0–19)",
+    "age_65plus": "Adultos mayores (65+)"
   },
   "ar": {
     "title": "OncologyAtlas",
@@ -1142,7 +1154,10 @@
     "sk_arrows": "التقدم بالسنة",
     "sk_esc": "إغلاق اللوحة",
     "sk_help": "عرض التعليمات",
-    "btn_tooltip_shortcuts": "اختصارات لوحة المفاتيح"
+    "btn_tooltip_shortcuts": "اختصارات لوحة المفاتيح",
+    "age_groups": "الفئات العمرية",
+    "age_u20": "الأطفال (0–19)",
+    "age_65plus": "كبار السن (65+)"
   },
   "hi": {
     "title": "OncologyAtlas",
@@ -1371,7 +1386,10 @@
     "sk_arrows": "वर्ष आगे बढ़ाएं",
     "sk_esc": "पैनल बंद करें",
     "sk_help": "सहायता",
-    "btn_tooltip_shortcuts": "कीबोर्ड शॉर्टकट"
+    "btn_tooltip_shortcuts": "कीबोर्ड शॉर्टकट",
+    "age_groups": "आयु समूह",
+    "age_u20": "बाल चिकित्सा (0–19)",
+    "age_65plus": "वृद्ध (65+)"
   },
   "pt": {
     "title": "OncologyAtlas",
@@ -1600,7 +1618,10 @@
     "sk_arrows": "Avançar ano",
     "sk_esc": "Fechar painel",
     "sk_help": "Mostrar ajuda",
-    "btn_tooltip_shortcuts": "Atalhos de teclado"
+    "btn_tooltip_shortcuts": "Atalhos de teclado",
+    "age_groups": "Grupos etários",
+    "age_u20": "Pediátrico (0–19)",
+    "age_65plus": "Idosos (65+)"
   },
   "fr": {
     "title": "OncologyAtlas",
@@ -1829,7 +1850,10 @@
     "sk_arrows": "Avancer l'année",
     "sk_esc": "Fermer / arrêter",
     "sk_help": "Aide",
-    "btn_tooltip_shortcuts": "Raccourcis clavier"
+    "btn_tooltip_shortcuts": "Raccourcis clavier",
+    "age_groups": "Groupes d'âge",
+    "age_u20": "Pédiatrique (0–19)",
+    "age_65plus": "Personnes âgées (65+)"
   },
   "de": {
     "title": "OncologyAtlas",
@@ -2058,7 +2082,10 @@
     "sk_arrows": "Jahr weiterschalten",
     "sk_esc": "Panel schließen / stoppen",
     "sk_help": "Hilfe anzeigen",
-    "btn_tooltip_shortcuts": "Tastaturkürzel"
+    "btn_tooltip_shortcuts": "Tastaturkürzel",
+    "age_groups": "Altersgruppen",
+    "age_u20": "Pädiatrisch (0–19)",
+    "age_65plus": "Ältere (65+)"
   },
   "ja": {
     "title": "OncologyAtlas",
@@ -2287,7 +2314,10 @@
     "sk_arrows": "年を進める",
     "sk_esc": "パネルを閉じる",
     "sk_help": "ヘルプを表示",
-    "btn_tooltip_shortcuts": "キーボードショートカット"
+    "btn_tooltip_shortcuts": "キーボードショートカット",
+    "age_groups": "年齢層",
+    "age_u20": "小児 (0–19)",
+    "age_65plus": "高齢者 (65+)"
   },
   "id": {
     "title": "OncologyAtlas",
@@ -2516,6 +2546,9 @@
     "sk_arrows": "Maju tahun",
     "sk_esc": "Tutup panel",
     "sk_help": "Tampilkan bantuan",
-    "btn_tooltip_shortcuts": "Pintasan Keyboard"
+    "btn_tooltip_shortcuts": "Pintasan Keyboard",
+    "age_groups": "Kelompok usia",
+    "age_u20": "Anak-anak (0–19)",
+    "age_65plus": "Lansia (65+)"
   }
 }
