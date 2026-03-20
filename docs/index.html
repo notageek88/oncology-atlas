@@ -582,6 +582,7 @@
         <option value="risk" data-i18n="cat_risk">Risk Factors</option>
         <option value="readiness" data-i18n="cat_readiness">Cancer System Readiness</option>
         <option value="incidence" data-i18n="cat_incidence">Cancer Incidence (new cases)</option>
+        <option value="costs" data-i18n="cat_costs">Treatment Costs</option>
     </select>
     <div class="sep"></div>
     <span class="ctrl-label" data-i18n="type_label">Type</span>
@@ -870,6 +871,16 @@ const METRIC_GROUPS = {
         type: "numeric",
         domain: [80, 150, 230, 320, 430],
         colors: ["#0d1a1a","#0d3a3a","#1a7a6e","#2dc4b4","#7afff0"],
+        nodata: "#0f1220"
+    },
+    costs: {
+        label: "Treatment Cost (USD/patient/year)",
+        options: {
+            treatment_cost_usd: "Avg. cancer treatment cost (USD/year)"
+        },
+        type: "numeric",
+        domain: [1000, 5000, 15000, 40000, 80000],
+        colors: ["#0d150a","#1a3d10","#2e8020","#5ec840","#b8f07a"],
         nodata: "#0f1220"
     }
 };
@@ -1162,7 +1173,7 @@ function showTip(event, d, data) {
     const n = getCountryName(iso3, data?.name || d.properties?.name || "");
     const val = data ? data[currentMetric] : null;
     const cat = getCat(currentMetric);
-    const rawVal = val != null ? (cat === "readiness" ? Math.round(val) : (typeof val === "number" ? val.toFixed(1) : val)) : null;
+    const rawVal = val != null ? (cat === "readiness" ? Math.round(val) : cat === "costs" ? (val>=1000?`$${Math.round(val/1000)}k`:`$${val}`) : (typeof val === "number" ? val.toFixed(1) : val)) : null;
     const fv = rawVal != null ? String(rawVal) : null;
     const metricLabel = METRIC_GROUPS[cat].options[currentMetric] || t("all_cancers","All cancers");
     const unitLine = cat === "death"
@@ -1170,7 +1181,7 @@ function showTip(event, d, data) {
         : cat === "daly"
         ? `<div style="font-size:9px;color:#445;margin-top:2px">${t("tip_unit_daly","DALYs lost per 100,000")}</div>`
         : "";
-    const tipUnit = cat === "death" ? "/ 100k" : cat === "daly" ? "DALYs" : cat === "readiness" ? "/ 100" : cat === "incidence" ? "/ 100k" : "";
+    const tipUnit = cat === "death" ? "/ 100k" : cat === "daly" ? "DALYs" : cat === "readiness" ? "/ 100" : cat === "incidence" ? "/ 100k" : cat === "costs" ? "USD/yr" : "";
     const yearField = currentMetric + "_year";
     const dataYear = data && data[yearField] ? `<div style="font-size:9px;color:#334;margin-top:3px">Data: ${data[yearField]}</div>` : "";
     tip.innerHTML = `<div class="tip-country">${n}</div>
@@ -1285,6 +1296,7 @@ function openProfile(data, name) {
             ${buildSurvival(data.country)}
             ${buildTreatment(data.country)}
             ${buildPrevention(data.country)}
+            ${buildTreatmentCost(data.country)}
             ${buildSupportResources(data.country)}
             ${buildPolicyEvents(data.country)}
             ${buildTrialsSection(data.country)}
@@ -1396,6 +1408,7 @@ function downloadCompareReport() {
         ["Breast incidence",      "incidence_breast",  "new/100k/yr"],
         ["Research index",        "research_index",    ""],
         ["Tobacco deaths/100k",   "tobacco_cancer",    ""],
+        ["Treatment cost (USD/yr)","treatment_cost_usd","USD"],
         ["Readiness score",       "_score",            "/100"],
     ];
 
@@ -1498,7 +1511,7 @@ function updateWorldStatsBar(metric) {
     const bar = document.getElementById("world-stats-bar");
     if (!s || !bar) { if(bar) bar.style.display="none"; return; }
     const cat = getCat(metric);
-    if (cat === "infra" || cat === "trials" || cat === "survival" || cat === "risk") { bar.style.display="none"; return; }
+    if (cat === "infra" || cat === "trials" || cat === "survival" || cat === "risk" || cat === "costs") { bar.style.display="none"; return; }
     bar.style.display = "flex";
 
     // Unit and hint per metric category
@@ -2578,6 +2591,59 @@ function buildPrevention(iso3) {
     </div>`;
 }
 
+// ── Treatment Cost ─────────────────────────────────────────────────────────
+function buildTreatmentCost(iso3) {
+    if (!extraMetrics?.treatment_cost_usd) return "";
+    const cost = extraMetrics.treatment_cost_usd[iso3];
+    if (!cost) return "";
+
+    // Format USD
+    const fmt = v => v >= 1000 ? `$${(v/1000).toFixed(0)}k` : `$${v}`;
+    // Income group label
+    const incomeGroup = ISO3_INCOME[iso3];
+    const INCOME_NAMES_L = { HIC:"High-income countries", UMIC:"Upper-middle-income", LMIC:"Lower-middle-income", LIC:"Low-income countries" };
+    // Compare vs USA (baseline) and vs income group average
+    const allCosts = Object.values(extraMetrics.treatment_cost_usd);
+    const groupCosts = incomeGroup ? Object.entries(extraMetrics.treatment_cost_usd)
+        .filter(([iso]) => ISO3_INCOME[iso] === incomeGroup).map(([,v])=>v) : [];
+    const groupAvg = groupCosts.length ? Math.round(groupCosts.reduce((s,v)=>s+v,0)/groupCosts.length) : null;
+    const usaCost = extraMetrics.treatment_cost_usd["USA"] || 150000;
+    const vsUSA = Math.round(cost / usaCost * 100);
+
+    // Affordability bar (log scale from $500 to $160k)
+    const logMin = Math.log10(500), logMax = Math.log10(160000);
+    const logVal = Math.log10(Math.max(cost, 500));
+    const pct = Math.round((logVal - logMin) / (logMax - logMin) * 100);
+    const barColor = cost >= 50000 ? "#f7c04f" : cost >= 20000 ? "#4f8ef7" : cost >= 5000 ? "#2db565" : "#e05c5c";
+
+    return `<div class="panel-section">
+        <div class="section-header" style="margin-bottom:8px">
+            <h3>${t("treatment_cost_title","Treatment Cost")}</h3>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #1a1d2e">
+            <span style="font-size:11px;color:#889">${t("avg_annual_cost","Est. avg. annual cost / patient")}</span>
+            <span style="font-size:13px;font-weight:700;color:${barColor}">${fmt(cost)}</span>
+        </div>
+        <div style="margin:8px 0">
+            <div style="display:flex;justify-content:space-between;font-size:9px;color:#445;margin-bottom:3px">
+                <span>$500</span><span>$5k</span><span>$50k</span><span>$160k</span>
+            </div>
+            <div style="background:#1a1d2e;border-radius:3px;height:6px;overflow:hidden">
+                <div style="background:${barColor};width:${pct}%;height:100%;border-radius:3px;transition:width 0.4s"></div>
+            </div>
+        </div>
+        ${groupAvg ? `<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #1a1d2e">
+            <span style="font-size:11px;color:#889">${t("vs_income_group","vs ")+( INCOME_NAMES_L[incomeGroup]||incomeGroup)+" avg"}</span>
+            <span style="font-size:11px;font-weight:600;color:${cost<=groupAvg?"#2db565":"#e05c5c"}">${fmt(groupAvg)}</span>
+        </div>` : ""}
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0">
+            <span style="font-size:11px;color:#889">${t("vs_usa","vs USA ($150k)")}</span>
+            <span style="font-size:11px;color:#445">${vsUSA}%</span>
+        </div>
+        <div style="font-size:9px;color:#334;margin-top:6px">${t("cost_source_note","Source: OECD/WHO estimates, academic literature. Approximate.")}</div>
+    </div>`;
+}
+
 // ── Policy Events ─────────────────────────────────────────────────────────
 // Key cancer & health policy milestones, 2000–2024
 // iso3: null = global event shown for all countries
@@ -2949,6 +3015,7 @@ const SCATTER_METRICS = [
     ["cervical_screening","Cervical screening (0=No, 1=Yes)"],
     ["alcohol_cancer",   "Alcohol-attributable cancer deaths"],
     ["tobacco_cancer",   "Tobacco-attributable cancer deaths"],
+    ["treatment_cost_usd", "Est. treatment cost (USD/year)"],
 ];
 
 function openScatter() {
@@ -4496,7 +4563,7 @@ async function init() {
         document.body.appendChild(badge);
     }
     // Merge extraMetrics (cervical_screening, alcohol_cancer) into allData records
-    const extraKeys = ["cervical_screening", "alcohol_cancer", "tobacco_cancer", "death_prostate", "incidence_all", "incidence_breast", "incidence_colon"];
+    const extraKeys = ["cervical_screening", "alcohol_cancer", "tobacco_cancer", "death_prostate", "incidence_all", "incidence_breast", "incidence_colon", "treatment_cost_usd"];
     cancer.forEach(c => {
         extraKeys.forEach(key => {
             const map = extraMetrics[key];

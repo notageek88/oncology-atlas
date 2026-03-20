@@ -210,7 +210,13 @@
     "data_as_of": "data",
     "scatter_color_region": "Color by region",
     "scatter_quadrants": "Quadrant lines",
-    "scatter_export_csv": "↓ CSV"
+    "scatter_export_csv": "↓ CSV",
+    "treatment_cost_title": "Treatment Cost",
+    "avg_annual_cost": "Est. avg. annual cost / patient",
+    "vs_income_group": "vs income group avg",
+    "vs_usa": "vs USA ($150k)",
+    "cost_source_note": "Source: OECD/WHO estimates, academic literature. Approximate.",
+    "cat_costs": "Treatment Costs"
   },
   "ru": {
     "title": "OncologyAtlas",
@@ -423,7 +429,13 @@
     "data_as_of": "данные",
     "scatter_color_region": "Цвет по региону",
     "scatter_quadrants": "Линии квадрантов",
-    "scatter_export_csv": "↓ CSV"
+    "scatter_export_csv": "↓ CSV",
+    "treatment_cost_title": "Стоимость лечения",
+    "avg_annual_cost": "Прибл. ежегодные затраты / пациент",
+    "vs_income_group": "vs среднее по доходной группе",
+    "vs_usa": "vs США ($150k)",
+    "cost_source_note": "Источник: оценки ОЭСР/ВОЗ, академическая литература. Приблизительно.",
+    "cat_costs": "Стоимость лечения"
   },
   "zh": {
     "title": "OncologyAtlas",
@@ -636,7 +648,13 @@
     "data_as_of": "数据",
     "scatter_color_region": "按地区着色",
     "scatter_quadrants": "象限线",
-    "scatter_export_csv": "↓ CSV"
+    "scatter_export_csv": "↓ CSV",
+    "treatment_cost_title": "治疗费用",
+    "avg_annual_cost": "估算年均费用/患者",
+    "vs_income_group": "vs 收入组平均",
+    "vs_usa": "vs 美国($15万)",
+    "cost_source_note": "来源：经合组织/世卫组织估算，学术文献。近似值。",
+    "cat_costs": "治疗费用"
   },
   "es": {
     "title": "OncologyAtlas",
@@ -849,7 +867,13 @@
     "data_as_of": "datos",
     "scatter_color_region": "Color por región",
     "scatter_quadrants": "Líneas de cuadrantes",
-    "scatter_export_csv": "↓ CSV"
+    "scatter_export_csv": "↓ CSV",
+    "treatment_cost_title": "Costo de tratamiento",
+    "avg_annual_cost": "Costo anual estimado / paciente",
+    "vs_income_group": "vs promedio del grupo de ingresos",
+    "vs_usa": "vs EE.UU. ($150k)",
+    "cost_source_note": "Fuente: estimaciones OCDE/OMS, literatura académica. Aproximado.",
+    "cat_costs": "Costos de tratamiento"
   },
   "ar": {
     "title": "OncologyAtlas",
@@ -1062,7 +1086,13 @@
     "data_as_of": "بيانات",
     "scatter_color_region": "تلوين حسب المنطقة",
     "scatter_quadrants": "خطوط الأرباع",
-    "scatter_export_csv": "↓ CSV"
+    "scatter_export_csv": "↓ CSV",
+    "treatment_cost_title": "تكلفة العلاج",
+    "avg_annual_cost": "التكلفة السنوية المقدرة / مريض",
+    "vs_income_group": "مقارنة بمتوسط المجموعة الدخلية",
+    "vs_usa": "مقارنة بالولايات المتحدة ($150k)",
+    "cost_source_note": "المصدر: تقديرات منظمة التعاون الاقتصادي والتنمية/منظمة الصحة العالمية. تقريبي.",
+    "cat_costs": "تكاليف العلاج"
   },
   "hi": {
     "title": "OncologyAtlas",
@@ -1275,7 +1305,13 @@
     "data_as_of": "डेटा",
     "scatter_color_region": "क्षेत्र के अनुसार रंग",
     "scatter_quadrants": "चतुर्थांश रेखाएं",
-    "scatter_export_csv": "↓ CSV"
+    "scatter_export_csv": "↓ CSV",
+    "treatment_cost_title": "उपचार लागत",
+    "avg_annual_cost": "अनुमानित वार्षिक लागत / रोगी",
+    "vs_income_group": "आय समूह औसत से तुलना",
+    "vs_usa": "अमेरिका ($150k) से तुलना",
+    "cost_source_note": "स्रोत: OECD/WHO अनुमान, शैक्षणिक साहित्य। अनुमानित।",
+    "cat_costs": "उपचार लागत"
   },
   "pt": {
     "title": "OncologyAtlas",
@@ -1488,7 +1524,13 @@
     "data_as_of": "dados",
     "scatter_color_region": "Cor por região",
     "scatter_quadrants": "Linhas de quadrantes",
-    "scatter_export_csv": "↓ CSV"
+    "scatter_export_csv": "↓ CSV",
+    "treatment_cost_title": "Custo de tratamento",
+    "avg_annual_cost": "Custo anual estimado / paciente",
+    "vs_income_group": "vs média do grupo de renda",
+    "vs_usa": "vs EUA ($150k)",
+    "cost_source_note": "Fonte: estimativas OCDE/OMS, literatura académica. Aproximado.",
+    "cat_costs": "Custos de tratamento"
   },
   "fr": {
     "title": "OncologyAtlas",
@@ -1701,7 +1743,13 @@
     "data_as_of": "données",
     "scatter_color_region": "Colorier par région",
     "scatter_quadrants": "Lignes de quadrants",
-    "scatter_export_csv": "↓ CSV"
+    "scatter_export_csv": "↓ CSV",
+    "treatment_cost_title": "Coût du traitement",
+    "avg_annual_cost": "Coût annuel estimé / patient",
+    "vs_income_group": "vs moyenne du groupe de revenu",
+    "vs_usa": "vs États-Unis ($150k)",
+    "cost_source_note": "Source : estimations OCDE/OMS, littérature académique. Approximatif.",
+    "cat_costs": "Coûts de traitement"
   },
   "de": {
     "title": "OncologyAtlas",
@@ -1914,7 +1962,13 @@
     "data_as_of": "Daten",
     "scatter_color_region": "Nach Region färben",
     "scatter_quadrants": "Quadrantenlinien",
-    "scatter_export_csv": "↓ CSV"
+    "scatter_export_csv": "↓ CSV",
+    "treatment_cost_title": "Behandlungskosten",
+    "avg_annual_cost": "Gesch. jährl. Kosten / Patient",
+    "vs_income_group": "vs Einkommensgruppen-Durchschnitt",
+    "vs_usa": "vs USA ($150k)",
+    "cost_source_note": "Quelle: OECD/WHO-Schätzungen, Fachliteratur. Näherungswert.",
+    "cat_costs": "Behandlungskosten"
   },
   "ja": {
     "title": "OncologyAtlas",
@@ -2127,7 +2181,13 @@
     "data_as_of": "データ",
     "scatter_color_region": "地域別に色分け",
     "scatter_quadrants": "象限ライン",
-    "scatter_export_csv": "↓ CSV"
+    "scatter_export_csv": "↓ CSV",
+    "treatment_cost_title": "治療費用",
+    "avg_annual_cost": "推定年間費用 / 患者",
+    "vs_income_group": "所得グループ平均との比較",
+    "vs_usa": "米国($150k)との比較",
+    "cost_source_note": "出典：OECD/WHO推定、学術文献。近似値。",
+    "cat_costs": "治療費用"
   },
   "id": {
     "title": "OncologyAtlas",
@@ -2340,6 +2400,12 @@
     "data_as_of": "data",
     "scatter_color_region": "Warna berdasarkan wilayah",
     "scatter_quadrants": "Garis kuadran",
-    "scatter_export_csv": "↓ CSV"
+    "scatter_export_csv": "↓ CSV",
+    "treatment_cost_title": "Biaya Pengobatan",
+    "avg_annual_cost": "Perkiraan biaya tahunan / pasien",
+    "vs_income_group": "vs rata-rata kelompok pendapatan",
+    "vs_usa": "vs AS ($150k)",
+    "cost_source_note": "Sumber: perkiraan OECD/WHO, literatur akademik. Perkiraan.",
+    "cat_costs": "Biaya Pengobatan"
   }
 }
