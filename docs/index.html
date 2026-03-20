@@ -1177,6 +1177,7 @@ function openProfile(data, name) {
                 </div>
                 <div class="pill-grid">${pillsHtml}</div>
             </div>
+            ${buildPreventionScore(data.country, data)}
             ${buildRankings(data.country, data)}
             ${buildSurvival(data.country)}
             ${buildTreatment(data.country)}
@@ -1953,6 +1954,53 @@ function buildTreatment(iso3) {
     </div>`;
 }
 
+// ── Prevention Score ─────────────────────────────────────────────────────────
+// Composite index: 6 infra indicators (equal weight) + research activity bonus
+// Score 0–100 reflects "cancer system readiness" (screening + infrastructure + data)
+function computePreventionScore(data) {
+    if (!data) return null;
+    const keys = ["cancer_surgery","cancer_registry","cancer_plan","breast_screening","cancer_dept","cervical_screening"];
+    let yes = 0, known = 0;
+    keys.forEach(k => {
+        if (data[k] === "Yes") { yes++; known++; }
+        else if (data[k] === "No") { known++; }
+    });
+    if (known === 0) return null;
+    // Bonus: research activity (research_index, max ~1000 → normalize to 0-10 pts)
+    const resBonus = data.research_index ? Math.min(10, data.research_index / 100) : 0;
+    const base = (yes / keys.length) * 90;
+    return Math.min(100, Math.round(base + resBonus));
+}
+
+function buildPreventionScore(iso3, data) {
+    const score = computePreventionScore(data);
+    if (score === null) return "";
+    const color = score >= 75 ? "#2db565" : score >= 50 ? "#f7a04f" : score >= 25 ? "#e07a30" : "#e05c5c";
+    const label = score >= 75 ? t("score_high","High readiness") : score >= 50 ? t("score_med","Moderate readiness") : score >= 25 ? t("score_low","Low readiness") : t("score_minimal","Minimal readiness");
+    const arc = Math.round(score / 100 * 251); // 251 ≈ π*r*2 for r=40
+    return `<div class="panel-section">
+        <div class="section-header" style="margin-bottom:10px">
+            <h3>${t("prevention_score_title","Cancer System Readiness Score")}</h3>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px">
+            <svg width="88" height="88" viewBox="0 0 88 88">
+                <circle cx="44" cy="44" r="36" fill="none" stroke="#1a1d2e" stroke-width="8"/>
+                <circle cx="44" cy="44" r="36" fill="none" stroke="${color}" stroke-width="8"
+                    stroke-dasharray="${arc} 251"
+                    stroke-dashoffset="0"
+                    transform="rotate(-90 44 44)"
+                    stroke-linecap="round"/>
+                <text x="44" y="48" text-anchor="middle" fill="${color}" font-size="18" font-weight="700">${score}</text>
+            </svg>
+            <div>
+                <div style="font-size:18px;font-weight:700;color:${color}">${label}</div>
+                <div style="font-size:10px;color:#445;margin-top:4px;line-height:1.5">${t("score_desc","Composite index: cancer surgery, registry, national plan, screening programs, cervical screening coverage, research activity")}</div>
+                <div style="font-size:9px;color:#334;margin-top:4px">OncologyAtlas composite index</div>
+            </div>
+        </div>
+    </div>`;
+}
+
 // ── Prevention data ─────────────────────────────────────────────────────────
 function buildPrevention(iso3) {
     if (!extraMetrics || !extraMetrics.cervical_screening) return "";
@@ -2118,6 +2166,10 @@ function downloadReport() {
         treatmentHtml = `<div class="section"><h2>Treatment Availability <small style="font-size:10px;color:#888">(WHO / IAEA 2023)</small></h2><table><thead><tr><th>Modality</th><th style="text-align:right">Status</th></tr></thead><tbody>${txRows}</tbody></table></div>`;
     }
 
+    // Prevention score
+    const prevScore = computePreventionScore(data);
+    const prevScoreHtml = prevScore !== null ? `<div class="rank-badge" style="background:#e8f5ec;color:#1a5a2a;border-color:#9fd4b8">Cancer System Readiness Score: <strong>${prevScore}/100</strong></div>` : "";
+
     // Rankings snippet — global death rank
     let rankHtml = "";
     if (data && data.death_cancer_all && allData) {
@@ -2181,7 +2233,10 @@ function downloadReport() {
         </div>
     </div>
 
-    ${rankHtml}
+    <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+        ${prevScoreHtml}
+        ${rankHtml}
+    </div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
         <div class="section">
