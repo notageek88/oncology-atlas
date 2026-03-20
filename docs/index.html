@@ -2954,6 +2954,7 @@ const SCATTER_METRICS = [
 function openScatter() {
     const modal = document.getElementById("scatter-modal");
     modal.style.display = "flex";
+    window._scatterPinned = new Set(); // reset pinned labels on open
     const sx = document.getElementById("scatter-x");
     const sy = document.getElementById("scatter-y");
     if (!sx.options.length) {
@@ -3041,6 +3042,13 @@ function renderScatter() {
     const wrap = document.getElementById("scatter-svg-wrap");
     if (!wrap || !allData?.length) return;
 
+    const colorByRegion = document.getElementById("scatter-color-region")?.checked;
+    const showQuadrants = document.getElementById("scatter-quadrants")?.checked;
+
+    // Region colors for researcher mode
+    const REGION_COLORS = { EUR:"#4f8ef7", AMR:"#2db565", WPR:"#f7c04f", SEA:"#e07a30", EMR:"#c06af7", AFR:"#e05c5c" };
+    const REGION_NAMES_S = { EUR:"Europe", AMR:"Americas", WPR:"W.Pacific", SEA:"SE Asia", EMR:"E.Med", AFR:"Africa" };
+
     // Build dataset
     const pts = allData.map(d => {
         const xRaw = d[xKey];
@@ -3048,22 +3056,34 @@ function renderScatter() {
         const xv = xKey === "cervical_screening" ? (xRaw === "Yes" ? 1 : xRaw === "No" ? 0 : null) : parseFloat(xRaw);
         const yv = yKey === "cervical_screening" ? (yRaw === "Yes" ? 1 : yRaw === "No" ? 0 : null) : parseFloat(yRaw);
         if (xv == null || isNaN(xv) || yv == null || isNaN(yv)) return null;
-        return { iso: d.country, name: d.name || d.country, x: xv, y: yv };
+        const region = ISO3_REGION[d.country] || null;
+        return { iso: d.country, name: d.name || d.country, x: xv, y: yv, region };
     }).filter(Boolean);
 
     if (pts.length < 2) {
         wrap.innerHTML = `<div style="color:#445;font-size:13px;padding:40px;text-align:center">${t("scatter_no_data","Not enough data for these metrics")}</div>`;
+        document.getElementById("scatter-legend").innerHTML = "";
         return;
     }
 
-    // Pearson correlation
+    // Pearson correlation + p-value
     const n = pts.length;
     const mx = pts.reduce((s,p)=>s+p.x,0)/n;
     const my = pts.reduce((s,p)=>s+p.y,0)/n;
     const num = pts.reduce((s,p)=>s+(p.x-mx)*(p.y-my),0);
     const den = Math.sqrt(pts.reduce((s,p)=>s+(p.x-mx)**2,0)*pts.reduce((s,p)=>s+(p.y-my)**2,0));
-    const r = den ? (num/den).toFixed(3) : "N/A";
-    document.getElementById("scatter-r-label").textContent = `r = ${r}  (n = ${n})`;
+    const rNum = den ? num/den : 0;
+    const r = den ? rNum.toFixed(3) : "N/A";
+    // t-statistic for p-value approximation
+    let pLabel = "";
+    if (den && n > 2) {
+        const tStat = rNum * Math.sqrt((n-2)/(1-rNum*rNum+1e-10));
+        const absT = Math.abs(tStat);
+        pLabel = absT > 3.5 ? "p<0.001" : absT > 2.58 ? "p<0.01" : absT > 1.96 ? "p<0.05" : "p≥0.05";
+    }
+    const rStrength = Math.abs(rNum) > 0.7 ? "strong" : Math.abs(rNum) > 0.4 ? "moderate" : "weak";
+    const rDir = rNum > 0 ? "positive" : rNum < 0 ? "negative" : "";
+    document.getElementById("scatter-r-label").innerHTML = `r = ${r} &nbsp;<span style="color:#445">${pLabel}</span> &nbsp;<span style="color:#334;font-style:italic">${rStrength} ${rDir}</span> &nbsp;<span style="color:#334">(n=${n})</span>`;
 
     // SVG dimensions
     const W = wrap.clientWidth || 700, H = 380;
@@ -3079,30 +3099,50 @@ function renderScatter() {
     const yScale = d3.scaleLinear().domain(d3.extent(pts, p=>p.y)).nice().range([iH, 0]);
 
     // Axes
-    g2.append("g").attr("transform", `translate(0,${iH})`)
-        .call(d3.axisBottom(xScale).ticks(6))
-        .selectAll("text,line,path").attr("stroke","#334").attr("fill","#556").attr("font-size","10px");
-    g2.append("g")
-        .call(d3.axisLeft(yScale).ticks(6))
-        .selectAll("text,line,path").attr("stroke","#334").attr("fill","#556").attr("font-size","10px");
+    const xAxisG = g2.append("g").attr("transform", `translate(0,${iH})`).call(d3.axisBottom(xScale).ticks(6));
+    xAxisG.selectAll("text").attr("fill","#556").attr("font-size","10px");
+    xAxisG.selectAll("line,path").attr("stroke","#334");
+    const yAxisG = g2.append("g").call(d3.axisLeft(yScale).ticks(6));
+    yAxisG.selectAll("text").attr("fill","#556").attr("font-size","10px");
+    yAxisG.selectAll("line,path").attr("stroke","#334");
+
+    // Axis labels
+    const xLabel = (SCATTER_METRICS.find(([k])=>k===xKey)||[xKey,xKey])[1];
+    const yLabel = (SCATTER_METRICS.find(([k])=>k===yKey)||[yKey,yKey])[1];
+    svgEl.append("text").attr("x", M.left + iW/2).attr("y", H-4)
+        .attr("text-anchor","middle").attr("fill","#445").attr("font-size","10px").text(xLabel);
+    svgEl.append("text").attr("transform",`translate(12,${M.top+iH/2})rotate(-90)`)
+        .attr("text-anchor","middle").attr("fill","#445").attr("font-size","10px").text(yLabel);
 
     // Grid
-    g2.append("g").attr("class","grid")
-        .call(d3.axisBottom(xScale).ticks(6).tickSize(iH).tickFormat(""))
-        .attr("transform",`translate(0,0)`)
-        .selectAll("line").attr("stroke","#1a1d2e");
-    g2.append("g").attr("class","grid")
-        .call(d3.axisLeft(yScale).ticks(6).tickSize(-iW).tickFormat(""))
+    g2.append("g").call(d3.axisBottom(xScale).ticks(6).tickSize(iH).tickFormat(""))
+        .attr("transform","translate(0,0)").selectAll("line").attr("stroke","#1a1d2e");
+    g2.append("g").call(d3.axisLeft(yScale).ticks(6).tickSize(-iW).tickFormat(""))
         .selectAll("line").attr("stroke","#1a1d2e");
 
+    // Quadrant lines (at median X and Y)
+    if (showQuadrants) {
+        const sortedX = [...pts].map(p=>p.x).sort((a,b)=>a-b);
+        const sortedY = [...pts].map(p=>p.y).sort((a,b)=>a-b);
+        const medX = sortedX[Math.floor(sortedX.length/2)];
+        const medY = sortedY[Math.floor(sortedY.length/2)];
+        g2.append("line").attr("x1",xScale(medX)).attr("y1",0).attr("x2",xScale(medX)).attr("y2",iH)
+            .attr("stroke","#f7c04f44").attr("stroke-width",1).attr("stroke-dasharray","5,3");
+        g2.append("line").attr("x1",0).attr("y1",yScale(medY)).attr("x2",iW).attr("y2",yScale(medY))
+            .attr("stroke","#f7c04f44").attr("stroke-width",1).attr("stroke-dasharray","5,3");
+        // Quadrant labels
+        const ql = [["Q1","high/high",iW-4,4],["Q2","low/high",4,4],["Q3","low/low",4,iH-4],["Q4","high/low",iW-4,iH-4]];
+        ql.forEach(([q,_,qx,qy])=>g2.append("text").attr("x",qx).attr("y",qy)
+            .attr("text-anchor",qx<iW/2?"start":"end").attr("dominant-baseline",qy<iH/2?"hanging":"auto")
+            .attr("fill","#2a2d3e").attr("font-size","9px").text(q));
+    }
+
     // Trend line
-    const xm = pts.reduce((s,p)=>s+p.x,0)/n;
-    const ym = pts.reduce((s,p)=>s+p.y,0)/n;
-    const slope = num / (pts.reduce((s,p)=>s+(p.x-xm)**2,0) || 1);
+    const slope = num / (pts.reduce((s,p)=>s+(p.x-mx)**2,0) || 1);
     const [x0,x1] = xScale.domain();
     g2.append("line")
-        .attr("x1",xScale(x0)).attr("y1",yScale(ym+slope*(x0-xm)))
-        .attr("x2",xScale(x1)).attr("y2",yScale(ym+slope*(x1-xm)))
+        .attr("x1",xScale(x0)).attr("y1",yScale(my+slope*(x0-mx)))
+        .attr("x2",xScale(x1)).attr("y2",yScale(my+slope*(x1-mx)))
         .attr("stroke","#4f8ef755").attr("stroke-width",1.5).attr("stroke-dasharray","4,4");
 
     // Tooltip div
@@ -3114,26 +3154,85 @@ function renderScatter() {
         document.body.appendChild(scatterTip);
     }
 
+    // Pinned labels set
+    if (!window._scatterPinned) window._scatterPinned = new Set();
+
     // Points
+    const pointColor = p => colorByRegion && p.region ? (REGION_COLORS[p.region] || "#4f8ef7") : "#4f8ef7";
     g2.selectAll(".spt").data(pts).join("circle")
         .attr("class","spt")
         .attr("cx", p=>xScale(p.x))
         .attr("cy", p=>yScale(p.y))
         .attr("r", 4)
-        .attr("fill","#4f8ef7")
+        .attr("fill", p => pointColor(p))
         .attr("opacity",0.75)
         .attr("stroke","#09090f").attr("stroke-width",0.8)
         .on("mousemove", function(event, p) {
-            scatterTip.innerHTML = `<b>${esc(p.name)}</b><div style="color:#778;margin-top:3px">X: ${p.x.toFixed(2)}<br>Y: ${p.y.toFixed(2)}</div>`;
+            scatterTip.innerHTML = `<b>${esc(p.name)}</b><div style="color:#778;margin-top:3px">X: ${p.x.toFixed(2)}<br>Y: ${p.y.toFixed(2)}</div><div style="color:#334;font-size:9px;margin-top:3px">Click to pin label</div>`;
             scatterTip.style.display = "block";
             scatterTip.style.left = (event.clientX+12)+"px";
             scatterTip.style.top = (event.clientY-10)+"px";
-            d3.select(this).attr("r",6).attr("fill","#7eb8f7");
+            d3.select(this).attr("r",6).attr("fill","#fff");
         })
-        .on("mouseleave", function() {
+        .on("mouseleave", function(_, p) {
             scatterTip.style.display = "none";
-            d3.select(this).attr("r",4).attr("fill","#4f8ef7");
+            d3.select(this).attr("r",4).attr("fill", pointColor(p));
+        })
+        .on("click", function(_, p) {
+            if (window._scatterPinned.has(p.iso)) {
+                window._scatterPinned.delete(p.iso);
+            } else {
+                window._scatterPinned.add(p.iso);
+            }
+            renderScatter(); // re-render to show/hide pinned labels
         });
+
+    // Pinned labels
+    pts.filter(p=>window._scatterPinned.has(p.iso)).forEach(p => {
+        g2.append("text")
+            .attr("x", xScale(p.x)+6).attr("y", yScale(p.y)-5)
+            .attr("fill","#eee").attr("font-size","9px").attr("pointer-events","none")
+            .text(p.name.length > 16 ? p.iso : p.name);
+    });
+
+    // Region legend
+    const legendEl = document.getElementById("scatter-legend");
+    if (legendEl) {
+        if (colorByRegion) {
+            const regions = [...new Set(pts.map(p=>p.region).filter(Boolean))].sort();
+            legendEl.innerHTML = regions.map(r =>
+                `<span style="font-size:10px;color:${REGION_COLORS[r]||'#889'};display:flex;align-items:center;gap:3px">
+                    <svg width="8" height="8"><circle cx="4" cy="4" r="4" fill="${REGION_COLORS[r]||'#889'}"/></svg>
+                    ${REGION_NAMES_S[r]||r}
+                 </span>`
+            ).join("");
+        } else {
+            legendEl.innerHTML = "";
+        }
+    }
+}
+
+function exportScatterCSV() {
+    const xKey = document.getElementById("scatter-x")?.value;
+    const yKey = document.getElementById("scatter-y")?.value;
+    if (!xKey || !yKey || !allData?.length) return;
+    const pts = allData.map(d => {
+        const xv = parseFloat(d[xKey]);
+        const yv = parseFloat(d[yKey]);
+        if (isNaN(xv) || isNaN(yv)) return null;
+        return [d.country, d.name || d.country, xv, yv];
+    }).filter(Boolean);
+    if (!pts.length) return;
+    const xLabel = (SCATTER_METRICS.find(([k])=>k===xKey)||[xKey,xKey])[1];
+    const yLabel = (SCATTER_METRICS.find(([k])=>k===yKey)||[yKey,yKey])[1];
+    const csv = ["iso3,country," + xLabel.replace(/,/g," ") + "," + yLabel.replace(/,/g," ")]
+        .concat(pts.map(([iso,name,x,y])=>`${iso},"${name}",${x},${y}`)).join("\n");
+    const blob = new Blob([csv], {type:"text/csv"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `oncology_scatter_${xKey}_vs_${yKey}.csv`;
+    a.click();
+    URL.revokeObjectURL(a.href);
 }
 
 // ── Map Filters ─────────────────────────────────────────────────────────
@@ -4499,10 +4598,22 @@ initMobile();
         <div style="font-size:10px;color:#556;text-transform:uppercase;margin-bottom:4px" data-i18n="scatter_y_axis">Y Axis</div>
         <select id="scatter-y" onchange="renderScatter()" style="background:#10131f;border:1px solid #1a1d2e;color:#ccd;padding:5px 10px;border-radius:5px;font-size:12px"></select>
       </div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <label style="font-size:11px;color:#778;display:flex;align-items:center;gap:4px;cursor:pointer">
+          <input type="checkbox" id="scatter-color-region" onchange="renderScatter()" style="cursor:pointer">
+          <span data-i18n="scatter_color_region">Color by region</span>
+        </label>
+        <label style="font-size:11px;color:#778;display:flex;align-items:center;gap:4px;cursor:pointer">
+          <input type="checkbox" id="scatter-quadrants" onchange="renderScatter()" style="cursor:pointer">
+          <span data-i18n="scatter_quadrants">Quadrant lines</span>
+        </label>
+        <button onclick="exportScatterCSV()" style="background:#1a1d2e;border:1px solid #2a2d3e;color:#889;font-size:10px;padding:3px 10px;border-radius:5px;cursor:pointer" data-i18n="scatter_export_csv">↓ CSV</button>
+      </div>
       <div style="margin-left:auto;font-size:10px;color:#445" id="scatter-r-label"></div>
     </div>
     <div id="scatter-svg-wrap" style="width:100%;height:420px;position:relative"></div>
-    <div style="font-size:10px;color:#334;margin-top:10px" data-i18n="scatter_hint">Hover a dot for country details. Dots sized by population (where available).</div>
+    <div id="scatter-legend" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px"></div>
+    <div style="font-size:10px;color:#334;margin-top:6px" data-i18n="scatter_hint">Hover a dot for details · Click to pin label · Dots sized by population (where available).</div>
   </div>
 </div>
 

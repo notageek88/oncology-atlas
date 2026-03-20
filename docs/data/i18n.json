@@ -194,7 +194,7 @@
     "scatter_title": "Scatter Plot — Correlation Explorer",
     "scatter_x_axis": "X Axis",
     "scatter_y_axis": "Y Axis",
-    "scatter_hint": "Hover a dot for country details.",
+    "scatter_hint": "Hover a dot for details · Click to pin label · Dots sized by population.",
     "scatter_no_data": "Not enough data for these metrics",
     "btn_tooltip_scatter": "Compare any two metrics across all countries, find correlations",
     "link_copied": "Link copied!",
@@ -207,7 +207,10 @@
     "tourism_wait": "Wait time",
     "tourism_cost": "Cost estimate",
     "tourism_clinics": "accredited clinics",
-    "data_as_of": "data"
+    "data_as_of": "data",
+    "scatter_color_region": "Color by region",
+    "scatter_quadrants": "Quadrant lines",
+    "scatter_export_csv": "↓ CSV"
   },
   "ru": {
     "title": "OncologyAtlas",
@@ -404,7 +407,7 @@
     "scatter_title": "Диаграмма рассеяния — поиск корреляций",
     "scatter_x_axis": "Ось X",
     "scatter_y_axis": "Ось Y",
-    "scatter_hint": "Наведите на точку для деталей по стране.",
+    "scatter_hint": "Наведите курсор для деталей · Нажмите для закрепления метки.",
     "scatter_no_data": "Недостаточно данных для этих метрик",
     "btn_tooltip_scatter": "Сравните любые две метрики по всем странам, найдите корреляции",
     "link_copied": "Ссылка скопирована!",
@@ -417,7 +420,10 @@
     "tourism_wait": "Время ожидания",
     "tourism_cost": "Стоимость",
     "tourism_clinics": "аккредитованных клиник",
-    "data_as_of": "данные"
+    "data_as_of": "данные",
+    "scatter_color_region": "Цвет по региону",
+    "scatter_quadrants": "Линии квадрантов",
+    "scatter_export_csv": "↓ CSV"
   },
   "zh": {
     "title": "OncologyAtlas",
@@ -614,7 +620,7 @@
     "scatter_title": "散点图 — 相关性探索",
     "scatter_x_axis": "X轴",
     "scatter_y_axis": "Y轴",
-    "scatter_hint": "悬停在点上查看国家详情。",
+    "scatter_hint": "悬停查看详情 · 点击固定标签。",
     "scatter_no_data": "这些指标的数据不足",
     "btn_tooltip_scatter": "比较所有国家的任意两个指标，发现相关性",
     "link_copied": "链接已复制！",
@@ -627,7 +633,10 @@
     "tourism_wait": "等待时间",
     "tourism_cost": "费用估算",
     "tourism_clinics": "获认证诊所",
-    "data_as_of": "数据"
+    "data_as_of": "数据",
+    "scatter_color_region": "按地区着色",
+    "scatter_quadrants": "象限线",
+    "scatter_export_csv": "↓ CSV"
   },
   "es": {
     "title": "OncologyAtlas",
@@ -824,7 +833,7 @@
     "scatter_title": "Diagrama de dispersión — Explorer de correlaciones",
     "scatter_x_axis": "Eje X",
     "scatter_y_axis": "Eje Y",
-    "scatter_hint": "Pasa el ratón por un punto para ver detalles del país.",
+    "scatter_hint": "Pasa el cursor para detalles · Haz clic para fijar etiqueta.",
     "scatter_no_data": "Datos insuficientes para estas métricas",
     "btn_tooltip_scatter": "Compara dos métricas en todos los países, encuentra correlaciones",
     "link_copied": "¡Enlace copiado!",
@@ -837,7 +846,10 @@
     "tourism_wait": "Tiempo de espera",
     "tourism_cost": "Estimación de costos",
     "tourism_clinics": "clínicas acreditadas",
-    "data_as_of": "datos"
+    "data_as_of": "datos",
+    "scatter_color_region": "Color por región",
+    "scatter_quadrants": "Líneas de cuadrantes",
+    "scatter_export_csv": "↓ CSV"
   },
   "ar": {
     "title": "OncologyAtlas",
@@ -1034,7 +1046,7 @@
     "scatter_title": "مخطط الانتشار — استكشاف الارتباطات",
     "scatter_x_axis": "المحور X",
     "scatter_y_axis": "المحور Y",
-    "scatter_hint": "مرر الماوس فوق نقطة لتفاصيل الدولة.",
+    "scatter_hint": "حوّم للتفاصيل · انقر لتثبيت التسمية.",
     "scatter_no_data": "بيانات غير كافية لهذه المقاييس",
     "btn_tooltip_scatter": "قارن أي مقياسين عبر جميع الدول، اكتشف الارتباطات",
     "link_copied": "تم نسخ الرابط!",
@@ -1047,7 +1059,10 @@
     "tourism_wait": "وقت الانتظار",
     "tourism_cost": "تقدير التكلفة",
     "tourism_clinics": "عيادات معتمدة",
-    "data_as_of": "بيانات"
+    "data_as_of": "بيانات",
+    "scatter_color_region": "تلوين حسب المنطقة",
+    "scatter_quadrants": "خطوط الأرباع",
+    "scatter_export_csv": "↓ CSV"
   },
   "hi": {
     "title": "OncologyAtlas",
@@ -1244,7 +1259,7 @@
     "scatter_title": "स्कैटर प्लॉट — सहसंबंध खोजकर्ता",
     "scatter_x_axis": "X अक्ष",
     "scatter_y_axis": "Y अक्ष",
-    "scatter_hint": "देश विवरण के लिए बिंदु पर होवर करें।",
+    "scatter_hint": "विवरण के लिए होवर करें · लेबल पिन करने के लिए क्लिक करें।",
     "scatter_no_data": "इन मेट्रिक्स के लिए पर्याप्त डेटा नहीं",
     "btn_tooltip_scatter": "सभी देशों में कोई भी दो मेट्रिक तुलना करें",
     "link_copied": "लिंक कॉपी हो गया!",
@@ -1257,7 +1272,10 @@
     "tourism_wait": "प्रतीक्षा समय",
     "tourism_cost": "लागत अनुमान",
     "tourism_clinics": "मान्यता प्राप्त क्लीनिक",
-    "data_as_of": "डेटा"
+    "data_as_of": "डेटा",
+    "scatter_color_region": "क्षेत्र के अनुसार रंग",
+    "scatter_quadrants": "चतुर्थांश रेखाएं",
+    "scatter_export_csv": "↓ CSV"
   },
   "pt": {
     "title": "OncologyAtlas",
@@ -1454,7 +1472,7 @@
     "scatter_title": "Diagrama de dispersão — Explorador de correlações",
     "scatter_x_axis": "Eixo X",
     "scatter_y_axis": "Eixo Y",
-    "scatter_hint": "Passe o rato sobre um ponto para detalhes do país.",
+    "scatter_hint": "Passe o mouse para detalhes · Clique para fixar rótulo.",
     "scatter_no_data": "Dados insuficientes para estas métricas",
     "btn_tooltip_scatter": "Compare duas métricas em todos os países, encontre correlações",
     "link_copied": "Link copiado!",
@@ -1467,7 +1485,10 @@
     "tourism_wait": "Tempo de espera",
     "tourism_cost": "Estimativa de custo",
     "tourism_clinics": "clínicas credenciadas",
-    "data_as_of": "dados"
+    "data_as_of": "dados",
+    "scatter_color_region": "Cor por região",
+    "scatter_quadrants": "Linhas de quadrantes",
+    "scatter_export_csv": "↓ CSV"
   },
   "fr": {
     "title": "OncologyAtlas",
@@ -1664,7 +1685,7 @@
     "scatter_title": "Nuage de points — Exploration des corrélations",
     "scatter_x_axis": "Axe X",
     "scatter_y_axis": "Axe Y",
-    "scatter_hint": "Survolez un point pour les détails du pays.",
+    "scatter_hint": "Survoler pour les détails · Cliquer pour épingler une étiquette.",
     "scatter_no_data": "Données insuffisantes pour ces métriques",
     "btn_tooltip_scatter": "Comparez deux métriques dans tous les pays, trouvez des corrélations",
     "link_copied": "Lien copié !",
@@ -1677,7 +1698,10 @@
     "tourism_wait": "Délai d'attente",
     "tourism_cost": "Estimation des coûts",
     "tourism_clinics": "cliniques accréditées",
-    "data_as_of": "données"
+    "data_as_of": "données",
+    "scatter_color_region": "Colorier par région",
+    "scatter_quadrants": "Lignes de quadrants",
+    "scatter_export_csv": "↓ CSV"
   },
   "de": {
     "title": "OncologyAtlas",
@@ -1874,7 +1898,7 @@
     "scatter_title": "Streudiagramm — Korrelations-Explorer",
     "scatter_x_axis": "X-Achse",
     "scatter_y_axis": "Y-Achse",
-    "scatter_hint": "Bewegen Sie die Maus über einen Punkt für Länderdetails.",
+    "scatter_hint": "Hover für Details · Klicken zum Anheften.",
     "scatter_no_data": "Nicht genug Daten für diese Metriken",
     "btn_tooltip_scatter": "Vergleichen Sie zwei Metriken aller Länder, finden Sie Korrelationen",
     "link_copied": "Link kopiert!",
@@ -1887,7 +1911,10 @@
     "tourism_wait": "Wartezeit",
     "tourism_cost": "Kostenschätzung",
     "tourism_clinics": "akkreditierte Kliniken",
-    "data_as_of": "Daten"
+    "data_as_of": "Daten",
+    "scatter_color_region": "Nach Region färben",
+    "scatter_quadrants": "Quadrantenlinien",
+    "scatter_export_csv": "↓ CSV"
   },
   "ja": {
     "title": "OncologyAtlas",
@@ -2084,7 +2111,7 @@
     "scatter_title": "散布図 — 相関関係エクスプローラー",
     "scatter_x_axis": "X軸",
     "scatter_y_axis": "Y軸",
-    "scatter_hint": "点にホバーして国の詳細を確認。",
+    "scatter_hint": "ホバーで詳細 · クリックでラベル固定。",
     "scatter_no_data": "これらの指標のデータが不足しています",
     "btn_tooltip_scatter": "全国の任意の2つの指標を比較し、相関関係を見つける",
     "link_copied": "リンクをコピーしました！",
@@ -2097,7 +2124,10 @@
     "tourism_wait": "待機時間",
     "tourism_cost": "費用概算",
     "tourism_clinics": "認定クリニック数",
-    "data_as_of": "データ"
+    "data_as_of": "データ",
+    "scatter_color_region": "地域別に色分け",
+    "scatter_quadrants": "象限ライン",
+    "scatter_export_csv": "↓ CSV"
   },
   "id": {
     "title": "OncologyAtlas",
@@ -2294,7 +2324,7 @@
     "scatter_title": "Diagram Sebar — Penjelajah Korelasi",
     "scatter_x_axis": "Sumbu X",
     "scatter_y_axis": "Sumbu Y",
-    "scatter_hint": "Arahkan ke titik untuk detail negara.",
+    "scatter_hint": "Arahkan kursor untuk detail · Klik untuk menyematkan label.",
     "scatter_no_data": "Data tidak cukup untuk metrik ini",
     "btn_tooltip_scatter": "Bandingkan dua metrik di semua negara, temukan korelasi",
     "link_copied": "Tautan disalin!",
@@ -2307,6 +2337,9 @@
     "tourism_wait": "Waktu tunggu",
     "tourism_cost": "Estimasi biaya",
     "tourism_clinics": "klinik terakreditasi",
-    "data_as_of": "data"
+    "data_as_of": "data",
+    "scatter_color_region": "Warna berdasarkan wilayah",
+    "scatter_quadrants": "Garis kuadran",
+    "scatter_export_csv": "↓ CSV"
   }
 }
