@@ -83,11 +83,11 @@ OncologyAtlas is an open-source interactive map of global cancer data. Built for
 This project is actively developed. Contributions welcome for any of the items below.
 
 ### v0.4 — Filters & Discovery
-- [ ] **Filter by cancer type on map** — show only countries with specific cancer type dominant
-- [ ] **Search by metric range** — "show countries where breast cancer mortality > 20"
-- [ ] **Country comparison export** — download comparison as PNG/PDF
+- [x] **Filter by cancer type on map** — show only countries where a specific cancer type is dominant
+- [x] **Search by metric range** — range slider in filter panel (≥ threshold)
+- [x] **Country comparison export** — compare 2–4 countries, export as PDF table
 - [x] **Cervical cancer screening coverage** — 180+ countries, on infra map layer
-- [ ] **Prostate cancer data** — add to profile panel
+- [x] **Prostate cancer data** — mortality added to profile panel and scatter axes
 
 ### v0.5 — Deeper Data
 - [ ] **SEER data** — US state-level cancer statistics (50 states, 50+ years)

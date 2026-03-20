@@ -642,6 +642,18 @@
             <option value="AFR" data-i18n="region_afr">Africa</option>
         </select>
     </div>
+    <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:11px;color:#556" data-i18n="dominant_cancer_label">Dominant cancer:</span>
+        <select id="dominant-cancer-filter" onchange="setDominantCancerFilter()" style="background:#0b0d18;color:#889;border:1px solid #1a1d2e;border-radius:5px;font-size:11px;padding:3px 6px">
+            <option value="" data-i18n="dominant_all">All types</option>
+            <option value="death_cancer_all" data-i18n="dominant_all_cancers">Any (show all)</option>
+            <option value="death_breast" data-i18n="breast">Breast</option>
+            <option value="death_colon" data-i18n="colon">Colorectal</option>
+            <option value="death_liver" data-i18n="liver">Liver</option>
+            <option value="death_mouth" data-i18n="mouth">Mouth/oropharynx</option>
+            <option value="death_oesophagus" data-i18n="oesophagus">Oesophagus</option>
+        </select>
+    </div>
     <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
         <span style="font-size:11px;color:#556" id="range-label" data-i18n="range_filter_label">Range: ≥</span>
         <input type="range" id="range-filter" min="0" max="100" value="0" step="1"
@@ -2877,6 +2889,7 @@ function renderScatter() {
 // ── Map Filters ─────────────────────────────────────────────────────────
 let activeFilter = "all";
 let activeRegion = "";
+let activeDominantCancer = "";
 let filterPanelOpen = false;
 let rangeFilterMin = 0;
 let rangeFilterMax = null; // computed from data
@@ -2931,6 +2944,11 @@ function setMapFilter(f) {
 
 function setRegionFilter() {
     activeRegion = document.getElementById("region-filter").value;
+    applyMapFilter();
+}
+
+function setDominantCancerFilter() {
+    activeDominantCancer = document.getElementById("dominant-cancer-filter").value;
     applyMapFilter();
 }
 
@@ -3006,7 +3024,19 @@ function applyMapFilter() {
         if (highlight && rangeFilterMin > 0) {
             highlight = !isNaN(v) && v >= rangeFilterMin;
         }
-        
+
+        // Dominant cancer type filter
+        if (highlight && activeDominantCancer && activeDominantCancer !== "death_cancer_all") {
+            const cancerTypes = ["death_breast","death_colon","death_liver","death_mouth","death_oesophagus"];
+            const vals2 = cancerTypes.map(k => ({ k, v: parseFloat(cd[k]) })).filter(x => !isNaN(x.v) && x.v > 0);
+            if (vals2.length > 0) {
+                const dominant = vals2.reduce((a, b) => a.v > b.v ? a : b).k;
+                highlight = dominant === activeDominantCancer;
+            } else {
+                highlight = false;
+            }
+        }
+
         d3.select(this).attr("opacity", highlight ? 1 : 0.12);
     });
 }
