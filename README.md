@@ -25,7 +25,7 @@ OncologyAtlas is an open-source interactive map of global cancer data. Built for
 | Feature | Description |
 |---------|-------------|
 | 🗺 Choropleth map | D3.js Natural Earth projection — same approach as NYT/Guardian |
-| 📊 22+ metrics | Mortality, DALYs, incidence (GLOBOCAN 2022), readiness, risk factors |
+| 📊 30+ metrics | Mortality, DALYs, incidence (GLOBOCAN 2022), readiness, risk factors, treatment costs, age groups |
 | ⏱ Timeline 2000–2021 | NCD mortality slider — see how countries changed over 22 years |
 | 🏥 Oncology clinics | 41 top clinics in 21 countries with profiles and accreditations |
 | ✈ Migration flows | 37 patient migration routes with hover tooltips |
@@ -51,6 +51,12 @@ OncologyAtlas is an open-source interactive map of global cancer data. Built for
 | ✈ Medical tourism | Visa, wait time, cost estimates for 23 oncology destination countries |
 | 📋 Policy timeline | 40+ WHO & national cancer policy milestones 2000–2024 per country profile |
 | 🎗 Dominant cancer filter | Highlight only countries where a specific cancer is the top mortality cause |
+| 🌍 Regional + income benchmarking | WHO region AND World Bank income group comparison in every country profile |
+| 🔬 Researcher scatter mode | Color by region, quadrant lines, click-to-label, p-value, CSV export |
+| 💰 Treatment costs layer | Est. avg. annual treatment cost for 105 countries (map + profile) |
+| 👶 Age-specific rates | Pediatric (0–19) and elderly (65+) cancer incidence for 70+ countries |
+| ⌨ Keyboard shortcuts | /, t, c, p, r, f, ← →, Esc, ? — power-user navigation |
+| 🏆 Global rankings table | All countries ranked by any metric — searchable, sortable, click to profile |
 
 ---
 
@@ -95,9 +101,9 @@ This project is actively developed. Contributions welcome for any of the items b
 ### v0.5 — Deeper Data
 - [ ] **SEER data** — US state-level cancer statistics (50 states, 50+ years)
 - [x] **Alcohol-attributable cancer deaths** — risk factors map layer
-- [ ] **Tobacco-attributable cancer deaths**
-- [ ] **Cancer treatment costs by country** — affordability layer
-- [ ] **Age-specific rates** — pediatric vs adult vs elderly breakdown
+- [x] **Tobacco-attributable cancer deaths** — risk factors map layer
+- [x] **Cancer treatment costs by country** — 105 countries, map + profile comparison
+- [x] **Age-specific rates** — pediatric (0-19) and elderly (65+) incidence, 70+ countries
 - [ ] **Urban vs rural incidence** where available (GLOBOCAN sub-national)
 
 ### v0.6 — Social & Media Intelligence
@@ -131,7 +137,7 @@ This project is actively developed. Contributions welcome for any of the items b
 ### v1.0 — Platform
 - [x] **User contributions** — CONTRIBUTING.md + PR templates + issue templates
 - [ ] **Patient stories** — qualitative layer on top of quantitative data
-- [ ] **Researcher mode** — advanced filters, multi-metric scatter plots, regression lines
+- [x] **Researcher mode** — color by region, quadrant lines, p-value, click labels, CSV export in scatter plot
 - [ ] **Clinic "claim your profile"** — clinics can submit updates via PR
 - [ ] **Public JSON API** — `/api/v1/cancer?country=RUS&metric=death_breast` (FastAPI backend ready)
 
