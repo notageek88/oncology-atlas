@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://notageek88.github.io/oncology-atlas/sitemap.xml

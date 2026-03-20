@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0b0d14"/>
+  <text x="600" y="240" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="700" fill="#e0e0e0">
+    Oncology<tspan fill="#4f8ef7">Atlas</tspan>
+  </text>
+  <text x="600" y="310" text-anchor="middle" font-family="system-ui, sans-serif" font-size="28" fill="#667">
+    Global Cancer Data — Interactive Map
+  </text>
+  <text x="600" y="400" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" fill="#4f8ef7">
+    165 countries · 18 WHO metrics · 329 clinics · 11 languages
+  </text>
+  <text x="600" y="450" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" fill="#445">
+    Free &amp; Open Source · MIT License
+  </text>
+  <rect x="100" y="510" width="1000" height="4" rx="2" fill="#1a1d2e"/>
+  <text x="600" y="560" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#334">
+    notageek88.github.io/oncology-atlas
+  </text>
+</svg>

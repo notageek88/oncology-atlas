@@ -4,6 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OncologyAtlas — Global Cancer Data</title>
+    <meta name="description" content="Interactive open-source map of global cancer data. 165 countries, 18 WHO metrics, clinical trials, oncology clinics, survival rates. Free and open data.">
+    <meta name="keywords" content="cancer, oncology, global health, WHO, mortality, DALY, clinical trials, cancer atlas, data visualization">
+    <meta name="author" content="Artem Mashin">
+    <link rel="canonical" href="https://notageek88.github.io/oncology-atlas/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="OncologyAtlas — Global Cancer Data">
+    <meta property="og:description" content="Interactive map of cancer data across 165 countries. 18 WHO metrics, clinical trials, oncology clinics, survival rates. Free and open source.">
+    <meta property="og:url" content="https://notageek88.github.io/oncology-atlas/">
+    <meta property="og:image" content="https://notageek88.github.io/oncology-atlas/og-image.svg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="OncologyAtlas">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="OncologyAtlas — Global Cancer Data">
+    <meta name="twitter:description" content="Interactive map of cancer data across 165 countries. Free, open source, 11 languages.">
+    <meta name="twitter:image" content="https://notageek88.github.io/oncology-atlas/og-image.svg">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "OncologyAtlas",
+        "description": "Interactive open-source map of global cancer data with 165 countries and 18 WHO metrics",
+        "url": "https://notageek88.github.io/oncology-atlas/",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "author": { "@type": "Person", "name": "Artem Mashin" },
+        "license": "https://opensource.org/licenses/MIT",
+        "isAccessibleForFree": true,
+        "inLanguage": ["en","ru","zh","es","ar","hi","pt","fr","de","ja","id"]
+    }
+    </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0b0d14; color: #e0e0e0; overflow: hidden; }
@@ -30,7 +68,7 @@
             display: flex; gap: 8px; align-items: center;
             backdrop-filter: blur(8px);
         }
-        .ctrl-label { font-size: 10px; color: #334; text-transform: uppercase; letter-spacing: 0.6px; white-space: nowrap; }
+        .ctrl-label { font-size: 10px; color: #667; text-transform: uppercase; letter-spacing: 0.6px; white-space: nowrap; }
         select { background: #10131f; border: 1px solid #1a1d2e; color: #aab; padding: 5px 10px; border-radius: 5px; font-size: 12px; cursor: pointer; }
         select:hover, select:focus { border-color: #4f8ef7; outline: none; color: #dde; }
         .sep { width: 1px; height: 20px; background: #1a1d2e; margin: 0 4px; }
@@ -261,7 +299,7 @@
             #map-container { top: 83px; }
             #map-container.panel-open { right: 0; bottom: 55vh; }
 
-            /* Side panel as bottom sheet */
+            /* Side panel as bottom sheet — explicit z-index to layer above map */
             #side-panel {
                 top: auto !important; right: 0 !important; left: 0 !important;
                 bottom: -55vh; width: 100% !important;
@@ -269,33 +307,37 @@
                 border-top: 1px solid #1a1d2e;
                 border-radius: 14px 14px 0 0;
                 transition: bottom 0.35s !important;
+                z-index: 300;
             }
             #side-panel.open { bottom: 0 !important; }
 
-            /* Timeline */
-            #timeline { min-width: 260px; bottom: 70px; }
+            /* Timeline — above legend, below FAB */
+            #timeline { min-width: 260px; bottom: 76px; z-index: 110; left: 10px; right: 80px; transform: none; padding: 8px 14px 6px; }
 
             /* World stats bar */
             #world-stats-bar { display: none; }
 
-            /* Legend */
-            #legend { bottom: 70px; left: 10px; padding: 8px 12px; }
+            /* Legend — bottom left, above map */
+            #legend { bottom: 76px; left: 10px; padding: 8px 10px; z-index: 100; max-width: 130px; font-size: 10px; }
             #legend #leg-title { font-size: 8px; }
 
-            /* Clinic legend */
-            .clinic-legend { bottom: 70px; }
+            /* Clinic legend — stacked above color legend */
+            .clinic-legend { bottom: 140px; left: 10px; z-index: 100; }
 
             /* Stats bar */
             #stats { display: none; }
 
-            /* Filter panel */
-            #filter-panel { flex-wrap: wrap; gap: 8px; padding: 8px 10px; }
+            /* Filter panel — full width, z-index above map */
+            #filter-panel { flex-wrap: wrap; gap: 8px; padding: 8px 10px; z-index: 210; }
             #filter-panel .compare-btn { padding: 4px 8px; font-size: 10px; }
 
-            /* FAB */
-            #mob-fab { display: flex; }
+            /* FAB — highest z-index on mobile */
+            #mob-fab { display: flex; z-index: 500; }
             #mob-menu { display: none; }
             #mob-menu.open { display: flex; }
+
+            /* Tooltip — above everything on mobile */
+            #tooltip { z-index: 600; }
         }
 
         /* ── Keyboard / Focus ── */
@@ -517,14 +559,14 @@
     <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
         <span style="font-size:11px;color:#556" id="range-label" data-i18n="range_filter_label">Range: ≥</span>
         <input type="range" id="range-filter" min="0" max="100" value="0" step="1"
-            oninput="onRangeFilter(this.value)"
+            oninput="onRangeFilter(this.value)" aria-label="Metric range filter"
             style="width:90px;accent-color:#4f8ef7;cursor:pointer">
         <span id="range-val" style="font-size:11px;color:#4f8ef7;min-width:26px">0</span>
         <button onclick="resetRangeFilter()" id="range-reset" style="display:none;background:none;border:1px solid #1a1d2e;color:#556;padding:1px 7px;border-radius:4px;font-size:10px;cursor:pointer" data-i18n="range_reset">reset</button>
     </div>
 </div>
 
-<div id="map-container"><svg id="svg"></svg></div>
+<div id="map-container"><svg id="svg" role="img" aria-label="Interactive world map showing cancer data by country"></svg></div>
 <div id="tooltip"></div>
 
 <!-- Side panel -->
@@ -542,7 +584,7 @@
 <div id="timeline">
     <button id="timeline-play" onclick="togglePlay()" data-tip="timeline_play_tip">▶</button>
     <span id="year-label">2000</span>
-    <input id="year-slider" type="range" min="2000" max="2021" step="1" value="2021" oninput="onYearSlide(this.value)">
+    <input id="year-slider" type="range" min="2000" max="2021" step="1" value="2021" oninput="onYearSlide(this.value)" aria-label="Timeline year slider" aria-valuenow="2021" aria-valuemin="2000" aria-valuemax="2021">
 </div>
 
 <div class="clinic-legend" id="clinic-legend">
@@ -628,14 +670,16 @@
         </div>
     </div>
     <!-- Main FAB button -->
-    <button id="fab-main" onclick="toggleMobMenu()" style="width:52px;height:52px;border-radius:50%;background:#4f8ef7;border:none;color:#fff;font-size:22px;cursor:pointer;box-shadow:0 4px 16px rgba(79,142,247,0.5);display:flex;align-items:center;justify-content:center;transition:transform 0.2s">☰</button>
+    <button id="fab-main" onclick="toggleMobMenu()" aria-label="Open menu" aria-expanded="false" style="width:52px;height:52px;border-radius:50%;background:#4f8ef7;border:none;color:#fff;font-size:22px;cursor:pointer;box-shadow:0 4px 16px rgba(79,142,247,0.5);display:flex;align-items:center;justify-content:center;transition:transform 0.2s">☰</button>
 </div>
 
 <!-- Lang menu for mobile (positioned fixed) -->
 <div id="lang-menu-mob" style="display:none;position:fixed;bottom:80px;right:16px;z-index:600;background:#0d0f1a;border:1px solid #1a1d2e;border-radius:8px;min-width:160px;box-shadow:0 8px 24px rgba(0,0,0,0.7);overflow:hidden"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-<script src="https://cdn.jsdelivr.net/npm/topojson@3"></script>
+<!-- Analytics: uncomment after creating free account at goatcounter.com or plausible.io -->
+<!-- <script defer data-goatcounter="https://oncologyatlas.goatcounter.com/count" src="//gc.zgo.at/count.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/d3@7" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson@3" integrity="sha384-9dCJK6nh7skY14HrcvlLYlFga9/MehJjL9ONWRflmiXNRuf8p2jiF4Y5PR881PTq" crossorigin="anonymous"></script>
 <script>
 
 // ── Config ─────────────────────────────────────────────────────────────────
@@ -873,22 +917,21 @@ const COUNTRY_NAMES = {
   VUT:{ru:"Вануату",zh:"瓦努阿图",es:"Vanuatu",ar:"فانواتو",fr:"Vanuatu",de:"Vanuatu"},
   WSM:{ru:"Самоа",zh:"萨摩亚",es:"Samoa",ar:"ساموا",fr:"Samoa",de:"Samoa"},
   KIR:{ru:"Кирибати",zh:"基里巴斯",es:"Kiribati",ar:"كيريباتي",fr:"Kiribati",de:"Kiribati"},
-  MDG:{ru:"Мадагаскар"},
-  STP:{ru:"Сан-Томе и Принсипи",zh:"圣多美和普林西比",es:"Santo Tomé y Príncipe",ar:"ساو تومي وبرينسيبي",fr:"Sao Tomé-et-Príncipe"},
-  DMA:{ru:"Доминика"},
-  GRD:{ru:"Гренада"},
-  LCA:{ru:"Сент-Люсия"},
-  VCT:{ru:"Сент-Винсент и Гренадины"},
-  ATG:{ru:"Антигуа и Барбуда"},
-  KNA:{ru:"Сент-Китс и Невис"},
-  BRB:{ru:"Барбадос"},
-  TUV:{ru:"Тувалу"},
-  NRU:{ru:"Науру"},
-  MNP:{ru:"Северные Марианские острова"},
-  GUM:{ru:"Гуам"},
-  PRI:{ru:"Пуэрто-Рико"},
-  HKG:{ru:"Гонконг",zh:"香港"},
-  MAC:{ru:"Макао",zh:"澳门"}
+  STP:{ru:"Сан-Томе и Принсипи",zh:"圣多美和普林西比",es:"Santo Tomé y Príncipe",ar:"ساو تومي وبرينسيبي",fr:"Sao Tomé-et-Príncipe",de:"São Tomé und Príncipe"},
+  DMA:{ru:"Доминика",zh:"多米尼克",es:"Dominica",ar:"دومينيكا",fr:"Dominique",de:"Dominica"},
+  GRD:{ru:"Гренада",zh:"格林纳达",es:"Granada",ar:"غرينادا",fr:"Grenade",de:"Grenada"},
+  LCA:{ru:"Сент-Люсия",zh:"圣卢西亚",es:"Santa Lucía",ar:"سانت لوسيا",fr:"Sainte-Lucie",de:"St. Lucia"},
+  VCT:{ru:"Сент-Винсент и Гренадины",zh:"圣文森特和格林纳丁斯",es:"San Vicente y las Granadinas",ar:"سانت فنسنت والغرينادين",fr:"Saint-Vincent-et-les-Grenadines",de:"St. Vincent und die Grenadinen"},
+  ATG:{ru:"Антигуа и Барбуда",zh:"安提瓜和巴布达",es:"Antigua y Barbuda",ar:"أنتيغوا وباربودا",fr:"Antigua-et-Barbuda",de:"Antigua und Barbuda"},
+  KNA:{ru:"Сент-Китс и Невис",zh:"圣基茨和尼维斯",es:"San Cristóbal y Nieves",ar:"سانت كيتس ونيفيس",fr:"Saint-Kitts-et-Nevis",de:"St. Kitts und Nevis"},
+  BRB:{ru:"Барбадос",zh:"巴巴多斯",es:"Barbados",ar:"باربادوس",fr:"Barbade",de:"Barbados"},
+  TUV:{ru:"Тувалу",zh:"图瓦卢",es:"Tuvalu",ar:"توفالو",fr:"Tuvalu",de:"Tuvalu"},
+  NRU:{ru:"Науру",zh:"瑙鲁",es:"Nauru",ar:"ناورو",fr:"Nauru",de:"Nauru"},
+  MNP:{ru:"Северные Марианские острова",zh:"北马里亚纳群岛",es:"Islas Marianas del Norte",ar:"جزر ماريانا الشمالية",fr:"Îles Mariannes du Nord",de:"Nördliche Marianen"},
+  GUM:{ru:"Гуам",zh:"关岛",es:"Guam",ar:"غوام",fr:"Guam",de:"Guam"},
+  PRI:{ru:"Пуэрто-Рико",zh:"波多黎各",es:"Puerto Rico",ar:"بورتوريكو",fr:"Porto Rico",de:"Puerto Rico"},
+  HKG:{ru:"Гонконг",zh:"香港",es:"Hong Kong",ar:"هونغ كونغ",fr:"Hong Kong",de:"Hongkong"},
+  MAC:{ru:"Макао",zh:"澳门",es:"Macao",ar:"ماكاو",fr:"Macao",de:"Macau"}
 };
 
 // Get localized country name
@@ -908,6 +951,12 @@ function getInfraLabel(k) {
         cancer_dept: t("dept","Cancer Dept")
     };
     return M[k] || k;
+}
+
+// ── Security helpers ──────────────────────────────────────────────────────
+function esc(s) {
+    if (typeof s !== "string") return s;
+    return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
 }
 
 // ── State ──────────────────────────────────────────────────────────────────
@@ -946,7 +995,7 @@ function buildLegend(metric) {
     document.getElementById("leg-title").textContent = grp.label;
     const body = document.getElementById("leg-body");
     if (grp.type === "boolean") {
-        body.innerHTML = [["Yes","#2db565"],["No","#e05c5c"],["No data","#2a2d40"]]
+        body.innerHTML = [[t("yes","Yes"),"#2db565"],[t("no","No"),"#e05c5c"],[t("legend_nodata","No data"),"#2a2d40"]]
             .map(([l,c]) => `<div class="bool-row"><div class="bool-dot" style="background:${c}"></div>${l}</div>`).join("");
     } else {
         const d = grp.domain, lo=d[0], mid=d[Math.floor(d.length/2)], hi=d[d.length-1];
@@ -1107,8 +1156,8 @@ function renderCompare() {
     const listHtml = compareList.map((c,i) =>
         `<div class="cmp-item">
             <div style="width:10px;height:10px;border-radius:50%;background:${colors[i]};flex-shrink:0"></div>
-            <span style="flex:1;margin-left:8px">${getCountryName(c.country, c.name || c.country)}</span>
-            <span class="rm" onclick="removeCompare('${c.country}')">✕</span>
+            <span style="flex:1;margin-left:8px">${esc(getCountryName(c.country, c.name || c.country))}</span>
+            <span class="rm" onclick="removeCompare('${esc(c.country)}')">✕</span>
         </div>`).join("");
 
     const barsHtml = keys.map(k => {
@@ -1264,7 +1313,7 @@ function toggleClinics() {
         d3.json("data/clinics.json").then(data => {
             clinicsData = data;
             renderClinics();
-        });
+        }).catch(err => { console.error("Failed to load clinics:", err); clinicsVisible = false; });
     } else {
         renderClinics();
     }
@@ -1278,8 +1327,8 @@ function toggleFlows() {
         d3.json("data/clinics.json").then(data => {
             clinicsData = data;
             renderFlows();
-            if (clinicsVisible) renderClinics(); // keep clinics on top
-        });
+            if (clinicsVisible) renderClinics();
+        }).catch(err => { console.error("Failed to load clinics:", err); flowsVisible = false; });
     } else {
         renderFlows();
         if (clinicsVisible) renderClinics(); // keep clinics on top
@@ -1289,7 +1338,7 @@ function toggleFlows() {
 function renderClinics() {
     // Add inside the zoom group (g) so pan/zoom apply automatically
     g.selectAll(".clinic-layer").remove();
-    if (!clinicsVisible || !clinicsData) return;
+    if (!clinicsVisible || !clinicsData?.clinics) return;
 
     const layer = g.append("g").attr("class", "clinic-layer");
     const proj = projection;
@@ -1341,7 +1390,7 @@ function renderClinics() {
 function renderFlows() {
     // Add inside zoom group so pan/zoom apply automatically
     g.selectAll(".flow-layer").remove();
-    if (!flowsVisible || !clinicsData) return;
+    if (!flowsVisible || !clinicsData?.migration_flows) return;
 
     // Append flow layer (under clinic dots — append first, then clinics on top)
     const layer = g.append("g").attr("class", "flow-layer");
@@ -1815,9 +1864,10 @@ function applyMapFilter() {
     
     // Get all values
     const vals = allData.map(d => parseFloat(d[metric])).filter(v => !isNaN(v)).sort((a,b)=>b-a);
+    if (!vals.length) { clearMapFilter(); return; }
     const avg = vals.reduce((s,v)=>s+v,0)/vals.length;
-    const top20val = vals[19] || 0;
-    const bot20val = vals[vals.length-20] || 0;
+    const top20val = vals[Math.min(19, vals.length - 1)];
+    const bot20val = vals[Math.max(0, vals.length - 20)];
     
     g.selectAll(".country").each(function(d) {
         const cd = dataByNumId[d.id];
@@ -1952,11 +2002,13 @@ function toggleMobMenu() {
         menu.style.display = "none";
         btn.textContent = "☰";
         btn.style.transform = "";
+        btn.setAttribute("aria-expanded", "false");
     } else {
         menu.classList.add("open");
         menu.style.display = "flex";
         btn.textContent = "✕";
         btn.style.transform = "rotate(90deg)";
+        btn.setAttribute("aria-expanded", "true");
     }
 }
 
@@ -2058,9 +2110,9 @@ function buildNcdLegend() {
         <div id="leg-gradient" style="background:linear-gradient(to right,${[NCD_NODATA,...NCD_COLORS].join(",")})"></div>
         <div id="leg-labels"><span>${lo}%</span><span>${mid}%</span><span>${hi}%+</span></div>
         <div style="color:#2a2d40;font-size:9px;margin-top:5px;display:flex;align-items:center;gap:5px">
-            <div style="width:7px;height:7px;border-radius:50%;background:#0f1220;border:1px solid #1a1d2e"></div>No data
+            <div style="width:7px;height:7px;border-radius:50%;background:#0f1220;border:1px solid #1a1d2e"></div>${t("legend_nodata","No data")}
         </div>`;
-    document.getElementById("leg-title").textContent = "NCD mortality risk % (30-70)";
+    document.getElementById("leg-title").textContent = t("ncd_legend_title","NCD mortality risk % (30-70)");
 }
 
 function applyYearSnapshot(year) {
@@ -2171,7 +2223,7 @@ function renderSparklines(iso3) {
     const container = document.getElementById("trend-charts");
     if (!container) return;
     const ctry = trendsData[iso3];
-    if (!ctry) { container.innerHTML = '<div style="color:#334;font-size:11px">No trend data available</div>'; return; }
+    if (!ctry) { container.innerHTML = `<div style="color:#334;font-size:11px">${t("no_trend","No trend data available")}</div>`; return; }
 
     const W = 300, H = 52;
     let html = "";
@@ -2226,7 +2278,7 @@ function renderSparklines(iso3) {
         </div>`;
     }
 
-    container.innerHTML = html || '<div style="color:#334;font-size:11px">No trend data</div>';
+    container.innerHTML = html || `<div style="color:#334;font-size:11px">${t("no_trend","No trend data available")}</div>`;
 }
 
 // ── Search ─────────────────────────────────────────────────────────────────
@@ -2244,11 +2296,12 @@ function onSearch(q) {
         .slice(0, 8);
     if (!matches.length) { box.innerHTML = ""; box.style.display = "none"; return; }
     box.innerHTML = matches.map(c => {
-        const locName = getCountryName(c.country, c.name || c.country);
-        return `<div onclick="selectCountry('${c.country}')"
+        const locName = esc(getCountryName(c.country, c.name || c.country));
+        const iso = esc(c.country);
+        return `<div onclick="selectCountry('${iso}')"
             style="padding:8px 14px;cursor:pointer;font-size:12px;color:#ccd;border-bottom:1px solid #12151f"
             onmouseover="this.style.background='#1a1d2e'" onmouseout="this.style.background=''">
-            ${locName} <span style="color:#334;font-size:10px">${c.country}</span>
+            ${locName} <span style="color:#334;font-size:10px">${iso}</span>
         </div>`;
     }).join("");
     box.style.display = "block";
@@ -2290,13 +2343,13 @@ function selectCountry(iso3) {
 function shareCountry() {
     const url = window.location.href;
     if (navigator.clipboard) {
-        navigator.clipboard.writeText(url).then(() => showToast("Link copied!"));
+        navigator.clipboard.writeText(url).then(() => showToast(t("link_copied","Link copied!")));
     } else {
         const ta = document.createElement("textarea");
         ta.value = url; document.body.appendChild(ta);
         ta.select(); document.execCommand("copy");
         document.body.removeChild(ta);
-        showToast("Link copied!");
+        showToast(t("link_copied","Link copied!"));
     }
 }
 function showToast(msg) {
@@ -2393,7 +2446,7 @@ function toggleTrials() {
         d3.json("data/clinical_trials.json").then(data => {
             trialsData = data;
             renderTrials();
-        });
+        }).catch(err => { console.error("Failed to load trials:", err); trialsVisible = false; });
     } else {
         renderTrials();
     }
@@ -2516,7 +2569,7 @@ async function init() {
     }
     cancer.forEach(c => { if (c.numeric_id) dataByNumId[String(c.numeric_id).padStart(3,'0')] = c; });
     document.getElementById("stat-n").textContent = cancer.length;
-    document.getElementById("meta-countries").textContent = cancer.length + " countries";
+    document.getElementById("meta-countries").textContent = cancer.length + " " + t("countries","countries");
 
     const cont = document.getElementById("map-container");
     const W = cont.clientWidth, H = cont.clientHeight;
@@ -2578,7 +2631,12 @@ async function init() {
     });
 }
 
-init();
+init().catch(err => {
+    console.error("Failed to initialize OncologyAtlas:", err);
+    document.getElementById("map-container").innerHTML =
+        '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#e05c5c;font-size:14px;padding:20px;text-align:center">' +
+        'Failed to load data. Please refresh the page or check your connection.</div>';
+});
 initMobile();
 </script>
 
