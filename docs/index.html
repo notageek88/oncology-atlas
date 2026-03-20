@@ -526,6 +526,7 @@
     <button class="compare-btn" id="clinics-toggle" onclick="toggleClinics()" style="margin-left:4px" data-i18n="clinics_btn" data-tip="btn_tooltip_clinics">🏥 Clinics</button>
     <button class="compare-btn" id="flows-toggle" onclick="toggleFlows()" style="margin-left:4px" data-i18n="flows_btn" data-tip="btn_tooltip_flows">✈ Flows</button>
     <button class="compare-btn" id="filter-toggle" onclick="toggleFilterPanel()" style="margin-left:4px" data-i18n="filter_btn" data-tip="btn_tooltip_filter">⚡ Filter</button>
+    <button class="compare-btn" id="scatter-toggle" onclick="openScatter()" style="margin-left:4px" data-i18n="scatter_btn" data-tip="btn_tooltip_scatter">📊 Scatter</button>
     <div style="position:relative;margin-left:4px">
         <button id="lang-btn" onclick="toggleLangMenu()">🌐 EN</button>
         <div id="lang-menu"></div>
@@ -656,6 +657,10 @@
         <div style="display:flex;align-items:center;gap:8px">
             <span style="background:#0b0d18;border:1px solid #1a1d2e;color:#889;font-size:11px;padding:4px 10px;border-radius:20px;white-space:nowrap" data-i18n="timeline">Timeline</span>
             <button onclick="toggleTimeline()" style="width:40px;height:40px;border-radius:50%;background:#10131f;border:1px solid #1a1d2e;color:#4f8ef7;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">▶</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+            <span style="background:#0b0d18;border:1px solid #1a1d2e;color:#889;font-size:11px;padding:4px 10px;border-radius:20px;white-space:nowrap" data-i18n="scatter_btn">Scatter</span>
+            <button onclick="openScatter()" style="width:40px;height:40px;border-radius:50%;background:#10131f;border:1px solid #1a1d2e;color:#4f8ef7;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">📊</button>
         </div>
         <div style="display:flex;align-items:center;gap:8px">
             <span style="background:#0b0d18;border:1px solid #1a1d2e;color:#889;font-size:11px;padding:4px 10px;border-radius:20px;white-space:nowrap" data-i18n="compare">Compare</span>
@@ -1238,7 +1243,7 @@ function updateWorldStatsBar(metric) {
     const bar = document.getElementById("world-stats-bar");
     if (!s || !bar) { if(bar) bar.style.display="none"; return; }
     const cat = getCat(metric);
-    if (cat === "infra" || cat === "trials" || cat === "survival") { bar.style.display="none"; return; }
+    if (cat === "infra" || cat === "trials" || cat === "survival" || cat === "risk") { bar.style.display="none"; return; }
     bar.style.display = "flex";
 
     // Unit and hint per metric category
@@ -1296,6 +1301,7 @@ function updateWorldStatsBar(metric) {
 let clinicsData = null;
 let clinicsVisible = false;
 let flowsVisible = false;
+let clinicsLoading = false;
 let clinicTooltipEl = null;
 
 const CLINIC_COLORS = {
@@ -1323,15 +1329,28 @@ function clinicColor(c) {
     return CLINIC_COLORS[c.category] || CLINIC_COLORS.alternative;
 }
 
+function loadClinicsData(onLoaded) {
+    if (clinicsData) { onLoaded(); return; }
+    if (clinicsLoading) return;
+    clinicsLoading = true;
+    d3.json("data/clinics.json").then(data => {
+        clinicsData = data;
+        clinicsLoading = false;
+        onLoaded();
+    }).catch(err => {
+        console.error("Failed to load clinics:", err);
+        clinicsLoading = false;
+        clinicsVisible = false;
+        flowsVisible = false;
+    });
+}
+
 function toggleClinics() {
     clinicsVisible = !clinicsVisible;
     document.getElementById("clinics-toggle").classList.toggle("active", clinicsVisible);
     document.getElementById("clinic-legend").classList.toggle("visible", clinicsVisible || flowsVisible);
     if (clinicsVisible && !clinicsData) {
-        d3.json("data/clinics.json").then(data => {
-            clinicsData = data;
-            renderClinics();
-        }).catch(err => { console.error("Failed to load clinics:", err); clinicsVisible = false; });
+        loadClinicsData(() => renderClinics());
     } else {
         renderClinics();
     }
@@ -1342,15 +1361,10 @@ function toggleFlows() {
     document.getElementById("flows-toggle").classList.toggle("active", flowsVisible);
     document.getElementById("clinic-legend").classList.toggle("visible", clinicsVisible || flowsVisible);
     if (flowsVisible && !clinicsData) {
-        d3.json("data/clinics.json").then(data => {
-            clinicsData = data;
-            renderFlows();
-            if (clinicsVisible) renderClinics();
-        }).catch(err => { console.error("Failed to load clinics:", err); flowsVisible = false; });
+        loadClinicsData(() => { renderFlows(); if (clinicsVisible) renderClinics(); });
     } else {
         renderFlows();
-        if (clinicsVisible) renderClinics(); // keep clinics on top
-    }
+        if (clinicsVisible) renderClinics();
 }
 
 function renderClinics() {
@@ -1805,6 +1819,141 @@ function copyCitation() {
         document.body.removeChild(ta);
         showToast(t("cite_copied","Citation copied!"));
     }
+}
+
+// ── Scatter Plot ─────────────────────────────────────────────────────────
+const SCATTER_METRICS = [
+    ["death_cancer_all", "All-cancer mortality (/ 100k)"],
+    ["death_breast",     "Breast cancer mortality (/ 100k)"],
+    ["death_colon",      "Colorectal mortality (/ 100k)"],
+    ["death_liver",      "Liver cancer mortality (/ 100k)"],
+    ["daly_breast",      "Breast cancer DALYs (/ 100k)"],
+    ["daly_colon",       "Colorectal DALYs (/ 100k)"],
+    ["daly_liver",       "Liver cancer DALYs (/ 100k)"],
+    ["research_index",   "Cancer research publications"],
+    ["cervical_screening","Cervical screening (0=No, 1=Yes)"],
+    ["alcohol_cancer",   "Alcohol-attributable cancer deaths"],
+];
+
+function openScatter() {
+    const modal = document.getElementById("scatter-modal");
+    modal.style.display = "flex";
+    const sx = document.getElementById("scatter-x");
+    const sy = document.getElementById("scatter-y");
+    if (!sx.options.length) {
+        SCATTER_METRICS.forEach(([k, l]) => {
+            sx.add(new Option(l, k));
+            sy.add(new Option(l, k));
+        });
+        sx.value = "death_cancer_all";
+        sy.value = "research_index";
+    }
+    renderScatter();
+}
+
+function closeScatter() {
+    document.getElementById("scatter-modal").style.display = "none";
+}
+
+function renderScatter() {
+    const xKey = document.getElementById("scatter-x").value;
+    const yKey = document.getElementById("scatter-y").value;
+    const wrap = document.getElementById("scatter-svg-wrap");
+    if (!wrap || !allData?.length) return;
+
+    // Build dataset
+    const pts = allData.map(d => {
+        const xRaw = d[xKey];
+        const yRaw = d[yKey];
+        const xv = xKey === "cervical_screening" ? (xRaw === "Yes" ? 1 : xRaw === "No" ? 0 : null) : parseFloat(xRaw);
+        const yv = yKey === "cervical_screening" ? (yRaw === "Yes" ? 1 : yRaw === "No" ? 0 : null) : parseFloat(yRaw);
+        if (xv == null || isNaN(xv) || yv == null || isNaN(yv)) return null;
+        return { iso: d.country, name: d.name || d.country, x: xv, y: yv };
+    }).filter(Boolean);
+
+    if (pts.length < 2) {
+        wrap.innerHTML = `<div style="color:#445;font-size:13px;padding:40px;text-align:center">${t("scatter_no_data","Not enough data for these metrics")}</div>`;
+        return;
+    }
+
+    // Pearson correlation
+    const n = pts.length;
+    const mx = pts.reduce((s,p)=>s+p.x,0)/n;
+    const my = pts.reduce((s,p)=>s+p.y,0)/n;
+    const num = pts.reduce((s,p)=>s+(p.x-mx)*(p.y-my),0);
+    const den = Math.sqrt(pts.reduce((s,p)=>s+(p.x-mx)**2,0)*pts.reduce((s,p)=>s+(p.y-my)**2,0));
+    const r = den ? (num/den).toFixed(3) : "N/A";
+    document.getElementById("scatter-r-label").textContent = `r = ${r}  (n = ${n})`;
+
+    // SVG dimensions
+    const W = wrap.clientWidth || 700, H = 380;
+    const M = { top: 20, right: 20, bottom: 50, left: 60 };
+    const iW = W - M.left - M.right, iH = H - M.top - M.bottom;
+
+    wrap.innerHTML = "";
+    const svgEl = d3.select(wrap).append("svg")
+        .attr("width", W).attr("height", H);
+    const g2 = svgEl.append("g").attr("transform", `translate(${M.left},${M.top})`);
+
+    const xScale = d3.scaleLinear().domain(d3.extent(pts, p=>p.x)).nice().range([0, iW]);
+    const yScale = d3.scaleLinear().domain(d3.extent(pts, p=>p.y)).nice().range([iH, 0]);
+
+    // Axes
+    g2.append("g").attr("transform", `translate(0,${iH})`)
+        .call(d3.axisBottom(xScale).ticks(6))
+        .selectAll("text,line,path").attr("stroke","#334").attr("fill","#556").attr("font-size","10px");
+    g2.append("g")
+        .call(d3.axisLeft(yScale).ticks(6))
+        .selectAll("text,line,path").attr("stroke","#334").attr("fill","#556").attr("font-size","10px");
+
+    // Grid
+    g2.append("g").attr("class","grid")
+        .call(d3.axisBottom(xScale).ticks(6).tickSize(iH).tickFormat(""))
+        .attr("transform",`translate(0,0)`)
+        .selectAll("line").attr("stroke","#1a1d2e");
+    g2.append("g").attr("class","grid")
+        .call(d3.axisLeft(yScale).ticks(6).tickSize(-iW).tickFormat(""))
+        .selectAll("line").attr("stroke","#1a1d2e");
+
+    // Trend line
+    const xm = pts.reduce((s,p)=>s+p.x,0)/n;
+    const ym = pts.reduce((s,p)=>s+p.y,0)/n;
+    const slope = num / (pts.reduce((s,p)=>s+(p.x-xm)**2,0) || 1);
+    const [x0,x1] = xScale.domain();
+    g2.append("line")
+        .attr("x1",xScale(x0)).attr("y1",yScale(ym+slope*(x0-xm)))
+        .attr("x2",xScale(x1)).attr("y2",yScale(ym+slope*(x1-xm)))
+        .attr("stroke","#4f8ef755").attr("stroke-width",1.5).attr("stroke-dasharray","4,4");
+
+    // Tooltip div
+    let scatterTip = document.getElementById("scatter-tip");
+    if (!scatterTip) {
+        scatterTip = document.createElement("div");
+        scatterTip.id = "scatter-tip";
+        scatterTip.style.cssText = "position:fixed;display:none;background:#0d0f1a;border:1px solid #1a3a6e;border-radius:8px;padding:8px 12px;font-size:11px;color:#ccd;pointer-events:none;z-index:900";
+        document.body.appendChild(scatterTip);
+    }
+
+    // Points
+    g2.selectAll(".spt").data(pts).join("circle")
+        .attr("class","spt")
+        .attr("cx", p=>xScale(p.x))
+        .attr("cy", p=>yScale(p.y))
+        .attr("r", 4)
+        .attr("fill","#4f8ef7")
+        .attr("opacity",0.75)
+        .attr("stroke","#09090f").attr("stroke-width",0.8)
+        .on("mousemove", function(event, p) {
+            scatterTip.innerHTML = `<b>${esc(p.name)}</b><div style="color:#778;margin-top:3px">X: ${p.x.toFixed(2)}<br>Y: ${p.y.toFixed(2)}</div>`;
+            scatterTip.style.display = "block";
+            scatterTip.style.left = (event.clientX+12)+"px";
+            scatterTip.style.top = (event.clientY-10)+"px";
+            d3.select(this).attr("r",6).attr("fill","#7eb8f7");
+        })
+        .on("mouseleave", function() {
+            scatterTip.style.display = "none";
+            d3.select(this).attr("r",4).attr("fill","#4f8ef7");
+        });
 }
 
 // ── Map Filters ─────────────────────────────────────────────────────────
@@ -2699,6 +2848,29 @@ init().catch(err => {
 });
 initMobile();
 </script>
+
+<!-- Scatter Plot Modal -->
+<div id="scatter-modal" onclick="if(event.target===this)closeScatter()" style="display:none;position:fixed;inset:0;z-index:700;background:rgba(0,0,0,0.85);backdrop-filter:blur(4px);align-items:center;justify-content:center">
+  <div style="background:#09090f;border:1px solid #1a1d2e;border-radius:14px;padding:20px 24px;width:min(92vw,780px);max-height:90vh;overflow-y:auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <h2 style="font-size:16px;color:#eee" data-i18n="scatter_title">Scatter Plot — Correlation Explorer</h2>
+      <button onclick="closeScatter()" style="background:none;border:none;color:#445;font-size:18px;cursor:pointer">✕</button>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+      <div>
+        <div style="font-size:10px;color:#556;text-transform:uppercase;margin-bottom:4px" data-i18n="scatter_x_axis">X Axis</div>
+        <select id="scatter-x" onchange="renderScatter()" style="background:#10131f;border:1px solid #1a1d2e;color:#ccd;padding:5px 10px;border-radius:5px;font-size:12px"></select>
+      </div>
+      <div>
+        <div style="font-size:10px;color:#556;text-transform:uppercase;margin-bottom:4px" data-i18n="scatter_y_axis">Y Axis</div>
+        <select id="scatter-y" onchange="renderScatter()" style="background:#10131f;border:1px solid #1a1d2e;color:#ccd;padding:5px 10px;border-radius:5px;font-size:12px"></select>
+      </div>
+      <div style="margin-left:auto;font-size:10px;color:#445" id="scatter-r-label"></div>
+    </div>
+    <div id="scatter-svg-wrap" style="width:100%;height:420px;position:relative"></div>
+    <div style="font-size:10px;color:#334;margin-top:10px" data-i18n="scatter_hint">Hover a dot for country details. Dots sized by population (where available).</div>
+  </div>
+</div>
 
 <div id="sources-modal" onclick="if(event.target===this)closeSources()">
   <div id="sources-box">
