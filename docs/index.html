@@ -1221,6 +1221,7 @@ function openProfile(data, name) {
             ${buildSurvival(data.country)}
             ${buildTreatment(data.country)}
             ${buildPrevention(data.country)}
+            ${buildSupportResources(data.country)}
             ${buildTrialsSection(data.country)}
             ${buildCitation(data)}`;
 
@@ -2037,6 +2038,158 @@ function buildPreventionScore(iso3, data) {
                 <div style="font-size:9px;color:#334;margin-top:4px">OncologyAtlas composite index</div>
             </div>
         </div>
+    </div>`;
+}
+
+// ── Support Resources ─────────────────────────────────────────────────────────
+// Data: national cancer helplines, patient organisations, NGOs
+// Format: { iso3: [ {name, url, phone, type} ] }
+// type: "helpline" | "ngo" | "gov"
+const SUPPORT_RESOURCES = {
+    "USA": [
+        { name:"National Cancer Institute", url:"https://www.cancer.gov", phone:"1-800-422-6237", type:"gov" },
+        { name:"American Cancer Society", url:"https://www.cancer.org", phone:"1-800-227-2345", type:"ngo" },
+        { name:"CancerCare", url:"https://www.cancercare.org", phone:"1-800-813-4673", type:"helpline" },
+        { name:"Cancer Support Community", url:"https://www.cancersupportcommunity.org", type:"ngo" },
+    ],
+    "GBR": [
+        { name:"Macmillan Cancer Support", url:"https://www.macmillan.org.uk", phone:"0808 808 00 00", type:"helpline" },
+        { name:"Cancer Research UK", url:"https://www.cancerresearchuk.org", type:"ngo" },
+        { name:"Maggie's Centres", url:"https://www.maggies.org", type:"helpline" },
+    ],
+    "DEU": [
+        { name:"Krebsinformationsdienst (KID)", url:"https://www.krebsinformationsdienst.de", phone:"0800 420 30 40", type:"helpline" },
+        { name:"Deutsche Krebsgesellschaft", url:"https://www.krebsgesellschaft.de", type:"ngo" },
+        { name:"Deutsche Krebshilfe", url:"https://www.krebshilfe.de", type:"ngo" },
+    ],
+    "FRA": [
+        { name:"INCa – Institut National du Cancer", url:"https://www.e-cancer.fr", phone:"0 800 940 939", type:"gov" },
+        { name:"Ligue contre le cancer", url:"https://www.ligue-cancer.net", type:"ngo" },
+    ],
+    "RUS": [
+        { name:"Российское общество онкологов", url:"https://rosoncoweb.ru", type:"ngo" },
+        { name:"Фонд «Не напрасно»", url:"https://nenaprasno.ru", type:"helpline" },
+        { name:"Горячая линия НМИЦ онкологии", phone:"8-800-200-20-92", type:"helpline" },
+    ],
+    "JPN": [
+        { name:"National Cancer Center Japan", url:"https://www.ncc.go.jp/en", type:"gov" },
+        { name:"Japan Cancer Society", url:"https://www.jcancer.jp", type:"ngo" },
+        { name:"Cancer Information Service (NCC)", phone:"0570-02-3410", type:"helpline" },
+    ],
+    "CHN": [
+        { name:"National Cancer Center China", url:"https://www.ncc.ac.cn", type:"gov" },
+        { name:"China Anti-Cancer Association", url:"https://www.caca.org.cn", type:"ngo" },
+    ],
+    "AUS": [
+        { name:"Cancer Council Australia", url:"https://www.cancer.org.au", phone:"13 11 20", type:"helpline" },
+        { name:"Cancer Australia", url:"https://www.canceraustralia.gov.au", type:"gov" },
+        { name:"Leukaemia Foundation", url:"https://www.leukaemia.org.au", type:"ngo" },
+    ],
+    "CAN": [
+        { name:"Canadian Cancer Society", url:"https://www.cancer.ca", phone:"1-888-939-3333", type:"helpline" },
+        { name:"Canadian Cancer Research Alliance", url:"https://www.ccra-acrc.ca", type:"ngo" },
+    ],
+    "IND": [
+        { name:"Indian Cancer Society", url:"https://www.indiancancersociety.org", type:"ngo" },
+        { name:"CanSupport", url:"https://www.cansupport.org", phone:"+91 11 4165 0077", type:"helpline" },
+        { name:"Tata Memorial Centre", url:"https://tmc.gov.in", type:"gov" },
+    ],
+    "BRA": [
+        { name:"Instituto Nacional de Câncer (INCA)", url:"https://www.inca.gov.br", type:"gov" },
+        { name:"Grupo de Apoio ao Adolescente e à Criança com Câncer (GRAACC)", url:"https://www.graacc.org.br", type:"ngo" },
+    ],
+    "ZAF": [
+        { name:"Cancer Association of South Africa (CANSA)", url:"https://www.cansa.org.za", phone:"0800 22 6622", type:"helpline" },
+        { name:"Reach for Recovery South Africa", url:"https://www.reachforrecovery.co.za", type:"ngo" },
+    ],
+    "NGA": [
+        { name:"Cancer Research Nigeria", url:"https://cancerresearchnigeria.org", type:"ngo" },
+        { name:"Sebeccly Cancer Care", url:"https://sebeccly.org", type:"helpline" },
+    ],
+    "EGY": [
+        { name:"Children's Cancer Hospital Egypt 57357", url:"https://www.57357.org", type:"ngo" },
+        { name:"National Cancer Institute Egypt", url:"https://nci.cu.edu.eg", type:"gov" },
+    ],
+    "TUR": [
+        { name:"Turkish Cancer Association", url:"https://www.kanser.gov.tr", type:"gov" },
+        { name:"Kanser Danışma Hattı", phone:"0800 314 09 20", type:"helpline" },
+    ],
+    "KOR": [
+        { name:"National Cancer Center Korea", url:"https://www.ncc.re.kr/en", type:"gov" },
+        { name:"Korea Cancer Foundation", url:"https://www.kcf.or.kr", type:"ngo" },
+        { name:"Cancer Information Line", phone:"1577-8899", type:"helpline" },
+    ],
+    "ARG": [
+        { name:"Instituto Nacional del Cáncer", url:"https://www.argentina.gob.ar/inc", type:"gov" },
+        { name:"LALCEC", url:"https://www.lalcec.org.ar", type:"ngo" },
+    ],
+    "MEX": [
+        { name:"Instituto Nacional de Cancerología (INCan)", url:"https://www.incan-mexico.org", type:"gov" },
+        { name:"Fundación Cim*ab", url:"https://fundacioncimab.org.mx", type:"ngo" },
+    ],
+    "POL": [
+        { name:"Polska Liga Walki z Rakiem", url:"https://www.ligawalkizrakiem.pl", type:"ngo" },
+        { name:"Polskie Towarzystwo Onkologiczne", url:"https://www.pto.med.pl", type:"ngo" },
+    ],
+    "ITA": [
+        { name:"AIOM – Ass. Italiana Oncologia Medica", url:"https://www.aiom.it", type:"ngo" },
+        { name:"LILT – Lega Italiana Lotta Tumori", url:"https://www.lilt.it", phone:"800 998877", type:"helpline" },
+    ],
+    "ESP": [
+        { name:"Asociación Española Contra el Cáncer", url:"https://www.aecc.es", phone:"900 100 036", type:"helpline" },
+        { name:"FEFOC", url:"https://www.fefoc.org", type:"ngo" },
+    ],
+    "NLD": [
+        { name:"KWF Kankerbestrijding", url:"https://www.kwf.nl", phone:"0800 022 66 22", type:"helpline" },
+        { name:"NFK – Nederlandse Federatie Kankerpatiëntenorganisaties", url:"https://www.nfk.nl", type:"ngo" },
+    ],
+    "SGP": [
+        { name:"Singapore Cancer Society", url:"https://www.singaporecancersociety.org.sg", phone:"6221 9578", type:"helpline" },
+        { name:"National Cancer Centre Singapore", url:"https://www.nccs.com.sg", type:"gov" },
+    ],
+    "ISR": [
+        { name:"Israel Cancer Association", url:"https://www.cancer.org.il", phone:"1-800-599-995", type:"helpline" },
+    ],
+    "IRN": [
+        { name:"Cancer Institute of Iran", url:"https://cci.tums.ac.ir", type:"gov" },
+    ],
+    "PAK": [
+        { name:"Shaukat Khanum Cancer Hospital", url:"https://www.shaukatkhanum.org.pk", type:"gov" },
+        { name:"Pakistan Atomic Energy Cancer Hospital", url:"https://www.paec.gov.pk", type:"gov" },
+    ],
+    "KEN": [
+        { name:"Kenya Network of Cancer Organisations", url:"https://kenco.or.ke", type:"ngo" },
+    ],
+    "GHA": [
+        { name:"Ghana Cancer Society", type:"ngo" },
+    ],
+    "UGA": [
+        { name:"Uganda Cancer Institute", url:"https://www.uci.go.ug", type:"gov" },
+    ],
+};
+
+const TYPE_COLORS = { helpline:"#f7a04f", ngo:"#4f8ef7", gov:"#2db565" };
+const TYPE_ICONS  = { helpline:"📞", ngo:"🤝", gov:"🏛" };
+
+function buildSupportResources(iso3) {
+    const resources = SUPPORT_RESOURCES[iso3];
+    if (!resources?.length) return "";
+    const rows = resources.map(r => {
+        const col = TYPE_COLORS[r.type] || "#667";
+        const icon = TYPE_ICONS[r.type] || "ℹ";
+        const nameHtml = r.url
+            ? `<a href="${r.url}" target="_blank" rel="noopener" style="color:${col};text-decoration:none;font-size:12px;font-weight:600">${icon} ${esc(r.name)}</a>`
+            : `<span style="color:${col};font-size:12px;font-weight:600">${icon} ${esc(r.name)}</span>`;
+        const phoneHtml = r.phone ? `<span style="font-size:11px;color:#889;margin-left:8px">📞 ${esc(r.phone)}</span>` : "";
+        return `<div style="padding:5px 0;border-bottom:1px solid #1a1d2e;display:flex;align-items:center;gap:4px;flex-wrap:wrap">
+            ${nameHtml}${phoneHtml}
+        </div>`;
+    }).join("");
+    return `<div class="panel-section">
+        <div class="section-header" style="margin-bottom:8px">
+            <h3>${t("support_title","Support & Resources")}</h3>
+        </div>
+        ${rows}
     </div>`;
 }
 
