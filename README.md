@@ -38,6 +38,10 @@ OncologyAtlas is an open-source interactive map of global cancer data. Built for
 | 🔗 Shareable URLs | `?country=RUS&lang=ru&metric=death_breast` |
 | 📱 Mobile-friendly | Bottom sheet panel on mobile |
 | ⬇ CSV download | Full dataset as spreadsheet |
+| 🎗 Cervical screening | Coverage data for 180+ countries, overlaid on infrastructure map |
+| 🍷 Risk factors | Alcohol-attributable cancer deaths layer |
+| 📅 Data freshness | Every tooltip and profile shows the year of data |
+| 📖 Citation generator | One-click APA citation for researchers |
 
 ---
 
@@ -76,12 +80,12 @@ This project is actively developed. Contributions welcome for any of the items b
 - [ ] **Filter by cancer type on map** — show only countries with specific cancer type dominant
 - [ ] **Search by metric range** — "show countries where breast cancer mortality > 20"
 - [ ] **Country comparison export** — download comparison as PNG/PDF
-- [ ] **Cervical cancer screening coverage** (WHO GHO `NCD_CCS_cervicalcancerscreening`)
+- [x] **Cervical cancer screening coverage** — 180+ countries, on infra map layer
 - [ ] **Prostate cancer data** — add to profile panel
 
 ### v0.5 — Deeper Data
 - [ ] **SEER data** — US state-level cancer statistics (50 states, 50+ years)
-- [ ] **Alcohol-attributable cancer deaths** (WHO GHO `SA_0000001468`)
+- [x] **Alcohol-attributable cancer deaths** — risk factors map layer
 - [ ] **Tobacco-attributable cancer deaths**
 - [ ] **Cancer treatment costs by country** — affordability layer
 - [ ] **Age-specific rates** — pediatric vs adult vs elderly breakdown
@@ -89,21 +93,39 @@ This project is actively developed. Contributions welcome for any of the items b
 
 ### v0.6 — Social & Media Intelligence
 - [ ] **Social media mentions layer** — Reddit/Twitter/news discussion volume per country, mapped via GDELT or Pushshift
-- [ ] **Research activity index** — PubMed publication count by country, overlaid on map
+- [x] **Research activity index** — PubMed publication count by country, overlaid on map
 - [ ] **NGO presence** — mapping of major cancer charities and advocacy groups per country
 - [ ] **News timeline** — key policy events (smoking bans, screening programs launch) on the timeline slider
 
 ### v0.7 — Access & API
 - [ ] **Embed widget** — `<iframe src="https://notageek88.github.io/oncology-atlas/embed.html?country=RUS">` for journalists/researchers
 - [ ] **Public API** — `/api/v1/cancer?country=RUS&metric=death_breast&year=2019`
-- [ ] **Data freshness indicator** — when each metric was last updated
+- [x] **Data freshness indicator** — every tooltip and profile panel shows data year
 - [ ] **Alert/notification system** — subscribe to data updates for a country
+- [x] **Citation generator** — one-click APA citation in every country profile
+
+### v0.8 — Patient & Clinic Value
+- [ ] **Treatment availability matrix** — surgery/chemo/radiation/immunotherapy/proton by country
+- [ ] **Cost comparison** — average cancer treatment costs (public vs private) per country
+- [ ] **"Find a clinic" search** — filter by country, specialty, accreditation, tier
+- [ ] **Medical tourism guide** — visa requirements + wait times near clinic profiles
+- [ ] **Support resources** — hotlines, NGOs, patient groups per country
+
+### v0.9 — Research Tools
+- [ ] **Scatter plot mode** — plot any two metrics against each other, all countries
+- [ ] **Country report PDF** — auto-generated 1-page PDF: metrics, charts, regional comparison
+- [ ] **Prevention score** — composite index: screening + infrastructure + registry + national plan
+- [ ] **Benchmarking tool** — compare country vs peer group (by GDP, region, population)
+- [ ] **Correlation insights** — auto-generated "Countries with X have Y% lower Z" cards
+- [ ] **Embed widget** — `<iframe>` for journalists and bloggers (viral distribution)
+- [ ] **Downloadable infographics** — auto-generated PNG per country for social media
 
 ### v1.0 — Platform
-- [ ] **User contributions** — submit corrections or local data via PR template
+- [x] **User contributions** — CONTRIBUTING.md + PR templates + issue templates
 - [ ] **Patient stories** — qualitative layer on top of quantitative data
 - [ ] **Researcher mode** — advanced filters, multi-metric scatter plots, regression lines
-- [ ] **Country report PDF** — auto-generated 1-page PDF for any country
+- [ ] **Clinic "claim your profile"** — clinics can submit updates via PR
+- [ ] **Public JSON API** — `/api/v1/cancer?country=RUS&metric=death_breast` (FastAPI backend ready)
 
 ---
 

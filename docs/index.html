@@ -498,6 +498,7 @@
         <option value="daly" data-i18n="cat_daly">Disease Burden — DALYs (/ 100k)</option>
         <option value="infra" data-i18n="cat_infra">Healthcare Infrastructure</option>
         <option value="research" data-i18n="cat_research">Research Activity</option>
+        <option value="risk" data-i18n="cat_risk">Risk Factors</option>
     </select>
     <div class="sep"></div>
     <span class="ctrl-label" data-i18n="type_label">Type</span>
@@ -712,9 +713,19 @@ const METRIC_GROUPS = {
         options: {
             cancer_surgery: "Cancer surgery", cancer_registry: "Cancer registry",
             cancer_plan: "National plan", breast_screening: "Breast screening",
-            cancer_dept: "Cancer dept (tertiary)"
+            cancer_dept: "Cancer dept (tertiary)", cervical_screening: "Cervical screening"
         },
         type: "boolean", nodata: "#0f1220"
+    },
+    risk: {
+        label: "Risk Factors",
+        options: {
+            alcohol_cancer: "Alcohol-attributable cancer deaths / 100k"
+        },
+        type: "numeric",
+        domain: [1, 5, 15, 50, 150],
+        colors: ["#1a0d0d","#4a1010","#8a2020","#c84040","#ff7070"],
+        nodata: "#0f1220"
     },
     research: {
         label: "Research Activity",
@@ -941,14 +952,15 @@ function getCountryName(iso3, fallback) {
   return ln[currentLang] || ln["en"] || fallback || iso3;
 }
 const DALY_MAX  = { daly_breast:350, daly_colon:350, daly_liver:200, daly_mouth:150, daly_oesophagus:150 };
-const INFRA_KEYS = ["cancer_surgery","cancer_registry","cancer_plan","breast_screening","cancer_dept"];
+const INFRA_KEYS = ["cancer_surgery","cancer_registry","cancer_plan","breast_screening","cancer_dept","cervical_screening"];
 function getInfraLabel(k) {
     const M = {
         cancer_surgery: t("surgery","Cancer Surgery"),
         cancer_registry: t("registry","Cancer Registry"),
         cancer_plan: t("plan","National Plan"),
         breast_screening: t("screening","Breast Screening"),
-        cancer_dept: t("dept","Cancer Dept")
+        cancer_dept: t("dept","Cancer Dept"),
+        cervical_screening: t("cervical_screening_label","Cervical Screening")
     };
     return M[k] || k;
 }
@@ -1021,9 +1033,11 @@ function showTip(event, d, data) {
         : cat === "daly"
         ? `<div style="font-size:9px;color:#445;margin-top:2px">${t("tip_unit_daly","DALYs lost per 100,000")}</div>`
         : "";
+    const yearField = currentMetric + "_year";
+    const dataYear = data && data[yearField] ? `<div style="font-size:9px;color:#334;margin-top:3px">Data: ${data[yearField]}</div>` : "";
     tip.innerHTML = `<div class="tip-country">${n}</div>
         ${fv != null
-            ? `<div class="tip-main"><span class="tip-val">${fv}</span> <span class="tip-unit">${cat === "death" ? "/ 100k" : cat === "daly" ? "DALYs" : ""}</span></div>`
+            ? `<div class="tip-main"><span class="tip-val">${fv}</span> <span class="tip-unit">${cat === "death" ? "/ 100k" : cat === "daly" ? "DALYs" : ""}</span></div>${dataYear}`
             : `<div class="tip-nodata">${t("tip_no_data","No data")}</div>`}`;
     tip.style.display = "block";
     moveTip(event);
@@ -1044,7 +1058,10 @@ function openProfile(data, name) {
         document.getElementById("panel-content").innerHTML = "";
     } else {
         document.getElementById("panel-title").textContent = getCountryName(data.country, data.name || name);
-        document.getElementById("panel-sub").textContent = `${t("profile_source","WHO Global Health Observatory")} • ${data.country}`;
+        // Show data vintage: find the most recent year across key metrics
+        const vintageYears = ["death_cancer_all_year","death_breast_year","cancer_surgery_year"].map(k => data[k]).filter(Boolean);
+        const vintageLabel = vintageYears.length ? ` • ${t("data_as_of","data")} ${Math.max(...vintageYears)}` : "";
+        document.getElementById("panel-sub").textContent = `${t("profile_source","WHO GHO")} • ${data.country}${vintageLabel}`;
 
         // Build mortality bars
         const deathRows = [
@@ -1110,7 +1127,8 @@ function openProfile(data, name) {
             ${buildRankings(data.country, data)}
             ${buildSurvival(data.country)}
             ${buildPrevention(data.country)}
-            ${buildTrialsSection(data.country)}`;
+            ${buildTrialsSection(data.country)}
+            ${buildCitation(data)}`;
 
         // Render sparklines async
         renderSparklines(data.country);
@@ -1757,6 +1775,36 @@ function buildPrevention(iso3) {
         <div class="section-header"><h3>${t("prevention_section","Prevention & Risk Factors")}</h3></div>
         ${rows.join("")}
     </div>`;
+}
+
+function buildCitation(data) {
+    if (!data) return "";
+    const country = data.name || data.country;
+    const year = new Date().getFullYear();
+    const url = `https://notageek88.github.io/oncology-atlas/?country=${data.country}`;
+    const apa = `OncologyAtlas. (${year}). Cancer data for ${country}. WHO Global Health Observatory. Retrieved from ${url}`;
+    return `<div class="panel-section">
+        <div class="section-header" style="margin-bottom:8px">
+            <h3>${t("cite_title","Cite this data")}</h3>
+        </div>
+        <div style="font-size:10px;color:#556;line-height:1.6;background:#0b0d14;border-radius:5px;padding:8px 10px;border-left:2px solid #1a3a6e;font-family:monospace;word-break:break-word" id="cite-text">${esc(apa)}</div>
+        <button onclick="copyCitation()" style="margin-top:8px;background:#0d1e3a;border:1px solid #1a3a6e;color:#4f8ef7;padding:5px 14px;border-radius:5px;font-size:11px;cursor:pointer;width:100%">${t("cite_copy","Copy APA citation")}</button>
+    </div>`;
+}
+
+function copyCitation() {
+    const txt = document.getElementById("cite-text")?.textContent || "";
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(txt).then(() => showToast(t("cite_copied","Citation copied!")));
+    } else {
+        const ta = document.createElement("textarea");
+        ta.value = txt;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        showToast(t("cite_copied","Citation copied!"));
+    }
 }
 
 // ── Map Filters ─────────────────────────────────────────────────────────
@@ -2567,7 +2615,19 @@ async function init() {
         const sel = document.getElementById("metric");
         if (sel) sel.value = params.metric;
     }
-    cancer.forEach(c => { if (c.numeric_id) dataByNumId[String(c.numeric_id).padStart(3,'0')] = c; });
+    // Merge extraMetrics (cervical_screening, alcohol_cancer) into allData records
+    const extraKeys = ["cervical_screening", "alcohol_cancer"];
+    cancer.forEach(c => {
+        extraKeys.forEach(key => {
+            const map = extraMetrics[key];
+            if (map && c.country in map) {
+                const raw = map[c.country];
+                // cervical_screening: 1/0 → "Yes"/"No" for boolean map rendering
+                c[key] = (key === "cervical_screening") ? (raw === 1 ? "Yes" : "No") : raw;
+            }
+        });
+        if (c.numeric_id) dataByNumId[String(c.numeric_id).padStart(3,'0')] = c;
+    });
     document.getElementById("stat-n").textContent = cancer.length;
     document.getElementById("meta-countries").textContent = cancer.length + " " + t("countries","countries");
 
