@@ -1179,6 +1179,7 @@ function openProfile(data, name) {
             </div>
             ${buildPreventionScore(data.country, data)}
             ${buildRankings(data.country, data)}
+            ${buildBenchmark(data.country, data)}
             ${buildSurvival(data.country)}
             ${buildTreatment(data.country)}
             ${buildPrevention(data.country)}
@@ -2933,6 +2934,55 @@ function buildRankings(iso3, data) {
             <div style="font-size:9px;color:#2db565;margin:10px 0 6px;text-transform:uppercase;letter-spacing:0.5px">▼ ${t("lowest","Lowest mortality")}</div>
             ${bottom5.map((c,i) => rowHtml(c, all.length-5+i, () => "#2db565")).join("")}
         </div>`;
+}
+
+// ── Benchmarking Tool ────────────────────────────────────────────────────────
+function buildBenchmark(iso3, data) {
+    if (!data || !allData) return "";
+    const region = ISO3_REGION[iso3];
+    if (!region) return "";
+
+    const REGION_NAMES = { EUR:"Europe", AMR:"Americas", WPR:"W. Pacific", SEA:"S-E Asia", EMR:"E. Mediterranean", AFR:"Africa" };
+    const metrics = [
+        ["death_cancer_all", t("all_cancers","All-cancer mortality"), "/100k"],
+        ["death_breast",     t("breast","Breast mortality"), "/100k"],
+        ["daly_breast",      t("daly_breast","Breast DALYs"), "/100k"],
+        ["research_index",   t("research_label","Research index"), ""],
+    ];
+
+    const peers = allData.filter(c => ISO3_REGION[c.country] === region && c.country !== iso3);
+
+    const rows = metrics.map(([key, label, unit]) => {
+        const myVal = parseFloat(data[key]);
+        if (isNaN(myVal)) return "";
+        const peerVals = peers.map(c => parseFloat(c[key])).filter(v => !isNaN(v));
+        if (peerVals.length < 3) return "";
+        const peerAvg = peerVals.reduce((s,v)=>s+v,0) / peerVals.length;
+        const sorted = [...peerVals, myVal].sort((a,b)=>b-a);
+        const rank = sorted.indexOf(myVal) + 1;
+        const rankTotal = sorted.length;
+        const vsAvg = ((myVal - peerAvg) / peerAvg * 100).toFixed(0);
+        const better = key.startsWith("research") ? myVal >= peerAvg : myVal < peerAvg;
+        const vsColor = better ? "#2db565" : "#e05c5c";
+        const vsSign = vsAvg > 0 ? "+" : "";
+        return `<div style="padding:5px 0;border-bottom:1px solid #1a1d2e;display:flex;justify-content:space-between;align-items:center;gap:8px">
+            <span style="font-size:11px;color:#889;flex:1">${label}</span>
+            <span style="font-size:11px;font-weight:600;color:#ccd">${myVal.toFixed(1)}${unit}</span>
+            <span style="font-size:10px;color:${vsColor};min-width:55px;text-align:right">${vsSign}${vsAvg}% vs avg</span>
+            <span style="font-size:10px;color:#445;min-width:55px;text-align:right">#${rank}/${rankTotal} in ${REGION_NAMES[region]||region}</span>
+        </div>`;
+    }).filter(Boolean);
+
+    if (!rows.length) return "";
+
+    return `<div class="panel-section">
+        <div class="section-header" style="margin-bottom:8px">
+            <h3>${t("benchmark_title","Regional Benchmarking")}</h3>
+            <span class="section-unit">${REGION_NAMES[region] || region}</span>
+        </div>
+        <div style="font-size:9px;color:#334;margin-bottom:6px">${t("benchmark_desc","vs WHO regional average")}</div>
+        ${rows.join("")}
+    </div>`;
 }
 
 // ── Sparklines ─────────────────────────────────────────────────────────────
