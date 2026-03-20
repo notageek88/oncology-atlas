@@ -3591,52 +3591,109 @@ function buildRankings(iso3, data) {
         </div>`;
 }
 
+// World Bank income groups (2023 GNI/capita thresholds)
+const ISO3_INCOME = {
+    // High income (HIC)
+    "AUS":"HIC","AUT":"HIC","BEL":"HIC","CAN":"HIC","CHE":"HIC","CYP":"HIC","CZE":"HIC",
+    "DEU":"HIC","DNK":"HIC","ESP":"HIC","EST":"HIC","FIN":"HIC","FRA":"HIC","GBR":"HIC",
+    "GRC":"HIC","HKG":"HIC","HRV":"HIC","HUN":"HIC","IRL":"HIC","ISL":"HIC","ISR":"HIC",
+    "ITA":"HIC","JPN":"HIC","KOR":"HIC","LTU":"HIC","LUX":"HIC","LVA":"HIC","MLT":"HIC",
+    "NLD":"HIC","NOR":"HIC","NZL":"HIC","POL":"HIC","PRT":"HIC","SAU":"HIC","SGP":"HIC",
+    "SVK":"HIC","SVN":"HIC","SWE":"HIC","TWN":"HIC","USA":"HIC","ARE":"HIC","BHR":"HIC",
+    "BMU":"HIC","BRN":"HIC","CHL":"HIC","KWT":"HIC","OMN":"HIC","PAN":"HIC","QAT":"HIC",
+    "SMR":"HIC","TTO":"HIC","URY":"HIC","BHS":"HIC","ATG":"HIC","BRB":"HIC","CRI":"HIC",
+    "AND":"HIC","LIE":"HIC","MCO":"HIC","GNQ":"HIC",
+    // Upper-middle income (UMIC)
+    "ARG":"UMIC","BLR":"UMIC","BRA":"UMIC","BGR":"UMIC","CHN":"UMIC","COL":"UMIC",
+    "CUB":"UMIC","DOM":"UMIC","ECU":"UMIC","GAB":"UMIC","IRQ":"UMIC","JAM":"UMIC",
+    "JOR":"UMIC","KAZ":"UMIC","LBN":"UMIC","LBY":"UMIC","MDA":"UMIC","MEX":"UMIC",
+    "MKD":"UMIC","MNE":"UMIC","MYS":"UMIC","NAM":"UMIC","PER":"UMIC","ROU":"UMIC",
+    "RUS":"UMIC","SRB":"UMIC","THA":"UMIC","TUR":"UMIC","UKR":"UMIC","VEN":"UMIC",
+    "ZAF":"UMIC","MNG":"UMIC","BWA":"UMIC","IRN":"UMIC","ALB":"UMIC","ARM":"UMIC",
+    "AZE":"UMIC","BIH":"UMIC","BOL":"UMIC","DZA":"UMIC","FJI":"UMIC","GTM":"UMIC",
+    "GUY":"UMIC","IDN":"UMIC","MUS":"UMIC","PRY":"UMIC","SUR":"UMIC","SWZ":"UMIC",
+    "TKM":"UMIC","TON":"UMIC","GEO":"UMIC","SLV":"UMIC",
+    // Lower-middle income (LMIC)
+    "BGD":"LMIC","BEN":"LMIC","BOL":"LMIC","CMR":"LMIC","CIV":"LMIC","COD":"LMIC",
+    "EGY":"LMIC","ETH":"LMIC","GHA":"LMIC","HND":"LMIC","IND":"LMIC","KEN":"LMIC",
+    "KGZ":"LMIC","KHM":"LMIC","LAO":"LMIC","LKA":"LMIC","MAR":"LMIC","MMR":"LMIC",
+    "MRT":"LMIC","NGA":"LMIC","NIC":"LMIC","NPL":"LMIC","PAK":"LMIC","PHL":"LMIC",
+    "PNG":"LMIC","SEN":"LMIC","SYR":"LMIC","TJK":"LMIC","TUN":"LMIC","TZA":"LMIC",
+    "UGA":"LMIC","UZB":"LMIC","VNM":"LMIC","ZMB":"LMIC","ZWE":"LMIC","COG":"LMIC",
+    "AGO":"LMIC","CPV":"LMIC","GIN":"LMIC","HTI":"LMIC","LSO":"LMIC","MDG":"LMIC",
+    "MOZ":"LMIC","MWI":"LMIC","RWA":"LMIC",
+    // Low income (LIC)
+    "AFG":"LIC","BDI":"LIC","BFA":"LIC","CAF":"LIC","ERI":"LIC","GMB":"LIC",
+    "GNB":"LIC","LBR":"LIC","MLI":"LIC","NER":"LIC","PRK":"LIC","SLE":"LIC",
+    "SOM":"LIC","SSD":"LIC","SDN":"LIC","TCD":"LIC","TGO":"LIC","YEM":"LIC",
+};
+const INCOME_NAMES = { HIC:"High income", UMIC:"Upper-middle income", LMIC:"Lower-middle income", LIC:"Low income" };
+
 // ── Benchmarking Tool ────────────────────────────────────────────────────────
 function buildBenchmark(iso3, data) {
     if (!data || !allData) return "";
     const region = ISO3_REGION[iso3];
-    if (!region) return "";
+    const income = ISO3_INCOME[iso3];
+    if (!region && !income) return "";
 
     const REGION_NAMES = { EUR:"Europe", AMR:"Americas", WPR:"W. Pacific", SEA:"S-E Asia", EMR:"E. Mediterranean", AFR:"Africa" };
     const metrics = [
-        ["death_cancer_all", t("all_cancers","All-cancer mortality"), "/100k"],
-        ["death_breast",     t("breast","Breast mortality"), "/100k"],
-        ["daly_breast",      t("daly_breast","Breast DALYs"), "/100k"],
-        ["research_index",   t("research_label","Research index"), ""],
+        ["death_cancer_all", t("all_cancers","All-cancer mortality"), "/100k", false],
+        ["death_breast",     t("breast","Breast mortality"), "/100k", false],
+        ["daly_breast",      t("daly_breast","Breast DALYs"), "/100k", false],
+        ["research_index",   t("research_label","Research index"), "", true],
     ];
 
-    const peers = allData.filter(c => ISO3_REGION[c.country] === region && c.country !== iso3);
+    function buildRows(peers, groupLabel) {
+        return metrics.map(([key, label, unit, hib]) => {
+            const myVal = parseFloat(data[key]);
+            if (isNaN(myVal)) return "";
+            const peerVals = peers.map(c => parseFloat(c[key])).filter(v => !isNaN(v));
+            if (peerVals.length < 3) return "";
+            const peerAvg = peerVals.reduce((s,v)=>s+v,0) / peerVals.length;
+            const sorted = [...peerVals, myVal].sort((a,b)=>b-a);
+            const rank = sorted.indexOf(myVal) + 1;
+            const rankTotal = sorted.length;
+            const vsAvg = ((myVal - peerAvg) / peerAvg * 100).toFixed(0);
+            const better = hib ? myVal >= peerAvg : myVal < peerAvg;
+            const vsColor = better ? "#2db565" : "#e05c5c";
+            const vsSign = vsAvg > 0 ? "+" : "";
+            return `<div style="padding:5px 0;border-bottom:1px solid #1a1d2e;display:flex;justify-content:space-between;align-items:center;gap:8px">
+                <span style="font-size:11px;color:#889;flex:1">${label}</span>
+                <span style="font-size:11px;font-weight:600;color:#ccd">${myVal.toFixed(1)}${unit}</span>
+                <span style="font-size:10px;color:${vsColor};min-width:55px;text-align:right">${vsSign}${vsAvg}% vs avg</span>
+                <span style="font-size:10px;color:#445;min-width:55px;text-align:right">#${rank}/${rankTotal}</span>
+            </div>`;
+        }).filter(Boolean);
+    }
 
-    const rows = metrics.map(([key, label, unit]) => {
-        const myVal = parseFloat(data[key]);
-        if (isNaN(myVal)) return "";
-        const peerVals = peers.map(c => parseFloat(c[key])).filter(v => !isNaN(v));
-        if (peerVals.length < 3) return "";
-        const peerAvg = peerVals.reduce((s,v)=>s+v,0) / peerVals.length;
-        const sorted = [...peerVals, myVal].sort((a,b)=>b-a);
-        const rank = sorted.indexOf(myVal) + 1;
-        const rankTotal = sorted.length;
-        const vsAvg = ((myVal - peerAvg) / peerAvg * 100).toFixed(0);
-        const better = key.startsWith("research") ? myVal >= peerAvg : myVal < peerAvg;
-        const vsColor = better ? "#2db565" : "#e05c5c";
-        const vsSign = vsAvg > 0 ? "+" : "";
-        return `<div style="padding:5px 0;border-bottom:1px solid #1a1d2e;display:flex;justify-content:space-between;align-items:center;gap:8px">
-            <span style="font-size:11px;color:#889;flex:1">${label}</span>
-            <span style="font-size:11px;font-weight:600;color:#ccd">${myVal.toFixed(1)}${unit}</span>
-            <span style="font-size:10px;color:${vsColor};min-width:55px;text-align:right">${vsSign}${vsAvg}% vs avg</span>
-            <span style="font-size:10px;color:#445;min-width:55px;text-align:right">#${rank}/${rankTotal} in ${REGION_NAMES[region]||region}</span>
-        </div>`;
-    }).filter(Boolean);
+    let html = "";
 
-    if (!rows.length) return "";
+    if (region) {
+        const regionPeers = allData.filter(c => ISO3_REGION[c.country] === region && c.country !== iso3);
+        const regionRows = buildRows(regionPeers, REGION_NAMES[region] || region);
+        if (regionRows.length) {
+            html += `<div style="font-size:9px;color:#4f8ef7;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin:8px 0 4px">🌍 ${REGION_NAMES[region]||region} (WHO region)</div>
+            ${regionRows.join("")}`;
+        }
+    }
+
+    if (income) {
+        const incomePeers = allData.filter(c => ISO3_INCOME[c.country] === income && c.country !== iso3);
+        const incomeRows = buildRows(incomePeers, INCOME_NAMES[income] || income);
+        if (incomeRows.length) {
+            html += `<div style="font-size:9px;color:#f7c04f;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin:8px 0 4px">💰 ${INCOME_NAMES[income]||income} (World Bank)</div>
+            ${incomeRows.join("")}`;
+        }
+    }
+
+    if (!html) return "";
 
     return `<div class="panel-section">
         <div class="section-header" style="margin-bottom:8px">
             <h3>${t("benchmark_title","Regional Benchmarking")}</h3>
-            <span class="section-unit">${REGION_NAMES[region] || region}</span>
         </div>
-        <div style="font-size:9px;color:#334;margin-bottom:6px">${t("benchmark_desc","vs WHO regional average")}</div>
-        ${rows.join("")}
+        ${html}
     </div>`;
 }
 
