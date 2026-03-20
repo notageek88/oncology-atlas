@@ -1311,6 +1311,7 @@ function openProfile(data, name) {
             ${buildPreventionScore(data.country, data)}
             ${buildRankings(data.country, data)}
             ${buildBenchmark(data.country, data)}
+            ${buildSimilarCountries(data.country, data)}
             ${buildSurvival(data.country)}
             ${buildTreatment(data.country)}
             ${buildPrevention(data.country)}
@@ -2606,6 +2607,67 @@ function buildPrevention(iso3) {
     return `<div class="panel-section">
         <div class="section-header"><h3>${t("prevention_section","Prevention & Risk Factors")}</h3></div>
         ${rows.join("")}
+    </div>`;
+}
+
+// ── Similar Countries ─────────────────────────────────────────────────────
+function buildSimilarCountries(iso3, data) {
+    if (!data || !allData?.length) return "";
+
+    // Metrics used for similarity (normalized to [0,1] range)
+    const SIMILARITY_METRICS = [
+        ["death_cancer_all", 200],
+        ["daly_breast",      500],
+        ["research_index",   60000],
+        ["_readiness_score", 100],
+    ];
+
+    function normalize(val, max) {
+        const n = parseFloat(val);
+        return isNaN(n) ? null : n / max;
+    }
+
+    const myVec = SIMILARITY_METRICS.map(([k, max]) => normalize(data[k], max));
+    const myHasData = myVec.some(v => v !== null);
+    if (!myHasData) return "";
+
+    const peers = allData
+        .filter(c => c.country !== iso3)
+        .map(c => {
+            const vec = SIMILARITY_METRICS.map(([k, max]) => normalize(c[k], max));
+            // Euclidean distance (only shared dims)
+            let sumSq = 0, dims = 0;
+            myVec.forEach((mv, i) => {
+                if (mv !== null && vec[i] !== null) {
+                    sumSq += (mv - vec[i]) ** 2;
+                    dims++;
+                }
+            });
+            if (dims < 2) return null;
+            const dist = Math.sqrt(sumSq / dims);
+            return { iso: c.country, name: c.name || c.country, dist, income: ISO3_INCOME[c.country], region: ISO3_REGION[c.country] };
+        })
+        .filter(Boolean)
+        .sort((a, b) => a.dist - b.dist)
+        .slice(0, 5);
+
+    if (!peers.length) return "";
+
+    const REGION_COLORS_S = { EUR:"#4f8ef7", AMR:"#2db565", WPR:"#f7c04f", SEA:"#e07a30", EMR:"#c06af7", AFR:"#e05c5c" };
+
+    return `<div class="panel-section">
+        <div class="section-header" style="margin-bottom:8px">
+            <h3>${t("similar_title","Similar countries")}</h3>
+            <span class="section-unit">${t("by_cancer_profile","by cancer profile")}</span>
+        </div>
+        <div style="font-size:9px;color:#445;margin-bottom:8px">${t("similar_desc","Countries with the most similar cancer burden & readiness")}</div>
+        ${peers.map(p => `
+            <div onclick="selectCountryByIso('${esc(p.iso)}')" style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid #1a1d2e;cursor:pointer">
+                <span style="font-size:11px;color:#ccd;flex:1">${esc(getCountryName(p.iso, p.name))}</span>
+                <span style="font-size:9px;color:${REGION_COLORS_S[p.region]||'#445'};min-width:50px;text-align:right">${p.region||""}</span>
+                <span style="font-size:9px;color:#334;min-width:40px;text-align:right">${(1-p.dist).toFixed(2)}</span>
+            </div>`).join("")}
+        <div style="font-size:9px;color:#334;margin-top:4px">${t("similarity_score","Similarity score 0–1 (1=identical profile)")}</div>
     </div>`;
 }
 

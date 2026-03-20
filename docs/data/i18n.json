@@ -237,7 +237,11 @@
     "country_col": "Country",
     "dist_col": "Distribution",
     "value_col": "Value",
-    "sk_rankings": "Open rankings table"
+    "sk_rankings": "Open rankings table",
+    "similar_title": "Similar countries",
+    "by_cancer_profile": "by cancer profile",
+    "similar_desc": "Countries with the most similar cancer burden & readiness",
+    "similarity_score": "Similarity score 0–1 (1=identical profile)"
   },
   "ru": {
     "title": "OncologyAtlas",
@@ -477,7 +481,11 @@
     "country_col": "Страна",
     "dist_col": "Распределение",
     "value_col": "Значение",
-    "sk_rankings": "Открыть рейтинг"
+    "sk_rankings": "Открыть рейтинг",
+    "similar_title": "Похожие страны",
+    "by_cancer_profile": "по онкологическому профилю",
+    "similar_desc": "Страны с наиболее схожим бременем рака и готовностью",
+    "similarity_score": "Сходство 0–1 (1=идентичный профиль)"
   },
   "zh": {
     "title": "OncologyAtlas",
@@ -717,7 +725,11 @@
     "country_col": "国家",
     "dist_col": "分布",
     "value_col": "数值",
-    "sk_rankings": "打开排名表"
+    "sk_rankings": "打开排名表",
+    "similar_title": "相似国家",
+    "by_cancer_profile": "按癌症概况",
+    "similar_desc": "癌症负担和准备情况最相似的国家",
+    "similarity_score": "相似度分数 0–1（1=完全相同）"
   },
   "es": {
     "title": "OncologyAtlas",
@@ -957,7 +969,11 @@
     "country_col": "País",
     "dist_col": "Distribución",
     "value_col": "Valor",
-    "sk_rankings": "Abrir rankings"
+    "sk_rankings": "Abrir rankings",
+    "similar_title": "Países similares",
+    "by_cancer_profile": "por perfil oncológico",
+    "similar_desc": "Países con la carga de cáncer y preparación más similar",
+    "similarity_score": "Puntuación de similitud 0–1 (1=perfil idéntico)"
   },
   "ar": {
     "title": "OncologyAtlas",
@@ -1197,7 +1213,11 @@
     "country_col": "الدولة",
     "dist_col": "التوزيع",
     "value_col": "القيمة",
-    "sk_rankings": "فتح التصنيفات"
+    "sk_rankings": "فتح التصنيفات",
+    "similar_title": "دول مشابهة",
+    "by_cancer_profile": "حسب الملف السرطاني",
+    "similar_desc": "الدول ذات أعباء السرطان والاستعداد الأكثر تشابهاً",
+    "similarity_score": "درجة التشابه 0-1 (1=ملف مماثل)"
   },
   "hi": {
     "title": "OncologyAtlas",
@@ -1437,7 +1457,11 @@
     "country_col": "देश",
     "dist_col": "वितरण",
     "value_col": "मूल्य",
-    "sk_rankings": "रैंकिंग खोलें"
+    "sk_rankings": "रैंकिंग खोलें",
+    "similar_title": "समान देश",
+    "by_cancer_profile": "कैंसर प्रोफ़ाइल द्वारा",
+    "similar_desc": "सबसे समान कैंसर बोझ और तैयारी वाले देश",
+    "similarity_score": "समानता स्कोर 0–1 (1=समान प्रोफ़ाइल)"
   },
   "pt": {
     "title": "OncologyAtlas",
@@ -1677,7 +1701,11 @@
     "country_col": "País",
     "dist_col": "Distribuição",
     "value_col": "Valor",
-    "sk_rankings": "Abrir rankings"
+    "sk_rankings": "Abrir rankings",
+    "similar_title": "Países similares",
+    "by_cancer_profile": "por perfil oncológico",
+    "similar_desc": "Países com a carga e preparação mais similar",
+    "similarity_score": "Pontuação de similaridade 0–1 (1=perfil idêntico)"
   },
   "fr": {
     "title": "OncologyAtlas",
@@ -1917,7 +1945,11 @@
     "country_col": "Pays",
     "dist_col": "Distribution",
     "value_col": "Valeur",
-    "sk_rankings": "Ouvrir le classement"
+    "sk_rankings": "Ouvrir le classement",
+    "similar_title": "Pays similaires",
+    "by_cancer_profile": "par profil oncologique",
+    "similar_desc": "Pays avec le fardeau et la préparation les plus similaires",
+    "similarity_score": "Score de similarité 0–1 (1=profil identique)"
   },
   "de": {
     "title": "OncologyAtlas",
@@ -2157,7 +2189,11 @@
     "country_col": "Land",
     "dist_col": "Verteilung",
     "value_col": "Wert",
-    "sk_rankings": "Ranking öffnen"
+    "sk_rankings": "Ranking öffnen",
+    "similar_title": "Ähnliche Länder",
+    "by_cancer_profile": "nach Krebsprofil",
+    "similar_desc": "Länder mit der ähnlichsten Krebslast und Bereitschaft",
+    "similarity_score": "Ähnlichkeitswert 0–1 (1=identisches Profil)"
   },
   "ja": {
     "title": "OncologyAtlas",
@@ -2397,7 +2433,11 @@
     "country_col": "国",
     "dist_col": "分布",
     "value_col": "値",
-    "sk_rankings": "ランキングを開く"
+    "sk_rankings": "ランキングを開く",
+    "similar_title": "類似国",
+    "by_cancer_profile": "がんプロフィール別",
+    "similar_desc": "最も類似したがん負担と準備状況を持つ国",
+    "similarity_score": "類似度スコア 0–1（1=同一プロフィール）"
   },
   "id": {
     "title": "OncologyAtlas",
@@ -2637,6 +2677,10 @@
     "country_col": "Negara",
     "dist_col": "Distribusi",
     "value_col": "Nilai",
-    "sk_rankings": "Buka peringkat"
+    "sk_rankings": "Buka peringkat",
+    "similar_title": "Negara serupa",
+    "by_cancer_profile": "berdasarkan profil kanker",
+    "similar_desc": "Negara dengan beban kanker dan kesiapan paling serupa",
+    "similarity_score": "Skor kemiripan 0–1 (1=profil identik)"
   }
 }
