@@ -580,6 +580,7 @@
         <option value="infra" data-i18n="cat_infra">Healthcare Infrastructure</option>
         <option value="research" data-i18n="cat_research">Research Activity</option>
         <option value="risk" data-i18n="cat_risk">Risk Factors</option>
+        <option value="readiness" data-i18n="cat_readiness">Cancer System Readiness</option>
     </select>
     <div class="sep"></div>
     <span class="ctrl-label" data-i18n="type_label">Type</span>
@@ -846,6 +847,16 @@ const METRIC_GROUPS = {
         type: "numeric",
         domain: [100, 1000, 5000, 20000, 50000],
         colors: ["#0d1433","#1e3a6e","#1a7a4a","#27c76e","#7fffc4"],
+        nodata: "#0f1220"
+    },
+    readiness: {
+        label: "Cancer System Readiness (0–100)",
+        options: {
+            _readiness_score: "Cancer Readiness Score (0–100)"
+        },
+        type: "numeric",
+        domain: [10, 30, 50, 70, 90],
+        colors: ["#1a0d2a","#3a1a6e","#6a3aae","#c06af7","#f0c4ff"],
         nodata: "#0f1220"
     }
 };
@@ -1137,19 +1148,21 @@ function showTip(event, d, data) {
     const iso3 = data?.country || "";
     const n = getCountryName(iso3, data?.name || d.properties?.name || "");
     const val = data ? data[currentMetric] : null;
-    const fv = val != null ? (typeof val === "number" ? val.toFixed(1) : val) : null;
     const cat = getCat(currentMetric);
+    const rawVal = val != null ? (cat === "readiness" ? Math.round(val) : (typeof val === "number" ? val.toFixed(1) : val)) : null;
+    const fv = rawVal != null ? String(rawVal) : null;
     const metricLabel = METRIC_GROUPS[cat].options[currentMetric] || t("all_cancers","All cancers");
     const unitLine = cat === "death"
         ? `<div style="font-size:9px;color:#445;margin-top:2px">${t("tip_unit_death","deaths per 100,000 per year")}</div>`
         : cat === "daly"
         ? `<div style="font-size:9px;color:#445;margin-top:2px">${t("tip_unit_daly","DALYs lost per 100,000")}</div>`
         : "";
+    const tipUnit = cat === "death" ? "/ 100k" : cat === "daly" ? "DALYs" : cat === "readiness" ? "/ 100" : "";
     const yearField = currentMetric + "_year";
     const dataYear = data && data[yearField] ? `<div style="font-size:9px;color:#334;margin-top:3px">Data: ${data[yearField]}</div>` : "";
     tip.innerHTML = `<div class="tip-country">${n}</div>
         ${fv != null
-            ? `<div class="tip-main"><span class="tip-val">${fv}</span> <span class="tip-unit">${cat === "death" ? "/ 100k" : cat === "daly" ? "DALYs" : ""}</span></div>${dataYear}`
+            ? `<div class="tip-main"><span class="tip-val">${fv}</span> <span class="tip-unit">${tipUnit}</span></div>${dataYear}`
             : `<div class="tip-nodata">${t("tip_no_data","No data")}</div>`}`;
     tip.style.display = "block";
     moveTip(event);
@@ -3199,7 +3212,7 @@ function applyMapFilter() {
     if (!allData || !allData.length) return;
     const metric = currentMetric;
     const cat = getCat(metric);
-    if (cat === "infra") { clearMapFilter(); return; }
+    if (cat === "infra" || cat === "readiness") { clearMapFilter(); return; }
     
     // Get all values
     const vals = allData.map(d => parseFloat(d[metric])).filter(v => !isNaN(v)).sort((a,b)=>b-a);
@@ -4275,6 +4288,8 @@ async function init() {
                 c[key] = (key === "cervical_screening") ? (raw === 1 ? "Yes" : "No") : raw;
             }
         });
+        // Pre-compute prevention/readiness score so it can be used as a map layer
+        c._readiness_score = computePreventionScore(c);
         if (c.numeric_id) dataByNumId[String(c.numeric_id).padStart(3,'0')] = c;
     });
     document.getElementById("stat-n").textContent = cancer.length;
