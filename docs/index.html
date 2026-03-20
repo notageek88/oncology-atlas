@@ -1170,6 +1170,7 @@ function openProfile(data, name) {
             [t("colon","Colorectal"), data.death_colon, DEATH_MAX.death_colon, "#5b9ef0"],
             [t("liver","Liver"), data.death_liver, DEATH_MAX.death_liver, "#3a80e0"],
             [t("mouth","Mouth"), data.death_mouth, DEATH_MAX.death_mouth, "#2566c8"],
+            [t("prostate","Prostate"), data.death_prostate, 25, "#9b7de8"],
         ].filter(([,v]) => v != null);
 
         const dalyrRows = [
@@ -2292,6 +2293,7 @@ function downloadReport() {
         ["Liver", "death_liver", "deaths/100k/yr"],
         ["Mouth/Oropharynx", "death_mouth", "deaths/100k/yr"],
         ["Oesophagus", "death_oesophagus", "deaths/100k/yr"],
+        ["Prostate", "death_prostate", "deaths/100k/yr"],
     ];
 
     const dalyMetrics = [
@@ -3754,7 +3756,7 @@ async function init() {
         document.body.appendChild(badge);
     }
     // Merge extraMetrics (cervical_screening, alcohol_cancer) into allData records
-    const extraKeys = ["cervical_screening", "alcohol_cancer", "tobacco_cancer"];
+    const extraKeys = ["cervical_screening", "alcohol_cancer", "tobacco_cancer", "death_prostate"];
     cancer.forEach(c => {
         extraKeys.forEach(key => {
             const map = extraMetrics[key];
