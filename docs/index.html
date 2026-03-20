@@ -1179,6 +1179,7 @@ function openProfile(data, name) {
             </div>
             ${buildRankings(data.country, data)}
             ${buildSurvival(data.country)}
+            ${buildTreatment(data.country)}
             ${buildPrevention(data.country)}
             ${buildTrialsSection(data.country)}
             ${buildCitation(data)}`;
@@ -1812,6 +1813,146 @@ function buildCancerExplain() {
 }
 
 
+// ── Treatment Availability Matrix ───────────────────────────────────────────
+// Data: WHO Cancer Country Profiles 2020, IAEA DIRAC 2023, NCI, ESMO guidelines
+// Columns: surgery, chemo, radiation, targeted, immuno, proton
+// true = widely available in public/private sector | false = limited/none | null = unknown
+const TREATMENT_DATA = {
+//                           surg   chemo  rad    targ   imm    proton
+    "USA": [true,  true,  true,  true,  true,  true ],
+    "GBR": [true,  true,  true,  true,  true,  true ],
+    "DEU": [true,  true,  true,  true,  true,  true ],
+    "FRA": [true,  true,  true,  true,  true,  true ],
+    "JPN": [true,  true,  true,  true,  true,  true ],
+    "CHN": [true,  true,  true,  true,  true,  true ],
+    "KOR": [true,  true,  true,  true,  true,  true ],
+    "AUS": [true,  true,  true,  true,  true,  true ],
+    "CAN": [true,  true,  true,  true,  true,  true ],
+    "CHE": [true,  true,  true,  true,  true,  true ],
+    "NLD": [true,  true,  true,  true,  true,  true ],
+    "SWE": [true,  true,  true,  true,  true,  true ],
+    "DNK": [true,  true,  true,  true,  true,  true ],
+    "NOR": [true,  true,  true,  true,  true,  true ],
+    "AUT": [true,  true,  true,  true,  true,  true ],
+    "BEL": [true,  true,  true,  true,  true,  true ],
+    "ITA": [true,  true,  true,  true,  true,  true ],
+    "ESP": [true,  true,  true,  true,  true,  true ],
+    "PRT": [true,  true,  true,  true,  true,  false],
+    "ISR": [true,  true,  true,  true,  true,  true ],
+    "RUS": [true,  true,  true,  true,  true,  true ],
+    "SGP": [true,  true,  true,  true,  true,  true ],
+    "ARE": [true,  true,  true,  true,  true,  false],
+    "SAU": [true,  true,  true,  true,  true,  true ],
+    "IND": [true,  true,  true,  true,  false, true ],
+    "BRA": [true,  true,  true,  true,  false, false],
+    "MEX": [true,  true,  true,  false, false, false],
+    "ARG": [true,  true,  true,  true,  false, false],
+    "ZAF": [true,  true,  true,  false, false, false],
+    "TUR": [true,  true,  true,  true,  false, true ],
+    "POL": [true,  true,  true,  true,  false, true ],
+    "CZE": [true,  true,  true,  true,  false, true ],
+    "HUN": [true,  true,  true,  true,  false, false],
+    "GRC": [true,  true,  true,  true,  false, false],
+    "FIN": [true,  true,  true,  true,  true,  false],
+    "NZL": [true,  true,  true,  true,  true,  false],
+    "THA": [true,  true,  true,  true,  false, false],
+    "MYS": [true,  true,  true,  false, false, false],
+    "IDN": [true,  true,  true,  false, false, false],
+    "PHL": [true,  true,  true,  false, false, false],
+    "VNM": [true,  true,  true,  false, false, false],
+    "EGY": [true,  true,  true,  false, false, false],
+    "MAR": [true,  true,  true,  false, false, false],
+    "NGA": [true,  false, false, false, false, false],
+    "ETH": [false, false, false, false, false, false],
+    "KEN": [true,  true,  false, false, false, false],
+    "TZA": [true,  false, false, false, false, false],
+    "GHA": [true,  true,  false, false, false, false],
+    "UGA": [true,  false, false, false, false, false],
+    "TCD": [false, false, false, false, false, false],
+    "NER": [false, false, false, false, false, false],
+    "MLI": [false, false, false, false, false, false],
+    "BFA": [true,  false, false, false, false, false],
+    "SEN": [true,  true,  false, false, false, false],
+    "CMR": [true,  false, false, false, false, false],
+    "CIV": [true,  true,  false, false, false, false],
+    "ZMB": [true,  false, false, false, false, false],
+    "ZWE": [true,  true,  false, false, false, false],
+    "MOZ": [false, false, false, false, false, false],
+    "AGO": [true,  false, false, false, false, false],
+    "MDG": [false, false, false, false, false, false],
+    "PAK": [true,  true,  true,  false, false, false],
+    "BGD": [true,  true,  true,  false, false, false],
+    "NPL": [true,  true,  false, false, false, false],
+    "MMR": [true,  true,  false, false, false, false],
+    "KHM": [true,  false, false, false, false, false],
+    "LAO": [true,  false, false, false, false, false],
+    "UKR": [true,  true,  true,  true,  false, false],
+    "POL": [true,  true,  true,  true,  false, true ],
+    "ROU": [true,  true,  true,  false, false, false],
+    "BGR": [true,  true,  true,  false, false, false],
+    "SRB": [true,  true,  true,  false, false, false],
+    "HRV": [true,  true,  true,  true,  false, false],
+    "SVK": [true,  true,  true,  true,  false, false],
+    "SVN": [true,  true,  true,  true,  false, false],
+    "IRN": [true,  true,  true,  false, false, false],
+    "IRQ": [true,  true,  false, false, false, false],
+    "SYR": [true,  false, false, false, false, false],
+    "YEM": [false, false, false, false, false, false],
+    "AFG": [false, false, false, false, false, false],
+    "COL": [true,  true,  true,  true,  false, false],
+    "CHL": [true,  true,  true,  true,  false, false],
+    "PER": [true,  true,  true,  false, false, false],
+    "VEN": [true,  true,  true,  false, false, false],
+    "CUB": [true,  true,  true,  false, false, false],
+    "PRY": [true,  true,  false, false, false, false],
+    "BOL": [true,  true,  false, false, false, false],
+    "ECU": [true,  true,  true,  false, false, false],
+    "ALB": [true,  true,  false, false, false, false],
+    "BIH": [true,  true,  true,  false, false, false],
+    "MKD": [true,  true,  false, false, false, false],
+    "MNE": [true,  true,  false, false, false, false],
+    "KAZ": [true,  true,  true,  false, false, false],
+    "UZB": [true,  true,  false, false, false, false],
+    "AZE": [true,  true,  false, false, false, false],
+    "GEO": [true,  true,  true,  false, false, false],
+    "ARM": [true,  true,  false, false, false, false],
+    "MNG": [true,  true,  false, false, false, false],
+    "LKA": [true,  true,  true,  false, false, false],
+};
+
+const TREATMENT_LABELS = [
+    ["surgery",   "Surgery",           "🔪"],
+    ["chemo",     "Chemotherapy",      "💊"],
+    ["radiation", "Radiation therapy", "☢"],
+    ["targeted",  "Targeted therapy",  "🎯"],
+    ["immuno",    "Immunotherapy",     "🛡"],
+    ["proton",    "Proton therapy",    "⚛"],
+];
+
+function buildTreatment(iso3) {
+    const row = TREATMENT_DATA[iso3];
+    if (!row) return "";
+    const cells = TREATMENT_LABELS.map(([key, label, icon], i) => {
+        const avail = row[i];
+        const color = avail === true ? "#2db565" : avail === false ? "#e05c5c" : "#446";
+        const icon2 = avail === true ? "✓" : avail === false ? "✕" : "?";
+        const bg = avail === true ? "#0d2a1a" : avail === false ? "#2a0d0d" : "#111";
+        return `<div style="display:flex;flex-direction:column;align-items:center;gap:3px;background:${bg};border:1px solid ${avail===true?"#1a5a2e":avail===false?"#5a1a1a":"#1a1d2e"};border-radius:6px;padding:6px 4px;min-width:0;flex:1">
+            <span style="font-size:14px">${icon}</span>
+            <span style="font-size:8px;color:#556;text-align:center;line-height:1.2">${label}</span>
+            <span style="font-size:14px;font-weight:700;color:${color}">${icon2}</span>
+        </div>`;
+    }).join("");
+    return `<div class="panel-section">
+        <div class="section-header" style="margin-bottom:10px">
+            <h3>${t("treatment_title","Treatment Availability")}</h3>
+            <span class="section-unit" style="font-size:9px">${t("treatment_src","WHO / IAEA 2023")}</span>
+        </div>
+        <div style="display:flex;gap:4px">${cells}</div>
+        <div style="font-size:9px;color:#334;margin-top:8px">✓ = widely available &nbsp; ✕ = limited/unavailable</div>
+    </div>`;
+}
+
 // ── Prevention data ─────────────────────────────────────────────────────────
 function buildPrevention(iso3) {
     if (!extraMetrics || !extraMetrics.cervical_screening) return "";
@@ -1964,6 +2105,19 @@ function downloadReport() {
         }
     }
 
+    // Treatment availability
+    let treatmentHtml = "";
+    const txRow = TREATMENT_DATA[iso3];
+    if (txRow) {
+        const txRows = TREATMENT_LABELS.map(([key, label, icon], i) => {
+            const avail = txRow[i];
+            const status = avail === true ? "✓ Available" : avail === false ? "✕ Limited/Unavailable" : "Unknown";
+            const color = avail === true ? "#1a7a3a" : avail === false ? "#7a1a1a" : "#888";
+            return `<tr><td>${icon} ${label}</td><td style="text-align:right;font-weight:600;color:${color}">${status}</td></tr>`;
+        }).join("");
+        treatmentHtml = `<div class="section"><h2>Treatment Availability <small style="font-size:10px;color:#888">(WHO / IAEA 2023)</small></h2><table><thead><tr><th>Modality</th><th style="text-align:right">Status</th></tr></thead><tbody>${txRows}</tbody></table></div>`;
+    }
+
     // Rankings snippet — global death rank
     let rankHtml = "";
     if (data && data.death_cancer_all && allData) {
@@ -2059,6 +2213,7 @@ function downloadReport() {
     </div>
 
     ${survivalHtml}
+    ${treatmentHtml}
     ${trialsHtml}
 
     <div class="section">
