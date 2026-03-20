@@ -3771,11 +3771,42 @@ function computeInsights() {
         });
     });
 
+    // Mortality-to-incidence ratio insight
+    if (allData) {
+        const countries = allData.filter(d =>
+            d.incidence_all != null && d.death_cancer_all != null &&
+            parseFloat(d.incidence_all) > 0 && parseFloat(d.death_cancer_all) > 0
+        );
+        if (countries.length >= 10) {
+            const ratios = countries.map(d => ({
+                name: d.name || d.country,
+                ratio: parseFloat(d.death_cancer_all) / parseFloat(d.incidence_all),
+            })).sort((a,b) => b.ratio - a.ratio);
+            const highRatio = ratios.slice(0, 5).map(r => r.name).join(", ");
+            const lowRatio = ratios.slice(-5).map(r => r.name).join(", ");
+            cards.push({
+                pct: "MIR",
+                positive: false,
+                text: `Mortality-to-Incidence Ratio: <strong>highest</strong> (worst outcomes): ${highRatio}`,
+                n: `n=${countries.length} countries · deaths÷incidence`,
+            });
+            cards.push({
+                pct: "MIR",
+                positive: true,
+                text: `Mortality-to-Incidence Ratio: <strong>lowest</strong> (best outcomes): ${lowRatio}`,
+                n: `n=${countries.length} countries · lower = better survival`,
+            });
+        }
+    }
+
     // Pearson correlations
     const corrInsights = [
         ["research_index", "death_cancer_all",  "Research activity vs all-cancer mortality"],
         ["death_cancer_all","daly_breast",       "All-cancer mortality vs breast DALYs"],
         ["death_breast",    "daly_breast",       "Breast mortality vs breast DALYs"],
+        ["incidence_all",  "death_cancer_all",   "Cancer incidence vs mortality (GLOBOCAN vs WHO)"],
+        ["incidence_breast","death_breast",      "Breast incidence vs breast mortality"],
+        ["tobacco_cancer", "death_cancer_all",   "Tobacco-attributable deaths vs total cancer mortality"],
     ];
     corrInsights.forEach(([xk, yk, label]) => {
         const r = pearsonCorr(xk, yk);
