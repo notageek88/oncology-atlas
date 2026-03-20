@@ -357,6 +357,51 @@
         }
         .share-toast.visible { opacity: 1; }
 
+        /* ── Embed mode — hide all chrome ── */
+        body.embed-mode #header,
+        body.embed-mode #controls,
+        body.embed-mode #timeline,
+        body.embed-mode #legend,
+        body.embed-mode #world-stats-bar,
+        body.embed-mode #clinic-legend,
+        body.embed-mode .fab-menu,
+        body.embed-mode #side-panel,
+        body.embed-mode .filter-panel { display: none !important; }
+        body.embed-mode { overflow: hidden; }
+        body.embed-mode #map-container { top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; }
+        #embed-badge {
+            position: fixed; bottom: 8px; right: 10px; z-index: 50;
+            font-size: 9px; color: #446; text-decoration: none;
+            background: rgba(11,13,20,0.7); padding: 3px 8px; border-radius: 4px;
+        }
+        #embed-badge:hover { color: #4f8ef7; }
+
+        /* ── Embed modal ── */
+        #embed-modal {
+            display: none; position: fixed; inset: 0; z-index: 1200;
+            background: rgba(0,0,0,0.7); align-items: center; justify-content: center;
+        }
+        #embed-modal.open { display: flex; }
+        #embed-modal-inner {
+            background: #0e1020; border: 1px solid #1a1d2e; border-radius: 12px;
+            padding: 24px; width: 580px; max-width: 95vw; max-height: 90vh; overflow-y: auto;
+        }
+        #embed-modal-inner h3 { font-size: 15px; color: #ccd; margin-bottom: 16px; }
+        .embed-preview {
+            width: 100%; height: 200px; border: 1px solid #1a1d2e; border-radius: 6px;
+            background: #0b0d14; margin-bottom: 14px;
+        }
+        .embed-code-box {
+            background: #0b0d14; border: 1px solid #1a1d2e; border-radius: 6px;
+            padding: 10px; font-size: 11px; font-family: monospace; color: #7a9; word-break: break-all;
+            white-space: pre-wrap; margin-bottom: 10px;
+        }
+        .embed-row { display: flex; gap: 8px; margin-bottom: 10px; align-items: center; flex-wrap: wrap; }
+        .embed-row label { font-size: 11px; color: #667; min-width: 60px; }
+        .embed-row select, .embed-row input { background: #10131f; border: 1px solid #1a1d2e; color: #aab; padding: 4px 8px; border-radius: 4px; font-size: 11px; }
+        .embed-copy-btn { background: #0d1e3a; border: 1px solid #1a3a6e; color: #4f8ef7; padding: 6px 16px; border-radius: 5px; font-size: 12px; cursor: pointer; }
+        .embed-copy-btn:hover { background: #1a3a6e; }
+
         /* ── Clinical Trials layer ── */
         .trial-bubble {
             cursor: pointer;
@@ -527,6 +572,7 @@
     <button class="compare-btn" id="flows-toggle" onclick="toggleFlows()" style="margin-left:4px" data-i18n="flows_btn" data-tip="btn_tooltip_flows">✈ Flows</button>
     <button class="compare-btn" id="filter-toggle" onclick="toggleFilterPanel()" style="margin-left:4px" data-i18n="filter_btn" data-tip="btn_tooltip_filter">⚡ Filter</button>
     <button class="compare-btn" id="scatter-toggle" onclick="openScatter()" style="margin-left:4px" data-i18n="scatter_btn" data-tip="btn_tooltip_scatter">📊 Scatter</button>
+    <button class="compare-btn" onclick="openEmbedModal()" style="margin-left:4px" data-i18n="embed_btn" title="Get embed code for your website">📋 Embed</button>
     <div style="position:relative;margin-left:4px">
         <button id="lang-btn" onclick="toggleLangMenu()">🌐 EN</button>
         <div id="lang-menu"></div>
@@ -2077,6 +2123,70 @@ function closeScatter() {
     document.getElementById("scatter-modal").style.display = "none";
 }
 
+// ── Embed Modal ───────────────────────────────────────────────────────────
+const BASE_URL = "https://notageek88.github.io/oncology-atlas/index.html";
+
+function openEmbedModal() {
+    const modal = document.getElementById("embed-modal");
+    modal.classList.add("open");
+    // Populate country dropdown with loaded data
+    const sel = document.getElementById("embed-country");
+    if (allData && sel.options.length === 1) {
+        [...allData].sort((a,b) => (a.name||a.country).localeCompare(b.name||b.country))
+            .forEach(d => {
+                const opt = document.createElement("option");
+                opt.value = d.country;
+                opt.textContent = d.name || d.country;
+                sel.appendChild(opt);
+            });
+    }
+    // Pre-fill with current state
+    if (currentCountry) sel.value = currentCountry;
+    document.getElementById("embed-metric").value = currentMetric || "death_cancer_all";
+    document.getElementById("embed-lang").value = currentLang || "en";
+    updateEmbedCode();
+}
+
+function closeEmbedModal() {
+    document.getElementById("embed-modal").classList.remove("open");
+}
+
+function buildEmbedUrl() {
+    const country = document.getElementById("embed-country").value;
+    const metric  = document.getElementById("embed-metric").value;
+    const lang    = document.getElementById("embed-lang").value;
+    const params  = new URLSearchParams({ embed: "1" });
+    if (country) params.set("country", country);
+    if (metric)  params.set("metric", metric);
+    if (lang && lang !== "en") params.set("lang", lang);
+    return `${BASE_URL}?${params}`;
+}
+
+function updateEmbedCode() {
+    const size    = document.getElementById("embed-size").value;
+    const [w, h]  = size.split("x");
+    const src     = buildEmbedUrl();
+    const widthAttr = w.includes("%") ? `width="${w}"` : `width="${w}"`;
+    const code = `<iframe\n  src="${src}"\n  ${widthAttr}\n  height="${h}"\n  frameborder="0"\n  style="border-radius:8px;border:1px solid #e0e0e0"\n  title="OncologyAtlas — Global Cancer Data"\n  allowfullscreen\n></iframe>`;
+    const codeEl = document.getElementById("embed-code-text");
+    if (codeEl) codeEl.textContent = code;
+    const preview = document.getElementById("embed-preview");
+    if (preview) { preview.src = src; preview.width = "100%"; preview.style.height = "200px"; }
+}
+
+function copyEmbedCode() {
+    const code = document.getElementById("embed-code-text")?.textContent || "";
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(code).then(() => showToast(t("embed_copied","Embed code copied!")));
+    } else {
+        const ta = document.createElement("textarea");
+        ta.value = code; document.body.appendChild(ta); ta.select();
+        document.execCommand("copy"); document.body.removeChild(ta);
+        showToast(t("embed_copied","Embed code copied!"));
+    }
+    closeEmbedModal();
+}
+
 function renderScatter() {
     const xKey = document.getElementById("scatter-x").value;
     const yKey = document.getElementById("scatter-y").value;
@@ -2479,6 +2589,7 @@ function parseUrlParams() {
         country: p.get("country"),   // e.g. ?country=RUS
         lang: p.get("lang"),          // e.g. ?lang=ru
         metric: p.get("metric"),      // e.g. ?metric=death_breast
+        embed: p.get("embed") === "1",// ?embed=1 — hide all UI chrome
     };
 }
 
@@ -2986,6 +3097,17 @@ async function init() {
         const sel = document.getElementById("metric");
         if (sel) sel.value = params.metric;
     }
+    // Embed mode — hide all chrome, show clean map + attribution badge
+    if (params.embed) {
+        document.body.classList.add("embed-mode");
+        const badge = document.createElement("a");
+        badge.id = "embed-badge";
+        badge.href = "https://notageek88.github.io/oncology-atlas/";
+        badge.target = "_blank";
+        badge.rel = "noopener";
+        badge.textContent = "🌍 OncologyAtlas";
+        document.body.appendChild(badge);
+    }
     // Merge extraMetrics (cervical_screening, alcohol_cancer) into allData records
     const extraKeys = ["cervical_screening", "alcohol_cancer"];
     cancer.forEach(c => {
@@ -3091,6 +3213,60 @@ initMobile();
     </div>
     <div id="scatter-svg-wrap" style="width:100%;height:420px;position:relative"></div>
     <div style="font-size:10px;color:#334;margin-top:10px" data-i18n="scatter_hint">Hover a dot for country details. Dots sized by population (where available).</div>
+  </div>
+</div>
+
+<div id="embed-modal" onclick="if(event.target===this)closeEmbedModal()">
+  <div id="embed-modal-inner">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <h3 data-i18n="embed_title">📋 Embed OncologyAtlas</h3>
+      <button onclick="closeEmbedModal()" style="background:none;border:none;color:#445;font-size:18px;cursor:pointer">✕</button>
+    </div>
+    <div style="font-size:11px;color:#556;margin-bottom:12px" data-i18n="embed_desc">Add an interactive cancer map to your website or article. Customize below, then copy the code.</div>
+    <div class="embed-row">
+      <label data-i18n="embed_country">Country</label>
+      <select id="embed-country" onchange="updateEmbedCode()">
+        <option value="">World (all)</option>
+      </select>
+      <label data-i18n="embed_metric">Metric</label>
+      <select id="embed-metric" onchange="updateEmbedCode()">
+        <option value="death_cancer_all">All-cancer mortality</option>
+        <option value="death_breast">Breast cancer mortality</option>
+        <option value="death_colon">Colorectal mortality</option>
+        <option value="death_liver">Liver cancer mortality</option>
+        <option value="daly_breast">Breast DALYs</option>
+        <option value="infra">Infrastructure</option>
+        <option value="research">Research index</option>
+        <option value="risk">Risk factors</option>
+      </select>
+    </div>
+    <div class="embed-row">
+      <label data-i18n="embed_lang">Language</label>
+      <select id="embed-lang" onchange="updateEmbedCode()">
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+        <option value="zh">中文</option>
+        <option value="es">Español</option>
+        <option value="ar">العربية</option>
+        <option value="hi">हिन्दी</option>
+        <option value="pt">Português</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="ja">日本語</option>
+        <option value="id">Bahasa Indonesia</option>
+      </select>
+      <label data-i18n="embed_size">Size</label>
+      <select id="embed-size" onchange="updateEmbedCode()">
+        <option value="800x450">800 × 450 (default)</option>
+        <option value="640x360">640 × 360</option>
+        <option value="1200x675">1200 × 675 (HD)</option>
+        <option value="100%x500">100% × 500 (responsive)</option>
+      </select>
+    </div>
+    <iframe id="embed-preview" class="embed-preview" src="" title="OncologyAtlas preview" style="border-radius:6px"></iframe>
+    <div style="font-size:10px;color:#445;margin-bottom:6px" data-i18n="embed_code_label">Embed code:</div>
+    <div class="embed-code-box" id="embed-code-text"></div>
+    <button class="embed-copy-btn" onclick="copyEmbedCode()" data-i18n="embed_copy">Copy embed code</button>
   </div>
 </div>
 
