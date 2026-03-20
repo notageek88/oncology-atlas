@@ -229,7 +229,15 @@
     "btn_tooltip_shortcuts": "Keyboard shortcuts",
     "age_groups": "Age groups",
     "age_u20": "Pediatric (0–19)",
-    "age_65plus": "Elderly (65+)"
+    "age_65plus": "Elderly (65+)",
+    "rankings_btn": "Rankings",
+    "rankings_title": "Global Country Rankings",
+    "rankings_sort_asc": "Low → High",
+    "rankings_hint": "Click any row to open country profile · Colored by WHO region · Badge: HIC/UMIC/LMIC/LIC",
+    "country_col": "Country",
+    "dist_col": "Distribution",
+    "value_col": "Value",
+    "sk_rankings": "Open rankings table"
   },
   "ru": {
     "title": "OncologyAtlas",
@@ -461,7 +469,15 @@
     "btn_tooltip_shortcuts": "Горячие клавиши",
     "age_groups": "Возрастные группы",
     "age_u20": "Педиатрия (0–19)",
-    "age_65plus": "Пожилые (65+)"
+    "age_65plus": "Пожилые (65+)",
+    "rankings_btn": "Рейтинг",
+    "rankings_title": "Глобальный рейтинг стран",
+    "rankings_sort_asc": "По возрастанию",
+    "rankings_hint": "Нажмите на строку для профиля страны",
+    "country_col": "Страна",
+    "dist_col": "Распределение",
+    "value_col": "Значение",
+    "sk_rankings": "Открыть рейтинг"
   },
   "zh": {
     "title": "OncologyAtlas",
@@ -693,7 +709,15 @@
     "btn_tooltip_shortcuts": "键盘快捷键",
     "age_groups": "年龄组",
     "age_u20": "儿科 (0–19)",
-    "age_65plus": "老年 (65+)"
+    "age_65plus": "老年 (65+)",
+    "rankings_btn": "排行",
+    "rankings_title": "全球国家排名",
+    "rankings_sort_asc": "从低到高",
+    "rankings_hint": "点击行查看国家概况",
+    "country_col": "国家",
+    "dist_col": "分布",
+    "value_col": "数值",
+    "sk_rankings": "打开排名表"
   },
   "es": {
     "title": "OncologyAtlas",
@@ -925,7 +949,15 @@
     "btn_tooltip_shortcuts": "Atajos de teclado",
     "age_groups": "Grupos de edad",
     "age_u20": "Pediátrico (0–19)",
-    "age_65plus": "Adultos mayores (65+)"
+    "age_65plus": "Adultos mayores (65+)",
+    "rankings_btn": "Rankings",
+    "rankings_title": "Clasificación global de países",
+    "rankings_sort_asc": "Bajo → Alto",
+    "rankings_hint": "Haz clic en una fila para ver el perfil del país",
+    "country_col": "País",
+    "dist_col": "Distribución",
+    "value_col": "Valor",
+    "sk_rankings": "Abrir rankings"
   },
   "ar": {
     "title": "OncologyAtlas",
@@ -1157,7 +1189,15 @@
     "btn_tooltip_shortcuts": "اختصارات لوحة المفاتيح",
     "age_groups": "الفئات العمرية",
     "age_u20": "الأطفال (0–19)",
-    "age_65plus": "كبار السن (65+)"
+    "age_65plus": "كبار السن (65+)",
+    "rankings_btn": "التصنيفات",
+    "rankings_title": "تصنيفات الدول العالمية",
+    "rankings_sort_asc": "من الأدنى للأعلى",
+    "rankings_hint": "انقر على أي صف لفتح ملف الدولة",
+    "country_col": "الدولة",
+    "dist_col": "التوزيع",
+    "value_col": "القيمة",
+    "sk_rankings": "فتح التصنيفات"
   },
   "hi": {
     "title": "OncologyAtlas",
@@ -1389,7 +1429,15 @@
     "btn_tooltip_shortcuts": "कीबोर्ड शॉर्टकट",
     "age_groups": "आयु समूह",
     "age_u20": "बाल चिकित्सा (0–19)",
-    "age_65plus": "वृद्ध (65+)"
+    "age_65plus": "वृद्ध (65+)",
+    "rankings_btn": "रैंकिंग",
+    "rankings_title": "वैश्विक देश रैंकिंग",
+    "rankings_sort_asc": "कम → अधिक",
+    "rankings_hint": "देश प्रोफ़ाइल खोलने के लिए किसी भी पंक्ति पर क्लिक करें",
+    "country_col": "देश",
+    "dist_col": "वितरण",
+    "value_col": "मूल्य",
+    "sk_rankings": "रैंकिंग खोलें"
   },
   "pt": {
     "title": "OncologyAtlas",
@@ -1621,7 +1669,15 @@
     "btn_tooltip_shortcuts": "Atalhos de teclado",
     "age_groups": "Grupos etários",
     "age_u20": "Pediátrico (0–19)",
-    "age_65plus": "Idosos (65+)"
+    "age_65plus": "Idosos (65+)",
+    "rankings_btn": "Rankings",
+    "rankings_title": "Classificação global de países",
+    "rankings_sort_asc": "Baixo → Alto",
+    "rankings_hint": "Clique em uma linha para ver o perfil do país",
+    "country_col": "País",
+    "dist_col": "Distribuição",
+    "value_col": "Valor",
+    "sk_rankings": "Abrir rankings"
   },
   "fr": {
     "title": "OncologyAtlas",
@@ -1853,7 +1909,15 @@
     "btn_tooltip_shortcuts": "Raccourcis clavier",
     "age_groups": "Groupes d'âge",
     "age_u20": "Pédiatrique (0–19)",
-    "age_65plus": "Personnes âgées (65+)"
+    "age_65plus": "Personnes âgées (65+)",
+    "rankings_btn": "Classement",
+    "rankings_title": "Classement mondial des pays",
+    "rankings_sort_asc": "Bas → Haut",
+    "rankings_hint": "Cliquez sur une ligne pour ouvrir le profil",
+    "country_col": "Pays",
+    "dist_col": "Distribution",
+    "value_col": "Valeur",
+    "sk_rankings": "Ouvrir le classement"
   },
   "de": {
     "title": "OncologyAtlas",
@@ -2085,7 +2149,15 @@
     "btn_tooltip_shortcuts": "Tastaturkürzel",
     "age_groups": "Altersgruppen",
     "age_u20": "Pädiatrisch (0–19)",
-    "age_65plus": "Ältere (65+)"
+    "age_65plus": "Ältere (65+)",
+    "rankings_btn": "Ranking",
+    "rankings_title": "Globales Länderranking",
+    "rankings_sort_asc": "Niedrig → Hoch",
+    "rankings_hint": "Klicken Sie auf eine Zeile für das Länderprofil",
+    "country_col": "Land",
+    "dist_col": "Verteilung",
+    "value_col": "Wert",
+    "sk_rankings": "Ranking öffnen"
   },
   "ja": {
     "title": "OncologyAtlas",
@@ -2317,7 +2389,15 @@
     "btn_tooltip_shortcuts": "キーボードショートカット",
     "age_groups": "年齢層",
     "age_u20": "小児 (0–19)",
-    "age_65plus": "高齢者 (65+)"
+    "age_65plus": "高齢者 (65+)",
+    "rankings_btn": "ランキング",
+    "rankings_title": "世界の国別ランキング",
+    "rankings_sort_asc": "低→高",
+    "rankings_hint": "行をクリックして国のプロフィールを開く",
+    "country_col": "国",
+    "dist_col": "分布",
+    "value_col": "値",
+    "sk_rankings": "ランキングを開く"
   },
   "id": {
     "title": "OncologyAtlas",
@@ -2549,6 +2629,14 @@
     "btn_tooltip_shortcuts": "Pintasan Keyboard",
     "age_groups": "Kelompok usia",
     "age_u20": "Anak-anak (0–19)",
-    "age_65plus": "Lansia (65+)"
+    "age_65plus": "Lansia (65+)",
+    "rankings_btn": "Peringkat",
+    "rankings_title": "Peringkat Negara Global",
+    "rankings_sort_asc": "Rendah → Tinggi",
+    "rankings_hint": "Klik baris untuk membuka profil negara",
+    "country_col": "Negara",
+    "dist_col": "Distribusi",
+    "value_col": "Nilai",
+    "sk_rankings": "Buka peringkat"
   }
 }

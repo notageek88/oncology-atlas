@@ -613,6 +613,7 @@
     <button class="compare-btn" id="scatter-toggle" onclick="openScatter()" style="margin-left:4px" data-i18n="scatter_btn" data-tip="btn_tooltip_scatter">📊 Scatter</button>
     <button class="compare-btn" onclick="openClinicSearch()" style="margin-left:4px" data-i18n="clinic_search_btn" title="Find a cancer clinic">🔍 Clinics</button>
     <button class="compare-btn" onclick="openInsights()" style="margin-left:4px" data-i18n="insights_btn" title="Auto-generated data insights">💡 Insights</button>
+    <button class="compare-btn" onclick="openRankingsModal()" style="margin-left:4px" data-i18n="rankings_btn" title="Full global rankings table">🏆 Rankings</button>
     <button class="compare-btn" onclick="openEmbedModal()" style="margin-left:4px" data-i18n="embed_btn" title="Get embed code for your website">📋 Embed</button>
     <button class="compare-btn" onclick="toggleShortcutsModal()" style="margin-left:4px" title="Keyboard shortcuts (? or h)" data-tip="btn_tooltip_shortcuts">⌨</button>
     <div style="position:relative;margin-left:4px">
@@ -3776,6 +3777,82 @@ function buildRankings(iso3, data) {
         </div>`;
 }
 
+// ── Global Rankings Modal ─────────────────────────────────────────────────
+function openRankingsModal() {
+    const modal = document.getElementById("rankings-modal");
+    if (!modal) return;
+    modal.style.display = "flex";
+    // Populate metric select with all numeric metrics
+    const sel = document.getElementById("rankings-metric");
+    if (sel && !sel.options.length) {
+        SCATTER_METRICS.forEach(([k, l]) => {
+            if (k !== "cervical_screening") sel.add(new Option(l, k));
+        });
+        sel.value = "death_cancer_all";
+    }
+    renderRankingsTable();
+}
+
+function closeRankingsModal() {
+    document.getElementById("rankings-modal").style.display = "none";
+}
+
+let _rankSortAsc = false;
+function renderRankingsTable() {
+    if (!allData?.length) return;
+    const sel = document.getElementById("rankings-metric");
+    const searchEl = document.getElementById("rankings-search");
+    const metric = sel?.value || "death_cancer_all";
+    const searchQ = (searchEl?.value || "").toLowerCase().trim();
+    _rankSortAsc = document.getElementById("rankings-sort-asc")?.checked;
+
+    const pts = allData
+        .map(c => ({ iso: c.country, name: getCountryName(c.country, c.name||c.country), val: parseFloat(c[metric]), region: ISO3_REGION[c.country], income: ISO3_INCOME[c.country] }))
+        .filter(c => !isNaN(c.val))
+        .sort((a, b) => _rankSortAsc ? a.val - b.val : b.val - a.val);
+
+    const filtered = searchQ ? pts.filter(c => c.name.toLowerCase().includes(searchQ) || c.iso.toLowerCase().includes(searchQ)) : pts;
+    const maxVal = pts.length ? pts[0].val : 1;
+    const minVal = pts.length ? pts[pts.length-1].val : 0;
+    const isCost = metric === "treatment_cost_usd";
+
+    const fmtVal = v => isCost ? (v>=1000?`$${Math.round(v/1000)}k`:`$${v}`) : v.toFixed(1);
+
+    const REGION_COLORS_R = { EUR:"#4f8ef7", AMR:"#2db565", WPR:"#f7c04f", SEA:"#e07a30", EMR:"#c06af7", AFR:"#e05c5c" };
+    const INCOME_COLORS = { HIC:"#2db565", UMIC:"#4f8ef7", LMIC:"#f7c04f", LIC:"#e05c5c" };
+
+    const rows = filtered.map((c, i) => {
+        const rank = pts.indexOf(c) + 1;
+        const normPct = pts.length > 1 ? Math.round((c.val - minVal) / (maxVal - minVal + 0.01) * 100) : 50;
+        const barPct = _rankSortAsc ? normPct : (100 - normPct);
+        const barColor = REGION_COLORS_R[c.region] || "#4f8ef7";
+        const incomeBadge = c.income ? `<span style="font-size:8px;background:${INCOME_COLORS[c.income]||'#334'}22;color:${INCOME_COLORS[c.income]||'#556'};border:1px solid ${INCOME_COLORS[c.income]||'#334'}44;border-radius:3px;padding:0 4px">${c.income}</span>` : "";
+        return `<tr style="border-bottom:1px solid #1a1d2e;cursor:pointer" onclick="selectCountryByIso('${esc(c.iso)}')">
+            <td style="padding:5px 8px;font-size:11px;color:#445;width:32px;text-align:right">${rank}</td>
+            <td style="padding:5px 8px;font-size:11px;color:#ccd;min-width:120px">${esc(c.name)} ${incomeBadge}</td>
+            <td style="padding:5px 8px;width:120px">
+                <div style="background:#1a1d2e;border-radius:2px;height:5px;overflow:hidden">
+                    <div style="background:${barColor};width:${Math.min(100,barPct)}%;height:100%;border-radius:2px"></div>
+                </div>
+            </td>
+            <td style="padding:5px 8px;font-size:12px;font-weight:600;color:${barColor};text-align:right">${fmtVal(c.val)}</td>
+        </tr>`;
+    }).join("");
+
+    const tbody = document.getElementById("rankings-tbody");
+    if (tbody) {
+        tbody.innerHTML = rows || `<tr><td colspan="4" style="padding:20px;text-align:center;color:#445">${t("no_data","No data")}</td></tr>`;
+    }
+    const countEl = document.getElementById("rankings-count");
+    if (countEl) countEl.textContent = `${filtered.length} ${t("countries","countries")}`;
+}
+
+function selectCountryByIso(iso) {
+    if (!allData) return;
+    const d = allData.find(c => c.country === iso);
+    if (d) { closeRankingsModal(); openPanel(d); }
+}
+
 // World Bank income groups (2023 GNI/capita thresholds)
 const ISO3_INCOME = {
     // High income (HIC)
@@ -4536,7 +4613,7 @@ document.addEventListener("keydown", e => {
         closePanel();
         stopPlay();
         // Close any open modal
-        ["scatter-modal","clinic-search-modal","embed-modal","sources-modal","shortcuts-modal"].forEach(id => {
+        ["scatter-modal","clinic-search-modal","embed-modal","sources-modal","shortcuts-modal","rankings-modal"].forEach(id => {
             const el = document.getElementById(id);
             if (el) { el.style.display = "none"; el.classList.remove("open"); }
         });
@@ -4554,6 +4631,8 @@ document.addEventListener("keydown", e => {
             toggleCompare(); break;
         case "p":
             openScatter(); break;
+        case "r":
+            openRankingsModal(); break;
         case "f":
             document.getElementById("filter-toggle")?.click(); break;
         case "?": case "h":
@@ -4909,6 +4988,40 @@ initMobile();
   </div>
 </div>
 
+<!-- Global Rankings Modal -->
+<div id="rankings-modal" onclick="if(event.target===this)closeRankingsModal()" style="display:none;position:fixed;inset:0;z-index:700;background:rgba(0,0,0,0.85);backdrop-filter:blur(4px);align-items:center;justify-content:center">
+  <div style="background:#09090f;border:1px solid #1a1d2e;border-radius:14px;padding:20px 24px;width:min(95vw,680px);max-height:90vh;display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <h2 style="font-size:16px;color:#eee" data-i18n="rankings_title">🏆 Global Country Rankings</h2>
+      <button onclick="closeRankingsModal()" style="background:none;border:none;color:#445;font-size:18px;cursor:pointer">✕</button>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <select id="rankings-metric" onchange="renderRankingsTable()" style="flex:2;min-width:180px;background:#10131f;border:1px solid #1a1d2e;color:#ccd;padding:5px 10px;border-radius:5px;font-size:12px"></select>
+      <input id="rankings-search" type="text" placeholder="🔍 Filter countries..." oninput="renderRankingsTable()"
+        style="flex:1;min-width:120px;background:#10131f;border:1px solid #1a1d2e;color:#ccd;padding:5px 10px;border-radius:5px;font-size:12px">
+      <label style="font-size:11px;color:#778;display:flex;align-items:center;gap:4px;cursor:pointer;white-space:nowrap">
+        <input type="checkbox" id="rankings-sort-asc" onchange="renderRankingsTable()" style="cursor:pointer">
+        <span data-i18n="rankings_sort_asc">Low → High</span>
+      </label>
+      <span id="rankings-count" style="font-size:10px;color:#445;white-space:nowrap"></span>
+    </div>
+    <div style="overflow-y:auto;flex:1;min-height:0;max-height:60vh">
+      <table style="width:100%;border-collapse:collapse">
+        <thead>
+          <tr style="position:sticky;top:0;background:#09090f;border-bottom:1px solid #1a1d2e">
+            <th style="padding:6px 8px;font-size:9px;color:#445;text-align:right;text-transform:uppercase">#</th>
+            <th style="padding:6px 8px;font-size:9px;color:#445;text-align:left;text-transform:uppercase" data-i18n="country_col">Country</th>
+            <th style="padding:6px 8px;font-size:9px;color:#445;text-transform:uppercase" data-i18n="dist_col">Distribution</th>
+            <th style="padding:6px 8px;font-size:9px;color:#445;text-align:right;text-transform:uppercase" data-i18n="value_col">Value</th>
+          </tr>
+        </thead>
+        <tbody id="rankings-tbody"></tbody>
+      </table>
+    </div>
+    <div style="font-size:9px;color:#334" data-i18n="rankings_hint">Click any row to open country profile · Colored by WHO region · Income group badge: HIC/UMIC/LMIC/LIC</div>
+  </div>
+</div>
+
 <!-- Keyboard Shortcuts Modal -->
 <div id="shortcuts-modal" onclick="if(event.target===this)toggleShortcutsModal()" style="display:none;position:fixed;inset:0;z-index:800;background:rgba(0,0,0,0.85);backdrop-filter:blur(4px);align-items:center;justify-content:center">
   <div style="background:#09090f;border:1px solid #1a1d2e;border-radius:14px;padding:20px 28px;width:min(92vw,480px);max-height:90vh;overflow-y:auto">
@@ -4925,6 +5038,8 @@ initMobile();
       <span style="font-size:12px;color:#889" data-i18n="sk_compare">Toggle compare mode</span>
       <kbd style="background:#1a1d2e;border:1px solid #2a2d3e;border-radius:4px;padding:2px 8px;font-size:11px;color:#aab">p</kbd>
       <span style="font-size:12px;color:#889" data-i18n="sk_scatter">Open scatter plot</span>
+      <kbd style="background:#1a1d2e;border:1px solid #2a2d3e;border-radius:4px;padding:2px 8px;font-size:11px;color:#aab">r</kbd>
+      <span style="font-size:12px;color:#889" data-i18n="sk_rankings">Open rankings table</span>
       <kbd style="background:#1a1d2e;border:1px solid #2a2d3e;border-radius:4px;padding:2px 8px;font-size:11px;color:#aab">f</kbd>
       <span style="font-size:12px;color:#889" data-i18n="sk_filter">Toggle filter panel</span>
       <kbd style="background:#1a1d2e;border:1px solid #2a2d3e;border-radius:4px;padding:2px 8px;font-size:11px;color:#aab">← →</kbd>
