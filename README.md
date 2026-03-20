@@ -46,6 +46,8 @@ OncologyAtlas is an open-source interactive map of global cancer data. Built for
 | 💊 Treatment matrix | Surgery/chemo/radiation/targeted/immunotherapy/proton by 100+ countries |
 | 📋 Embed widget | Copy `<iframe>` code for any country + metric combo for journalists |
 | 📊 Scatter plot | Correlation explorer — plot any two metrics, Pearson r, trend line |
+| 📸 Share card | One-click SVG infographic per country — download and share on social media |
+| 📄 Compare export | Compare 2–4 countries, export as landscape PDF table |
 
 ---
 
@@ -111,17 +113,17 @@ This project is actively developed. Contributions welcome for any of the items b
 ### v0.8 — Patient & Clinic Value
 - [x] **Treatment availability matrix** — surgery/chemo/radiation/immunotherapy/proton by country (100+ countries, WHO/IAEA 2023)
 - [ ] **Cost comparison** — average cancer treatment costs (public vs private) per country
-- [ ] **"Find a clinic" search** — filter by country, specialty, accreditation, tier
+- [x] **"Find a clinic" search** — filter by country, specialty, accreditation, tier (331 clinics)
 - [ ] **Medical tourism guide** — visa requirements + wait times near clinic profiles
-- [ ] **Support resources** — hotlines, NGOs, patient groups per country
+- [x] **Support resources** — hotlines, NGOs, patient groups per country (30+ countries)
 
 ### v0.9 — Research Tools
 - [x] **Scatter plot mode** — plot any two metrics against each other, all countries (Pearson r, trend line)
 - [x] **Country report PDF** — auto-generated print-ready report: mortality, DALYs, infrastructure, survival, treatments, APA citation
-- [ ] **Prevention score** — composite index: screening + infrastructure + registry + national plan
-- [ ] **Benchmarking tool** — compare country vs peer group (by GDP, region, population)
-- [ ] **Correlation insights** — auto-generated "Countries with X have Y% lower Z" cards
-- [ ] **Downloadable infographics** — auto-generated PNG per country for social media
+- [x] **Prevention score** — composite index: screening + infrastructure + registry + national plan
+- [x] **Benchmarking tool** — compare country vs peer group (by GDP, region, population)
+- [x] **Correlation insights** — auto-generated "Countries with X have Y% lower Z" cards
+- [x] **Downloadable infographics** — one-click SVG card per country for social media sharing
 
 ### v1.0 — Platform
 - [x] **User contributions** — CONTRIBUTING.md + PR templates + issue templates

@@ -661,6 +661,7 @@
         <h2 id="panel-title" data-i18n="country_profile_title">Country Profile</h2>
         <div class="sub" id="panel-sub" data-i18n="click_country_hint">Click a country on the map</div>
         <button class="share-btn" onclick="shareCountry()" title="Copy link">⎘</button>
+        <button class="share-btn" onclick="generateShareCard()" title="Download share card" id="share-card-btn" style="display:none">📸</button>
         <button class="panel-close" onclick="closePanel()">✕</button>
     </div>
     <div id="panel-content"></div>
@@ -1152,6 +1153,8 @@ function moveTip(e) {
 // ── Side Panel ─────────────────────────────────────────────────────────────
 function openProfile(data, name) {
     currentCountry = data ? data.country : "";
+    const cardBtn = document.getElementById("share-card-btn");
+    if (cardBtn) cardBtn.style.display = data ? "inline-block" : "none";
     if (!data) {
         document.getElementById("panel-title").textContent = name;
         document.getElementById("panel-sub").textContent = t("no_data_territory","No data available for this territory");
@@ -2616,6 +2619,7 @@ const SCATTER_METRICS = [
     ["daly_breast",      "Breast cancer DALYs (/ 100k)"],
     ["daly_colon",       "Colorectal DALYs (/ 100k)"],
     ["daly_liver",       "Liver cancer DALYs (/ 100k)"],
+    ["death_prostate",   "Prostate cancer mortality (/ 100k)"],
     ["research_index",   "Cancer research publications"],
     ["cervical_screening","Cervical screening (0=No, 1=Yes)"],
     ["alcohol_cancer",   "Alcohol-attributable cancer deaths"],
@@ -3637,6 +3641,114 @@ function showToast(msg) {
     el.textContent = msg;
     el.classList.add("visible");
     setTimeout(() => el.classList.remove("visible"), 2200);
+}
+
+// ── Share Card (PNG infographic) ──────────────────────────────────────────
+function generateShareCard() {
+    if (!currentCountry) return;
+    const rec = allData.find(d => d.country === currentCountry);
+    if (!rec) return;
+    const countryName = getCountryName(currentCountry, rec.name || currentCountry);
+    const score = computePreventionScore(rec);
+    const scoreColor = score >= 70 ? "#2db565" : score >= 40 ? "#f0a840" : "#e05c5c";
+
+    // Key metrics for card
+    const metrics = [
+        { label: "All-cancer mortality", val: rec.death_cancer_all, unit: "/100k", color: "#4f8ef7" },
+        { label: "Breast cancer mortality", val: rec.death_breast, unit: "/100k", color: "#7eb8f7" },
+        { label: "Colorectal mortality", val: rec.death_colon, unit: "/100k", color: "#5b9ef0" },
+        { label: "Research index", val: rec.research_index, unit: "", color: "#f7c04f" },
+    ].filter(m => m.val != null && !isNaN(m.val));
+
+    // Build SVG bars
+    const BAR_W = 280, BAR_H = 8;
+    const maxVals = { "All-cancer mortality": 200, "Breast cancer mortality": 35, "Colorectal mortality": 30, "Research index": 250 };
+    const metricBars = metrics.map((m, i) => {
+        const max = maxVals[m.label] || 100;
+        const pct = Math.min(+m.val / max, 1) * BAR_W;
+        const y = 380 + i * 52;
+        const valStr = m.unit ? (+m.val).toFixed(1) + m.unit : (+m.val).toFixed(0);
+        return `
+        <text x="40" y="${y}" fill="#8899bb" font-size="11" font-family="system-ui,sans-serif">${m.label}</text>
+        <rect x="40" y="${y+8}" width="${BAR_W}" height="${BAR_H}" rx="4" fill="#12172a"/>
+        <rect x="40" y="${y+8}" width="${pct.toFixed(1)}" height="${BAR_H}" rx="4" fill="${m.color}"/>
+        <text x="${40 + BAR_W + 8}" y="${y+BAR_H}" fill="${m.color}" font-size="12" font-weight="700" font-family="system-ui,sans-serif">${valStr}</text>`;
+    }).join("");
+
+    // Infrastructure pills
+    const infraKeys = [
+        { k: "cancer_surgery", label: "Surgery" },
+        { k: "cancer_registry", label: "Registry" },
+        { k: "cancer_plan", label: "Nat. Plan" },
+        { k: "breast_screening", label: "Screening" },
+    ];
+    const pills = infraKeys.map((inf, i) => {
+        const has = rec[inf.k] === 1 || rec[inf.k] === true || rec[inf.k] === "1";
+        const col = has ? "#2db565" : "#e05c5c";
+        const bg = has ? "#0d2a1a" : "#2a0d0d";
+        const x = 40 + i * 78;
+        return `<rect x="${x}" y="232" width="68" height="22" rx="5" fill="${bg}"/>
+        <text x="${x+34}" y="247" fill="${col}" font-size="10" font-family="system-ui,sans-serif" text-anchor="middle">${has ? "✓" : "✗"} ${inf.label}</text>`;
+    }).join("");
+
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="630" viewBox="0 0 400 630">
+    <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#0d1428"/>
+            <stop offset="100%" stop-color="#080b14"/>
+        </linearGradient>
+        <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1a3a8a"/>
+            <stop offset="100%" stop-color="#0d1e3a"/>
+        </linearGradient>
+    </defs>
+
+    <!-- Background -->
+    <rect width="400" height="630" fill="url(#bg)" rx="16"/>
+    <rect x="0" y="0" width="400" height="4" fill="#4f8ef7" rx="2"/>
+
+    <!-- Header -->
+    <rect x="0" y="0" width="400" height="90" fill="url(#accent)" rx="16"/>
+    <rect x="0" y="74" width="400" height="16" fill="url(#accent)"/>
+    <text x="24" y="38" fill="#ffffff" font-size="26" font-weight="800" font-family="system-ui,sans-serif">${countryName}</text>
+    <text x="24" y="58" fill="#4f8ef7" font-size="12" font-family="system-ui,sans-serif">${currentCountry} · OncologyAtlas · WHO GHO 2022</text>
+
+    <!-- Prevention score ring -->
+    <text x="340" y="36" fill="#aabb" font-size="9" font-family="system-ui,sans-serif" text-anchor="middle">Readiness</text>
+    <circle cx="340" cy="60" r="26" fill="none" stroke="#1a2540" stroke-width="6"/>
+    <circle cx="340" cy="60" r="26" fill="none" stroke="${scoreColor}" stroke-width="6"
+        stroke-dasharray="${(score / 100 * 163.4).toFixed(1)} 163.4"
+        stroke-dashoffset="40.85" stroke-linecap="round" transform="rotate(-90 340 60)"/>
+    <text x="340" y="64" fill="${scoreColor}" font-size="15" font-weight="800" font-family="system-ui,sans-serif" text-anchor="middle">${score}</text>
+
+    <!-- Infrastructure label -->
+    <text x="24" y="120" fill="#4f8ef7" font-size="10" font-weight="700" font-family="system-ui,sans-serif" letter-spacing="1">INFRASTRUCTURE</text>
+    <line x1="24" y1="126" x2="376" y2="126" stroke="#1a2540" stroke-width="1"/>
+
+    <!-- Infrastructure pills -->
+    ${pills}
+
+    <!-- Survival section (if available) -->
+    <text x="24" y="290" fill="#4f8ef7" font-size="10" font-weight="700" font-family="system-ui,sans-serif" letter-spacing="1">KEY METRICS (AGE-STANDARDIZED)</text>
+    <line x1="24" y1="298" x2="376" y2="298" stroke="#1a2540" stroke-width="1"/>
+
+    ${metricBars}
+
+    <!-- Footer -->
+    <rect x="0" y="590" width="400" height="40" fill="#060810" rx="0"/>
+    <rect x="0" y="614" width="400" height="16" fill="#060810" rx="16"/>
+    <text x="24" y="614" fill="#2a3a5a" font-size="10" font-family="system-ui,sans-serif">notageek88.github.io/oncology-atlas</text>
+    <text x="376" y="614" fill="#2a3a5a" font-size="10" font-family="system-ui,sans-serif" text-anchor="end">Data: WHO GHO (public domain)</text>
+</svg>`;
+
+    const blob = new Blob([svg], { type: "image/svg+xml" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `oncology-${currentCountry.toLowerCase()}.svg`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast(t("share_card_downloaded","📸 SVG card downloaded"));
 }
 
 // ── 5-year Survival ──────────────────────────────────────────────────────

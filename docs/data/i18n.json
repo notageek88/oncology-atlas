@@ -194,6 +194,7 @@
     "btn_tooltip_scatter": "Compare any two metrics across all countries, find correlations",
     "link_copied": "Link copied!",
     "compare_export": "📄 Export comparison PDF",
+    "share_card_downloaded": "📸 SVG card downloaded",
     "data_as_of": "data"
   },
   "ru": {
@@ -391,6 +392,7 @@
     "btn_tooltip_scatter": "Сравните любые две метрики по всем странам, найдите корреляции",
     "link_copied": "Ссылка скопирована!",
     "compare_export": "📄 Экспорт сравнения в PDF",
+    "share_card_downloaded": "📸 SVG-карточка скачана",
     "data_as_of": "данные"
   },
   "zh": {
@@ -588,6 +590,7 @@
     "btn_tooltip_scatter": "比较所有国家的任意两个指标，发现相关性",
     "link_copied": "链接已复制！",
     "compare_export": "📄 导出对比 PDF",
+    "share_card_downloaded": "📸 SVG 卡片已下载",
     "data_as_of": "数据"
   },
   "es": {
@@ -785,6 +788,7 @@
     "btn_tooltip_scatter": "Compara dos métricas en todos los países, encuentra correlaciones",
     "link_copied": "¡Enlace copiado!",
     "compare_export": "📄 Exportar comparación PDF",
+    "share_card_downloaded": "📸 Tarjeta SVG descargada",
     "data_as_of": "datos"
   },
   "ar": {
@@ -982,6 +986,7 @@
     "btn_tooltip_scatter": "قارن أي مقياسين عبر جميع الدول، اكتشف الارتباطات",
     "link_copied": "تم نسخ الرابط!",
     "compare_export": "📄 تصدير مقارنة PDF",
+    "share_card_downloaded": "📸 تم تنزيل بطاقة SVG",
     "data_as_of": "بيانات"
   },
   "hi": {
@@ -1179,6 +1184,7 @@
     "btn_tooltip_scatter": "सभी देशों में कोई भी दो मेट्रिक तुलना करें",
     "link_copied": "लिंक कॉपी हो गया!",
     "compare_export": "📄 तुलना PDF निर्यात करें",
+    "share_card_downloaded": "📸 SVG कार्ड डाउनलोड हुई",
     "data_as_of": "डेटा"
   },
   "pt": {
@@ -1376,6 +1382,7 @@
     "btn_tooltip_scatter": "Compare duas métricas em todos os países, encontre correlações",
     "link_copied": "Link copiado!",
     "compare_export": "📄 Exportar comparação PDF",
+    "share_card_downloaded": "📸 Cartão SVG baixado",
     "data_as_of": "dados"
   },
   "fr": {
@@ -1573,6 +1580,7 @@
     "btn_tooltip_scatter": "Comparez deux métriques dans tous les pays, trouvez des corrélations",
     "link_copied": "Lien copié !",
     "compare_export": "📄 Exporter la comparaison PDF",
+    "share_card_downloaded": "📸 Carte SVG téléchargée",
     "data_as_of": "données"
   },
   "de": {
@@ -1770,6 +1778,7 @@
     "btn_tooltip_scatter": "Vergleichen Sie zwei Metriken aller Länder, finden Sie Korrelationen",
     "link_copied": "Link kopiert!",
     "compare_export": "📄 Vergleich als PDF exportieren",
+    "share_card_downloaded": "📸 SVG-Karte heruntergeladen",
     "data_as_of": "Daten"
   },
   "ja": {
@@ -1967,6 +1976,7 @@
     "btn_tooltip_scatter": "全国の任意の2つの指標を比較し、相関関係を見つける",
     "link_copied": "リンクをコピーしました！",
     "compare_export": "📄 比較PDFをエクスポート",
+    "share_card_downloaded": "📸 SVGカードをダウンロード",
     "data_as_of": "データ"
   },
   "id": {
@@ -2164,6 +2174,7 @@
     "btn_tooltip_scatter": "Bandingkan dua metrik di semua negara, temukan korelasi",
     "link_copied": "Tautan disalin!",
     "compare_export": "📄 Ekspor perbandingan PDF",
+    "share_card_downloaded": "📸 Kartu SVG diunduh",
     "data_as_of": "data"
   }
 }
