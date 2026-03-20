@@ -981,6 +981,7 @@ let dataByNumId = {}, allData = [];
 let worldData = null, trendsData = {};
 let currentMetric = "death_cancer_all";
 let selectedEl = null;
+let currentCountry = "";
 let compareMode = false;
 let compareList = [];
 let svg, g, pathGen, projection;
@@ -1057,6 +1058,7 @@ function moveTip(e) {
 
 // ── Side Panel ─────────────────────────────────────────────────────────────
 function openProfile(data, name) {
+    currentCountry = data ? data.country : "";
     if (!data) {
         document.getElementById("panel-title").textContent = name;
         document.getElementById("panel-sub").textContent = t("no_data_territory","No data available for this territory");
@@ -1802,7 +1804,10 @@ function buildCitation(data) {
             <h3>${t("cite_title","Cite this data")}</h3>
         </div>
         <div style="font-size:10px;color:#556;line-height:1.6;background:#0b0d14;border-radius:5px;padding:8px 10px;border-left:2px solid #1a3a6e;font-family:monospace;word-break:break-word" id="cite-text">${esc(apa)}</div>
-        <button onclick="copyCitation()" style="margin-top:8px;background:#0d1e3a;border:1px solid #1a3a6e;color:#4f8ef7;padding:5px 14px;border-radius:5px;font-size:11px;cursor:pointer;width:100%">${t("cite_copy","Copy APA citation")}</button>
+        <div style="display:flex;gap:6px;margin-top:8px">
+            <button onclick="copyCitation()" style="flex:1;background:#0d1e3a;border:1px solid #1a3a6e;color:#4f8ef7;padding:5px 10px;border-radius:5px;font-size:11px;cursor:pointer">${t("cite_copy","Copy APA citation")}</button>
+            <button onclick="downloadReport()" style="flex:1;background:#0d2a1a;border:1px solid #1a5a2e;color:#2db565;padding:5px 10px;border-radius:5px;font-size:11px;cursor:pointer">${t("report_btn","📄 PDF Report")}</button>
+        </div>
     </div>`;
 }
 
@@ -1818,6 +1823,223 @@ function copyCitation() {
         document.execCommand("copy");
         document.body.removeChild(ta);
         showToast(t("cite_copied","Citation copied!"));
+    }
+}
+
+// ── Country Report PDF ───────────────────────────────────────────────────
+function downloadReport() {
+    // Find currently displayed country data
+    const titleEl = document.getElementById("panel-title");
+    const subEl   = document.getElementById("panel-sub");
+    const countryName = titleEl ? titleEl.textContent : "Unknown";
+
+    // Locate data record
+    const iso3 = currentCountry || "";
+    const data  = allData ? allData.find(d => d.country === iso3) : null;
+
+    const generatedDate = new Date().toLocaleDateString("en-US", {year:"numeric",month:"long",day:"numeric"});
+    const url = `https://notageek88.github.io/oncology-atlas/?country=${iso3}`;
+    const citation = `OncologyAtlas. (${new Date().getFullYear()}). Cancer data for ${countryName}. WHO Global Health Observatory. Retrieved from ${url}`;
+
+    // Mortality rows
+    const deathMetrics = [
+        ["All cancers", "death_cancer_all", "deaths/100k/yr"],
+        ["Breast", "death_breast", "deaths/100k/yr"],
+        ["Colorectal", "death_colon", "deaths/100k/yr"],
+        ["Liver", "death_liver", "deaths/100k/yr"],
+        ["Mouth/Oropharynx", "death_mouth", "deaths/100k/yr"],
+        ["Oesophagus", "death_oesophagus", "deaths/100k/yr"],
+    ];
+
+    const dalyMetrics = [
+        ["Breast", "daly_breast"],
+        ["Colorectal", "daly_colon"],
+        ["Liver", "daly_liver"],
+        ["Mouth/Oropharynx", "daly_mouth"],
+    ];
+
+    const infraLabels = {
+        cancer_surgery: "Cancer surgery (public sector)",
+        cancer_registry: "Population-based cancer registry",
+        cancer_plan: "National cancer action plan",
+        breast_screening: "Breast cancer screening program",
+        cancer_dept: "Cancer department (tertiary level)",
+        cervical_screening: "Cervical cancer screening program",
+    };
+
+    function metricRow(label, value, unit) {
+        const v = data ? data[value] : null;
+        const display = v != null ? parseFloat(v).toFixed(1) + (unit ? ` <small style="color:#888">${unit}</small>` : "") : '<span style="color:#ccc">—</span>';
+        return `<tr><td>${label}</td><td style="text-align:right;font-weight:600">${display}</td></tr>`;
+    }
+
+    function infraRow(key) {
+        const v = data ? data[key] : null;
+        const icon = v === "Yes" ? "✅" : v === "No" ? "❌" : "—";
+        const color = v === "Yes" ? "#2a7a4a" : v === "No" ? "#7a2a2a" : "#555";
+        return `<tr style="background:${color}18"><td>${infraLabels[key]}</td><td style="text-align:right;font-weight:600">${icon} ${v || "—"}</td></tr>`;
+    }
+
+    // Survival rates
+    const sv = SURVIVAL_5YR[iso3];
+    const survivalHtml = sv ? `
+        <div class="section">
+            <h2>5-Year Survival Rates <small style="font-size:12px;color:#888">(EUROCARE-5 / CONCORD-3)</small></h2>
+            <table>
+                <thead><tr><th>Cancer Type</th><th style="text-align:right">5-Year Survival</th></tr></thead>
+                <tbody>
+                    ${sv.breast!=null?`<tr><td>Breast</td><td style="text-align:right;font-weight:600;color:${sv.breast>=70?"#1a8a4a":sv.breast>=50?"#b87a1a":"#8a1a1a"}">${sv.breast}%</td></tr>`:""}
+                    ${sv.colorectal!=null?`<tr><td>Colorectal</td><td style="text-align:right;font-weight:600;color:${sv.colorectal>=70?"#1a8a4a":sv.colorectal>=50?"#b87a1a":"#8a1a1a"}">${sv.colorectal}%</td></tr>`:""}
+                    ${sv.lung!=null?`<tr><td>Lung</td><td style="text-align:right;font-weight:600;color:${sv.lung>=70?"#1a8a4a":sv.lung>=50?"#b87a1a":"#8a1a1a"}">${sv.lung}%</td></tr>`:""}
+                    ${sv.prostate!=null?`<tr><td>Prostate</td><td style="text-align:right;font-weight:600;color:${sv.prostate>=70?"#1a8a4a":sv.prostate>=50?"#b87a1a":"#8a1a1a"}">${sv.prostate}%</td></tr>`:""}
+                    ${sv.stomach!=null?`<tr><td>Stomach</td><td style="text-align:right;font-weight:600;color:${sv.stomach>=70?"#1a8a4a":sv.stomach>=50?"#b87a1a":"#8a1a1a"}">${sv.stomach}%</td></tr>`:""}
+                </tbody>
+            </table>
+        </div>` : "";
+
+    // Clinical trials
+    let trialsHtml = "";
+    if (trialsData && trialsData.countries) {
+        const td = trialsData.countries[iso3];
+        if (td) {
+            const phases = td.phases || {};
+            const phaseRows = ["PHASE1","PHASE2","PHASE3","PHASE4"].map(k => phases[k]
+                ? `<tr><td>${k.replace("_"," ")}</td><td style="text-align:right;font-weight:600">${phases[k]}</td></tr>`
+                : "").join("");
+            trialsHtml = `
+            <div class="section">
+                <h2>Clinical Trials <small style="font-size:12px;color:#888">(ClinicalTrials.gov)</small></h2>
+                <div style="display:flex;gap:30px;margin-bottom:12px">
+                    <div><div style="font-size:28px;font-weight:700;color:#1a5aaa">${td.total}</div><div style="font-size:11px;color:#888">Total studies</div></div>
+                    <div><div style="font-size:28px;font-weight:700;color:#1a7a3a">${td.active}</div><div style="font-size:11px;color:#888">Active / Recruiting</div></div>
+                </div>
+                <table><thead><tr><th>Phase</th><th style="text-align:right">Count</th></tr></thead><tbody>${phaseRows}</tbody></table>
+            </div>`;
+        }
+    }
+
+    // Rankings snippet — global death rank
+    let rankHtml = "";
+    if (data && data.death_cancer_all && allData) {
+        const sorted = [...allData].filter(d => d.death_cancer_all != null).sort((a,b) => b.death_cancer_all - a.death_cancer_all);
+        const rank = sorted.findIndex(d => d.country === iso3) + 1;
+        const total = sorted.length;
+        if (rank > 0) {
+            rankHtml = `<div class="rank-badge">Global rank: <strong>#${rank}</strong> of ${total} countries for all-cancer mortality</div>`;
+        }
+    }
+
+    const vintageYears = data ? ["death_cancer_all_year","death_breast_year"].map(k=>data[k]).filter(Boolean) : [];
+    const vintage = vintageYears.length ? `Data year: ${Math.max(...vintageYears)}` : "";
+
+    const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OncologyAtlas — ${esc(countryName)} Cancer Report</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Georgia, serif; color: #111; background: #fff; padding: 32px 40px; max-width: 800px; margin: 0 auto; font-size: 13px; line-height: 1.5; }
+        .report-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:24px; padding-bottom:16px; border-bottom: 2px solid #1a3a8a; }
+        .report-title { font-size:28px; font-weight:800; color:#1a1a3a; letter-spacing:-0.5px; }
+        .report-subtitle { font-size:13px; color:#555; margin-top:4px; }
+        .report-meta { text-align:right; font-size:11px; color:#777; line-height:1.8; }
+        .atlas-brand { font-weight:700; color:#1a3a8a; font-size:13px; }
+        .section { margin-bottom:24px; }
+        .section h2 { font-size:14px; font-weight:700; color:#1a3a8a; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px; padding-bottom:4px; border-bottom:1px solid #dde; }
+        table { width:100%; border-collapse:collapse; font-size:12px; }
+        th { background:#f0f3fa; padding:6px 10px; text-align:left; font-weight:600; color:#334; font-size:11px; text-transform:uppercase; letter-spacing:0.3px; }
+        td { padding:5px 10px; border-bottom:1px solid #eef; color:#222; }
+        tr:last-child td { border-bottom:none; }
+        .rank-badge { display:inline-block; background:#e8f0fe; color:#1a3a8a; border:1px solid #b8ccf0; border-radius:6px; padding:6px 14px; font-size:12px; margin-bottom:16px; }
+        .citation-box { background:#f8f9fc; border:1px solid #dde; border-left:3px solid #1a3a8a; border-radius:4px; padding:10px 14px; font-size:11px; color:#444; font-family:monospace; word-break:break-word; line-height:1.6; }
+        .report-footer { margin-top:32px; padding-top:16px; border-top:1px solid #dde; display:flex; justify-content:space-between; align-items:center; }
+        .footer-sources { font-size:10px; color:#888; line-height:1.7; }
+        .footer-brand { font-size:10px; color:#888; text-align:right; }
+        .footer-brand a { color:#1a3a8a; }
+        @media print {
+            body { padding:16px 20px; }
+            .no-print { display:none !important; }
+            @page { margin: 1.5cm 2cm; size: A4; }
+        }
+        .print-btn { position:fixed; top:20px; right:20px; background:#1a3a8a; color:#fff; border:none; padding:10px 20px; border-radius:6px; font-size:13px; cursor:pointer; font-weight:600; box-shadow:0 2px 8px rgba(26,58,138,0.3); }
+        .print-btn:hover { background:#0d2a6e; }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">🖨 Print / Save PDF</button>
+
+    <div class="report-header">
+        <div>
+            <div class="report-title">${esc(countryName)}</div>
+            <div class="report-subtitle">Cancer Statistics Report • ${esc(subEl ? subEl.textContent : "")} ${vintage ? " • " + vintage : ""}</div>
+        </div>
+        <div class="report-meta">
+            <div class="atlas-brand">🌍 OncologyAtlas</div>
+            <div>Generated: ${generatedDate}</div>
+            <div>notageek88.github.io/oncology-atlas</div>
+        </div>
+    </div>
+
+    ${rankHtml}
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        <div class="section">
+            <h2>Cancer Mortality <small style="font-size:10px;color:#888">(WHO GHO)</small></h2>
+            <table>
+                <thead><tr><th>Cancer Type</th><th style="text-align:right">Rate</th></tr></thead>
+                <tbody>
+                    ${deathMetrics.map(([l,k,u]) => metricRow(l,k,u)).join("")}
+                </tbody>
+            </table>
+        </div>
+        <div class="section">
+            <h2>Disease Burden — DALYs / 100k <small style="font-size:10px;color:#888">(WHO GHO)</small></h2>
+            <table>
+                <thead><tr><th>Cancer Type</th><th style="text-align:right">DALYs/100k</th></tr></thead>
+                <tbody>
+                    ${dalyMetrics.map(([l,k]) => metricRow(l,k,"")).join("")}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Healthcare Infrastructure <small style="font-size:10px;color:#888">(WHO verification)</small></h2>
+        <table>
+            <thead><tr><th>Indicator</th><th style="text-align:right">Status</th></tr></thead>
+            <tbody>${INFRA_KEYS.map(k => infraRow(k)).join("")}</tbody>
+        </table>
+    </div>
+
+    ${survivalHtml}
+    ${trialsHtml}
+
+    <div class="section">
+        <h2>Citation (APA)</h2>
+        <div class="citation-box">${esc(citation)}</div>
+    </div>
+
+    <div class="report-footer">
+        <div class="footer-sources">
+            <strong>Data Sources:</strong> WHO Global Health Observatory (mortality, DALYs, infrastructure) •
+            ClinicalTrials.gov (clinical trials) • EUROCARE-5 / CONCORD-3 (survival rates)<br>
+            All data is open-access. Report generated via OncologyAtlas open-source platform.
+        </div>
+        <div class="footer-brand">
+            <a href="${url}" target="_blank">${url}</a><br>
+            MIT License — free to use with attribution
+        </div>
+    </div>
+</body>
+</html>`;
+
+    const w = window.open("", "_blank");
+    if (w) {
+        w.document.write(html);
+        w.document.close();
+    } else {
+        showToast("Please allow popups to generate the PDF report");
     }
 }
 
