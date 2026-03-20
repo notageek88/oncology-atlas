@@ -241,7 +241,8 @@
     "similar_title": "Similar countries",
     "by_cancer_profile": "by cancer profile",
     "similar_desc": "Countries with the most similar cancer burden & readiness",
-    "similarity_score": "Similarity score 0–1 (1=identical profile)"
+    "similarity_score": "Similarity score 0–1 (1=identical profile)",
+    "forecast_note": "Dashed line: 2030 projection based on 5-yr trend. Not a guarantee."
   },
   "ru": {
     "title": "OncologyAtlas",
@@ -485,7 +486,8 @@
     "similar_title": "Похожие страны",
     "by_cancer_profile": "по онкологическому профилю",
     "similar_desc": "Страны с наиболее схожим бременем рака и готовностью",
-    "similarity_score": "Сходство 0–1 (1=идентичный профиль)"
+    "similarity_score": "Сходство 0–1 (1=идентичный профиль)",
+    "forecast_note": "Пунктир: прогноз до 2030 на основе тренда 5 лет. Не гарантия."
   },
   "zh": {
     "title": "OncologyAtlas",
@@ -729,7 +731,8 @@
     "similar_title": "相似国家",
     "by_cancer_profile": "按癌症概况",
     "similar_desc": "癌症负担和准备情况最相似的国家",
-    "similarity_score": "相似度分数 0–1（1=完全相同）"
+    "similarity_score": "相似度分数 0–1（1=完全相同）",
+    "forecast_note": "虚线：基于5年趋势的2030年预测。仅供参考。"
   },
   "es": {
     "title": "OncologyAtlas",
@@ -973,7 +976,8 @@
     "similar_title": "Países similares",
     "by_cancer_profile": "por perfil oncológico",
     "similar_desc": "Países con la carga de cáncer y preparación más similar",
-    "similarity_score": "Puntuación de similitud 0–1 (1=perfil idéntico)"
+    "similarity_score": "Puntuación de similitud 0–1 (1=perfil idéntico)",
+    "forecast_note": "Línea punteada: proyección 2030 basada en tendencia de 5 años. No es garantía."
   },
   "ar": {
     "title": "OncologyAtlas",
@@ -1217,7 +1221,8 @@
     "similar_title": "دول مشابهة",
     "by_cancer_profile": "حسب الملف السرطاني",
     "similar_desc": "الدول ذات أعباء السرطان والاستعداد الأكثر تشابهاً",
-    "similarity_score": "درجة التشابه 0-1 (1=ملف مماثل)"
+    "similarity_score": "درجة التشابه 0-1 (1=ملف مماثل)",
+    "forecast_note": "الخط المنقط: توقعات 2030 بناءً على الاتجاه لمدة 5 سنوات. ليست ضمانًا."
   },
   "hi": {
     "title": "OncologyAtlas",
@@ -1461,7 +1466,8 @@
     "similar_title": "समान देश",
     "by_cancer_profile": "कैंसर प्रोफ़ाइल द्वारा",
     "similar_desc": "सबसे समान कैंसर बोझ और तैयारी वाले देश",
-    "similarity_score": "समानता स्कोर 0–1 (1=समान प्रोफ़ाइल)"
+    "similarity_score": "समानता स्कोर 0–1 (1=समान प्रोफ़ाइल)",
+    "forecast_note": "बिंदीदार रेखा: 5-वर्षीय प्रवृत्ति पर आधारित 2030 पूर्वानुमान। गारंटी नहीं।"
   },
   "pt": {
     "title": "OncologyAtlas",
@@ -1705,7 +1711,8 @@
     "similar_title": "Países similares",
     "by_cancer_profile": "por perfil oncológico",
     "similar_desc": "Países com a carga e preparação mais similar",
-    "similarity_score": "Pontuação de similaridade 0–1 (1=perfil idêntico)"
+    "similarity_score": "Pontuação de similaridade 0–1 (1=perfil idêntico)",
+    "forecast_note": "Linha tracejada: projeção 2030 com base na tendência de 5 anos. Não é garantia."
   },
   "fr": {
     "title": "OncologyAtlas",
@@ -1949,7 +1956,8 @@
     "similar_title": "Pays similaires",
     "by_cancer_profile": "par profil oncologique",
     "similar_desc": "Pays avec le fardeau et la préparation les plus similaires",
-    "similarity_score": "Score de similarité 0–1 (1=profil identique)"
+    "similarity_score": "Score de similarité 0–1 (1=profil identique)",
+    "forecast_note": "Ligne pointillée: projection 2030 basée sur la tendance de 5 ans. Non garanti."
   },
   "de": {
     "title": "OncologyAtlas",
@@ -2193,7 +2201,8 @@
     "similar_title": "Ähnliche Länder",
     "by_cancer_profile": "nach Krebsprofil",
     "similar_desc": "Länder mit der ähnlichsten Krebslast und Bereitschaft",
-    "similarity_score": "Ähnlichkeitswert 0–1 (1=identisches Profil)"
+    "similarity_score": "Ähnlichkeitswert 0–1 (1=identisches Profil)",
+    "forecast_note": "Gestrichelte Linie: 2030-Projektion auf Basis des 5-Jahres-Trends. Keine Garantie."
   },
   "ja": {
     "title": "OncologyAtlas",
@@ -2437,7 +2446,8 @@
     "similar_title": "類似国",
     "by_cancer_profile": "がんプロフィール別",
     "similar_desc": "最も類似したがん負担と準備状況を持つ国",
-    "similarity_score": "類似度スコア 0–1（1=同一プロフィール）"
+    "similarity_score": "類似度スコア 0–1（1=同一プロフィール）",
+    "forecast_note": "破線: 5年トレンドに基づく2030年予測。保証ではありません。"
   },
   "id": {
     "title": "OncologyAtlas",
@@ -2681,6 +2691,7 @@
     "similar_title": "Negara serupa",
     "by_cancer_profile": "berdasarkan profil kanker",
     "similar_desc": "Negara dengan beban kanker dan kesiapan paling serupa",
-    "similarity_score": "Skor kemiripan 0–1 (1=profil identik)"
+    "similarity_score": "Skor kemiripan 0–1 (1=profil identik)",
+    "forecast_note": "Garis putus-putus: proyeksi 2030 berdasarkan tren 5 tahun. Bukan jaminan."
   }
 }
