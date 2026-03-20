@@ -48,6 +48,9 @@ OncologyAtlas is an open-source interactive map of global cancer data. Built for
 | 📊 Scatter plot | Correlation explorer — plot any two metrics, Pearson r, trend line |
 | 📸 Share card | One-click SVG infographic per country — download and share on social media |
 | 📄 Compare export | Compare 2–4 countries, export as landscape PDF table |
+| ✈ Medical tourism | Visa, wait time, cost estimates for 23 oncology destination countries |
+| 📋 Policy timeline | 40+ WHO & national cancer policy milestones 2000–2024 per country profile |
+| 🎗 Dominant cancer filter | Highlight only countries where a specific cancer is the top mortality cause |
 
 ---
 
@@ -100,8 +103,8 @@ This project is actively developed. Contributions welcome for any of the items b
 ### v0.6 — Social & Media Intelligence
 - [ ] **Social media mentions layer** — Reddit/Twitter/news discussion volume per country, mapped via GDELT or Pushshift
 - [x] **Research activity index** — PubMed publication count by country, overlaid on map
-- [ ] **NGO presence** — mapping of major cancer charities and advocacy groups per country
-- [ ] **News timeline** — key policy events (smoking bans, screening programs launch) on the timeline slider
+- [x] **NGO presence** — cancer helplines, NGOs, gov resources for 55+ countries in profile panel
+- [x] **News timeline** — 40+ key policy events (WHO FCTC, cancer moonshots, screening launches) per country profile
 
 ### v0.7 — Access & API
 - [x] **Embed widget** — `<iframe src="https://notageek88.github.io/oncology-atlas/index.html?embed=1&country=RUS&metric=death_breast">` for journalists/researchers
