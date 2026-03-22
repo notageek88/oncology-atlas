@@ -59,92 +59,92 @@
       "country_count": 50
     },
     "death_lung": {
-      "mean": 15.29,
-      "max": 51.3,
-      "min": 1.3,
       "country_count": 123,
       "top_country": "HUN",
-      "bottom_country": "NER"
+      "bottom_country": "NER",
+      "global_mean": 15.29,
+      "global_max": 51.3,
+      "global_min": 1.3
     },
     "death_stomach": {
-      "mean": 6.68,
-      "max": 21.7,
-      "min": 1.9,
       "country_count": 75,
       "top_country": "MNG",
-      "bottom_country": "USA"
+      "bottom_country": "USA",
+      "global_mean": 6.68,
+      "global_max": 21.7,
+      "global_min": 1.9
     },
     "death_cervical": {
-      "mean": 10.25,
-      "max": 49.8,
-      "min": 1.2,
       "country_count": 114,
       "top_country": "ZWE",
-      "bottom_country": "SAU"
+      "bottom_country": "SAU",
+      "global_mean": 10.25,
+      "global_max": 49.8,
+      "global_min": 1.2
     },
     "death_melanoma": {
-      "mean": 0.68,
-      "max": 2.7,
-      "min": 0.1,
       "country_count": 93,
       "top_country": "AUS",
-      "bottom_country": "SDN"
+      "bottom_country": "SDN",
+      "global_mean": 0.68,
+      "global_max": 2.7,
+      "global_min": 0.1
     },
     "death_pancreatic": {
-      "mean": 4.63,
-      "max": 9.5,
-      "min": 1.2,
       "country_count": 101,
       "top_country": "FIN",
-      "bottom_country": "COD"
+      "bottom_country": "COD",
+      "global_mean": 4.63,
+      "global_max": 9.5,
+      "global_min": 1.2
     },
     "death_prostate": {
-      "mean": 8.85,
-      "max": 23.4,
-      "min": 2.1,
       "country_count": 82,
       "top_country": "TTO",
-      "bottom_country": "BGD"
+      "bottom_country": "BGD",
+      "global_mean": 8.85,
+      "global_max": 23.4,
+      "global_min": 2.1
     },
     "smoking_prev": {
-      "mean": 17.05,
-      "max": 50.9,
-      "min": 2,
       "country_count": 167,
       "top_country": "LBN",
-      "bottom_country": "GHA"
+      "bottom_country": "GHA",
+      "global_mean": 17.05,
+      "global_max": 50.9,
+      "global_min": 2
     },
     "obesity_prev": {
-      "mean": 24.67,
-      "max": 75.6,
-      "min": 2.08,
       "country_count": 199,
       "top_country": "ASM",
-      "bottom_country": "VNM"
+      "bottom_country": "VNM",
+      "global_mean": 24.67,
+      "global_max": 75.6,
+      "global_min": 2.08
     },
     "alcohol_pc": {
-      "mean": 6.05,
-      "max": 24.4,
-      "min": 0.1,
       "country_count": 189,
       "top_country": "LTU",
-      "bottom_country": "LBY"
+      "bottom_country": "LBY",
+      "global_mean": 6.05,
+      "global_max": 24.4,
+      "global_min": 0.1
     },
     "pm25_pollution": {
-      "mean": 22.69,
-      "max": 177.6,
-      "min": 0.33,
       "country_count": 183,
       "top_country": "FSM",
-      "bottom_country": "BHS"
+      "bottom_country": "BHS",
+      "global_mean": 22.69,
+      "global_max": 177.6,
+      "global_min": 0.33
     },
     "uhc_index": {
-      "mean": 68.36,
-      "max": 92,
-      "min": 26,
       "country_count": 195,
       "top_country": "CAN",
-      "bottom_country": "TCD"
+      "bottom_country": "TCD",
+      "global_mean": 68.36,
+      "global_max": 92,
+      "global_min": 26
     }
   }
 }
