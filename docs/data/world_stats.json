@@ -105,6 +105,46 @@
       "country_count": 82,
       "top_country": "TTO",
       "bottom_country": "BGD"
+    },
+    "smoking_prev": {
+      "mean": 17.05,
+      "max": 50.9,
+      "min": 2,
+      "country_count": 167,
+      "top_country": "LBN",
+      "bottom_country": "GHA"
+    },
+    "obesity_prev": {
+      "mean": 24.67,
+      "max": 75.6,
+      "min": 2.08,
+      "country_count": 199,
+      "top_country": "ASM",
+      "bottom_country": "VNM"
+    },
+    "alcohol_pc": {
+      "mean": 6.05,
+      "max": 24.4,
+      "min": 0.1,
+      "country_count": 189,
+      "top_country": "LTU",
+      "bottom_country": "LBY"
+    },
+    "pm25_pollution": {
+      "mean": 22.69,
+      "max": 177.6,
+      "min": 0.33,
+      "country_count": 183,
+      "top_country": "FSM",
+      "bottom_country": "BHS"
+    },
+    "uhc_index": {
+      "mean": 68.36,
+      "max": 92,
+      "min": 26,
+      "country_count": 195,
+      "top_country": "CAN",
+      "bottom_country": "TCD"
     }
   }
 }
