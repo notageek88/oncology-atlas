@@ -82,7 +82,16 @@
         .sb-label { font-size: 9px; color: #445; text-transform: uppercase; letter-spacing: 0.6px; display: block; margin-bottom: 4px; }
         .sb-section select { width: 100%; background: #10131f; border: 1px solid #1a1d2e; color: #aab; padding: 5px 8px; border-radius: 5px; font-size: 11px; cursor: pointer; }
         .sb-section select:hover, .sb-section select:focus { border-color: #4f8ef7; outline: none; }
-        .sb-group-title { font-size: 9px; color: #334; text-transform: uppercase; letter-spacing: 0.6px; padding: 7px 10px 3px; }
+        .sb-group-title {
+            font-size: 9px; color: #334; text-transform: uppercase; letter-spacing: 0.6px;
+            padding: 7px 10px 3px; cursor: pointer; user-select: none;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .sb-group-title:hover { color: #556; }
+        .sb-group-title .sb-caret { font-size: 8px; transition: transform 0.2s; display: inline-block; }
+        .sb-group-title.collapsed .sb-caret { transform: rotate(-90deg); }
+        .sb-collapsible { overflow: hidden; transition: max-height 0.25s ease; }
+        .sb-collapsible.collapsed { max-height: 0 !important; }
         .sb-btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
         .sb-btn {
             background: #0d1420; color: #778; border: 1px solid #1a1d2e;
@@ -106,6 +115,8 @@
             box-sizing: border-box;
         }
         .sb-spacer { flex: 1; min-height: 8px; }
+        /* Legend sticky at sidebar bottom */
+        #legend { position: sticky; bottom: 0; z-index: 10; }
         /* Filter panel inside sidebar */
         #filter-panel {
             flex-direction: column !important;
@@ -665,7 +676,8 @@
     </div>
 
     <!-- Layers -->
-    <div class="sb-group-title" data-i18n="layers_title">Layers</div>
+    <div class="sb-group-title" onclick="toggleSbSection('sb-layers')" data-i18n="layers_title">Layers <span class="sb-caret">▾</span></div>
+    <div class="sb-collapsible" id="sb-layers">
     <div class="sb-section">
         <div class="sb-btn-grid">
             <button class="sb-btn" id="clinics-toggle" onclick="toggleClinics()" data-i18n="clinics_btn" title="Show/hide oncology clinics">🏥 Clinics</button>
@@ -674,9 +686,11 @@
             <button class="sb-btn" id="timeline-toggle" onclick="toggleTimeline()" data-i18n="timeline_btn" title="Show timeline slider">▶ Timeline</button>
         </div>
     </div>
+    </div>
 
     <!-- Analysis tools -->
-    <div class="sb-group-title" data-i18n="analysis_title">Analysis</div>
+    <div class="sb-group-title" onclick="toggleSbSection('sb-analysis')" data-i18n="analysis_title">Analysis <span class="sb-caret">▾</span></div>
+    <div class="sb-collapsible" id="sb-analysis">
     <div class="sb-section">
         <div class="sb-btn-grid">
             <button class="sb-btn" id="compare-toggle" onclick="toggleCompare()" data-i18n="compare" title="Compare countries">⚖ Compare</button>
@@ -687,9 +701,11 @@
             <button class="sb-btn" onclick="openEmbedModal()" data-i18n="embed_btn" title="Embed widget">‹/› Embed</button>
         </div>
     </div>
+    </div>
 
     <!-- Filter section -->
-    <div class="sb-group-title" data-i18n="filter_title">Filter</div>
+    <div class="sb-group-title" onclick="toggleSbSection('sb-filter')" data-i18n="filter_title">Filter <span class="sb-caret">▾</span></div>
+    <div class="sb-collapsible" id="sb-filter">
     <div class="sb-section">
         <button class="sb-full-btn" id="filter-toggle" onclick="toggleFilterPanel()" data-i18n="filter_btn">⚙ Map Filters</button>
         <div id="filter-panel" style="display:none;flex-direction:column;gap:5px;padding:6px 0 2px">
@@ -734,6 +750,7 @@
             </div>
         </div>
     </div>
+    </div><!-- /sb-filter -->
 
     <!-- Extra tools row -->
     <div class="sb-section">
@@ -746,7 +763,7 @@
     <!-- Spacer pushes legend to bottom -->
     <div class="sb-spacer"></div>
 
-    <!-- Legend -->
+    <!-- Legend (sticky at bottom) -->
     <div id="legend">
         <div id="leg-title">Death rate / 100k</div>
         <div id="leg-body"></div>
@@ -3511,6 +3528,31 @@ const ISO3_REGION = {
     "GAB":"AFR","COG":"AFR","MWI":"AFR","LSO":"AFR","SWZ":"AFR","ERI":"AFR","TGO":"AFR",
 };
 
+function toggleSbSection(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const title = el.previousElementSibling;
+    const isCollapsed = el.classList.toggle("collapsed");
+    if (title) title.classList.toggle("collapsed", isCollapsed);
+    if (!isCollapsed) {
+        // measure natural height and animate
+        el.style.maxHeight = el.scrollHeight + "px";
+        // after expand set to none so content can grow freely
+        el.addEventListener("transitionend", () => { if (!el.classList.contains("collapsed")) el.style.maxHeight = "none"; }, { once: true });
+    } else {
+        // collapse: fix current height first then animate to 0
+        el.style.maxHeight = el.scrollHeight + "px";
+        requestAnimationFrame(() => { el.style.maxHeight = "0"; });
+    }
+}
+
+// Initialize collapsible sections heights
+function initSbCollapsibles() {
+    document.querySelectorAll(".sb-collapsible").forEach(el => {
+        el.style.maxHeight = "none";
+    });
+}
+
 function toggleFilterPanel() {
     filterPanelOpen = !filterPanelOpen;
     const p = document.getElementById("filter-panel");
@@ -4941,6 +4983,7 @@ async function init() {
     calibrateRangeSlider();
     updateWorldStatsBar(currentMetric);
     updateHeaderMetric();
+    initSbCollapsibles();
 
     // Auto-open country from URL param
     if (params.country) {
