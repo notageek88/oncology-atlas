@@ -667,19 +667,11 @@
         <span class="sb-label" data-i18n="type_label">Type</span>
         <select id="metric" onchange="updateMap()" data-i18n-select="metric">
             <option value="death_cancer_all" data-i18n="metric_death_all">All cancers combined</option>
-            <optgroup label="── NEW: GLOBOCAN 2022 ──" style="color:#4f8ef7">
-            <option value="death_lung">🫁 Lung cancer</option>
-            <option value="death_stomach">🟤 Stomach cancer</option>
-            <option value="death_cervical">🔴 Cervical cancer</option>
-            </optgroup>
-            <optgroup label="── WHO GHO ──" style="color:#445">
             <option value="death_breast" data-i18n="metric_breast">Breast cancer</option>
             <option value="death_colon" data-i18n="metric_colon">Colorectal cancer</option>
             <option value="death_liver" data-i18n="metric_liver">Liver cancer</option>
             <option value="death_mouth" data-i18n="metric_mouth">Mouth &amp; oropharynx</option>
             <option value="death_oesophagus" data-i18n="metric_oesophagus">Oesophagus</option>
-            <option value="death_prostate">Prostate cancer</option>
-            </optgroup>
         </select>
     </div>
 
@@ -1654,7 +1646,21 @@ function onCategoryChange() {
     const cat = document.getElementById("category").value;
     const grp = METRIC_GROUPS[cat];
     const sel = document.getElementById("metric");
-    sel.innerHTML = Object.entries(grp.options).map(([k,v]) => `<option value="${k}">${v}</option>`).join("");
+    // Build options — with optional grouping for death category
+    if (cat === "death") {
+        const globocan = ["death_lung","death_stomach","death_cervical"];
+        const who = Object.keys(grp.options).filter(k => !globocan.includes(k));
+        sel.innerHTML =
+            `<option value="death_cancer_all">${grp.options["death_cancer_all"]}</option>` +
+            `<optgroup label="── GLOBOCAN 2022 ──">` +
+            globocan.map(k => `<option value="${k}">${grp.options[k]}</option>`).join("") +
+            `</optgroup>` +
+            `<optgroup label="── WHO GHO ──">` +
+            who.filter(k => k !== "death_cancer_all").map(k => `<option value="${k}">${grp.options[k]}</option>`).join("") +
+            `</optgroup>`;
+    } else {
+        sel.innerHTML = Object.entries(grp.options).map(([k,v]) => `<option value="${k}">${v}</option>`).join("");
+    }
     currentMetric = Object.keys(grp.options)[0];
     sel.value = currentMetric;
     updateMap();
