@@ -1000,7 +1000,7 @@ const METRIC_GROUPS = {
 };
 
 const BOOL_COLORS = { "Yes": "#2db565", "No": "#e05c5c" };
-const DEATH_MAX = { death_cancer_all:200, death_breast:30, death_colon:30, death_liver:20, death_mouth:10, death_oesophagus:10, death_lung:55, death_stomach:25, death_cervical:55, death_prostate:25 };
+const DEATH_MAX = { death_cancer_all:200, death_breast:30, death_colon:30, death_liver:20, death_mouth:10, death_oesophagus:10, death_lung:55, death_stomach:25, death_cervical:55, death_prostate:25, death_melanoma:3, death_pancreatic:10 };
 
 // Country name localization lookup (ISO3 → {ru, zh, es, fr, ar})
 const COUNTRY_NAMES = {
@@ -1657,7 +1657,7 @@ function onCategoryChange() {
     const sel = document.getElementById("metric");
     // Build options — with optional grouping for death category
     if (cat === "death") {
-        const globocan = ["death_lung","death_stomach","death_cervical"];
+        const globocan = ["death_lung","death_stomach","death_cervical","death_melanoma","death_pancreatic"];
         const who = Object.keys(grp.options).filter(k => !globocan.includes(k));
         sel.innerHTML =
             `<option value="death_cancer_all">${grp.options["death_cancer_all"]}</option>` +
