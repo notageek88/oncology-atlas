@@ -62,7 +62,7 @@
 
         /* ── Left Sidebar ── */
         #left-sidebar {
-            position: fixed; top: 44px; left: 0; bottom: 0; width: 220px; z-index: 200;
+            position: fixed; top: 44px; left: 0; bottom: 36px; width: 220px; z-index: 200;
             background: #0b0d14; border-right: 1px solid #1a1d2e;
             display: flex; flex-direction: column;
             overflow-y: auto; overflow-x: hidden;
@@ -123,7 +123,7 @@
         .compare-btn.active { background: #1a3a6e; border-color: #4f8ef7; }
 
         /* ── Map ── */
-        #map-container { position: fixed; top: 44px; left: 220px; right: 0; bottom: 0; transition: right 0.35s; }
+        #map-container { position: fixed; top: 44px; left: 220px; right: 0; bottom: 36px; transition: right 0.35s; }
         #map-container.panel-open { right: 360px; }
         svg { width: 100%; height: 100%; cursor: grab; }
         svg:active { cursor: grabbing; }
@@ -133,7 +133,7 @@
 
         /* ── Side Panel ── */
         #side-panel {
-            position: fixed; top: 44px; right: -360px; bottom: 0; width: 360px; z-index: 150;
+            position: fixed; top: 44px; right: -360px; bottom: 36px; width: 360px; z-index: 150;
             background: #09090f; border-left: 1px solid #1a1d2e;
             overflow-y: auto; transition: right 0.35s;
             padding: 0 0 40px 0;
@@ -199,7 +199,7 @@
 
         /* ── Timeline Slider ── */
         #timeline {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            position: fixed; bottom: 56px; left: 50%; transform: translateX(-50%);
             z-index: 100; background: rgba(9,11,18,0.95); border: 1px solid #1a1d2e;
             border-radius: 10px; padding: 10px 20px 8px;
             display: none; align-items: center; gap: 14px;
@@ -260,25 +260,36 @@
         .bool-row { display: flex; align-items: center; gap: 7px; margin: 3px 0; color: #778; }
         .bool-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
-        /* ── World stats bar (inside sidebar) ── */
+        /* ── App Footer ── */
+        #app-footer {
+            position: fixed; bottom: 0; left: 220px; right: 0; height: 36px; z-index: 200;
+            background: rgba(9,11,18,0.97); border-top: 1px solid #1a1d2e;
+            display: flex; align-items: center; padding: 0 14px; gap: 10px;
+            backdrop-filter: blur(8px); font-size: 10px; color: #334;
+        }
+        /* World stats bar (inside footer) */
         #world-stats-bar {
-            position: static !important;
-            left: auto !important; bottom: auto !important;
-            transform: none !important;
-            padding: 8px 10px !important;
-            border-top: 1px solid #1a1d2e !important;
-            border-radius: 0 !important;
-            background: #0b0d14 !important;
+            display: none; align-items: center; gap: 0; flex: 1;
+            overflow: hidden; min-width: 0;
         }
-
-        /* ── Stats (inside sidebar) ── */
-        #stats {
-            padding: 6px 10px 8px; border-top: 1px solid #0f1118;
-            font-size: 10px; color: #334;
-            background: #0b0d14;
-        }
-        #stats.panel-open { right: auto; }
+        .ws-sep { color: #1a1d2e; margin: 0 8px; }
+        /* Stats (inside footer) */
+        #stats { flex-shrink: 0; color: #334; font-size: 10px; }
+        #stats.panel-open { }
         #stats b { color: #4f8ef7; }
+        /* Header search and metric breadcrumb */
+        .header-search-wrap { position: relative; flex: 1; max-width: 260px; }
+        .header-search-input {
+            width: 100%; background: #10131f; border: 1px solid #1a1d2e;
+            color: #ccd; padding: 5px 10px; border-radius: 5px;
+            font-size: 11px; outline: none; transition: border-color 0.15s;
+        }
+        .header-search-input:focus { border-color: #4f8ef7; }
+        #header-metric {
+            font-size: 10px; color: #4f8ef7; flex-shrink: 0; padding: 0 12px;
+            border-left: 1px solid #1a1d2e; white-space: nowrap;
+            overflow: hidden; text-overflow: ellipsis; max-width: 220px; opacity: 0.8;
+        }
 
         /* Clinics layer */
         .clinic-dot {
@@ -328,8 +339,13 @@
 
             /* Sidebar — hide on mobile, use FAB instead */
             #left-sidebar { display: none; }
+            /* Footer — hide on mobile */
+            #app-footer { display: none; }
+            /* Header search — hide on mobile */
+            .header-search-wrap { display: none; }
+            #header-metric { display: none; }
             /* Map */
-            #map-container { top: 44px; left: 0; }
+            #map-container { top: 44px; left: 0; bottom: 0; }
             #map-container.panel-open { right: 0; bottom: 55vh; }
 
             /* Side panel as bottom sheet — explicit z-index to layer above map */
@@ -393,6 +409,7 @@
         /* ── Embed mode — hide all chrome ── */
         body.embed-mode #header,
         body.embed-mode #left-sidebar,
+        body.embed-mode #app-footer,
         body.embed-mode #timeline,
         body.embed-mode #legend,
         body.embed-mode #world-stats-bar,
@@ -596,26 +613,31 @@
 <div id="header">
     <h1>Oncology<span>Atlas</span></h1>
     <div class="badge">WHO GHO 2019–2022</div>
-    <div class="meta">
-        <span id="meta-countries">— countries</span>
-        <span>30+ metrics</span>
-        <a href="https://github.com/notageek88/oncology-atlas" target="_blank">GitHub ↗</a>
-        <a href="https://www.threads.net/@mashin_aa" target="_blank" style="color:#778;font-size:11px">by @mashin_aa</a>
-        <button onclick="openSources()" style="background:none;border:1px solid #1a1d2e;color:#778;padding:3px 10px;border-radius:5px;font-size:10px;cursor:pointer" data-i18n="sources_btn">Sources</button>
-    </div>
-</div>
-
-<div id="left-sidebar">
-    <!-- Search -->
-    <div class="sb-search" style="position:relative">
-        <input id="search" type="text" placeholder="🔍 Search country..." autocomplete="off"
-            class="sb-search-input"
+    <!-- Search in header -->
+    <div class="header-search-wrap" style="position:relative">
+        <input id="search" type="text" placeholder="🔍 Search country…" autocomplete="off"
+            class="header-search-input"
             oninput="onSearch(this.value)" onfocus="showSuggest()" onblur="setTimeout(hideSuggest,200)">
         <div id="suggest" style="display:none;position:absolute;top:34px;left:0;right:0;
             background:#0d0f1a;border:1px solid #1a1d2e;border-radius:7px;z-index:500;
             max-height:200px;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,0.7)"></div>
     </div>
+    <!-- Current metric breadcrumb -->
+    <span id="header-metric">Cancer Mortality › All cancers</span>
+    <!-- Right-side meta links -->
+    <div class="meta">
+        <span id="meta-countries">— countries</span>
+        <a href="https://github.com/notageek88/oncology-atlas" target="_blank">GitHub ↗</a>
+        <button onclick="openSources()" style="background:none;border:1px solid #1a1d2e;color:#778;padding:3px 10px;border-radius:5px;font-size:10px;cursor:pointer" data-i18n="sources_btn">Sources</button>
+        <!-- Language switcher -->
+        <div style="position:relative">
+            <button id="lang-btn" onclick="toggleLangMenu()" style="background:#0d1420;color:#778;border:1px solid #1a1d2e;padding:3px 8px;border-radius:5px;font-size:10px;cursor:pointer">🌐 EN</button>
+            <div id="lang-menu"></div>
+        </div>
+    </div>
+</div>
 
+<div id="left-sidebar">
     <!-- Data category + metric -->
     <div class="sb-section">
         <span class="sb-label" data-i18n="category">Category</span>
@@ -717,55 +739,42 @@
     <div class="sb-section">
         <div style="display:flex;gap:4px;align-items:center">
             <button class="sb-btn" onclick="toggleShortcutsModal()" title="Keyboard shortcuts (?)" style="flex:0 0 auto;width:36px">⌨</button>
-            <div style="position:relative;flex:1">
-                <button id="lang-btn" onclick="toggleLangMenu()" style="width:100%;background:#0d1420;color:#778;border:1px solid #1a1d2e;padding:5px 6px;border-radius:5px;font-size:10px;cursor:pointer">🌐 EN</button>
-                <div id="lang-menu"></div>
-            </div>
+            <a href="data/countries_cancer.csv" download class="sb-btn" style="flex:1;text-align:center;text-decoration:none;line-height:normal;padding:5px 4px" data-i18n="download_csv">↓ CSV</a>
         </div>
-        <a href="data/countries_cancer.csv" download class="sb-csv-link" data-i18n="download_csv">↓ Download CSV</a>
     </div>
 
-    <!-- Spacer pushes legend/stats to bottom -->
+    <!-- Spacer pushes legend to bottom -->
     <div class="sb-spacer"></div>
 
-    <!-- Legend (was floating bottom-left) -->
+    <!-- Legend -->
     <div id="legend">
         <div id="leg-title">Death rate / 100k</div>
         <div id="leg-body"></div>
-    </div>
-
-    <!-- World stats bar (was floating bottom-center) -->
-    <div id="world-stats-bar" style="display:none">
-        <div style="font-size:9px;color:#4f8ef7;font-weight:700;text-transform:uppercase;letter-spacing:.08em;text-align:center;margin-bottom:2px" data-i18n="world_stats_title">World Average</div>
-        <div id="world-bar-desc" style="font-size:10px;color:#8899cc;text-align:center;line-height:1.3">—</div>
-        <div style="display:flex;gap:12px;align-items:center;justify-content:center;margin-top:4px">
-            <div style="text-align:center">
-                <div style="font-size:9px;color:#6677aa;margin-bottom:2px" data-i18n="world_avg_label">Avg</div>
-                <div id="world-mean" style="font-size:15px;font-weight:800;color:#e0e8ff;line-height:1">—</div>
-            </div>
-            <div style="width:1px;height:24px;background:#243060"></div>
-            <div style="text-align:center">
-                <div style="font-size:9px;color:#6677aa;margin-bottom:2px"><span id="world-max-country-label">Max</span></div>
-                <div id="world-max" style="font-size:14px;font-weight:700;color:#a0c4ff;line-height:1">—</div>
-                <div id="world-max-country" style="font-size:9px;color:#8899cc;margin-top:1px">—</div>
-            </div>
-            <div style="width:1px;height:24px;background:#243060"></div>
-            <div style="text-align:center">
-                <div style="font-size:9px;color:#6677aa;margin-bottom:2px" data-i18n="world_countries_label">Countries</div>
-                <div id="world-n" style="font-size:14px;font-weight:700;color:#a0c4ff;line-height:1">—</div>
-                <div style="font-size:9px;color:#6677aa;margin-top:1px" data-i18n="world_with_data">with data</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Stats bar (was floating bottom-right) -->
-    <div id="stats">
-        <b id="stat-n">—</b> countries &nbsp;·&nbsp; <b>WHO GHO</b> &nbsp;·&nbsp; <span style="color:#556" title="WHO GHO public data">2019–2022</span>
     </div>
 </div>
 
 <div id="map-container"><svg id="svg" role="img" aria-label="Interactive world map showing cancer data by country"></svg></div>
 <div id="tooltip"></div>
+
+<!-- Footer: world stats + attribution -->
+<div id="app-footer">
+    <!-- World stats (horizontal) -->
+    <div id="world-stats-bar">
+        <span style="font-size:9px;color:#4f8ef7;font-weight:700;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap" data-i18n="world_stats_title">World Avg</span>
+        <span class="ws-sep">│</span>
+        <span id="world-bar-desc" style="font-size:10px;color:#5566aa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px">—</span>
+        <span class="ws-sep">│</span>
+        <span style="font-size:9px;color:#445" data-i18n="world_avg_label">Avg:</span>&nbsp;<span id="world-mean" style="font-size:11px;font-weight:700;color:#c0ccff">—</span>
+        <span class="ws-sep">│</span>
+        <span style="font-size:9px;color:#445"><span id="world-max-country-label">Max</span>:</span>&nbsp;<span id="world-max" style="font-size:11px;font-weight:600;color:#8aafee">—</span>&nbsp;<span id="world-max-country" style="font-size:9px;color:#4455aa">—</span>
+        <span class="ws-sep">│</span>
+        <span style="font-size:9px;color:#445" data-i18n="world_countries_label">Countries:</span>&nbsp;<span id="world-n" style="font-size:11px;font-weight:600;color:#8aafee">—</span>
+    </div>
+    <!-- Attribution -->
+    <div id="stats" style="margin-left:auto">
+        <b id="stat-n">—</b> countries &nbsp;·&nbsp; <b>WHO GHO</b> &nbsp;·&nbsp; <span style="color:#556" title="WHO GHO public data">2019–2022</span>
+    </div>
+</div>
 
 <!-- Side panel -->
 <div id="side-panel">
@@ -1586,6 +1595,17 @@ function updateMap() {
     calibrateRangeSlider();
     if (rangeFilterMin > 0) applyMapFilter();
     updateWorldStatsBar(currentMetric);
+    updateHeaderMetric();
+}
+
+function updateHeaderMetric() {
+    const hm = document.getElementById("header-metric");
+    if (!hm) return;
+    const catSel = document.getElementById("category");
+    const metSel = document.getElementById("metric");
+    const catText = catSel ? catSel.options[catSel.selectedIndex]?.text : "";
+    const metText = metSel ? metSel.options[metSel.selectedIndex]?.text : "";
+    hm.textContent = catText && metText ? catText + " › " + metText : "";
 }
 
 function updateWorldStatsBar(metric) {
@@ -4920,6 +4940,7 @@ async function init() {
     buildLegend(currentMetric);
     calibrateRangeSlider();
     updateWorldStatsBar(currentMetric);
+    updateHeaderMetric();
 
     // Auto-open country from URL param
     if (params.country) {
