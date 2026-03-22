@@ -1385,11 +1385,11 @@ function openProfile(data, name) {
             [t("liver","Liver"), data.death_liver, DEATH_MAX.death_liver, "#3a80e0"],
             [t("mouth","Mouth"), data.death_mouth, DEATH_MAX.death_mouth, "#2566c8"],
             [t("prostate","Prostate"), data.death_prostate, 25, "#9b7de8"],
-            ["🫁 Lung", data.death_lung, 55, "#c8a0f7"],
-            ["🟤 Stomach", data.death_stomach, 25, "#f7c8a0"],
-            ["🔴 Cervical", data.death_cervical, 55, "#f7a0c8"],
-            ["☀ Melanoma", data.death_melanoma, 3, "#ffe066"],
-            ["🟡 Pancreatic", data.death_pancreatic, 10, "#f7e0a0"],
+            ["🫁 " + t("lung","Lung"), data.death_lung, 55, "#c8a0f7"],
+            ["🟤 " + t("stomach","Stomach"), data.death_stomach, 25, "#f7c8a0"],
+            ["🔴 " + t("cervical","Cervical"), data.death_cervical, 55, "#f7a0c8"],
+            ["☀ " + t("melanoma","Melanoma"), data.death_melanoma, 3, "#ffe066"],
+            ["🟡 " + t("pancreatic","Pancreatic"), data.death_pancreatic, 10, "#f7e0a0"],
         ].filter(([,v]) => v != null);
 
         const dalyrRows = [
@@ -1669,20 +1669,37 @@ function onCategoryChange() {
     const grp = METRIC_GROUPS[cat];
     const sel = document.getElementById("metric");
     if (!grp || !sel) return;
-    // Build options — with optional grouping for death category
+    // For death category — use optgroups (GLOBOCAN vs WHO), with i18n labels
     if (cat === "death") {
         const globocan = ["death_lung","death_stomach","death_cervical","death_melanoma","death_pancreatic"];
-        const who = Object.keys(grp.options).filter(k => !globocan.includes(k));
+        const globocanLabels = {
+            death_lung:       t("death_lung",      "🫁 Lung cancer"),
+            death_stomach:    t("death_stomach",   "🟤 Stomach cancer"),
+            death_cervical:   t("death_cervical",  "🔴 Cervical cancer"),
+            death_melanoma:   t("death_melanoma",  "☀ Melanoma"),
+            death_pancreatic: t("death_pancreatic","🟡 Pancreatic cancer"),
+        };
+        const whoKeys = Object.keys(grp.options).filter(k => !globocan.includes(k) && k !== "death_cancer_all");
+        const whoLabels = {
+            death_cancer_all: t("all_cancers",  "All cancers combined"),
+            death_breast:     t("breast",        "Breast cancer"),
+            death_colon:      t("colon",         "Colorectal cancer"),
+            death_liver:      t("liver",         "Liver cancer"),
+            death_mouth:      t("mouth",         "Mouth & oropharynx"),
+            death_oesophagus: t("oesophagus",    "Oesophagus"),
+            death_prostate:   t("prostate",      "Prostate"),
+        };
         sel.innerHTML =
-            `<option value="death_cancer_all">${grp.options["death_cancer_all"]}</option>` +
+            `<option value="death_cancer_all">${whoLabels["death_cancer_all"]}</option>` +
             `<optgroup label="── GLOBOCAN 2022 ──">` +
-            globocan.map(k => `<option value="${k}">${grp.options[k]}</option>`).join("") +
+            globocan.map(k => `<option value="${k}">${globocanLabels[k]||grp.options[k]}</option>`).join("") +
             `</optgroup>` +
             `<optgroup label="── WHO GHO ──">` +
-            who.filter(k => k !== "death_cancer_all").map(k => `<option value="${k}">${grp.options[k]}</option>`).join("") +
+            whoKeys.map(k => `<option value="${k}">${whoLabels[k]||grp.options[k]}</option>`).join("") +
             `</optgroup>`;
     } else {
-        sel.innerHTML = Object.entries(grp.options).map(([k,v]) => `<option value="${k}">${v}</option>`).join("");
+        // For all other categories — delegate to updateMetricOptions() which has full i18n
+        updateMetricOptions();
     }
     currentMetric = Object.keys(grp.options)[0];
     sel.value = currentMetric;
@@ -3713,24 +3730,39 @@ function downloadReport() {
 
 // ── Scatter Plot ─────────────────────────────────────────────────────────
 const SCATTER_METRICS = [
-    ["death_cancer_all", "All-cancer mortality (/ 100k)"],
-    ["death_breast",     "Breast cancer mortality (/ 100k)"],
-    ["death_colon",      "Colorectal mortality (/ 100k)"],
-    ["death_liver",      "Liver cancer mortality (/ 100k)"],
-    ["daly_breast",      "Breast cancer DALYs (/ 100k)"],
-    ["daly_colon",       "Colorectal DALYs (/ 100k)"],
-    ["daly_liver",       "Liver cancer DALYs (/ 100k)"],
-    ["death_prostate",   "Prostate cancer mortality (/ 100k)"],
-    ["incidence_all",    "All-cancer incidence (new cases / 100k)"],
-    ["incidence_breast", "Breast cancer incidence (/ 100k)"],
-    ["incidence_colon",  "Colorectal cancer incidence (/ 100k)"],
-    ["research_index",   "Cancer research publications"],
-    ["cervical_screening","Cervical screening (0=No, 1=Yes)"],
-    ["alcohol_cancer",   "Alcohol-attributable cancer deaths"],
-    ["tobacco_cancer",   "Tobacco-attributable cancer deaths"],
-    ["treatment_cost_usd", "Est. treatment cost (USD/year)"],
-    ["incidence_age_u20",  "Pediatric cancer incidence (0–19, /100k)"],
+    // ── Cancer mortality (WHO GHO + GLOBOCAN 2022)
+    ["death_cancer_all",  "All-cancer mortality (/ 100k)"],
+    ["death_breast",      "Breast cancer mortality (/ 100k)"],
+    ["death_colon",       "Colorectal mortality (/ 100k)"],
+    ["death_liver",       "Liver cancer mortality (/ 100k)"],
+    ["death_prostate",    "Prostate cancer mortality (/ 100k)"],
+    ["death_lung",        "🫁 Lung cancer mortality (/ 100k)"],
+    ["death_stomach",     "🟤 Stomach cancer mortality (/ 100k)"],
+    ["death_cervical",    "🔴 Cervical cancer mortality (/ 100k)"],
+    ["death_melanoma",    "☀ Melanoma mortality (/ 100k)"],
+    ["death_pancreatic",  "🟡 Pancreatic cancer mortality (/ 100k)"],
+    // ── Disease burden (DALYs)
+    ["daly_breast",       "Breast cancer DALYs (/ 100k)"],
+    ["daly_colon",        "Colorectal DALYs (/ 100k)"],
+    ["daly_liver",        "Liver cancer DALYs (/ 100k)"],
+    // ── Incidence
+    ["incidence_all",     "All-cancer incidence (new cases / 100k)"],
+    ["incidence_breast",  "Breast cancer incidence (/ 100k)"],
+    ["incidence_colon",   "Colorectal cancer incidence (/ 100k)"],
+    ["incidence_age_u20", "Pediatric cancer incidence (0–19, /100k)"],
     ["incidence_age_65plus","Elderly cancer incidence (65+, /100k)"],
+    // ── Risk factors (WHO GHO)
+    ["smoking_prev",      "🚬 Smoking prevalence %"],
+    ["obesity_prev",      "⚖ Obesity prevalence %"],
+    ["alcohol_pc",        "🍷 Alcohol consumption (L/capita)"],
+    ["pm25_pollution",    "💨 PM2.5 air pollution (μg/m³)"],
+    ["alcohol_cancer",    "Alcohol-attributable cancer deaths"],
+    ["tobacco_cancer",    "Tobacco-attributable cancer deaths"],
+    // ── System readiness
+    ["uhc_index",         "🏥 UHC Service Coverage Index"],
+    ["research_index",    "Cancer research publications"],
+    ["cervical_screening","Cervical screening (0=No, 1=Yes)"],
+    ["treatment_cost_usd","Est. treatment cost (USD/year)"],
 ];
 
 function openScatter() {
@@ -3740,12 +3772,27 @@ function openScatter() {
     const sx = document.getElementById("scatter-x");
     const sy = document.getElementById("scatter-y");
     if (!sx.options.length) {
-        SCATTER_METRICS.forEach(([k, l]) => {
-            sx.add(new Option(l, k));
-            sy.add(new Option(l, k));
+        // Build grouped options
+        const GROUPS = [
+            { label: "── Cancer Mortality ──", keys: ["death_cancer_all","death_breast","death_colon","death_liver","death_prostate","death_lung","death_stomach","death_cervical","death_melanoma","death_pancreatic"] },
+            { label: "── Disease Burden (DALYs) ──", keys: ["daly_breast","daly_colon","daly_liver"] },
+            { label: "── Incidence ──", keys: ["incidence_all","incidence_breast","incidence_colon","incidence_age_u20","incidence_age_65plus"] },
+            { label: "── Risk Factors ──", keys: ["smoking_prev","obesity_prev","alcohol_pc","pm25_pollution","alcohol_cancer","tobacco_cancer"] },
+            { label: "── System Readiness ──", keys: ["uhc_index","research_index","cervical_screening","treatment_cost_usd"] },
+        ];
+        const metricMap = Object.fromEntries(SCATTER_METRICS);
+        [sx, sy].forEach(sel => {
+            GROUPS.forEach(g => {
+                const og = document.createElement("optgroup");
+                og.label = g.label;
+                g.keys.forEach(k => {
+                    if (metricMap[k]) og.appendChild(new Option(metricMap[k], k));
+                });
+                sel.appendChild(og);
+            });
         });
-        sx.value = "death_cancer_all";
-        sy.value = "research_index";
+        sx.value = "smoking_prev";
+        sy.value = "death_lung";
     }
     renderScatter();
 }
@@ -4279,12 +4326,16 @@ function updateCategoryOptions() {
     const sel = document.getElementById("category");
     if (!sel) return;
     const opts = [
-        ["death", t("cat_death", "Cancer Mortality (/ 100k)")],
-        ["daly", t("cat_daly", "Disease Burden — DALYs (/ 100k)")],
-        ["infra", t("cat_infra", "Healthcare Infrastructure")],
-        ["research", t("cat_research", "Research Activity")]
+        ["death",     t("cat_death",     "Cancer Mortality (/ 100k)")],
+        ["daly",      t("cat_daly",      "Disease Burden — DALYs (/ 100k)")],
+        ["infra",     t("cat_infra",     "Healthcare Infrastructure")],
+        ["research",  t("cat_research",  "Research Activity")],
+        ["risk",      t("cat_risk",      "Risk Factors")],
+        ["readiness", t("cat_readiness", "Cancer System Readiness")],
+        ["incidence", t("cat_incidence", "Cancer Incidence (new cases)")],
+        ["costs",     t("cat_costs",     "Treatment Costs")],
     ];
-    const cur = sel.value;
+    const cur = sel.value || "death";
     sel.innerHTML = opts.map(([v,l]) => `<option value="${v}"${v===cur?" selected":""}>${l}</option>`).join("");
 }
 
@@ -4294,33 +4345,66 @@ function updateMetricOptions() {
     if (!sel) return;
     const opts = {
         death: [
-            ["death_cancer_all", t("all_cancers", "All cancers combined")],
-            ["death_breast", t("breast", "Breast cancer")],
-            ["death_colon", t("colon", "Colorectal cancer")],
-            ["death_liver", t("liver", "Liver cancer")],
-            ["death_mouth", t("mouth", "Mouth & oropharynx")],
-            ["death_oesophagus", t("oesophagus", "Oesophagus")]
+            ["death_cancer_all",  t("all_cancers",   "All cancers combined")],
+            ["death_breast",      t("breast",         "Breast cancer")],
+            ["death_colon",       t("colon",          "Colorectal cancer")],
+            ["death_liver",       t("liver",          "Liver cancer")],
+            ["death_mouth",       t("mouth",          "Mouth & oropharynx")],
+            ["death_oesophagus",  t("oesophagus",     "Oesophagus")],
+            ["death_lung",        t("death_lung",     "🫁 Lung cancer")],
+            ["death_stomach",     t("death_stomach",  "🟤 Stomach cancer")],
+            ["death_cervical",    t("death_cervical", "🔴 Cervical cancer")],
+            ["death_melanoma",    t("death_melanoma", "☀ Melanoma")],
+            ["death_pancreatic",  t("death_pancreatic","🟡 Pancreatic cancer")],
+            ["death_prostate",    t("prostate",        "Prostate")],
         ],
         daly: [
-            ["daly_breast", t("daly_breast", "Breast — DALYs")],
-            ["daly_colon", t("daly_colon", "Colorectal — DALYs")],
-            ["daly_liver", t("daly_liver", "Liver — DALYs")],
-            ["daly_mouth", t("daly_mouth", "Mouth — DALYs")],
-            ["daly_oesophagus", t("daly_oesophagus", "Oesophagus — DALYs")]
+            ["daly_breast",      t("daly_breast",     "Breast — DALYs")],
+            ["daly_colon",       t("daly_colon",      "Colorectal — DALYs")],
+            ["daly_liver",       t("daly_liver",      "Liver — DALYs")],
+            ["daly_mouth",       t("daly_mouth",      "Mouth — DALYs")],
+            ["daly_oesophagus",  t("daly_oesophagus", "Oesophagus — DALYs")]
         ],
         infra: [
-            ["cancer_surgery", t("surgery", "Cancer surgery")],
-            ["cancer_registry", t("registry", "Cancer registry")],
-            ["cancer_plan", t("plan", "National plan")],
+            ["cancer_surgery",   t("surgery",   "Cancer surgery")],
+            ["cancer_registry",  t("registry",  "Cancer registry")],
+            ["cancer_plan",      t("plan",      "National plan")],
             ["breast_screening", t("screening", "Breast screening")],
-            ["cancer_dept", t("dept", "Cancer dept (tertiary)")]
+            ["cancer_dept",      t("dept",      "Cancer dept (tertiary)")]
         ],
         research: [
             ["research_index", t("research_index_label", "PubMed publications 2020–2025")]
-        ]
+        ],
+        risk: [
+            ["smoking_prev",   t("smoking_prev",  "🚬 Smoking prevalence %")],
+            ["obesity_prev",   t("obesity_prev",  "⚖ Obesity prevalence %")],
+            ["alcohol_pc",     t("alcohol_pc",    "🍷 Alcohol consumption L/capita")],
+            ["pm25_pollution", t("pm25_pollution","💨 PM2.5 air pollution μg/m³")],
+            ["alcohol_cancer", t("alcohol_cancer_label","Alcohol-attributable cancer deaths / 100k")],
+            ["tobacco_cancer", t("tobacco_cancer_label","Tobacco-attributable cancer deaths / 100k")],
+        ],
+        readiness: [
+            ["uhc_index",         t("uhc_index",          "🏥 UHC Service Coverage Index")],
+            ["cervical_screening",t("cervical_screening_label","Cervical screening program")],
+            ["cancer_surgery",    t("surgery",             "Cancer surgery")],
+            ["cancer_registry",   t("registry",            "Cancer registry")],
+            ["cancer_plan",       t("plan",                "National plan")],
+            ["research_index",    t("research_index_label","Research publications")],
+        ],
+        incidence: [
+            ["incidence_all",       t("all_cancers",   "All cancers")],
+            ["incidence_breast",    t("breast",         "Breast cancer")],
+            ["incidence_colon",     t("colon",          "Colorectal")],
+            ["incidence_age_u20",   t("age_u20",        "Pediatric (0–19)")],
+            ["incidence_age_65plus",t("age_65plus",     "Elderly (65+)")],
+        ],
+        costs: [
+            ["treatment_cost_usd", t("treatment_cost_title","Treatment Cost (USD/year)")],
+        ],
     };
     const cur = sel.value;
-    sel.innerHTML = (opts[cat]||opts.death).map(([v,l]) => `<option value="${v}"${v===cur?" selected":""}>${l}</option>`).join("");
+    const list = opts[cat] || opts.death;
+    sel.innerHTML = list.map(([v,l]) => `<option value="${v}"${v===cur?" selected":""}>${l}</option>`).join("");
 }
 
 function isMobile() { return window.innerWidth <= 768; }
@@ -5222,24 +5306,24 @@ function generateShareCard() {
 // ── Cancer Burden Overview ───────────────────────────────────────────────────
 // Shows ALL cancer types with value, global rank, and trend arrow
 const BURDEN_TYPES = [
-    { key: "death_cancer_all", label: "All cancers",  icon: "🌍", max: 200,  enc: null },
-    { key: "death_lung",       label: "Lung",         icon: "🫁", max: 55,   enc: "lung" },
-    { key: "death_stomach",    label: "Stomach",      icon: "🟤", max: 25,   enc: "stomach" },
-    { key: "death_cervical",   label: "Cervical",     icon: "🔴", max: 55,   enc: "cervical" },
-    { key: "death_breast",     label: "Breast",       icon: "🎀", max: 30,   enc: "breast" },
-    { key: "death_colon",      label: "Colorectal",   icon: "🔵", max: 30,   enc: "colorectal" },
-    { key: "death_liver",      label: "Liver",        icon: "🟤", max: 20,   enc: "liver" },
-    { key: "death_prostate",   label: "Prostate",     icon: "♂",  max: 25,   enc: "prostate" },
-    { key: "death_melanoma",   label: "Melanoma",     icon: "☀",  max: 3,    enc: null },
-    { key: "death_pancreatic", label: "Pancreatic",   icon: "🟡", max: 10,   enc: null },
-    { key: "death_mouth",      label: "Mouth",        icon: "🦷", max: 10,   enc: null },
-    { key: "death_oesophagus", label: "Oesophagus",   icon: "🔶", max: 12,   enc: null },
+    { key: "death_cancer_all", lk: "all_cancers",     label: "All cancers",  icon: "🌍", max: 200,  enc: null },
+    { key: "death_lung",       lk: "lung",             label: "Lung",         icon: "🫁", max: 55,   enc: "lung" },
+    { key: "death_stomach",    lk: "stomach",          label: "Stomach",      icon: "🟤", max: 25,   enc: "stomach" },
+    { key: "death_cervical",   lk: "cervical",         label: "Cervical",     icon: "🔴", max: 55,   enc: "cervical" },
+    { key: "death_breast",     lk: "breast",           label: "Breast",       icon: "🎀", max: 30,   enc: "breast" },
+    { key: "death_colon",      lk: "colon",            label: "Colorectal",   icon: "🔵", max: 30,   enc: "colorectal" },
+    { key: "death_liver",      lk: "liver",            label: "Liver",        icon: "🟤", max: 20,   enc: "liver" },
+    { key: "death_prostate",   lk: "prostate",         label: "Prostate",     icon: "♂",  max: 25,   enc: "prostate" },
+    { key: "death_melanoma",   lk: "melanoma",         label: "Melanoma",     icon: "☀",  max: 3,    enc: null },
+    { key: "death_pancreatic", lk: "pancreatic",       label: "Pancreatic",   icon: "🟡", max: 10,   enc: null },
+    { key: "death_mouth",      lk: "mouth",            label: "Mouth",        icon: "🦷", max: 10,   enc: null },
+    { key: "death_oesophagus", lk: "oesophagus",       label: "Oesophagus",   icon: "🔶", max: 12,   enc: null },
 ];
 
 function buildCancerBurden(iso3, data) {
     if (!data || !allData?.length) return "";
 
-    const rows = BURDEN_TYPES.map(({ key, label, icon, max, enc }) => {
+    const rows = BURDEN_TYPES.map(({ key, lk, label, icon, max, enc }) => {
         const val = data[key];
         if (val == null) return null;
         const n = parseFloat(val);
@@ -5254,11 +5338,12 @@ function buildCancerBurden(iso3, data) {
         const pct = Math.min(100, (n / max) * 100);
         const barColor = rankPct <= 0.3 ? "#e05c5c88" : rankPct >= 0.7 ? "#2db56544" : "#4f8ef744";
         const barFill = rankPct <= 0.3 ? "#e05c5c" : rankPct >= 0.7 ? "#2db565" : "#4f8ef7";
-        const encBtn = enc ? `<button onclick="openEncyclopedia('${enc}')" style="background:none;border:none;color:#334;font-size:9px;cursor:pointer;padding:0 2px" title="Causes & prevention">📖</button>` : "";
+        const localLabel = lk ? t(lk, label) : label;
+        const encBtn = enc ? `<button onclick="openEncyclopedia('${enc}')" style="background:none;border:none;color:#334;font-size:9px;cursor:pointer;padding:0 2px" title="${t('causes_prevention','Causes & prevention')}">📖</button>` : "";
 
         return `<div style="display:grid;grid-template-columns:16px 70px 1fr 44px 34px;align-items:center;gap:4px;padding:3px 0;border-bottom:1px solid #0d1020">
             <span style="font-size:11px">${icon}</span>
-            <span style="font-size:10px;color:#778;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${label}${encBtn}</span>
+            <span style="font-size:10px;color:#778;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${localLabel}${encBtn}</span>
             <div style="background:${barColor};border-radius:2px;height:4px">
                 <div style="width:${pct.toFixed(1)}%;height:100%;background:${barFill};border-radius:2px"></div>
             </div>
@@ -5271,7 +5356,7 @@ function buildCancerBurden(iso3, data) {
 
     return `<div class="panel-section">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-            <h3>🗺 Cancer Burden Overview <span style="font-size:9px;color:#334;font-weight:400">mortality / 100k</span></h3>
+            <h3>🗺 ${t("cancer_burden","Cancer Burden")} <span style="font-size:9px;color:#334;font-weight:400">mortality / 100k</span></h3>
             <span style="font-size:9px;color:#334">#rank / countries</span>
         </div>
         ${rows.join("")}
