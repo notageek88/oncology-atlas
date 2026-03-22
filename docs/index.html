@@ -48,40 +48,82 @@
 
         /* ── Header ── */
         #header {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-            padding: 11px 24px;
+            position: fixed; top: 0; left: 0; right: 0; height: 44px; z-index: 300;
+            padding: 0 16px;
             background: rgba(11,13,20,0.97); border-bottom: 1px solid #1a1d2e;
-            display: flex; align-items: center; gap: 12px;
+            display: flex; align-items: center; gap: 10px;
             backdrop-filter: blur(10px);
         }
-        h1 { font-size: 17px; font-weight: 700; letter-spacing: -0.3px; }
+        h1 { font-size: 16px; font-weight: 700; letter-spacing: -0.3px; }
         h1 span { color: #4f8ef7; }
         .badge { background: #0d1e3a; color: #4f8ef7; font-size: 10px; padding: 2px 8px; border-radius: 99px; border: 1px solid #1a3a6e; }
-        .meta { color: #333; font-size: 11px; margin-left: auto; display: flex; gap: 14px; align-items: center; }
+        .meta { color: #333; font-size: 11px; margin-left: auto; display: flex; gap: 12px; align-items: center; }
         .meta a { color: #4f8ef7; text-decoration: none; }
 
-        /* ── Controls ── */
-        #controls {
-            position: fixed; top: 47px; left: 0; right: 0; z-index: 200;
-            padding: 7px 20px;
-            background: rgba(9,11,18,0.96); border-bottom: 1px solid #12151f;
-            display: flex; gap: 8px; align-items: center;
-            backdrop-filter: blur(8px);
+        /* ── Left Sidebar ── */
+        #left-sidebar {
+            position: fixed; top: 44px; left: 0; bottom: 0; width: 220px; z-index: 200;
+            background: #0b0d14; border-right: 1px solid #1a1d2e;
+            display: flex; flex-direction: column;
+            overflow-y: auto; overflow-x: hidden;
+            scrollbar-width: thin; scrollbar-color: #1a1d2e transparent;
         }
-        .ctrl-label { font-size: 10px; color: #667; text-transform: uppercase; letter-spacing: 0.6px; white-space: nowrap; }
-        select { background: #10131f; border: 1px solid #1a1d2e; color: #aab; padding: 5px 10px; border-radius: 5px; font-size: 12px; cursor: pointer; }
-        select:hover, select:focus { border-color: #4f8ef7; outline: none; color: #dde; }
-        .sep { width: 1px; height: 20px; background: #1a1d2e; margin: 0 4px; }
-        .compare-btn {
-            margin-left: auto; background: #0d1e3a; color: #4f8ef7;
-            border: 1px solid #1a3a6e; padding: 5px 14px;
-            border-radius: 5px; font-size: 11px; cursor: pointer;
+        #left-sidebar::-webkit-scrollbar { width: 4px; }
+        #left-sidebar::-webkit-scrollbar-track { background: transparent; }
+        #left-sidebar::-webkit-scrollbar-thumb { background: #1a1d2e; border-radius: 2px; }
+        .sb-search { padding: 8px 10px; border-bottom: 1px solid #0f1118; }
+        .sb-search-input {
+            width: 100%; background: #10131f; border: 1px solid #1a1d2e;
+            color: #ccd; padding: 6px 10px; border-radius: 5px;
+            font-size: 11px; outline: none;
         }
+        .sb-search-input:focus { border-color: #4f8ef7; }
+        .sb-section { padding: 7px 10px; border-bottom: 1px solid #0f1118; }
+        .sb-label { font-size: 9px; color: #445; text-transform: uppercase; letter-spacing: 0.6px; display: block; margin-bottom: 4px; }
+        .sb-section select { width: 100%; background: #10131f; border: 1px solid #1a1d2e; color: #aab; padding: 5px 8px; border-radius: 5px; font-size: 11px; cursor: pointer; }
+        .sb-section select:hover, .sb-section select:focus { border-color: #4f8ef7; outline: none; }
+        .sb-group-title { font-size: 9px; color: #334; text-transform: uppercase; letter-spacing: 0.6px; padding: 7px 10px 3px; }
+        .sb-btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+        .sb-btn {
+            background: #0d1420; color: #778; border: 1px solid #1a1d2e;
+            padding: 5px 4px; border-radius: 5px; font-size: 10px;
+            cursor: pointer; text-align: center; white-space: nowrap;
+            overflow: hidden; text-overflow: ellipsis; width: 100%;
+        }
+        .sb-btn:hover { background: #152030; color: #aab; }
+        .sb-btn.active { background: #0d2040; border-color: #4f8ef7; color: #4f8ef7; }
+        .sb-full-btn {
+            width: 100%; background: #0d1420; color: #778; border: 1px solid #1a1d2e;
+            padding: 5px 8px; border-radius: 5px; font-size: 10px;
+            cursor: pointer; text-align: left; margin-top: 4px; display: block;
+        }
+        .sb-full-btn:hover { background: #152030; color: #aab; }
+        .sb-full-btn.active { background: #0d2040; border-color: #4f8ef7; color: #4f8ef7; }
+        .sb-csv-link {
+            display: block; width: 100%; background: #0d2a1a; color: #2db565;
+            border: 1px solid #1a5c35; padding: 5px 8px; border-radius: 5px;
+            font-size: 10px; text-decoration: none; text-align: center; margin-top: 4px;
+            box-sizing: border-box;
+        }
+        .sb-spacer { flex: 1; min-height: 8px; }
+        /* Filter panel inside sidebar */
+        #filter-panel {
+            flex-direction: column !important;
+            gap: 5px; padding: 6px 0 2px;
+            background: transparent !important;
+            border: none !important;
+        }
+        #filter-panel > div { flex-wrap: wrap; }
+        /* Controls legacy (for any remnant references) */
+        .ctrl-label { font-size: 9px; color: #445; text-transform: uppercase; letter-spacing: 0.6px; }
+        select { background: #10131f; border: 1px solid #1a1d2e; color: #aab; padding: 5px 8px; border-radius: 5px; font-size: 11px; cursor: pointer; }
+        select:hover, select:focus { border-color: #4f8ef7; outline: none; }
+        .compare-btn { background: #0d1e3a; color: #4f8ef7; border: 1px solid #1a3a6e; padding: 5px 12px; border-radius: 5px; font-size: 11px; cursor: pointer; }
         .compare-btn:hover { background: #1a3a6e; }
         .compare-btn.active { background: #1a3a6e; border-color: #4f8ef7; }
 
         /* ── Map ── */
-        #map-container { position: fixed; top: 83px; left: 0; right: 0; bottom: 0; transition: right 0.35s; }
+        #map-container { position: fixed; top: 44px; left: 220px; right: 0; bottom: 0; transition: right 0.35s; }
         #map-container.panel-open { right: 360px; }
         svg { width: 100%; height: 100%; cursor: grab; }
         svg:active { cursor: grabbing; }
@@ -91,7 +133,7 @@
 
         /* ── Side Panel ── */
         #side-panel {
-            position: fixed; top: 83px; right: -360px; bottom: 0; width: 360px; z-index: 150;
+            position: fixed; top: 44px; right: -360px; bottom: 0; width: 360px; z-index: 150;
             background: #09090f; border-left: 1px solid #1a1d2e;
             overflow-y: auto; transition: right 0.35s;
             padding: 0 0 40px 0;
@@ -207,27 +249,35 @@
         .tip-nodata { font-size: 10px; color: #445; margin-top: 2px; }
         .tip-row { padding: 2px 0; color: #666; }
 
-        /* ── Legend ── */
+        /* ── Legend (inside sidebar) ── */
         #legend {
-            position: fixed; bottom: 20px; left: 16px; z-index: 100;
-            background: rgba(9,11,18,0.95); border: 1px solid #1a1d2e;
-            border-radius: 9px; padding: 11px 15px; font-size: 11px;
-            backdrop-filter: blur(8px);
+            padding: 10px 10px 8px; border-top: 1px solid #1a1d2e;
+            background: #0b0d14; font-size: 11px;
         }
         #leg-title { font-size: 9px; color: #334; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
-        #leg-gradient { height: 8px; border-radius: 4px; margin-bottom: 5px; }
+        #leg-gradient { height: 7px; border-radius: 3px; margin-bottom: 5px; }
         #leg-labels { display: flex; justify-content: space-between; color: #334; font-size: 9px; }
         .bool-row { display: flex; align-items: center; gap: 7px; margin: 3px 0; color: #778; }
         .bool-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
-        #stats {
-            position: fixed; bottom: 20px; right: 16px; z-index: 100;
-            background: rgba(9,11,18,0.95); border: 1px solid #1a1d2e;
-            border-radius: 7px; padding: 7px 14px;
-            font-size: 10px; color: #334;
-            transition: right 0.35s;
+        /* ── World stats bar (inside sidebar) ── */
+        #world-stats-bar {
+            position: static !important;
+            left: auto !important; bottom: auto !important;
+            transform: none !important;
+            padding: 8px 10px !important;
+            border-top: 1px solid #1a1d2e !important;
+            border-radius: 0 !important;
+            background: #0b0d14 !important;
         }
-        #stats.panel-open { right: 376px; }
+
+        /* ── Stats (inside sidebar) ── */
+        #stats {
+            padding: 6px 10px 8px; border-top: 1px solid #0f1118;
+            font-size: 10px; color: #334;
+            background: #0b0d14;
+        }
+        #stats.panel-open { right: auto; }
         #stats b { color: #4f8ef7; }
 
         /* Clinics layer */
@@ -255,7 +305,7 @@
         .ct-tag.controversial { background: #3a0d0d; color: #f74f4f; border: 1px solid #6e1a1a; }
         .ct-tag.tourism { background: #0d2a3a; color: #4fb8f7; border: 1px solid #1a5a6e; }
         .clinic-legend {
-            position: fixed; bottom: 20px; left: 200px; z-index: 300;
+            position: fixed; bottom: 20px; left: 230px; z-index: 300;
             background: rgba(9,11,18,0.95); border: 1px solid #1a1d2e;
             border-radius: 8px; padding: 10px 14px; font-size: 10px;
             display: none;
@@ -276,27 +326,10 @@
             .meta span { display: none; }
             .meta a:not(:last-of-type) { display: none; }
 
-            /* Controls: only selects + search, no extra buttons */
-            #controls {
-                padding: 5px 10px;
-                gap: 6px;
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-            }
-            #controls::-webkit-scrollbar { display: none; }
-            #controls .ctrl-label { display: none; }
-            #controls .sep { display: none; }
-            #controls select { font-size: 12px; padding: 5px 6px; max-width: 140px; flex-shrink: 0; }
-            #controls #search { width: 130px !important; flex-shrink: 0; }
-            /* Hide secondary buttons — shown via FAB instead */
-            #controls .compare-btn { display: none; }
-            #controls > a[download] { display: none; }
-            #controls > div[style*="position:relative"] { display: none; } /* lang btn wrapper */
-
+            /* Sidebar — hide on mobile, use FAB instead */
+            #left-sidebar { display: none; }
             /* Map */
-            #map-container { top: 83px; }
+            #map-container { top: 44px; left: 0; }
             #map-container.panel-open { right: 0; bottom: 55vh; }
 
             /* Side panel as bottom sheet — explicit z-index to layer above map */
@@ -359,7 +392,7 @@
 
         /* ── Embed mode — hide all chrome ── */
         body.embed-mode #header,
-        body.embed-mode #controls,
+        body.embed-mode #left-sidebar,
         body.embed-mode #timeline,
         body.embed-mode #legend,
         body.embed-mode #world-stats-bar,
@@ -565,107 +598,169 @@
     <div class="badge">WHO GHO 2019–2022</div>
     <div class="meta">
         <span id="meta-countries">— countries</span>
-        <span>18 metrics</span>
+        <span>30+ metrics</span>
         <a href="https://github.com/notageek88/oncology-atlas" target="_blank">GitHub ↗</a>
         <a href="https://www.threads.net/@mashin_aa" target="_blank" style="color:#778;font-size:11px">by @mashin_aa</a>
-        <button onclick="openSources()" style="background:none;border:1px solid #1a1d2e;color:#778;padding:3px 10px;border-radius:5px;font-size:11px;cursor:pointer" data-tip="btn_tooltip_sources" data-i18n-title="btn_tooltip_sources">📚 Sources</button>
+        <button onclick="openSources()" style="background:none;border:1px solid #1a1d2e;color:#778;padding:3px 10px;border-radius:5px;font-size:10px;cursor:pointer" data-i18n="sources_btn">Sources</button>
     </div>
 </div>
 
-<div id="controls">
-    <span class="ctrl-label">Category</span>
-    <select id="category" onchange="onCategoryChange()" data-i18n-select="category">
-        <option value="death" data-i18n="cat_death">Cancer Mortality (/ 100k)</option>
-        <option value="daly" data-i18n="cat_daly">Disease Burden — DALYs (/ 100k)</option>
-        <option value="infra" data-i18n="cat_infra">Healthcare Infrastructure</option>
-        <option value="research" data-i18n="cat_research">Research Activity</option>
-        <option value="risk" data-i18n="cat_risk">Risk Factors</option>
-        <option value="readiness" data-i18n="cat_readiness">Cancer System Readiness</option>
-        <option value="incidence" data-i18n="cat_incidence">Cancer Incidence (new cases)</option>
-        <option value="costs" data-i18n="cat_costs">Treatment Costs</option>
-    </select>
-    <div class="sep"></div>
-    <span class="ctrl-label" data-i18n="type_label">Type</span>
-    <select id="metric" onchange="updateMap()" data-i18n-select="metric">
-        <option value="death_cancer_all" data-i18n="metric_death_all">All cancers combined</option>
-        <option value="death_breast" data-i18n="metric_breast">Breast cancer</option>
-        <option value="death_colon" data-i18n="metric_colon">Colorectal cancer</option>
-        <option value="death_liver" data-i18n="metric_liver">Liver cancer</option>
-        <option value="death_mouth" data-i18n="metric_mouth">Mouth &amp; oropharynx</option>
-        <option value="death_oesophagus" data-i18n="metric_oesophagus">Oesophagus</option>
-    </select>
-    <div class="sep"></div>
-    <div style="position:relative">
+<div id="left-sidebar">
+    <!-- Search -->
+    <div class="sb-search" style="position:relative">
         <input id="search" type="text" placeholder="🔍 Search country..." autocomplete="off"
-            oninput="onSearch(this.value)" onfocus="showSuggest()" onblur="setTimeout(hideSuggest,200)"
-            style="background:#10131f;border:1px solid #1a1d2e;color:#ccd;padding:5px 10px 5px 10px;
-                   border-radius:5px;font-size:12px;width:190px;outline:none">
-        <div id="suggest" style="display:none;position:absolute;top:32px;left:0;width:240px;
+            class="sb-search-input"
+            oninput="onSearch(this.value)" onfocus="showSuggest()" onblur="setTimeout(hideSuggest,200)">
+        <div id="suggest" style="display:none;position:absolute;top:34px;left:0;right:0;
             background:#0d0f1a;border:1px solid #1a1d2e;border-radius:7px;z-index:500;
             max-height:200px;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,0.7)"></div>
     </div>
-    <button class="compare-btn" id="compare-toggle" onclick="toggleCompare()" data-i18n="compare" data-tip="btn_tooltip_compare">⚖ Compare</button>
-    <button class="compare-btn" id="timeline-toggle" onclick="toggleTimeline()" style="margin-left:4px" data-i18n="timeline" data-tip="btn_tooltip_timeline">▶ Timeline</button>
-    <button class="compare-btn" id="trials-toggle" onclick="toggleTrials()" style="margin-left:4px" data-i18n="trials_btn" data-tip="btn_tooltip_trials">🔬 Trials</button>
-    <button class="compare-btn" id="clinics-toggle" onclick="toggleClinics()" style="margin-left:4px" data-i18n="clinics_btn" data-tip="btn_tooltip_clinics">🏥 Clinics</button>
-    <button class="compare-btn" id="flows-toggle" onclick="toggleFlows()" style="margin-left:4px" data-i18n="flows_btn" data-tip="btn_tooltip_flows">✈ Flows</button>
-    <button class="compare-btn" id="filter-toggle" onclick="toggleFilterPanel()" style="margin-left:4px" data-i18n="filter_btn" data-tip="btn_tooltip_filter">⚡ Filter</button>
-    <button class="compare-btn" id="scatter-toggle" onclick="openScatter()" style="margin-left:4px" data-i18n="scatter_btn" data-tip="btn_tooltip_scatter">📊 Scatter</button>
-    <button class="compare-btn" onclick="openClinicSearch()" style="margin-left:4px" data-i18n="clinic_search_btn" title="Find a cancer clinic">🔍 Clinics</button>
-    <button class="compare-btn" onclick="openInsights()" style="margin-left:4px" data-i18n="insights_btn" title="Auto-generated data insights">💡 Insights</button>
-    <button class="compare-btn" onclick="openRankingsModal()" style="margin-left:4px" data-i18n="rankings_btn" title="Full global rankings table">🏆 Rankings</button>
-    <button class="compare-btn" onclick="openEmbedModal()" style="margin-left:4px" data-i18n="embed_btn" title="Get embed code for your website">📋 Embed</button>
-    <button class="compare-btn" onclick="toggleShortcutsModal()" style="margin-left:4px" title="Keyboard shortcuts (? or h)" data-tip="btn_tooltip_shortcuts">⌨</button>
-    <div style="position:relative;margin-left:4px">
-        <button id="lang-btn" onclick="toggleLangMenu()">🌐 EN</button>
-        <div id="lang-menu"></div>
-    </div>
-    <a href="data/countries_cancer.csv" download style="margin-left:4px;background:#0d2a1a;color:#2db565;
-        border:1px solid #1a5c35;padding:5px 12px;border-radius:5px;font-size:11px;text-decoration:none">
-        ↓ CSV
-    </a>
-</div>
 
-<div id="filter-panel" style="display:none;background:#0b0d18;border-bottom:1px solid #1a1d2e;padding:10px 20px;display:none;gap:16px;align-items:center;flex-wrap:wrap">
-    <div style="display:flex;align-items:center;gap:8px">
-        <span style="font-size:11px;color:#556">Highlight:</span>
-        <button class="compare-btn filter-opt active" data-filter="all" onclick="setMapFilter('all')" data-i18n="all_countries">All countries</button>
-        <button class="compare-btn filter-opt" data-filter="top20" onclick="setMapFilter('top20')" data-i18n="top20_highest">Top 20 highest</button>
-        <button class="compare-btn filter-opt" data-filter="bot20" onclick="setMapFilter('bot20')" data-i18n="top20_lowest">Top 20 lowest</button>
-        <button class="compare-btn filter-opt" data-filter="above_avg" onclick="setMapFilter('above_avg')" data-i18n="above_avg">Above average</button>
-        <button class="compare-btn filter-opt" data-filter="below_avg" onclick="setMapFilter('below_avg')" data-i18n="below_avg">Below average</button>
-    </div>
-    <div style="display:flex;align-items:center;gap:8px">
-        <span style="font-size:11px;color:#556" data-i18n="region_label">Region:</span>
-        <select id="region-filter" onchange="setRegionFilter()" style="background:#0b0d18;color:#889;border:1px solid #1a1d2e;border-radius:5px;font-size:11px;padding:3px 6px">
-            <option value="" data-i18n="region_all">All regions</option>
-            <option value="EUR" data-i18n="region_eur">Europe</option>
-            <option value="AMR" data-i18n="region_amr">Americas</option>
-            <option value="WPR" data-i18n="region_wpr">Western Pacific</option>
-            <option value="SEA" data-i18n="region_sea">South-East Asia</option>
-            <option value="EMR" data-i18n="region_emr">Eastern Mediterranean</option>
-            <option value="AFR" data-i18n="region_afr">Africa</option>
+    <!-- Data category + metric -->
+    <div class="sb-section">
+        <span class="sb-label" data-i18n="category">Category</span>
+        <select id="category" onchange="onCategoryChange()" data-i18n-select="category">
+            <option value="death" data-i18n="cat_death">Cancer Mortality (/ 100k)</option>
+            <option value="daly" data-i18n="cat_daly">Disease Burden — DALYs (/ 100k)</option>
+            <option value="infra" data-i18n="cat_infra">Healthcare Infrastructure</option>
+            <option value="research" data-i18n="cat_research">Research Activity</option>
+            <option value="risk" data-i18n="cat_risk">Risk Factors</option>
+            <option value="readiness" data-i18n="cat_readiness">Cancer System Readiness</option>
+            <option value="incidence" data-i18n="cat_incidence">Cancer Incidence (new cases)</option>
+            <option value="costs" data-i18n="cat_costs">Treatment Costs</option>
         </select>
     </div>
-    <div style="display:flex;align-items:center;gap:8px">
-        <span style="font-size:11px;color:#556" data-i18n="dominant_cancer_label">Dominant cancer:</span>
-        <select id="dominant-cancer-filter" onchange="setDominantCancerFilter()" style="background:#0b0d18;color:#889;border:1px solid #1a1d2e;border-radius:5px;font-size:11px;padding:3px 6px">
-            <option value="" data-i18n="dominant_all">All types</option>
-            <option value="death_cancer_all" data-i18n="dominant_all_cancers">Any (show all)</option>
-            <option value="death_breast" data-i18n="breast">Breast</option>
-            <option value="death_colon" data-i18n="colon">Colorectal</option>
-            <option value="death_liver" data-i18n="liver">Liver</option>
-            <option value="death_mouth" data-i18n="mouth">Mouth/oropharynx</option>
-            <option value="death_oesophagus" data-i18n="oesophagus">Oesophagus</option>
+    <div class="sb-section">
+        <span class="sb-label" data-i18n="type_label">Type</span>
+        <select id="metric" onchange="updateMap()" data-i18n-select="metric">
+            <option value="death_cancer_all" data-i18n="metric_death_all">All cancers combined</option>
+            <option value="death_breast" data-i18n="metric_breast">Breast cancer</option>
+            <option value="death_colon" data-i18n="metric_colon">Colorectal cancer</option>
+            <option value="death_liver" data-i18n="metric_liver">Liver cancer</option>
+            <option value="death_mouth" data-i18n="metric_mouth">Mouth &amp; oropharynx</option>
+            <option value="death_oesophagus" data-i18n="metric_oesophagus">Oesophagus</option>
         </select>
     </div>
-    <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
-        <span style="font-size:11px;color:#556" id="range-label" data-i18n="range_filter_label">Range: ≥</span>
-        <input type="range" id="range-filter" min="0" max="100" value="0" step="1"
-            oninput="onRangeFilter(this.value)" aria-label="Metric range filter"
-            style="width:90px;accent-color:#4f8ef7;cursor:pointer">
-        <span id="range-val" style="font-size:11px;color:#4f8ef7;min-width:26px">0</span>
-        <button onclick="resetRangeFilter()" id="range-reset" style="display:none;background:none;border:1px solid #1a1d2e;color:#556;padding:1px 7px;border-radius:4px;font-size:10px;cursor:pointer" data-i18n="range_reset">reset</button>
+
+    <!-- Layers -->
+    <div class="sb-group-title" data-i18n="layers_title">Layers</div>
+    <div class="sb-section">
+        <div class="sb-btn-grid">
+            <button class="sb-btn" id="clinics-toggle" onclick="toggleClinics()" data-i18n="clinics_btn" title="Show/hide oncology clinics">🏥 Clinics</button>
+            <button class="sb-btn" id="flows-toggle" onclick="toggleFlows()" data-i18n="flows_btn" title="Show/hide patient flows">⬡ Flows</button>
+            <button class="sb-btn" id="trials-toggle" onclick="toggleTrials()" data-i18n="trials_btn" title="Show/hide clinical trials">⚗ Trials</button>
+            <button class="sb-btn" id="timeline-toggle" onclick="toggleTimeline()" data-i18n="timeline_btn" title="Show timeline slider">▶ Timeline</button>
+        </div>
+    </div>
+
+    <!-- Analysis tools -->
+    <div class="sb-group-title" data-i18n="analysis_title">Analysis</div>
+    <div class="sb-section">
+        <div class="sb-btn-grid">
+            <button class="sb-btn" id="compare-toggle" onclick="toggleCompare()" data-i18n="compare" title="Compare countries">⚖ Compare</button>
+            <button class="sb-btn" id="scatter-toggle" onclick="openScatter()" data-i18n="scatter_btn" title="Scatter plot explorer">📊 Scatter</button>
+            <button class="sb-btn" onclick="openRankingsModal()" data-i18n="rankings_btn" title="Full country rankings">🏆 Rankings</button>
+            <button class="sb-btn" onclick="openInsights()" data-i18n="insights_btn" title="Auto-generated statistical insights">💡 Insights</button>
+            <button class="sb-btn" onclick="openClinicSearch()" data-i18n="clinic_search_btn" title="Find oncology clinic">🔍 Find Clinic</button>
+            <button class="sb-btn" onclick="openEmbedModal()" data-i18n="embed_btn" title="Embed widget">‹/› Embed</button>
+        </div>
+    </div>
+
+    <!-- Filter section -->
+    <div class="sb-group-title" data-i18n="filter_title">Filter</div>
+    <div class="sb-section">
+        <button class="sb-full-btn" id="filter-toggle" onclick="toggleFilterPanel()" data-i18n="filter_btn">⚙ Map Filters</button>
+        <div id="filter-panel" style="display:none;flex-direction:column;gap:5px;padding:6px 0 2px">
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                <span style="font-size:10px;color:#556" data-i18n="highlight_label">Highlight:</span>
+                <button class="compare-btn filter-opt active" style="padding:3px 7px;font-size:10px;margin-left:0" data-filter="all" onclick="setMapFilter('all')" data-i18n="all_countries">All</button>
+                <button class="compare-btn filter-opt" style="padding:3px 7px;font-size:10px;margin-left:0" data-filter="top20" onclick="setMapFilter('top20')" data-i18n="top20_highest">Top 20</button>
+                <button class="compare-btn filter-opt" style="padding:3px 7px;font-size:10px;margin-left:0" data-filter="bot20" onclick="setMapFilter('bot20')" data-i18n="top20_lowest">Bot 20</button>
+                <button class="compare-btn filter-opt" style="padding:3px 7px;font-size:10px;margin-left:0" data-filter="above_avg" onclick="setMapFilter('above_avg')" data-i18n="above_avg">Above avg</button>
+                <button class="compare-btn filter-opt" style="padding:3px 7px;font-size:10px;margin-left:0" data-filter="below_avg" onclick="setMapFilter('below_avg')" data-i18n="below_avg">Below avg</button>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+                <span style="font-size:10px;color:#556" data-i18n="region_label">Region:</span>
+                <select id="region-filter" onchange="setRegionFilter()" style="flex:1;background:#0b0d14;color:#889;border:1px solid #1a1d2e;border-radius:4px;font-size:10px;padding:3px 5px">
+                    <option value="" data-i18n="region_all">All</option>
+                    <option value="EUR" data-i18n="region_eur">Europe</option>
+                    <option value="AMR" data-i18n="region_amr">Americas</option>
+                    <option value="WPR" data-i18n="region_wpr">W. Pacific</option>
+                    <option value="SEA" data-i18n="region_sea">SE Asia</option>
+                    <option value="EMR" data-i18n="region_emr">E. Mediterranean</option>
+                    <option value="AFR" data-i18n="region_afr">Africa</option>
+                </select>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+                <span style="font-size:10px;color:#556" data-i18n="dominant_cancer_label">Cancer:</span>
+                <select id="dominant-cancer-filter" onchange="setDominantCancerFilter()" style="flex:1;background:#0b0d14;color:#889;border:1px solid #1a1d2e;border-radius:4px;font-size:10px;padding:3px 5px">
+                    <option value="" data-i18n="dominant_all">All types</option>
+                    <option value="death_cancer_all" data-i18n="dominant_all_cancers">Any</option>
+                    <option value="death_breast" data-i18n="breast">Breast</option>
+                    <option value="death_colon" data-i18n="colon">Colorectal</option>
+                    <option value="death_liver" data-i18n="liver">Liver</option>
+                    <option value="death_mouth" data-i18n="mouth">Mouth</option>
+                    <option value="death_oesophagus" data-i18n="oesophagus">Oesophagus</option>
+                </select>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+                <span style="font-size:10px;color:#556" id="range-label" data-i18n="range_filter_label">Range ≥</span>
+                <input type="range" id="range-filter" min="0" max="100" value="0" step="1"
+                    oninput="onRangeFilter(this.value)" style="flex:1;accent-color:#4f8ef7;cursor:pointer">
+                <span id="range-val" style="font-size:10px;color:#4f8ef7;min-width:20px">0</span>
+                <button onclick="resetRangeFilter()" id="range-reset" style="display:none;background:none;border:1px solid #e05c5c;color:#e05c5c;padding:2px 5px;border-radius:3px;font-size:9px;cursor:pointer">✕</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Extra tools row -->
+    <div class="sb-section">
+        <div style="display:flex;gap:4px;align-items:center">
+            <button class="sb-btn" onclick="toggleShortcutsModal()" title="Keyboard shortcuts (?)" style="flex:0 0 auto;width:36px">⌨</button>
+            <div style="position:relative;flex:1">
+                <button id="lang-btn" onclick="toggleLangMenu()" style="width:100%;background:#0d1420;color:#778;border:1px solid #1a1d2e;padding:5px 6px;border-radius:5px;font-size:10px;cursor:pointer">🌐 EN</button>
+                <div id="lang-menu"></div>
+            </div>
+        </div>
+        <a href="data/countries_cancer.csv" download class="sb-csv-link" data-i18n="download_csv">↓ Download CSV</a>
+    </div>
+
+    <!-- Spacer pushes legend/stats to bottom -->
+    <div class="sb-spacer"></div>
+
+    <!-- Legend (was floating bottom-left) -->
+    <div id="legend">
+        <div id="leg-title">Death rate / 100k</div>
+        <div id="leg-body"></div>
+    </div>
+
+    <!-- World stats bar (was floating bottom-center) -->
+    <div id="world-stats-bar" style="display:none">
+        <div style="font-size:9px;color:#4f8ef7;font-weight:700;text-transform:uppercase;letter-spacing:.08em;text-align:center;margin-bottom:2px" data-i18n="world_stats_title">World Average</div>
+        <div id="world-bar-desc" style="font-size:10px;color:#8899cc;text-align:center;line-height:1.3">—</div>
+        <div style="display:flex;gap:12px;align-items:center;justify-content:center;margin-top:4px">
+            <div style="text-align:center">
+                <div style="font-size:9px;color:#6677aa;margin-bottom:2px" data-i18n="world_avg_label">Avg</div>
+                <div id="world-mean" style="font-size:15px;font-weight:800;color:#e0e8ff;line-height:1">—</div>
+            </div>
+            <div style="width:1px;height:24px;background:#243060"></div>
+            <div style="text-align:center">
+                <div style="font-size:9px;color:#6677aa;margin-bottom:2px"><span id="world-max-country-label">Max</span></div>
+                <div id="world-max" style="font-size:14px;font-weight:700;color:#a0c4ff;line-height:1">—</div>
+                <div id="world-max-country" style="font-size:9px;color:#8899cc;margin-top:1px">—</div>
+            </div>
+            <div style="width:1px;height:24px;background:#243060"></div>
+            <div style="text-align:center">
+                <div style="font-size:9px;color:#6677aa;margin-bottom:2px" data-i18n="world_countries_label">Countries</div>
+                <div id="world-n" style="font-size:14px;font-weight:700;color:#a0c4ff;line-height:1">—</div>
+                <div style="font-size:9px;color:#6677aa;margin-top:1px" data-i18n="world_with_data">with data</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats bar (was floating bottom-right) -->
+    <div id="stats">
+        <b id="stat-n">—</b> countries &nbsp;·&nbsp; <b>WHO GHO</b> &nbsp;·&nbsp; <span style="color:#556" title="WHO GHO public data">2019–2022</span>
     </div>
 </div>
 
@@ -698,38 +793,6 @@
     <div class="clinic-legend-row"><div class="clinic-legend-dot" style="background:#c84ff7"></div><span style="color:#aab" data-i18n="clinic_experimental">Experimental</span></div>
     <div class="clinic-legend-row"><div class="clinic-legend-dot" style="background:#f74f4f"></div><span style="color:#aab" data-i18n="clinic_controversial">Controversial</span></div>
     <div class="clinic-legend-row"><div style="width:10px;height:2px;background:#4fb8f7;border-radius:1px"></div><span style="color:#aab" data-i18n="clinic_flow">✈ Migration flow</span></div>
-</div>
-
-<div id="legend">
-    <div id="leg-title">Death rate / 100k</div>
-    <div id="leg-body"></div>
-</div>
-
-<div id="world-stats-bar" style="position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:#0b0d18f0;border:1px solid #243060;border-radius:10px;padding:10px 20px;display:flex;flex-direction:column;gap:4px;pointer-events:none;backdrop-filter:blur(10px);z-index:9;min-width:280px">
-    <div style="font-size:9px;color:#4f8ef7;font-weight:700;text-transform:uppercase;letter-spacing:.08em;text-align:center" id="world-bar-title">🌍 Global</div>
-    <div id="world-bar-desc" style="font-size:10px;color:#8899cc;text-align:center;line-height:1.3">—</div>
-    <div style="display:flex;gap:16px;align-items:center;justify-content:center;margin-top:4px">
-        <div style="text-align:center">
-            <div style="font-size:9px;color:#6677aa;margin-bottom:2px" data-i18n="world_avg_label">Avg</div>
-            <div id="world-mean" style="font-size:16px;font-weight:800;color:#e0e8ff;line-height:1">—</div>
-        </div>
-        <div style="width:1px;height:28px;background:#243060"></div>
-        <div style="text-align:center">
-            <div style="font-size:9px;color:#6677aa;margin-bottom:2px"><span id="world-max-country-label">Max</span></div>
-            <div id="world-max" style="font-size:15px;font-weight:700;color:#a0c4ff;line-height:1">—</div>
-            <div id="world-max-country" style="font-size:9px;color:#8899cc;margin-top:1px">—</div>
-        </div>
-        <div style="width:1px;height:28px;background:#243060"></div>
-        <div style="text-align:center">
-            <div style="font-size:9px;color:#6677aa;margin-bottom:2px" data-i18n="world_countries_label">Countries</div>
-            <div id="world-n" style="font-size:15px;font-weight:700;color:#a0c4ff;line-height:1">—</div>
-            <div style="font-size:9px;color:#6677aa;margin-top:1px" data-i18n="world_with_data">with data</div>
-        </div>
-    </div>
-</div>
-
-<div id="stats">
-    <b id="stat-n">—</b> countries &nbsp;·&nbsp; <b>WHO GHO</b> &nbsp;·&nbsp; <span style="color:#556" title="WHO GHO publishes with 3-4 year lag. Latest available: 2021 (NCD mortality), 2019 (cancer deaths). GLOBOCAN 2022 integration planned.">Data: 2000–2021</span> &nbsp;·&nbsp; MIT
 </div>
 
 <!-- Mobile FAB -->
