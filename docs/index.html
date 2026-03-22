@@ -700,6 +700,7 @@
             <button class="sb-btn" onclick="openClinicSearch()" data-i18n="clinic_search_btn" title="Find oncology clinic">🔍 Find Clinic</button>
             <button class="sb-btn" onclick="openEmbedModal()" data-i18n="embed_btn" title="Embed widget">‹/› Embed</button>
         </div>
+        <button class="sb-btn" id="dataquality-toggle" onclick="toggleDataQualityView()" title="Show map colored by data detection reliability" style="margin-top:4px;width:100%;border-color:#e07a3055;color:#e07a30">⚠ Data Reliability View</button>
     </div>
     </div>
 
@@ -1315,7 +1316,8 @@ function showTip(event, d, data) {
         </div>`;
     }
 
-    tip.innerHTML = `<div class="tip-country">${n}</div>
+    const reliabilityHtml = data ? detectionWarningHtml(data, true) : "";
+    tip.innerHTML = `<div class="tip-country">${n}${reliabilityHtml}</div>
         ${fv != null
             ? `<div class="tip-main"><span class="tip-val">${fv}</span> <span class="tip-unit">${tipUnit}${dataYear}</span></div>${rankHtml}${barHtml}`
             : `<div class="tip-nodata">${t("tip_no_data","No data")}</div>`}`;
@@ -1380,6 +1382,7 @@ function openProfile(data, name) {
         }).join("");
 
         document.getElementById("panel-content").innerHTML = `
+            ${detectionWarningHtml(data)}
             <div class="panel-section">
                 <div class="section-header">
                     <h3>${t("mortality_section","Cancer mortality")}</h3>
@@ -2390,6 +2393,46 @@ function buildTreatment(iso3) {
 // ── Prevention Score ─────────────────────────────────────────────────────────
 // Composite index: 6 infra indicators (equal weight) + research activity bonus
 // Score 0–100 reflects "cancer system readiness" (screening + infrastructure + data)
+// ── Detection Reliability Score ─────────────────────────────────────────────
+// How trustworthy is the cancer data for this country?
+// Based on infrastructure that enables case detection and registration.
+function computeDetectionScore(data) {
+    if (!data) return 0;
+    let score = 0;
+    if (data.cancer_registry === "Yes") score += 3; // most important: systematic case recording
+    if (data.cancer_surgery === "Yes") score += 2;  // surgery → pathology → confirmed diagnosis
+    if (data.cancer_dept === "Yes")    score += 2;  // dedicated oncology dept → better detection
+    if (data.cancer_plan === "Yes")    score += 1;  // national plan → data collection mandated
+    if (data.breast_screening === "Yes") score += 1; // active screening → more cases found
+    return score; // max = 9
+}
+
+function detectionLabel(score) {
+    if (score >= 7) return { label: "High", color: "#2db565", icon: "✓" };
+    if (score >= 5) return { label: "Moderate", color: "#f7a04f", icon: "~" };
+    if (score >= 3) return { label: "Low", color: "#e07a30", icon: "!" };
+    return { label: "Very Low", color: "#e05c5c", icon: "⚠" };
+}
+
+// Returns HTML fragment for tooltip / profile warning
+function detectionWarningHtml(data, inline = false) {
+    const score = computeDetectionScore(data);
+    const { label, color, icon } = detectionLabel(score);
+    if (score >= 7) return ""; // no warning for reliable data
+    const msg = score <= 2
+        ? "No cancer registry — mortality likely <b>severely underreported</b>"
+        : score <= 4
+        ? "Weak detection infrastructure — rates may be <b>underreported</b>"
+        : "Partial detection capacity — some cases may be missed";
+    if (inline) {
+        return `<span style="color:${color};font-size:9px;margin-left:4px" title="${msg}">${icon} ${label} reliability</span>`;
+    }
+    return `<div style="background:#100a08;border:1px solid ${color}33;border-left:3px solid ${color};border-radius:4px;padding:7px 10px;margin-bottom:10px;font-size:10px;color:#aab">
+        <span style="color:${color};font-weight:700">${icon} Data reliability: ${label} (${score}/9)</span><br>
+        <span style="color:#778">${msg}. <span style="color:#445">Countries without cancer registries systematically undercount cases.</span></span>
+    </div>`;
+}
+
 function computePreventionScore(data) {
     if (!data) return null;
     const keys = ["cancer_surgery","cancer_registry","cancer_plan","breast_screening","cancer_dept","cervical_screening"];
@@ -3559,6 +3602,37 @@ const ISO3_REGION = {
     "SSD":"AFR","GIN":"AFR","BEN":"AFR","BFA":"AFR","HTI":"AFR","BWA":"AFR","NAM":"AFR",
     "GAB":"AFR","COG":"AFR","MWI":"AFR","LSO":"AFR","SWZ":"AFR","ERI":"AFR","TGO":"AFR",
 };
+
+// ── Data Quality View ───────────────────────────────────────────────────────
+let dataQualityMode = false;
+const DQ_COLORS = ["#3a0a08","#7a1a0a","#b84020","#e07a30","#f7a04f","#2db565"];
+// score 0→red, 9→green
+
+function toggleDataQualityView() {
+    dataQualityMode = !dataQualityMode;
+    const btn = document.getElementById("dataquality-toggle");
+    if (btn) btn.classList.toggle("active", dataQualityMode);
+    if (dataQualityMode) {
+        d3.selectAll(".country").transition().duration(350)
+            .attr("fill", d => {
+                const c = dataByNumId[d.id];
+                if (!c) return "#1a1d2e";
+                const score = computeDetectionScore(c);
+                return DQ_COLORS[Math.round(score / 9 * 5)];
+            });
+        // Update legend to show reliability scale
+        document.getElementById("leg-title").textContent = "Data Reliability (detection score)";
+        document.getElementById("leg-body").innerHTML = `
+            <div style="display:flex;gap:2px;margin-bottom:4px">
+                ${DQ_COLORS.map((c,i) => `<div style="flex:1;height:7px;background:${c};border-radius:2px" title="${Math.round(i/5*9)}/9"></div>`).join("")}
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:9px;color:#445">
+                <span>⚠ Very Low</span><span>Moderate</span><span>✓ High</span>
+            </div>`;
+    } else {
+        updateMap(); // restore normal view
+    }
+}
 
 function toggleSbSection(id) {
     const el = document.getElementById(id);
