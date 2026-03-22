@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' ghoapi.azureedge.net clinicaltrials.gov gco.iarc.who.int; frame-ancestors 'self'; base-uri 'self'; form-action 'self'">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
     <title>OncologyAtlas — Global Cancer Data</title>
     <meta name="description" content="Interactive open-source map of global cancer data. 165 countries, 18 WHO metrics, clinical trials, oncology clinics, survival rates. Free and open data.">
     <meta name="keywords" content="cancer, oncology, global health, WHO, mortality, DALY, clinical trials, cancer atlas, data visualization">
@@ -638,7 +641,7 @@
     <!-- Right-side meta links -->
     <div class="meta">
         <span id="meta-countries">— countries</span>
-        <a href="https://github.com/notageek88/oncology-atlas" target="_blank">GitHub ↗</a>
+        <a href="https://github.com/notageek88/oncology-atlas" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
         <button onclick="openSources()" style="background:none;border:1px solid #1a1d2e;color:#778;padding:3px 10px;border-radius:5px;font-size:10px;cursor:pointer" data-i18n="sources_btn">Sources</button>
         <!-- Language switcher -->
         <div style="position:relative">
@@ -2042,9 +2045,10 @@ function renderFlows() {
                 tip.style.left = (event.clientX + 14) + "px";
                 tip.style.top = (event.clientY - 10) + "px";
                 const vol = flow.volume >= 3 ? "High" : flow.volume >= 2 ? "Medium" : "Low";
-                const reasons = flow.reason || "Chemotherapy, Immunotherapy, Surgery";
-                tip.innerHTML = `<h4>✈ ${flow.label || flow.from + " → " + flow.to}</h4>
-                    <div class="tip-row">Patient flow: <span class="tip-val" style="color:#4fb8f7">${vol}</span></div>
+                const reasons = esc(flow.reason || "Chemotherapy, Immunotherapy, Surgery");
+                const flowLabel = esc(flow.label || (flow.from + " → " + flow.to));
+                tip.innerHTML = `<h4>✈ ${flowLabel}</h4>
+                    <div class="tip-row">Patient flow: <span class="tip-val" style="color:#4fb8f7">${esc(vol)}</span></div>
                     <div class="tip-row" style="color:#556">${reasons}</div>`;
             })
             .on("mouseout", () => { document.getElementById("tooltip").style.display = "none"; });
@@ -2066,14 +2070,14 @@ function showClinicTooltip(clinic, cx, cy) {
     const typeTag = clinic.type === "standard" ? "standard" : (clinic.category || clinic.tier);
     const col = clinicColor(clinic);
     clinicTooltipEl.innerHTML = `
-        <div class="ct-name">${getClinicName(clinic)}</div>
-        <div class="ct-city">${clinic.city}, ${clinic.country}</div>
-        <span class="ct-tag ${clinic.type}" style="background:${col}18;color:${col};border-color:${col}44">${clinic.type === "standard" ? "Standard" : (clinic.category||clinic.tier)}</span>
+        <div class="ct-name">${esc(getClinicName(clinic))}</div>
+        <div class="ct-city">${esc(clinic.city)}, ${esc(clinic.country)}</div>
+        <span class="ct-tag ${esc(clinic.type)}" style="background:${col}18;color:${col};border-color:${col}44">${clinic.type === "standard" ? "Standard" : esc(clinic.category||clinic.tier)}</span>
         ${clinic.medical_tourism ? `<span class="ct-tag tourism">✈ ${t("clinic_medical_tourism","Medical tourism")}</span>` : ""}
         ${clinic.tier === "flagship" ? `<span class="ct-tag standard">${t("clinic_flagship","Flagship")}</span>` : ""}
-        ${clinic.rank_newsweek ? `<div style="margin-top:5px;font-size:10px;color:#667">${t("newsweek_rank","Newsweek")} #${clinic.rank_newsweek}</div>` : ""}
-        ${clinic.accreditation?.length ? `<div style="font-size:10px;color:#667;margin-top:3px">${clinic.accreditation.join(" · ")}</div>` : ""}
-        <div style="margin-top:6px;font-size:10px;color:#556">${(clinic.treatments||[]).slice(0,3).join(", ")}</div>
+        ${clinic.rank_newsweek ? `<div style="margin-top:5px;font-size:10px;color:#667">${t("newsweek_rank","Newsweek")} #${Number(clinic.rank_newsweek)|0}</div>` : ""}
+        ${clinic.accreditation?.length ? `<div style="font-size:10px;color:#667;margin-top:3px">${clinic.accreditation.map(a=>esc(a)).join(" · ")}</div>` : ""}
+        <div style="margin-top:6px;font-size:10px;color:#556">${(clinic.treatments||[]).slice(0,3).map(t=>esc(t)).join(", ")}</div>
     `;
     clinicTooltipEl.style.display = "block";
     clinicTooltipEl.style.left = (cx + 12) + "px";
@@ -2120,21 +2124,21 @@ function buildMedicalTourismSection(clinic) {
 
 function showClinicPanel(clinic) {
     const col = clinicColor(clinic);
-    const treatStr = (clinic.treatments||[]).map(t => `<span style="background:${col}15;color:${col};border:1px solid ${col}30;border-radius:99px;padding:1px 8px;font-size:10px;margin:2px;display:inline-block">${t}</span>`).join("");
-    const accStr = (clinic.accreditation||[]).join(" · ") || "—";
+    const treatStr = (clinic.treatments||[]).map(tr => `<span style="background:${col}15;color:${col};border:1px solid ${col}30;border-radius:99px;padding:1px 8px;font-size:10px;margin:2px;display:inline-block">${esc(tr)}</span>`).join("");
+    const accStr = (clinic.accreditation||[]).map(a=>esc(a)).join(" · ") || "—";
 
     document.getElementById("panel-content").innerHTML = `
         <div style="padding:20px 20px 0">
             <div style="font-size:10px;color:#334;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:6px">${t("clinic_panel_label","Cancer Clinic")}</div>
-            <h2 style="font-size:17px;font-weight:700;color:#dde;margin-bottom:4px">${getClinicName(clinic)}</h2>
-            <div style="font-size:12px;color:#667;margin-bottom:12px">${clinic.city}, ${clinic.country}</div>
+            <h2 style="font-size:17px;font-weight:700;color:#dde;margin-bottom:4px">${esc(getClinicName(clinic))}</h2>
+            <div style="font-size:12px;color:#667;margin-bottom:12px">${esc(clinic.city)}, ${esc(clinic.country)}</div>
             <span style="background:${col}18;color:${col};border:1px solid ${col}44;border-radius:99px;padding:2px 10px;font-size:10px;font-weight:600">
                 ${clinic.type === "standard" ? "✅ " + t("clinic_standard_medicine","Standard medicine") : "⚗ " + (clinic.category||clinic.tier)}
             </span>
             ${clinic.medical_tourism ? `<span style="background:#0d2a3a;color:#4fb8f7;border:1px solid #1a5a6e;border-radius:99px;padding:2px 10px;font-size:10px;margin-left:6px">✈ ${t("clinic_medical_tourism","Medical tourism")}</span>` : ""}
         </div>
         <div style="padding:14px 20px">
-            ${clinic.description ? `<div style="font-size:12px;color:#889;line-height:1.5;margin-bottom:14px">${clinic.description}</div>` : ""}
+            ${clinic.description ? `<div style="font-size:12px;color:#889;line-height:1.5;margin-bottom:14px">${esc(clinic.description)}</div>` : ""}
             <div class="panel-section">
                 <h3>${t("clinic_treatments","Treatments offered")}</h3>
                 <div style="margin-top:6px">${treatStr}</div>
@@ -2142,7 +2146,7 @@ function showClinicPanel(clinic) {
             ${(clinic.specialties||[]).length ? `
             <div class="panel-section">
                 <h3>${t("clinic_specialties","Specialties")}</h3>
-                <div style="font-size:11px;color:#889;margin-top:4px">${clinic.specialties.join(" · ")}</div>
+                <div style="font-size:11px;color:#889;margin-top:4px">${clinic.specialties.map(s=>esc(s)).join(" · ")}</div>
             </div>` : ""}
             <div class="panel-section">
                 <h3>${t("details_section","Details")}</h3>
@@ -2153,7 +2157,7 @@ function showClinicPanel(clinic) {
                     ${clinic.rank_newsweek ? `<div><div style="font-size:9px;color:#334;text-transform:uppercase">${t("clinic_newsweek","Newsweek rank")}</div><div style="font-size:13px;color:#4fc88a">#${clinic.rank_newsweek}</div></div>` : ""}
                 </div>
             </div>
-            ${clinic.url ? `<div style="margin-top:14px"><a href="${clinic.url}" target="_blank" style="color:#4f8ef7;font-size:11px;text-decoration:none">🔗 ${clinic.url.replace("https://","")}</a></div>` : ""}
+            ${clinic.url && isValidUrl(clinic.url) ? `<div style="margin-top:14px"><a href="${esc(clinic.url)}" target="_blank" rel="noopener noreferrer" style="color:#4f8ef7;font-size:11px;text-decoration:none">🔗 ${esc(clinic.url.replace(/^https?:\/\//,""))}</a></div>` : ""}
             ${buildMedicalTourismSection(clinic)}
         </div>`;
 
@@ -3367,8 +3371,8 @@ function buildSupportResources(iso3) {
     const rows = resources.map(r => {
         const col = TYPE_COLORS[r.type] || "#667";
         const icon = TYPE_ICONS[r.type] || "ℹ";
-        const nameHtml = r.url
-            ? `<a href="${r.url}" target="_blank" rel="noopener" style="color:${col};text-decoration:none;font-size:12px;font-weight:600">${icon} ${esc(r.name)}</a>`
+        const nameHtml = (r.url && isValidUrl(r.url))
+            ? `<a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" style="color:${col};text-decoration:none;font-size:12px;font-weight:600">${icon} ${esc(r.name)}</a>`
             : `<span style="color:${col};font-size:12px;font-weight:600">${icon} ${esc(r.name)}</span>`;
         const phoneHtml = r.phone ? `<span style="font-size:11px;color:#889;margin-left:8px">📞 ${esc(r.phone)}</span>` : "";
         return `<div style="padding:5px 0;border-bottom:1px solid #1a1d2e;display:flex;align-items:center;gap:4px;flex-wrap:wrap">
@@ -3869,7 +3873,7 @@ function downloadReport() {
             All data is open-access. Report generated via OncologyAtlas open-source platform.
         </div>
         <div class="footer-brand">
-            <a href="${url}" target="_blank">${url}</a><br>
+            <a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(url)}</a><br>
             MIT License — free to use with attribution
         </div>
     </div>
@@ -4743,13 +4747,29 @@ window.addEventListener("resize", () => {
 });
 
 // ── URL params ─────────────────────────────────────────────────────────────
+// Security: validate external URLs are safe http/https only
+function isValidUrl(url) {
+    if (!url || typeof url !== "string") return false;
+    try {
+        const u = new URL(url);
+        return u.protocol === "https:" || u.protocol === "http:";
+    } catch { return false; }
+}
+
 function parseUrlParams() {
     const p = new URLSearchParams(window.location.search);
+    // Validate against known safe sets — prevents reflected XSS via URL params
+    const VALID_LANGS = new Set(["en","ru","zh","es","ar","hi","pt","fr","de","ja","id"]);
+    const ISO3_RE = /^[A-Z]{2,3}$/;
+    const METRIC_RE = /^[a-z_]{3,40}$/;
+    const rawCountry = p.get("country") || "";
+    const rawLang    = p.get("lang")    || "";
+    const rawMetric  = p.get("metric")  || "";
     return {
-        country: p.get("country"),   // e.g. ?country=RUS
-        lang: p.get("lang"),          // e.g. ?lang=ru
-        metric: p.get("metric"),      // e.g. ?metric=death_breast
-        embed: p.get("embed") === "1",// ?embed=1 — hide all UI chrome
+        country: ISO3_RE.test(rawCountry)   ? rawCountry  : null,
+        lang:    VALID_LANGS.has(rawLang)    ? rawLang     : null,
+        metric:  METRIC_RE.test(rawMetric)   ? rawMetric   : null,
+        embed:   p.get("embed") === "1",
     };
 }
 
@@ -5397,6 +5417,9 @@ function renderSparklines(iso3) {
 // ── Search ─────────────────────────────────────────────────────────────────
 function onSearch(q) {
     const box = document.getElementById("suggest");
+    // Sanitize: cap length, strip tags — prevents DoS and reflected content
+    if (!q || typeof q !== "string") { box.innerHTML = ""; box.style.display = "none"; return; }
+    q = q.slice(0, 80).replace(/[<>"']/g, "");
     if (!q.trim()) { box.innerHTML = ""; box.style.display = "none"; return; }
     const matches = allData
         .filter(c => {
@@ -5715,7 +5738,7 @@ function buildTrialsSection(iso3) {
         </div>
         ${phaseRows}
         <div style="margin-top:10px">
-            <a href="https://clinicaltrials.gov/search?cond=cancer&locStr=${iso3}&distance=0" target="_blank"
+            <a href="https://clinicaltrials.gov/search?cond=cancer&locStr=${esc(iso3)}&distance=0" target="_blank" rel="noopener noreferrer"
                style="color:#4f8ef7;font-size:11px;text-decoration:none">
                ${t("trials_link",t("trials_link","Search trials →"))}
             </a>
@@ -6206,7 +6229,7 @@ initMobile();
         <span class="sc-tag">🟡 Рак поджелудочной</span>
         <span class="sc-tag">Заболеваемость</span>
       </div>
-      <div class="sc-url">🔗 <a href="https://gco.iarc.who.int/today" target="_blank">gco.iarc.who.int</a> · IARC/WHO · Peer-reviewed · 2024</div>
+      <div class="sc-url">🔗 <a href="https://gco.iarc.who.int/today" target="_blank" rel="noopener noreferrer">gco.iarc.who.int</a> · IARC/WHO · Peer-reviewed · 2024</div>
     </div>
 
     <div class="source-card">
@@ -6222,7 +6245,7 @@ initMobile();
         <span class="sc-tag">💨 PM2.5</span>
         <span class="sc-tag">🏥 UHC Index</span>
       </div>
-      <div class="sc-url">🔗 <a href="https://ghoapi.azureedge.net/api" target="_blank">ghoapi.azureedge.net</a> · Обновляется ежегодно · Бесплатно</div>
+      <div class="sc-url">🔗 <a href="https://ghoapi.azureedge.net/api" target="_blank" rel="noopener noreferrer">ghoapi.azureedge.net</a> · Обновляется ежегодно · Бесплатно</div>
     </div>
 
     <div class="source-card">
@@ -6233,7 +6256,7 @@ initMobile();
         <span class="sc-tag">Фазы испытаний</span>
         <span class="sc-tag">Активные протоколы</span>
       </div>
-      <div class="sc-url">🔗 <a href="https://clinicaltrials.gov/api/v2/studies" target="_blank">clinicaltrials.gov</a> · Open API · Обновляется еженедельно</div>
+      <div class="sc-url">🔗 <a href="https://clinicaltrials.gov/api/v2/studies" target="_blank" rel="noopener noreferrer">clinicaltrials.gov</a> · Open API · Обновляется еженедельно</div>
     </div>
 
     <div class="source-card">
@@ -6245,7 +6268,7 @@ initMobile();
         <span class="sc-tag">Рак лёгкого</span>
         <span class="sc-tag">Рак простаты</span>
       </div>
-      <div class="sc-url">🔗 <a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(17)33326-3" target="_blank">The Lancet, 2018</a> · Peer-reviewed</div>
+      <div class="sc-url">🔗 <a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(17)33326-3" target="_blank" rel="noopener noreferrer">The Lancet, 2018</a> · Peer-reviewed</div>
     </div>
 
     <div class="source-card">
@@ -6255,11 +6278,11 @@ initMobile();
         <span class="sc-tag">Границы стран</span>
         <span class="sc-tag">Геометрии</span>
       </div>
-      <div class="sc-url">🔗 <a href="https://github.com/topojson/world-atlas" target="_blank">github.com/topojson/world-atlas</a> · Public Domain</div>
+      <div class="sc-url">🔗 <a href="https://github.com/topojson/world-atlas" target="_blank" rel="noopener noreferrer">github.com/topojson/world-atlas</a> · Public Domain</div>
     </div>
 
     <div style="margin-top:18px;padding-top:14px;border-top:1px solid #1a1d2e;font-size:10px;color:#334">
-      Все данные открытые. Репо: <a href="https://github.com/notageek88/oncology-atlas" target="_blank" style="color:#4f8ef7">github.com/notageek88/oncology-atlas</a>
+      Все данные открытые. Репо: <a href="https://github.com/notageek88/oncology-atlas" target="_blank" rel="noopener noreferrer" style="color:#4f8ef7">github.com/notageek88/oncology-atlas</a>
       · Лицензия MIT · Последнее обновление данных: март 2026
     </div>
   </div>
