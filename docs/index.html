@@ -1652,6 +1652,7 @@ function toggleFlows() {
     } else {
         renderFlows();
         if (clinicsVisible) renderClinics();
+    }
 }
 
 function renderClinics() {
@@ -3910,9 +3911,8 @@ function renderRankingsTable() {
 }
 
 function selectCountryByIso(iso) {
-    if (!allData) return;
-    const d = allData.find(c => c.country === iso);
-    if (d) { closeRankingsModal(); openPanel(d); }
+    closeRankingsModal();
+    selectCountry(iso);
 }
 
 // World Bank income groups (2023 GNI/capita thresholds)
