@@ -1548,31 +1548,45 @@ function renderCompare() {
             <span class="rm" onclick="removeCompare('${esc(c.country)}')">✕</span>
         </div>`).join("");
 
-    const barsHtml = keys.map(k => {
-        const label = METRIC_GROUPS.death.options[k];
-        const max = DEATH_MAX[k] || 200;
-        const bars = compareList.map((c,i) => {
-            const v = parseFloat(c[k]);
-            if (isNaN(v)) return "";
-            const pct = Math.min(100, (v/max)*100);
-            return `<div style="margin:2px 0">
-                <div style="display:flex;justify-content:space-between;font-size:10px;color:#556">
-                    <span>${getCountryName(c.country, c.name||c.country)}</span><span style="color:${colors[i]}">${v.toFixed(1)}</span>
-                </div>
-                <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${colors[i]}"></div></div>
-            </div>`;
+    function buildBarsSection(metricList) {
+        return metricList.map(([k, label, max]) => {
+            const bars = compareList.map((c,i) => {
+                const v = parseFloat(c[k]);
+                if (isNaN(v)) return "";
+                const pct = Math.min(100, (v/max)*100);
+                return `<div style="margin:2px 0">
+                    <div style="display:flex;justify-content:space-between;font-size:10px;color:#556">
+                        <span>${getCountryName(c.country, c.name||c.country)}</span><span style="color:${colors[i]}">${v.toFixed(1)}</span>
+                    </div>
+                    <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${colors[i]}"></div></div>
+                </div>`;
+            }).join("");
+            return bars ? `<div style="margin:10px 0"><div style="font-size:10px;color:#334;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px">${label}</div>${bars}</div>` : "";
         }).join("");
-        return bars ? `<div style="margin:10px 0"><div style="font-size:10px;color:#334;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px">${label}</div>${bars}</div>` : "";
-    }).join("");
+    }
 
-    document.getElementById("panel-title").textContent = "Compare Countries";
+    const deathMetrics = keys.map(k => [k, METRIC_GROUPS.death.options[k], DEATH_MAX[k] || 200]);
+    const barsHtml = buildBarsSection(deathMetrics);
+
+    const RISK_MAX = { smoking_prev:50, obesity_prev:50, alcohol_pc:20, pm25_pollution:100, uhc_index:100 };
+    const riskMetrics = [
+        ["smoking_prev",   t("smoking_prev",  "🚬 Smoking prevalence %"),              50],
+        ["obesity_prev",   t("obesity_prev",  "⚖ Obesity prevalence %"),               50],
+        ["alcohol_pc",     t("alcohol_pc",    "🍷 Alcohol L/capita"),                  20],
+        ["pm25_pollution", t("pm25_pollution","💨 PM2.5 air pollution μg/m³"),         100],
+        ["uhc_index",      t("uhc_index",     "🏥 UHC Service Coverage Index"),        100],
+    ];
+    const riskBarsHtml = buildBarsSection(riskMetrics);
+
+    document.getElementById("panel-title").textContent = t("compare","Compare Countries");
     document.getElementById("panel-sub").textContent = `${compareList.length} selected — click map to add`;
     const exportBtn = compareList.length >= 2
         ? `<button onclick="downloadCompareReport()" style="width:100%;margin-top:8px;background:#0d2a1a;border:1px solid #1a5a2e;color:#2db565;padding:6px;border-radius:5px;font-size:11px;cursor:pointer">${t("compare_export","📄 Export comparison PDF")}</button>`
         : "";
     document.getElementById("panel-content").innerHTML = `
-        <div class="panel-section"><h3>Selected</h3><div id="compare-list">${listHtml}</div>${exportBtn}</div>
-        <div class="panel-section"><h3>Cancer mortality comparison</h3><div id="compare-chart">${barsHtml||'<div style="color:#334;font-size:11px">Add countries to compare</div>'}</div></div>`;
+        <div class="panel-section"><h3>${t("compare","Compare Countries")}</h3><div id="compare-list">${listHtml}</div>${exportBtn}</div>
+        <div class="panel-section"><h3>${t("cat_death","Cancer Mortality")} (/ 100k)</h3><div id="compare-chart">${barsHtml||'<div style="color:#334;font-size:11px">Add countries to compare</div>'}</div></div>
+        ${riskBarsHtml ? `<div class="panel-section"><h3>${t("cat_risk","Risk Factors")}</h3><div>${riskBarsHtml}</div></div>` : ""}`;
 
     document.getElementById("side-panel").classList.add("open");
     document.getElementById("map-container").classList.add("panel-open");
@@ -1591,23 +1605,33 @@ function downloadCompareReport() {
     const date = new Date().toLocaleDateString("en-US", {year:"numeric",month:"long",day:"numeric"});
 
     const allMetrics = [
-        ["All-cancer mortality",  "death_cancer_all",  "deaths/100k/yr"],
-        ["Breast mortality",      "death_breast",      "deaths/100k/yr"],
-        ["Colorectal mortality",  "death_colon",       "deaths/100k/yr"],
-        ["Liver mortality",       "death_liver",       "deaths/100k/yr"],
-        ["Prostate mortality",    "death_prostate",    "deaths/100k/yr"],
-        ["Breast DALYs",          "daly_breast",       "DALYs/100k"],
-        ["Colorectal DALYs",      "daly_colon",        "DALYs/100k"],
-        ["Cancer surgery",        "cancer_surgery",    ""],
-        ["Cancer registry",       "cancer_registry",   ""],
-        ["National cancer plan",  "cancer_plan",       ""],
-        ["Breast screening",      "breast_screening",  ""],
-        ["All-cancer incidence",  "incidence_all",     "new/100k/yr"],
-        ["Breast incidence",      "incidence_breast",  "new/100k/yr"],
-        ["Research index",        "research_index",    ""],
-        ["Tobacco deaths/100k",   "tobacco_cancer",    ""],
-        ["Treatment cost (USD/yr)","treatment_cost_usd","USD"],
-        ["Readiness score",       "_score",            "/100"],
+        ["All-cancer mortality",        "death_cancer_all",    "deaths/100k/yr"],
+        ["🫁 Lung mortality",            "death_lung",          "deaths/100k/yr"],
+        ["🟤 Stomach mortality",         "death_stomach",       "deaths/100k/yr"],
+        ["🔴 Cervical mortality",        "death_cervical",      "deaths/100k/yr"],
+        ["☀ Melanoma mortality",         "death_melanoma",      "deaths/100k/yr"],
+        ["🟡 Pancreatic mortality",      "death_pancreatic",    "deaths/100k/yr"],
+        ["Breast mortality",            "death_breast",        "deaths/100k/yr"],
+        ["Colorectal mortality",        "death_colon",         "deaths/100k/yr"],
+        ["Liver mortality",             "death_liver",         "deaths/100k/yr"],
+        ["Prostate mortality",          "death_prostate",      "deaths/100k/yr"],
+        ["Breast DALYs",                "daly_breast",         "DALYs/100k"],
+        ["Colorectal DALYs",            "daly_colon",          "DALYs/100k"],
+        ["🚬 Smoking prevalence",        "smoking_prev",        "%"],
+        ["⚖ Obesity prevalence",         "obesity_prev",        "%"],
+        ["🍷 Alcohol consumption",       "alcohol_pc",          "L/capita"],
+        ["💨 PM2.5 air pollution",       "pm25_pollution",      "μg/m³"],
+        ["🏥 UHC coverage index",        "uhc_index",           "/100"],
+        ["Cancer surgery",              "cancer_surgery",      ""],
+        ["Cancer registry",             "cancer_registry",     ""],
+        ["National cancer plan",        "cancer_plan",         ""],
+        ["Breast screening",            "breast_screening",    ""],
+        ["All-cancer incidence",        "incidence_all",       "new/100k/yr"],
+        ["Breast incidence",            "incidence_breast",    "new/100k/yr"],
+        ["Research index",              "research_index",      ""],
+        ["Tobacco deaths/100k",         "tobacco_cancer",      ""],
+        ["Treatment cost (USD/yr)",     "treatment_cost_usd",  "USD"],
+        ["Readiness score",             "_score",              "/100"],
     ];
 
     const colNames = compareList.map(c => getCountryName(c.country, c.name||c.country));
@@ -2329,7 +2353,7 @@ const CANCER_ENCYCLOPEDIA = {
             { factor: "High-fat / red meat diet", risk: 10, desc: "Suggested link, not definitively proven. Mediterranean diet appears protective." },
         ],
         screening: {
-            recommended: false, // controversial
+            recommended: false,
             who_recommends: "PSA screening is controversial — reduces prostate cancer mortality but causes significant overdiagnosis and overtreatment. Shared decision-making for men 50-70 (or 40-45 if African ancestry or family history).",
             benefit: "PSA reduces prostate cancer mortality by ~25-30% but 40-50% of screen-detected cancers may never have caused symptoms (overdiagnosis).",
             availability: "PSA test: widely available, very inexpensive. Interpretation and management are the challenge."
@@ -2345,6 +2369,85 @@ const CANCER_ENCYCLOPEDIA = {
         early_signs: ["Most early prostate cancer has NO symptoms", "Frequent urination (especially at night)", "Weak or interrupted urine stream", "Blood in urine or semen", "Pelvic pain", "Bone pain (late stage)"],
         survival_note: "USA 5-year survival 98% due to widespread PSA screening — but Japan 95%, UK 90%. Very high overall survival for localized disease regardless of treatment.",
         source: "WHO, IARC, ACS, EAU guidelines"
+    },
+    melanoma: {
+        name: "Melanoma of Skin",
+        icon: "☀",
+        icd: "C43",
+        global_rank: 17, // ~20th most common, but rising fast in fair-skinned populations
+        causes: [
+            { factor: "UV radiation (sun)", risk: 75, desc: "Cumulative UV exposure and sunburns, especially in childhood, are the primary driver. Risk correlates with latitude and fair skin." },
+            { factor: "Indoor tanning beds", risk: 20, desc: "UV tanning beds increase melanoma risk by 75% if first used before age 35 (IARC Group 1 carcinogen)." },
+            { factor: "Fair skin / phenotype", risk: 30, desc: "Light skin, red/blonde hair, blue eyes, many freckles — reduced melanin protection. Explains why Australia/NZ/Scandinavia top global rates." },
+            { factor: "Family history / CDKN2A", risk: 15, desc: "First-degree relative with melanoma doubles risk. CDKN2A gene mutation in familial cases." },
+            { factor: "Many atypical moles (nevi)", risk: 10, desc: ">50 moles or >5 atypical moles significantly increase risk. Annual dermatologist exam recommended." },
+        ],
+        screening: {
+            recommended: true,
+            who_recommends: "Monthly skin self-examination using the ABCDE rule. Annual full-body skin exam by dermatologist for high-risk individuals (fair skin, family history, many moles, tanning history).",
+            benefit: "Stage I (localized) 5-year survival is 98%. Stage IV (metastatic) drops to 25-30%. Early detection is the single most powerful intervention.",
+            availability: "Clinical skin exam: widespread. Dermoscopy: available in most dermatology clinics. Whole-body photography: specialist centres only."
+        },
+        prevention: [
+            "Apply SPF 30+ sunscreen daily — even on cloudy days. Reapply every 2 hours outdoors.",
+            "Wear protective clothing, wide-brim hat, UV-blocking sunglasses.",
+            "Avoid sun between 10am–4pm when UV is strongest.",
+            "Never use indoor tanning beds or sunlamps.",
+            "Perform monthly ABCDE self-exam: Asymmetry, Border, Color, Diameter >6mm, Evolution.",
+            "Annual dermatologist exam if fair skin, family history, or >50 moles.",
+            "Protect children — severe childhood sunburns strongly predict adult melanoma.",
+        ],
+        early_signs: [
+            "New mole or spot that looks different from others",
+            "ABCDE: Asymmetry (two halves don't match)",
+            "ABCDE: Border irregular, ragged or blurred",
+            "ABCDE: Color — multiple shades of brown, black, red, white or blue",
+            "ABCDE: Diameter >6mm (size of a pencil eraser)",
+            "ABCDE: Evolution — any change in size, shape, color or new symptom (bleeding, itching)",
+            "Existing mole that changes over weeks/months",
+        ],
+        survival_note: "Australia: 5-year survival 93% — world's best, driven by aggressive public awareness campaigns. USA: 93%. UK: 87%. The huge survival gap between countries reflects early vs late detection, not treatment quality differences.",
+        source: "WHO, IARC, GLOBOCAN 2022, Skin Cancer Foundation, AAD, EADO"
+    },
+    pancreatic: {
+        name: "Pancreatic Cancer",
+        icon: "🟡",
+        icd: "C25",
+        global_rank: 12, // #7 cancer killer despite being less common
+        causes: [
+            { factor: "Smoking", risk: 40, desc: "Smokers have 2x the risk of non-smokers. Responsible for ~25% of pancreatic cancers. Risk decreases after quitting but takes 10+ years to normalize." },
+            { factor: "Obesity / metabolic syndrome", risk: 30, desc: "BMI >30 increases risk by 20%. Abdominal obesity and high waist circumference are particularly associated." },
+            { factor: "Type 2 diabetes", risk: 25, desc: "Long-standing diabetes (>5 years) doubles risk. New-onset diabetes in older adults can be an early sign of pancreatic cancer." },
+            { factor: "Chronic pancreatitis", risk: 20, desc: "Chronic inflammation of the pancreas (often from heavy alcohol or genetic causes) increases risk 13-fold over 20 years." },
+            { factor: "Family history / BRCA2", risk: 15, desc: "5-10% of cases are hereditary. BRCA2, PALB2, ATM, and Lynch syndrome increase risk 3-10x." },
+        ],
+        screening: {
+            recommended: false,
+            who_recommends: "No routine screening for the general population — no reliable early-detection test exists. High-risk individuals (BRCA2/PALB2 carriers, >2 first-degree relatives with pancreatic cancer) should enroll in surveillance programs using endoscopic ultrasound (EUS) + MRI annually from age 50.",
+            benefit: "Pancreatic cancer detected at stage I has 20-30% 5-year survival vs 3% at stage IV. But stage I diagnosis is rare (<20% of cases) because early cancer causes no symptoms.",
+            availability: "EUS and MRI are available at major cancer centres. CA 19-9 blood test is unreliable for screening (high false positives) but useful for monitoring known disease."
+        },
+        prevention: [
+            "Quit smoking — this is the single most effective preventive action.",
+            "Maintain healthy weight (BMI 18.5–24.9).",
+            "Manage diabetes with diet, exercise and medication as prescribed.",
+            "Limit alcohol to reduce risk of chronic pancreatitis.",
+            "Eat a diet rich in fruits, vegetables and fibre; limit red and processed meats.",
+            "If you have BRCA2, PALB2 or Lynch syndrome — discuss pancreatic surveillance with a geneticist.",
+            "Report new-onset diabetes after age 50 to your doctor (may be an early warning sign).",
+        ],
+        early_signs: [
+            "⚠ Early pancreatic cancer almost always has NO symptoms",
+            "Painless jaundice (yellowing of skin/eyes) — bile duct blocked by tumour",
+            "Dark urine and pale/greasy stools",
+            "Unexplained weight loss and loss of appetite",
+            "New-onset diabetes or worsening blood sugar control",
+            "Upper abdominal or back pain (often dull, worse lying down)",
+            "Fatigue and weakness",
+            "Deep vein thrombosis or blood clots (Trousseau sign)",
+        ],
+        survival_note: "5-year survival is only 12% globally — one of the lowest of any cancer. Finland leads at ~13%, USA 12%, most of Europe 9-11%. The reason: ~80% are diagnosed at stage III-IV when surgery is no longer possible. Early detection through surveillance of high-risk groups is the only proven strategy.",
+        source: "WHO, IARC, GLOBOCAN 2022, Pancreatic Cancer Action Network, ESMO guidelines"
     },
 };
 
@@ -5460,8 +5563,8 @@ const BURDEN_TYPES = [
     { key: "death_colon",      lk: "colon",            label: "Colorectal",   icon: "🔵", max: 30,   enc: "colorectal" },
     { key: "death_liver",      lk: "liver",            label: "Liver",        icon: "🟤", max: 20,   enc: "liver" },
     { key: "death_prostate",   lk: "prostate",         label: "Prostate",     icon: "♂",  max: 25,   enc: "prostate" },
-    { key: "death_melanoma",   lk: "melanoma",         label: "Melanoma",     icon: "☀",  max: 3,    enc: null },
-    { key: "death_pancreatic", lk: "pancreatic",       label: "Pancreatic",   icon: "🟡", max: 10,   enc: null },
+    { key: "death_melanoma",   lk: "melanoma",         label: "Melanoma",     icon: "☀",  max: 3,    enc: "melanoma" },
+    { key: "death_pancreatic", lk: "pancreatic",       label: "Pancreatic",   icon: "🟡", max: 10,   enc: "pancreatic" },
     { key: "death_mouth",      lk: "mouth",            label: "Mouth",        icon: "🦷", max: 10,   enc: null },
     { key: "death_oesophagus", lk: "oesophagus",       label: "Oesophagus",   icon: "🔶", max: 12,   enc: null },
 ];
@@ -6059,13 +6162,31 @@ initMobile();
     </div>
 
     <div class="source-card">
+      <div class="sc-name">GLOBOCAN 2022 — IARC / WHO</div>
+      <div class="sc-desc">Bray F et al. "Global cancer statistics 2022." <em>CA: A Cancer Journal for Clinicians</em>, 2024. Возрастно-стандартизованные показатели смертности и заболеваемости для 185 стран, 36 видов рака. Эталонный источник для онкологической эпидемиологии.</div>
+      <div class="sc-metrics">
+        <span class="sc-tag">🫁 Рак лёгких</span>
+        <span class="sc-tag">🟤 Рак желудка</span>
+        <span class="sc-tag">🔴 Рак шейки матки</span>
+        <span class="sc-tag">☀ Меланома</span>
+        <span class="sc-tag">🟡 Рак поджелудочной</span>
+        <span class="sc-tag">Заболеваемость</span>
+      </div>
+      <div class="sc-url">🔗 <a href="https://gco.iarc.who.int/today" target="_blank">gco.iarc.who.int</a> · IARC/WHO · Peer-reviewed · 2024</div>
+    </div>
+
+    <div class="source-card">
       <div class="sc-name">WHO Global Health Observatory (GHO)</div>
-      <div class="sc-desc">Основной источник данных. ВОЗ собирает статистику здоровья от министерств здравоохранения 194 стран. Данные проходят стандартизацию и нормализацию для сравнения между странами.</div>
+      <div class="sc-desc">Основной источник данных. ВОЗ собирает статистику здоровья от министерств здравоохранения 194 стран. Данные проходят стандартизацию и нормализацию для сравнения между странами. Факторы риска: стандартизованная распространённость курения и ожирения, потребление алкоголя, загрязнение воздуха PM2.5, индекс охвата UHC.</div>
       <div class="sc-metrics">
         <span class="sc-tag">Смертность от рака</span>
         <span class="sc-tag">DALYs</span>
         <span class="sc-tag">Инфраструктура</span>
-        <span class="sc-tag">NCD Mortality 30-70</span>
+        <span class="sc-tag">🚬 Курение</span>
+        <span class="sc-tag">⚖ Ожирение</span>
+        <span class="sc-tag">🍷 Алкоголь</span>
+        <span class="sc-tag">💨 PM2.5</span>
+        <span class="sc-tag">🏥 UHC Index</span>
       </div>
       <div class="sc-url">🔗 <a href="https://ghoapi.azureedge.net/api" target="_blank">ghoapi.azureedge.net</a> · Обновляется ежегодно · Бесплатно</div>
     </div>
