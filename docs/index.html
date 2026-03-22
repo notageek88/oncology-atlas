@@ -1668,6 +1668,7 @@ function onCategoryChange() {
     const cat = document.getElementById("category").value;
     const grp = METRIC_GROUPS[cat];
     const sel = document.getElementById("metric");
+    if (!grp || !sel) return;
     // Build options — with optional grouping for death category
     if (cat === "death") {
         const globocan = ["death_lung","death_stomach","death_cervical","death_melanoma","death_pancreatic"];
