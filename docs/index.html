@@ -5478,7 +5478,14 @@ async function init() {
             else { openProfile(data, name); updateUrl({country: data?.country || ""}); }
         });
 
-    buildLegend(currentMetric);
+    // Rebuild metric dropdown from METRIC_GROUPS (adds GLOBOCAN 2022 options + optgroups)
+    onCategoryChange();
+    // Restore metric from URL param if provided (onCategoryChange resets to first)
+    if (params.metric) {
+        currentMetric = params.metric;
+        const sel = document.getElementById("metric");
+        if (sel) { sel.value = params.metric; buildLegend(params.metric); }
+    }
     calibrateRangeSlider();
     updateWorldStatsBar(currentMetric);
     updateHeaderMetric();
