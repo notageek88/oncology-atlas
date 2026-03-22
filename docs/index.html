@@ -667,11 +667,19 @@
         <span class="sb-label" data-i18n="type_label">Type</span>
         <select id="metric" onchange="updateMap()" data-i18n-select="metric">
             <option value="death_cancer_all" data-i18n="metric_death_all">All cancers combined</option>
+            <optgroup label="── NEW: GLOBOCAN 2022 ──" style="color:#4f8ef7">
+            <option value="death_lung">🫁 Lung cancer</option>
+            <option value="death_stomach">🟤 Stomach cancer</option>
+            <option value="death_cervical">🔴 Cervical cancer</option>
+            </optgroup>
+            <optgroup label="── WHO GHO ──" style="color:#445">
             <option value="death_breast" data-i18n="metric_breast">Breast cancer</option>
             <option value="death_colon" data-i18n="metric_colon">Colorectal cancer</option>
             <option value="death_liver" data-i18n="metric_liver">Liver cancer</option>
             <option value="death_mouth" data-i18n="metric_mouth">Mouth &amp; oropharynx</option>
             <option value="death_oesophagus" data-i18n="metric_oesophagus">Oesophagus</option>
+            <option value="death_prostate">Prostate cancer</option>
+            </optgroup>
         </select>
     </div>
 
@@ -894,14 +902,26 @@ const METRIC_GROUPS = {
     death: {
         label: "Death rate / 100k",
         options: {
-            death_cancer_all: "All cancers", death_breast: "Breast",
-            death_colon: "Colorectal", death_liver: "Liver",
-            death_mouth: "Mouth/oropharynx", death_oesophagus: "Oesophagus"
+            death_cancer_all: "All cancers",
+            death_lung: "🫁 Lung", death_stomach: "🟤 Stomach", death_cervical: "🔴 Cervical",
+            death_breast: "Breast", death_colon: "Colorectal", death_liver: "Liver",
+            death_mouth: "Mouth/oropharynx", death_oesophagus: "Oesophagus", death_prostate: "Prostate"
         },
         type: "numeric",
         domain: [20, 50, 80, 120, 180],
         colors: ["#0d1433","#1a2d7a","#2855c2","#4f8ef7","#a0c4ff"],
-        nodata: "#0f1220"
+        nodata: "#0f1220",
+        metricDomains: {
+            death_lung:     [5, 12, 22, 33, 45],   // Hungary 51 at top
+            death_stomach:  [2,  5, 10, 16, 22],   // Mongolia 22 at top
+            death_cervical: [2,  8, 18, 30, 45],   // Zimbabwe 50 at top
+            death_breast:   [5, 10, 17, 22, 28],
+            death_colon:    [4,  8, 15, 22, 28],
+            death_liver:    [2,  5, 10, 15, 20],
+            death_mouth:    [1,  3,  5,  7, 10],
+            death_oesophagus:[1, 3,  6,  9, 12],
+            death_prostate: [3,  7, 12, 18, 24],
+        }
     },
     daly: {
         label: "DALYs / 100k",
@@ -985,7 +1005,7 @@ const METRIC_GROUPS = {
 };
 
 const BOOL_COLORS = { "Yes": "#2db565", "No": "#e05c5c" };
-const DEATH_MAX = { death_cancer_all:200, death_breast:30, death_colon:30, death_liver:20, death_mouth:10, death_oesophagus:10 };
+const DEATH_MAX = { death_cancer_all:200, death_breast:30, death_colon:30, death_liver:20, death_mouth:10, death_oesophagus:10, death_lung:55, death_stomach:25, death_cervical:55, death_prostate:25 };
 
 // Country name localization lookup (ISO3 → {ru, zh, es, fr, ar})
 const COUNTRY_NAMES = {
@@ -2300,6 +2320,27 @@ const METRIC_EXPLAIN = {
         example: "Если показатель = 120, значит из каждых 100 000 человек в год умирают 120 от рака.",
         source: "WHO GHO · SA_0000001807"
     },
+    death_lung: {
+        title: "🫁 Смертность от рака лёгких",
+        def: "#1 причина смерти от рака в мире. Смерти от рака трахеи, бронхов и лёгких на 100 000 жителей. Сильно коррелирует с распространённостью курения — но также с загрязнением воздуха (PM2.5), радоном, профессиональными вредностями (асбест).",
+        example: "Венгрия ~51/100к — мировой лидер. Монголия ~38/100k. США ~23/100k. Португалия ~9/100k (исторически низкое курение). Африка ~2-3/100k (низкое курение + недовыявление).",
+        source: "GLOBOCAN 2022 · IARC/WHO · Bray F et al., CA Cancer J Clin 2024",
+        encyclopedia_key: "lung"
+    },
+    death_stomach: {
+        title: "🟤 Смертность от рака желудка",
+        def: "Рак желудка тесно связан с инфекцией H. pylori (у 80% больных), солёной/маринованной пищей и курением. Страны с высоким потреблением консервированных продуктов и низким охватом эрадикации H. pylori имеют самые высокие показатели.",
+        example: "Монголия ~22/100k, Китай ~16/100k, Россия ~17/100k. Япония и Корея — высокая смертность, но лучшая выживаемость благодаря скринингу. США ~2/100k.",
+        source: "GLOBOCAN 2022 · IARC/WHO",
+        encyclopedia_key: "stomach"
+    },
+    death_cervical: {
+        title: "🔴 Смертность от рака шейки матки",
+        def: "Почти 100% случаев вызваны ВПЧ (вирус папилломы человека). Практически полностью предотвратим — ВПЧ-вакцинация + регулярный Пап-тест (цитология). Огромный разрыв между богатыми и бедными странами: 85% смертей происходит в странах с низким и средним доходом.",
+        example: "Зимбабве ~50/100k, Малави ~44/100k (отсутствие скрининга и вакцинации). США/Германия/Австралия ~1.5/100k (вакцинация + скрининг). Украина ~11/100k, Россия ~8.6/100k.",
+        source: "GLOBOCAN 2022 · IARC/WHO · HPV Information Centre",
+        encyclopedia_key: "cervical"
+    },
     death_breast: {
         title: "Смертность от рака молочной железы",
         def: "Число женщин, умерших от рака груди, на 100 000 жителей в год. Высокий показатель часто означает поздно выявленный рак или ограниченный доступ к лечению.",
@@ -2404,6 +2445,7 @@ function showExplain(key, el) {
         <div class="ep-def">${d.def}</div>
         ${d.example ? `<div class="ep-example">💡 ${d.example}</div>` : ""}
         <div class="ep-source">Источник: ${d.source}</div>
+        ${d.encyclopedia_key ? `<button onclick="openEncyclopedia('${d.encyclopedia_key}')" style="margin-top:6px;background:#0d2040;border:1px solid #1a3a6e;color:#4f8ef7;padding:3px 10px;border-radius:99px;font-size:10px;cursor:pointer;width:100%">📖 Causes, screening & prevention →</button>` : ""}
     `;
     document.body.appendChild(pop);
     // Position near the icon
@@ -5372,7 +5414,7 @@ async function init() {
         document.body.appendChild(badge);
     }
     // Merge extraMetrics (cervical_screening, alcohol_cancer) into allData records
-    const extraKeys = ["cervical_screening", "alcohol_cancer", "tobacco_cancer", "death_prostate", "incidence_all", "incidence_breast", "incidence_colon", "treatment_cost_usd", "incidence_age_u20", "incidence_age_65plus"];
+    const extraKeys = ["cervical_screening", "alcohol_cancer", "tobacco_cancer", "death_prostate", "death_lung", "death_stomach", "death_cervical", "incidence_all", "incidence_breast", "incidence_colon", "treatment_cost_usd", "incidence_age_u20", "incidence_age_65plus"];
     cancer.forEach(c => {
         extraKeys.forEach(key => {
             const map = extraMetrics[key];
