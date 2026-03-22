@@ -5088,14 +5088,24 @@ function computeInsights() {
         }
     }
 
-    // Pearson correlations
+    // Pearson correlations — existing + new risk factor pairs
     const corrInsights = [
+        // Infrastructure & research
         ["research_index", "death_cancer_all",  "Research activity vs all-cancer mortality"],
         ["death_cancer_all","daly_breast",       "All-cancer mortality vs breast DALYs"],
         ["death_breast",    "daly_breast",       "Breast mortality vs breast DALYs"],
         ["incidence_all",  "death_cancer_all",   "Cancer incidence vs mortality (GLOBOCAN vs WHO)"],
         ["incidence_breast","death_breast",      "Breast incidence vs breast mortality"],
         ["tobacco_cancer", "death_cancer_all",   "Tobacco-attributable deaths vs total cancer mortality"],
+        // Risk factors vs cancer outcomes
+        ["smoking_prev",   "death_lung",         "🚬 Smoking prevalence vs lung cancer mortality"],
+        ["smoking_prev",   "death_cancer_all",   "🚬 Smoking prevalence vs all-cancer mortality"],
+        ["pm25_pollution", "death_lung",         "💨 PM2.5 air pollution vs lung cancer mortality"],
+        ["obesity_prev",   "death_pancreatic",   "⚖ Obesity prevalence vs pancreatic cancer mortality"],
+        ["alcohol_pc",     "death_liver",        "🍷 Alcohol consumption vs liver cancer mortality"],
+        ["uhc_index",      "death_cancer_all",   "🏥 UHC coverage vs all-cancer mortality (detection bias)"],
+        ["uhc_index",      "death_cervical",     "🏥 UHC coverage vs cervical cancer mortality"],
+        ["smoking_prev",   "death_stomach",      "🚬 Smoking prevalence vs stomach cancer mortality"],
     ];
     corrInsights.forEach(([xk, yk, label]) => {
         const r = pearsonCorr(xk, yk);
@@ -5118,7 +5128,7 @@ let insightsCache = null;
 function openInsights() {
     const modal = document.getElementById("insights-modal");
     modal.style.display = "flex";
-    if (insightsCache) return;
+    if (insightsCache && insightsCache.length) return;
     insightsCache = computeInsights();
     const container = document.getElementById("insights-cards");
     if (!insightsCache.length) {
