@@ -701,6 +701,7 @@
             <button class="sb-btn" onclick="openEmbedModal()" data-i18n="embed_btn" title="Embed widget">‹/› Embed</button>
         </div>
         <button class="sb-btn" id="dataquality-toggle" onclick="toggleDataQualityView()" title="Show map colored by data detection reliability" style="margin-top:4px;width:100%;border-color:#e07a3055;color:#e07a30">⚠ Data Reliability View</button>
+        <button class="sb-btn" onclick="openEncyclopedia('lung')" title="Cancer causes, screening, prevention guide" style="margin-top:4px;width:100%;border-color:#2db56555;color:#2db565">📖 Cancer Encyclopedia</button>
     </div>
     </div>
 
@@ -2047,6 +2048,220 @@ const MEDICAL_TOURISM_INFO = {
 };
 
 // 5-year survival rates (%) by country, EUROCARE-5 + CONCORD-3 (public summary)
+// ── Cancer Encyclopedia ─────────────────────────────────────────────────────
+// Causes, risk factors, screening, prevention — per cancer type
+const CANCER_ENCYCLOPEDIA = {
+    lung: {
+        name: "Lung Cancer",
+        icon: "🫁",
+        icd: "C33-C34",
+        global_rank: 1, // #1 cancer killer worldwide
+        causes: [
+            { factor: "Smoking", risk: 90, desc: "Responsible for ~85% of all lung cancer cases. Risk starts from the first cigarette." },
+            { factor: "Secondhand smoke", risk: 30, desc: "Non-smokers living with smokers have 20–30% higher risk." },
+            { factor: "Radon gas", risk: 15, desc: "Natural radioactive gas from soil. Second leading cause after smoking in non-smokers." },
+            { factor: "Air pollution (PM2.5)", risk: 12, desc: "Long-term exposure to fine particulate matter (outdoor and indoor cooking fires)." },
+            { factor: "Asbestos / occupational", risk: 8, desc: "Construction, mining, shipbuilding workers. Synergistic with smoking." },
+        ],
+        screening: {
+            recommended: true,
+            who_recommends: "Annual low-dose CT (LDCT) for adults 50–80 years with ≥20 pack-year smoking history",
+            benefit: "Reduces lung cancer mortality by ~20% in high-risk individuals (NLST trial)",
+            availability: "Mainly USA, Canada, Australia, Western Europe. Rare in LMIC."
+        },
+        prevention: [
+            "Never smoke — and if you smoke, stop. Risk drops substantially within 5 years.",
+            "Avoid secondhand smoke. Advocate for smoke-free laws in public places.",
+            "Test your home for radon (inexpensive kit). Ventilate if levels are high.",
+            "Use protective masks in occupational settings (asbestos, silica, diesel fumes).",
+            "Reduce indoor air pollution — improved cookstoves in LMICs.",
+        ],
+        early_signs: ["Persistent cough (≥3 weeks)", "Coughing up blood", "Unexplained weight loss", "Shortness of breath", "Chest pain", "Hoarseness"],
+        survival_note: "5-year survival is 25% overall (USA) but up to 65% when caught at stage I. Most cases diagnosed at stage III-IV.",
+        source: "WHO IARC, GLOBOCAN 2022, NLST trial"
+    },
+    stomach: {
+        name: "Stomach (Gastric) Cancer",
+        icon: "🫀",
+        icd: "C16",
+        global_rank: 5,
+        causes: [
+            { factor: "H. pylori infection", risk: 80, desc: "The bacteria Helicobacter pylori causes chronic gastritis → ulcers → cancer. Infects ~50% of the world population." },
+            { factor: "Salt-preserved foods", risk: 40, desc: "High salt, pickled, smoked foods damage stomach lining. Common in East Asia (Korea, Japan, China)." },
+            { factor: "Smoking", risk: 35, desc: "Doubles the risk of stomach cancer." },
+            { factor: "Low vegetable/fruit intake", risk: 25, desc: "Antioxidants in fresh produce are protective." },
+            { factor: "Family history / genetics", risk: 15, desc: "CDH1 gene mutations cause hereditary diffuse gastric cancer." },
+        ],
+        screening: {
+            recommended: false, // only in high-incidence countries
+            who_recommends: "Mass screening with gastroscopy recommended only in Japan and South Korea (highest-incidence countries). H. pylori test-and-treat in high-risk populations.",
+            benefit: "Japan's national screening program explains their high 5-year survival rate (65% vs world average 20-30%).",
+            availability: "Japan: national program since 1960s. S. Korea: universal since 2002. Most of world: no program."
+        },
+        prevention: [
+            "Test and treat H. pylori if positive (inexpensive antibiotic course).",
+            "Reduce salt and cured/smoked meat intake.",
+            "Eat plenty of fresh fruits, vegetables, and whole grains.",
+            "Quit smoking.",
+            "Refrigerate food properly to prevent bacterial contamination.",
+        ],
+        early_signs: ["Indigestion or heartburn", "Feeling full after small meals", "Nausea", "Stomach pain", "Unexplained weight loss", "Blood in stool"],
+        survival_note: "Japan has 65% 5-year survival vs 20% in most countries due to nationwide early screening. Most countries diagnose at late stage.",
+        source: "WHO IARC, GLOBOCAN 2022, IARC Monograph 61"
+    },
+    cervical: {
+        name: "Cervical Cancer",
+        icon: "🔴",
+        icd: "C53",
+        global_rank: 4, // in females
+        causes: [
+            { factor: "HPV infection (types 16, 18)", risk: 99, desc: "Virtually all cervical cancers caused by HPV. HPV 16 and 18 account for ~70% of cases." },
+            { factor: "No HPV vaccination", risk: 70, desc: "Without vaccination, lifetime HPV infection risk is very high." },
+            { factor: "Smoking", risk: 20, desc: "Impairs immune clearance of HPV." },
+            { factor: "Immunosuppression (HIV)", risk: 18, desc: "HIV-positive women have 6x higher risk. Explains high burden in sub-Saharan Africa." },
+            { factor: "Multiple sexual partners / early sexual activity", risk: 15, desc: "Increases HPV exposure probability." },
+        ],
+        screening: {
+            recommended: true,
+            who_recommends: "Pap smear or HPV DNA test every 3-5 years for women 25-65. WHO 90-70-90 strategy: 90% vaccinated, 70% screened, 90% treated.",
+            benefit: "Pap smear program reduced incidence by 70-80% in high-income countries over 30 years. Nearly 100% preventable with vaccination + screening.",
+            availability: "High-income countries: widespread. Sub-Saharan Africa: major gap — where 85% of global burden occurs."
+        },
+        prevention: [
+            "HPV vaccination at age 9-14 (before sexual debut) — prevents ~70-90% of cervical cancers.",
+            "Regular Pap smear or HPV test screening.",
+            "Safe sex / consistent condom use reduces HPV transmission.",
+            "HIV prevention and treatment (reduces cervical cancer risk in HIV+).",
+            "Quit smoking.",
+        ],
+        early_signs: ["Abnormal vaginal bleeding (between periods, after sex, after menopause)", "Unusual vaginal discharge", "Pelvic pain", "Pain during intercourse"],
+        survival_note: "Nearly 100% curable when caught at pre-cancer (CIN) stage. 5-year survival 93% (stage I) vs 16% (stage IV). This gap reflects screening access inequality.",
+        source: "WHO, IARC, HPV Information Centre"
+    },
+    breast: {
+        name: "Breast Cancer",
+        icon: "🎀",
+        icd: "C50",
+        global_rank: 1, // most common cancer in women (#1 incidence)
+        causes: [
+            { factor: "Age", risk: 60, desc: "Risk doubles every 10 years after 40. Median age at diagnosis: 62." },
+            { factor: "Family history / BRCA1/2", risk: 30, desc: "BRCA1/2 mutations confer 60-80% lifetime risk. Account for ~5-10% of cases." },
+            { factor: "Hormone exposure (estrogen)", risk: 25, desc: "Late menopause, early menarche, HRT use, no pregnancies." },
+            { factor: "Alcohol", risk: 20, desc: "Each additional drink/day increases risk by ~7-10%." },
+            { factor: "Obesity (post-menopausal)", risk: 20, desc: "Adipose tissue produces estrogen. BMI >30 increases risk by 20-40%." },
+            { factor: "Sedentary lifestyle", risk: 15, desc: "150 min/week of moderate activity reduces risk by 10-20%." },
+        ],
+        screening: {
+            recommended: true,
+            who_recommends: "Mammography every 2 years for women 50-69. Clinical breast exam for lower-resource settings. Genetic testing for BRCA1/2 in high-risk families.",
+            benefit: "Mammography screening reduces breast cancer mortality by 15-25%. MRI added for BRCA+ women.",
+            availability: "Organized programs in most high-income countries. Opportunistic (if requested) in middle-income. Minimal in low-income."
+        },
+        prevention: [
+            "Regular mammography screening (age 40-74 depending on guidelines).",
+            "Maintain healthy weight, especially after menopause.",
+            "Limit alcohol to ≤1 drink/day or less.",
+            "Exercise regularly (150+ min/week moderate activity).",
+            "Breastfeeding if possible — reduces risk.",
+            "If BRCA+ consider chemoprevention (tamoxifen) or prophylactic surgery.",
+        ],
+        early_signs: ["New lump in breast or armpit", "Skin dimpling or puckering", "Nipple discharge or inversion", "Redness or flaky skin on nipple", "Change in breast size or shape"],
+        survival_note: "USA 5-year survival: 91% (all stages). Stage I: 99%. Stage IV: 28%. Countries with early screening have dramatically better outcomes.",
+        source: "WHO, IARC, American Cancer Society, GLOBOCAN 2022"
+    },
+    colorectal: {
+        name: "Colorectal Cancer",
+        icon: "🔵",
+        icd: "C18-C20",
+        global_rank: 3,
+        causes: [
+            { factor: "Processed/red meat", risk: 50, desc: "WHO classifies processed meat as Group 1 carcinogen. Each 50g/day increases risk by 18%." },
+            { factor: "Low fiber diet", risk: 40, desc: "Fiber accelerates transit time, reducing carcinogen exposure to colon lining." },
+            { factor: "Obesity", risk: 35, desc: "Particularly abdominal obesity. Insulin resistance and IGF-1 promote tumor growth." },
+            { factor: "Alcohol", risk: 25, desc: "Risk increases with consumption. Especially combined with low folate intake." },
+            { factor: "Sedentary lifestyle", risk: 20, desc: "Physical activity reduces risk by ~20-25%." },
+            { factor: "Family history / Lynch syndrome", risk: 20, desc: "Lynch syndrome (MLH1, MSH2 mutations) causes 70-80% lifetime CRC risk." },
+        ],
+        screening: {
+            recommended: true,
+            who_recommends: "Colonoscopy every 10 years (or stool test annually) from age 45-75. Earlier in those with family history.",
+            benefit: "Colonoscopy reduces CRC mortality by 60-70% by removing polyps before they become cancer. This is one of the most effective cancer prevention tools.",
+            availability: "Colonoscopy: mainly in high-income countries. Fecal occult blood test (FOBT): feasible in LMIC."
+        },
+        prevention: [
+            "Colonoscopy or stool test screening — removes polyps before they become cancer.",
+            "Limit red meat to <500g/week; avoid processed meat.",
+            "Eat high-fiber diet: whole grains, legumes, vegetables, fruits.",
+            "Maintain healthy weight and exercise regularly.",
+            "Limit alcohol. Don't smoke.",
+            "If Lynch syndrome family history: genetic testing and more frequent colonoscopy.",
+        ],
+        early_signs: ["Blood in stool (bright red or dark/tarry)", "Changes in bowel habits (persistent diarrhea or constipation)", "Unexplained weight loss", "Abdominal pain or cramping", "Feeling of incomplete bowel emptying"],
+        survival_note: "Korea has highest 5-year survival (72%) due to intensive screening program. Many Eastern European countries have 50-55% due to late diagnosis.",
+        source: "WHO, IARC, GLOBOCAN 2022, WCRF/AICR"
+    },
+    liver: {
+        name: "Liver Cancer (HCC)",
+        icon: "🟤",
+        icd: "C22",
+        global_rank: 6,
+        causes: [
+            { factor: "Hepatitis B virus (HBV)", risk: 70, desc: "Chronic HBV infection causes 55% of global liver cancer. Endemic in sub-Saharan Africa, East/SE Asia." },
+            { factor: "Hepatitis C virus (HCV)", risk: 30, desc: "20-30% of liver cancers. No vaccine available — treatment (DAAs) now >95% cure rate." },
+            { factor: "Alcohol / cirrhosis", risk: 35, desc: "Alcoholic cirrhosis is a major risk factor in Europe and Americas." },
+            { factor: "Aflatoxin (Aspergillus mold)", risk: 20, desc: "Contaminated grains/nuts in tropical climates. Synergistic with HBV — multiplies risk 60-fold." },
+            { factor: "Non-alcoholic fatty liver disease", risk: 15, desc: "Rising risk factor in high-income countries due to obesity epidemic." },
+        ],
+        screening: {
+            recommended: false,
+            who_recommends: "Ultrasound + AFP every 6 months for high-risk individuals: HBV/HCV carriers, cirrhosis patients. Not cost-effective as population screening.",
+            benefit: "Surveillance in HBV/HCV patients improves early detection. Most effective prevention: HBV vaccination (>95% effective).",
+            availability: "HBV vaccination: now in childhood schedule of most countries. HCV treatment: expensive, limited access in LMIC."
+        },
+        prevention: [
+            "HBV vaccination — 3-dose series is >95% effective. Should be universal.",
+            "Treat HBV and HCV infections. HCV now curable in >95% of cases.",
+            "Limit alcohol.",
+            "Proper storage of grains/nuts to prevent aflatoxin mold.",
+            "Maintain healthy weight — prevent fatty liver disease.",
+            "Safe injection practices, clean needles — prevent HCV transmission.",
+        ],
+        early_signs: ["Right upper abdominal pain", "Unexplained weight loss", "Jaundice (yellow skin/eyes)", "Abdominal swelling (ascites)", "Loss of appetite", "Fatigue"],
+        survival_note: "5-year survival is only 18-20% globally. Singapore (38%) and Japan (22%) do better with surveillance programs. HCC is mostly diagnosed at advanced stage.",
+        source: "WHO, IARC, GLOBOCAN 2022, EASL guidelines"
+    },
+    prostate: {
+        name: "Prostate Cancer",
+        icon: "🔵",
+        icd: "C61",
+        global_rank: 2, // #1 in males for incidence
+        causes: [
+            { factor: "Age", risk: 70, desc: "Rare before 50. Risk doubles every decade. Most common in men >65." },
+            { factor: "Family history / BRCA2", risk: 25, desc: "First-degree relative with prostate cancer doubles risk. BRCA2 carriers have 8x risk." },
+            { factor: "African ancestry", risk: 20, desc: "Black men have 60% higher incidence and worse outcomes — combination of biology and healthcare access." },
+            { factor: "Obesity (high-grade)", risk: 15, desc: "Obesity doesn't increase incidence but associated with more aggressive disease and worse outcomes." },
+            { factor: "High-fat / red meat diet", risk: 10, desc: "Suggested link, not definitively proven. Mediterranean diet appears protective." },
+        ],
+        screening: {
+            recommended: false, // controversial
+            who_recommends: "PSA screening is controversial — reduces prostate cancer mortality but causes significant overdiagnosis and overtreatment. Shared decision-making for men 50-70 (or 40-45 if African ancestry or family history).",
+            benefit: "PSA reduces prostate cancer mortality by ~25-30% but 40-50% of screen-detected cancers may never have caused symptoms (overdiagnosis).",
+            availability: "PSA test: widely available, very inexpensive. Interpretation and management are the challenge."
+        },
+        prevention: [
+            "Discuss PSA screening benefits/risks with doctor (shared decision-making).",
+            "Maintain healthy weight.",
+            "Eat Mediterranean diet — high in vegetables, fish, olive oil.",
+            "Regular physical activity.",
+            "Limit red and processed meats.",
+            "If BRCA2+ or strong family history: earlier screening discussion.",
+        ],
+        early_signs: ["Most early prostate cancer has NO symptoms", "Frequent urination (especially at night)", "Weak or interrupted urine stream", "Blood in urine or semen", "Pelvic pain", "Bone pain (late stage)"],
+        survival_note: "USA 5-year survival 98% due to widespread PSA screening — but Japan 95%, UK 90%. Very high overall survival for localized disease regardless of treatment.",
+        source: "WHO, IARC, ACS, EAU guidelines"
+    },
+};
+
 const SURVIVAL_5YR = {
     "USA": {"breast":91,"colorectal":65,"lung":21,"prostate":98,"stomach":33},
     "JPN": {"breast":93,"colorectal":67,"lung":27,"prostate":95,"stomach":65},
@@ -2209,6 +2424,133 @@ function hideExplain() {
 document.addEventListener("click", e => {
     if (!e.target.classList.contains("info-icon")) hideExplain();
 });
+
+// ── Cancer Encyclopedia ──────────────────────────────────────────────────────
+function openEncyclopedia(cancerKey) {
+    const modal = document.getElementById("encyclopedia-modal");
+    modal.style.display = "block";
+    document.body.style.overflow = "hidden";
+    // Build tabs
+    const tabs = document.getElementById("enc-tabs");
+    tabs.innerHTML = Object.entries(CANCER_ENCYCLOPEDIA).map(([key, c]) =>
+        `<button onclick="renderEncEntry('${key}')" id="enc-tab-${key}"
+            style="background:${key===cancerKey?'#0d2040':'#0d1420'};color:${key===cancerKey?'#4f8ef7':'#778'};
+            border:1px solid ${key===cancerKey?'#4f8ef7':'#1a1d2e'};
+            padding:4px 10px;border-radius:99px;font-size:10px;cursor:pointer">
+            ${c.icon} ${c.name}
+        </button>`
+    ).join("");
+    renderEncEntry(cancerKey || "lung");
+}
+
+function renderEncEntry(key) {
+    const c = CANCER_ENCYCLOPEDIA[key];
+    if (!c) return;
+    // Update tab styles
+    Object.keys(CANCER_ENCYCLOPEDIA).forEach(k => {
+        const t = document.getElementById(`enc-tab-${k}`);
+        if (!t) return;
+        const active = k === key;
+        t.style.background = active ? "#0d2040" : "#0d1420";
+        t.style.color = active ? "#4f8ef7" : "#778";
+        t.style.borderColor = active ? "#4f8ef7" : "#1a1d2e";
+    });
+    document.getElementById("enc-title").textContent = c.icon + " " + c.name;
+    document.getElementById("enc-icd").textContent = "ICD-10: " + c.icd + " · Global rank: #" + c.global_rank + " cancer killer";
+    document.getElementById("enc-source").textContent = "Sources: " + c.source;
+
+    // Build causes bars
+    const causeBars = c.causes.map(f => `
+        <div style="margin-bottom:8px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">
+                <span style="font-size:11px;color:#ccd;font-weight:500">${f.factor}</span>
+                <span style="font-size:10px;color:#4f8ef7;font-weight:700">+${f.risk}%</span>
+            </div>
+            <div style="background:#0a0c16;border-radius:3px;height:4px;margin-bottom:4px">
+                <div style="width:${Math.min(f.risk,100)}%;height:100%;background:${f.risk>=60?'#e05c5c':f.risk>=30?'#f7a04f':'#4f8ef7'};border-radius:3px"></div>
+            </div>
+            <div style="font-size:10px;color:#445;line-height:1.4">${f.desc}</div>
+        </div>`).join("");
+
+    // Prevention list
+    const prevList = c.prevention.map(p => `<li style="margin-bottom:5px;color:#aab">${p}</li>`).join("");
+    // Early signs
+    const signs = c.early_signs.map(s => `<span style="background:#0d1a2e;border:1px solid #1a2a4e;color:#8899cc;padding:2px 8px;border-radius:99px;font-size:10px;white-space:nowrap">${s}</span>`).join(" ");
+    // Screening block
+    const scr = c.screening;
+    const scrColor = scr.recommended ? "#2db565" : "#f7a04f";
+    const scrBadge = scr.recommended
+        ? `<span style="background:#0d3a1e;color:#2db565;border:1px solid #1a6e3a;padding:2px 8px;border-radius:99px;font-size:10px">✓ WHO recommends screening</span>`
+        : `<span style="background:#1a1000;color:#f7a04f;border:1px solid #5a3a00;padding:2px 8px;border-radius:99px;font-size:10px">⚠ Selective / no mass screening</span>`;
+
+    document.getElementById("enc-content").innerHTML = `
+        <div style="margin-bottom:18px">
+            <div style="font-size:11px;font-weight:700;color:#4f8ef7;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">⚠ Risk Factors & Causes</div>
+            ${causeBars}
+        </div>
+        <div style="background:#0d1420;border:1px solid #1a1d2e;border-radius:8px;padding:14px;margin-bottom:18px">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                <div style="font-size:11px;font-weight:700;color:#ccd">🔬 Screening</div>
+                ${scrBadge}
+            </div>
+            <div style="font-size:10px;color:#778;line-height:1.5;margin-bottom:6px"><b style="color:#aab">WHO recommendation:</b> ${scr.who_recommends}</div>
+            <div style="font-size:10px;color:#778;line-height:1.5;margin-bottom:6px"><b style="color:#aab">Benefit:</b> ${scr.benefit}</div>
+            <div style="font-size:10px;color:#556;line-height:1.5"><b>Availability:</b> ${scr.availability}</div>
+        </div>
+        <div style="margin-bottom:18px">
+            <div style="font-size:11px;font-weight:700;color:#2db565;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">✓ Prevention</div>
+            <ul style="padding-left:16px;margin:0;font-size:11px;line-height:1.7">${prevList}</ul>
+        </div>
+        <div style="margin-bottom:18px">
+            <div style="font-size:11px;font-weight:700;color:#f7a04f;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">🚨 Early Warning Signs</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px">${signs}</div>
+        </div>
+        <div style="background:#100a04;border:1px solid #3a2a0a;border-left:3px solid #f7a04f;border-radius:4px;padding:10px;font-size:10px;color:#aab;line-height:1.5">
+            <b style="color:#f7a04f">📊 Survival note:</b> ${c.survival_note}
+        </div>`;
+}
+
+// ── Survival Rankings ────────────────────────────────────────────────────────
+function openSurvivalRankings() {
+    const modal = document.getElementById("survival-rankings-modal");
+    modal.style.display = "block";
+    const cancers = [
+        { key: "breast",     label: "Breast",     icon: "🎀", color: "#f7a0c8" },
+        { key: "colorectal", label: "Colorectal", icon: "🔵", color: "#a0c4f7" },
+        { key: "lung",       label: "Lung",       icon: "🫁", color: "#c8a0f7" },
+        { key: "prostate",   label: "Prostate",   icon: "🔵", color: "#a0f7c8" },
+        { key: "stomach",    label: "Stomach",    icon: "🟤", color: "#f7c8a0" },
+    ];
+    const content = cancers.map(({ key, label, icon, color }) => {
+        // Sort countries by this cancer survival
+        const ranked = Object.entries(SURVIVAL_5YR)
+            .filter(([,sv]) => sv[key] != null)
+            .sort(([,a],[,b]) => b[key] - a[key]);
+        const bars = ranked.map(([iso, sv], i) => {
+            const pct = sv[key];
+            const ctry = allData?.find(c => c.country === iso);
+            const name = ctry ? getCountryName(iso, ctry.name) : iso;
+            return `<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+                <span style="font-size:9px;color:#445;width:14px;text-align:right">${i+1}</span>
+                <span style="font-size:10px;color:#aab;width:90px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${name}</span>
+                <div style="flex:1;background:#0a0c16;border-radius:2px;height:5px">
+                    <div style="width:${pct}%;height:100%;background:${color};border-radius:2px"></div>
+                </div>
+                <span style="font-size:10px;font-weight:700;color:${pct>=70?'#2db565':pct>=50?'#f7a04f':'#e05c5c'};width:32px;text-align:right">${pct}%</span>
+            </div>`;
+        }).join("");
+        return `<div style="margin-bottom:18px">
+            <div style="font-size:11px;font-weight:700;color:#ccd;margin-bottom:8px">${icon} ${label} Cancer</div>
+            ${bars}
+        </div>`;
+    }).join("");
+    document.getElementById("survival-rankings-content").innerHTML = content;
+}
+
+function closeEncyclopedia() {
+    document.getElementById("encyclopedia-modal").style.display = "none";
+    document.body.style.overflow = "";
+}
 
 function openSources() { document.getElementById("sources-modal").classList.add("open"); }
 function closeSources() { document.getElementById("sources-modal").classList.remove("open"); }
@@ -4781,9 +5123,12 @@ function buildSurvival(iso3) {
             <div class="survival-pct" style="color:${pct>=70?"#2db565":pct>=50?"#f7a04f":"#e05c5c"}">${pct}%</div>
         </div>`).join("");
     return `<div class="panel-section">
-        <h3>${t("survival_title",t("survival_title","5-year survival rate"))} <span class="info-icon" onmouseenter="showExplain('survival_5yr',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+            <h3>${t("survival_title","5-year survival rate")} <span class="info-icon" onmouseenter="showExplain('survival_5yr',this)" onmouseleave="hideExplain()">ⓘ</span></h3>
+            <button onclick="openEncyclopedia('breast')" style="background:none;border:1px solid #1a3a6e;color:#4f8ef7;padding:2px 8px;border-radius:99px;font-size:9px;cursor:pointer">📖 Causes & Prevention</button>
+        </div>
         <div class="metric-explain">Процент пациентов, живущих <strong>5 и более лет</strong> после диагноза. Главный международный показатель качества онкологической помощи. Зависит от ранней диагностики и доступности лечения.</div>
-        <div style="font-size:9px;color:#445;margin-bottom:10px">Source: EUROCARE-5 / CONCORD-3</div>
+        <div style="font-size:9px;color:#445;margin-bottom:10px">Source: EUROCARE-5 / CONCORD-3 · <button onclick="openSurvivalRankings()" style="background:none;border:none;color:#4f8ef7;font-size:9px;cursor:pointer;padding:0">🏆 Best countries for treatment →</button></div>
         ${rows}
     </div>`;
 }
@@ -5245,6 +5590,37 @@ initMobile();
     <div style="font-size:10px;color:#445;margin-bottom:6px" data-i18n="embed_code_label">Embed code:</div>
     <div class="embed-code-box" id="embed-code-text"></div>
     <button class="embed-copy-btn" onclick="copyEmbedCode()" data-i18n="embed_copy">Copy embed code</button>
+  </div>
+</div>
+
+<!-- Survival Rankings Modal -->
+<div id="survival-rankings-modal" onclick="if(event.target===this)document.getElementById('survival-rankings-modal').style.display='none'" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:700;overflow-y:auto;padding:20px">
+  <div style="max-width:560px;margin:0 auto;background:#0b0d14;border:1px solid #1a1d2e;border-radius:12px;padding:28px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+      <h2 style="font-size:16px;font-weight:700;color:#dde">🏆 Best Countries for Cancer Treatment</h2>
+      <button onclick="document.getElementById('survival-rankings-modal').style.display='none'" style="background:none;border:none;color:#445;font-size:20px;cursor:pointer">✕</button>
+    </div>
+    <div style="font-size:10px;color:#445;margin-bottom:18px">5-year survival rates by country — CONCORD-3 / EUROCARE-5 study. Higher = better early detection + treatment quality.</div>
+    <div id="survival-rankings-content"></div>
+    <div style="margin-top:14px;font-size:9px;color:#334">Source: CONCORD-3 (Lancet, 2018) · EUROCARE-5 · Data covers 71 countries</div>
+  </div>
+</div>
+
+<!-- Cancer Encyclopedia Modal -->
+<div id="encyclopedia-modal" onclick="if(event.target===this)closeEncyclopedia()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:700;overflow-y:auto;padding:20px">
+  <div style="max-width:680px;margin:0 auto;background:#0b0d14;border:1px solid #1a1d2e;border-radius:12px;padding:28px;position:relative">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+      <div>
+        <h2 id="enc-title" style="font-size:18px;font-weight:700;color:#dde">Cancer Encyclopedia</h2>
+        <div id="enc-icd" style="font-size:10px;color:#334;margin-top:2px"></div>
+      </div>
+      <button onclick="closeEncyclopedia()" style="background:none;border:none;color:#445;font-size:20px;cursor:pointer;line-height:1">✕</button>
+    </div>
+    <!-- Cancer type selector tabs -->
+    <div id="enc-tabs" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;border-bottom:1px solid #1a1d2e;padding-bottom:14px"></div>
+    <!-- Content -->
+    <div id="enc-content"></div>
+    <div style="margin-top:16px;font-size:9px;color:#334;text-align:right" id="enc-source"></div>
   </div>
 </div>
 
