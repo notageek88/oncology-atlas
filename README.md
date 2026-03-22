@@ -1,6 +1,6 @@
 # 🌍 OncologyAtlas
 
-> Interactive global cancer data — 165 countries, 18 WHO metrics, open source.
+> Interactive global cancer data — 185 countries, 35+ metrics, open source.
 
 **Live map:** https://notageek88.github.io/oncology-atlas/  
 **Author:** [@mashin_aa](https://www.threads.net/@mashin_aa)
@@ -91,55 +91,58 @@ OncologyAtlas is an open-source interactive map of global cancer data. Built for
 
 This project is actively developed. Contributions welcome for any of the items below.
 
-### v0.4 — Filters & Discovery
-- [x] **Filter by cancer type on map** — show only countries where a specific cancer type is dominant
-- [x] **Search by metric range** — range slider in filter panel (≥ threshold)
-- [x] **Country comparison export** — compare 2–4 countries, export as PDF table
-- [x] **Cervical cancer screening coverage** — 180+ countries, on infra map layer
-- [x] **Prostate cancer data** — mortality added to profile panel and scatter axes
+> Last updated: March 2026
 
-### v0.5 — Deeper Data
-- [ ] **SEER data** — US state-level cancer statistics (50 states, 50+ years)
-- [x] **Alcohol-attributable cancer deaths** — risk factors map layer
-- [x] **Tobacco-attributable cancer deaths** — risk factors map layer
-- [x] **Cancer treatment costs by country** — 105 countries, map + profile comparison
-- [x] **Age-specific rates** — pediatric (0-19) and elderly (65+) incidence, 70+ countries
-- [ ] **Urban vs rural incidence** where available (GLOBOCAN sub-national)
+### ✅ v0.4–v0.9 — Core Platform (COMPLETE)
+- [x] D3.js choropleth map — 185 countries, 35+ metrics, 8 categories
+- [x] Cancer mortality (WHO GHO) — all cancers, breast, colorectal, liver, prostate, mouth, oesophagus
+- [x] GLOBOCAN 2022 — 🫁 lung, 🟤 stomach, 🔴 cervical, ☀ melanoma, 🟡 pancreatic (age-std death rates)
+- [x] Risk factors layer — 🚬 smoking, ⚖ obesity, 🍷 alcohol, 💨 PM2.5, 🏥 UHC index
+- [x] Cancer incidence layer — all cancers, breast, colorectal (GLOBOCAN 2022)
+- [x] Age-specific incidence — pediatric (0–19), elderly (65+)
+- [x] DALYs — breast, colorectal, liver, mouth, oesophagus
+- [x] Healthcare infrastructure — surgery, registry, plan, breast/cervical screening
+- [x] Cancer readiness composite score (screening + registry + plan + infra)
+- [x] Treatment costs map — 105 countries
+- [x] 5-year survival rates — 26 countries, 5 cancer types (EUROCARE/CONCORD-3)
+- [x] Clinical trials — 46 countries, phase breakdown (ClinicalTrials.gov)
+- [x] NCD mortality timeline slider 2000–2021
+- [x] Oncology clinics finder — 331 clinics, filter by country/specialty/tier
+- [x] Patient migration flows — 37 routes with tooltips
+- [x] Cancer encyclopedia — 9 cancer types (lung, stomach, cervical, breast, colorectal, liver, prostate, melanoma, pancreatic)
+- [x] Scatter plot explorer — 28 metrics, Pearson r, 7 presets, detection bias notes
+- [x] Correlation insights panel — 8 auto-computed r-values with interpretation
+- [x] Country comparison mode — up to 4 countries, mortality + risk factors + infrastructure
+- [x] PDF export — country report + comparison table
+- [x] SVG infographic share card per country
+- [x] Global rankings modal — all countries ranked by any metric
+- [x] Prevention/readiness score with radar-style breakdown
+- [x] Medical tourism guide — 23 destination countries (visa, wait, cost)
+- [x] Support resources — NGOs, hotlines, 55+ countries
+- [x] Policy news timeline — 40+ WHO/national events per country profile
+- [x] Dominant cancer filter — highlight countries where specific cancer is #1 cause
+- [x] Regional + income group benchmarking in every profile
+- [x] Embed widget — `<iframe>` for journalists/researchers
+- [x] Citation generator — one-click APA in every profile
+- [x] 11 languages — EN/RU/ZH/ES/AR/HI/PT/FR/DE/JA/ID (full UI + profiles + metrics)
+- [x] Keyboard shortcuts (/, t, c, p, r, f, ← →, Esc, ?)
+- [x] Shareable URLs — `?country=RUS&lang=ru&metric=death_lung`
+- [x] Mobile-friendly — bottom sheet category picker + FAB menu
+- [x] Data sources modal — GLOBOCAN 2022, WHO GHO, EUROCARE, ClinicalTrials
 
-### v0.6 — Social & Media Intelligence
-- [ ] **Social media mentions layer** — Reddit/Twitter/news discussion volume per country, mapped via GDELT or Pushshift
-- [x] **Research activity index** — PubMed publication count by country, overlaid on map
-- [x] **NGO presence** — cancer helplines, NGOs, gov resources for 55+ countries in profile panel
-- [x] **News timeline** — 40+ key policy events (WHO FCTC, cancer moonshots, screening launches) per country profile
+### 🚧 v1.0 — In Progress / Next Up
 
-### v0.7 — Access & API
-- [x] **Embed widget** — `<iframe src="https://notageek88.github.io/oncology-atlas/index.html?embed=1&country=RUS&metric=death_breast">` for journalists/researchers
-- [ ] **Public API** — `/api/v1/cancer?country=RUS&metric=death_breast&year=2019`
-- [x] **Data freshness indicator** — every tooltip and profile panel shows data year
-- [ ] **Alert/notification system** — subscribe to data updates for a country
-- [x] **Citation generator** — one-click APA citation in every country profile
-
-### v0.8 — Patient & Clinic Value
-- [x] **Treatment availability matrix** — surgery/chemo/radiation/immunotherapy/proton by country (100+ countries, WHO/IAEA 2023)
-- [ ] **Cost comparison** — average cancer treatment costs (public vs private) per country
-- [x] **"Find a clinic" search** — filter by country, specialty, accreditation, tier (331 clinics)
-- [x] **Medical tourism guide** — visa requirements, wait times, cost estimates for 23 destination countries
-- [x] **Support resources** — hotlines, NGOs, patient groups per country (30+ countries)
-
-### v0.9 — Research Tools
-- [x] **Scatter plot mode** — plot any two metrics against each other, all countries (Pearson r, trend line)
-- [x] **Country report PDF** — auto-generated print-ready report: mortality, DALYs, infrastructure, survival, treatments, APA citation
-- [x] **Prevention score** — composite index: screening + infrastructure + registry + national plan
-- [x] **Benchmarking tool** — compare country vs peer group (by GDP, region, population)
-- [x] **Correlation insights** — auto-generated "Countries with X have Y% lower Z" cards
-- [x] **Downloadable infographics** — one-click SVG card per country for social media sharing
-
-### v1.0 — Platform
-- [x] **User contributions** — CONTRIBUTING.md + PR templates + issue templates
-- [ ] **Patient stories** — qualitative layer on top of quantitative data
-- [x] **Researcher mode** — color by region, quadrant lines, p-value, click labels, CSV export in scatter plot
-- [ ] **Clinic "claim your profile"** — clinics can submit updates via PR
-- [ ] **Public JSON API** — `/api/v1/cancer?country=RUS&metric=death_breast` (FastAPI backend ready)
+- [ ] **SEER US data** — state-level cancer statistics (50 states, 50+ years)
+- [ ] **Urban vs rural incidence** — GLOBOCAN sub-national data where available
+- [ ] **Social media mentions layer** — Reddit/news discussion volume via GDELT
+- [ ] **Public REST API** — `/api/v1/cancer?country=RUS&metric=death_lung&year=2022`
+- [ ] **Alert system** — subscribe to data updates for a country (email/Telegram)
+- [ ] **Cost comparison** — public vs private treatment costs per country
+- [ ] **Patient stories** — qualitative layer (verified submissions)
+- [ ] **Clinic "claim your profile"** — clinics submit updates via PR or form
+- [ ] **More cancer types** — bladder, kidney, thyroid, NHL (GLOBOCAN 2022 data available)
+- [ ] **i18n: encyclopedia articles** — translate 9 cancer encyclopedia entries into 10 languages
+- [ ] **Accessibility pass** — WCAG 2.1 AA: ARIA labels, keyboard nav, contrast audit
 
 ---
 

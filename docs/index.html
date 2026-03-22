@@ -1550,9 +1550,21 @@ function renderCompare() {
 
     function buildBarsSection(metricList) {
         return metricList.map(([k, label, max]) => {
+            // Check if at least one country has data
+            const anyHasData = compareList.some(c => !isNaN(parseFloat(c[k])));
+            if (!anyHasData) return ""; // skip entirely if no country has this metric
             const bars = compareList.map((c,i) => {
                 const v = parseFloat(c[k]);
-                if (isNaN(v)) return "";
+                if (isNaN(v)) {
+                    // Show "—" so user knows data is absent for this country
+                    return `<div style="margin:2px 0">
+                        <div style="display:flex;justify-content:space-between;font-size:10px;color:#334">
+                            <span>${getCountryName(c.country, c.name||c.country)}</span>
+                            <span style="color:#334">—</span>
+                        </div>
+                        <div class="bar-track"><div class="bar-fill" style="width:0%;background:${colors[i]}"></div></div>
+                    </div>`;
+                }
                 const pct = Math.min(100, (v/max)*100);
                 return `<div style="margin:2px 0">
                     <div style="display:flex;justify-content:space-between;font-size:10px;color:#556">
@@ -1561,7 +1573,7 @@ function renderCompare() {
                     <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${colors[i]}"></div></div>
                 </div>`;
             }).join("");
-            return bars ? `<div style="margin:10px 0"><div style="font-size:10px;color:#334;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px">${label}</div>${bars}</div>` : "";
+            return `<div style="margin:10px 0"><div style="font-size:10px;color:#334;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px">${label}</div>${bars}</div>`;
         }).join("");
     }
 
@@ -1578,6 +1590,27 @@ function renderCompare() {
     ];
     const riskBarsHtml = buildBarsSection(riskMetrics);
 
+    // Infrastructure section (boolean Yes/No)
+    const infraKeys = [
+        ["cancer_surgery",    t("infra_surgery",    "Cancer surgery")],
+        ["cancer_registry",   t("infra_registry",   "Cancer registry")],
+        ["cancer_plan",       t("infra_plan",        "National cancer plan")],
+        ["breast_screening",  t("infra_breast_scr", "Breast screening")],
+        ["cervical_screening",t("infra_cerv_scr",   "Cervical screening")],
+    ];
+    const infraHtml = infraKeys.map(([k, label]) => {
+        const cells = compareList.map((c,i) => {
+            const v = c[k];
+            if (v == null) return `<span style="color:#334;font-size:10px">—</span>`;
+            const isYes = v === "Yes" || v === 1 || v === true;
+            return `<span style="color:${isYes ? colors[i] : "#444"};font-size:10px;font-weight:600">${isYes ? "✓" : "✕"}</span>`;
+        }).join(" ");
+        return `<div style="display:flex;justify-content:space-between;align-items:center;margin:4px 0;font-size:10px">
+            <span style="color:#556;flex:1">${label}</span>
+            <span style="display:flex;gap:12px">${cells}</span>
+        </div>`;
+    }).join("");
+
     document.getElementById("panel-title").textContent = t("compare","Compare Countries");
     document.getElementById("panel-sub").textContent = `${compareList.length} selected — click map to add`;
     const exportBtn = compareList.length >= 2
@@ -1586,7 +1619,8 @@ function renderCompare() {
     document.getElementById("panel-content").innerHTML = `
         <div class="panel-section"><h3>${t("compare","Compare Countries")}</h3><div id="compare-list">${listHtml}</div>${exportBtn}</div>
         <div class="panel-section"><h3>${t("cat_death","Cancer Mortality")} (/ 100k)</h3><div id="compare-chart">${barsHtml||'<div style="color:#334;font-size:11px">Add countries to compare</div>'}</div></div>
-        ${riskBarsHtml ? `<div class="panel-section"><h3>${t("cat_risk","Risk Factors")}</h3><div>${riskBarsHtml}</div></div>` : ""}`;
+        ${riskBarsHtml ? `<div class="panel-section"><h3>${t("cat_risk","Risk Factors")}</h3><div>${riskBarsHtml}</div></div>` : ""}
+        <div class="panel-section"><h3>${t("cat_infra","Infrastructure")}</h3><div>${infraHtml}</div></div>`;
 
     document.getElementById("side-panel").classList.add("open");
     document.getElementById("map-container").classList.add("panel-open");
