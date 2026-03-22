@@ -3814,11 +3814,36 @@ function openScatter() {
         sx.value = "smoking_prev";
         sy.value = "death_lung";
     }
+    // Highlight matching preset if any
+    const curX = sx.value, curY = sy.value;
+    document.querySelectorAll("#scatter-presets button").forEach(btn => {
+        const oc = btn.getAttribute("onclick") || "";
+        const isActive = oc.includes(`'${curX}'`) && oc.includes(`'${curY}'`);
+        btn.style.borderColor = isActive ? "#4f8ef7" : "#1a1d2e";
+        btn.style.color = isActive ? "#4f8ef7" : "#889";
+        btn.style.background = isActive ? "#0d2040" : "#10131f";
+    });
     renderScatter();
 }
 
 function closeScatter() {
     document.getElementById("scatter-modal").style.display = "none";
+}
+
+function loadScatterPreset(xKey, yKey) {
+    const sx = document.getElementById("scatter-x");
+    const sy = document.getElementById("scatter-y");
+    if (!sx || !sy) return;
+    sx.value = xKey;
+    sy.value = yKey;
+    // Highlight active preset button
+    document.querySelectorAll("#scatter-presets button").forEach(btn => {
+        const isActive = btn.getAttribute("onclick")?.includes(`'${xKey}'`) && btn.getAttribute("onclick")?.includes(`'${yKey}'`);
+        btn.style.borderColor = isActive ? "#4f8ef7" : "#1a1d2e";
+        btn.style.color = isActive ? "#4f8ef7" : "#889";
+        btn.style.background = isActive ? "#0d2040" : "#10131f";
+    });
+    renderScatter();
 }
 
 // ── Embed Modal ───────────────────────────────────────────────────────────
@@ -4058,6 +4083,24 @@ function renderScatter() {
         } else {
             legendEl.innerHTML = "";
         }
+    }
+
+    // Context notes for specific preset pairs
+    const SCATTER_NOTES = {
+        "uhc_index|death_cancer_all": "⚠ <strong>Detection bias:</strong> Countries with higher UHC (better healthcare) report <em>more</em> cancer deaths — not because cancer is worse there, but because stronger health systems detect and record cases that would go undiagnosed in low-income countries. Low UHC countries are likely <em>under-reporting</em>, not healthier.",
+        "smoking_prev|death_lung": "🚬 <strong>Strong causal link:</strong> Tobacco causes ~85% of lung cancer cases. This r≈0.63 correlation across countries confirms that population-level smoking rates are the dominant driver of lung cancer mortality globally.",
+        "pm25_pollution|death_lung": "💨 <strong>Air pollution & lung cancer:</strong> Ambient PM2.5 contributes to lung cancer risk independently of smoking. Note that the two effects overlap — high-smoking countries often also have high industrial pollution.",
+        "obesity_prev|death_pancreatic": "⚖ <strong>Obesity & pancreatic cancer:</strong> Obesity is one of several risk factors (also: diabetes, smoking, age). The weak correlation (r≈0.32) reflects that pancreatic cancer is multifactorial and partly driven by diagnostic capacity in high-income countries.",
+        "alcohol_pc|death_liver": "🍷 <strong>Alcohol & liver cancer:</strong> Chronic alcohol use causes cirrhosis → hepatocellular carcinoma. In Asia, HBV/HCV hepatitis are additional major drivers — explaining why some low-alcohol countries still show high liver cancer mortality.",
+        "smoking_prev|death_cervical": "🚬 <strong>Smoking & cervical cancer:</strong> Smoking is a cofactor for HPV persistence → cervical cancer. However, the dominant drivers are HPV vaccination rates and screening access — which explains the wide scatter in this plot.",
+        "research_index|death_cancer_all": "🔬 <strong>Research paradox:</strong> High-income countries with the most cancer research publications often show higher reported mortality — reflecting better detection and recording. This is another manifestation of detection bias at the system level.",
+    };
+    const noteKey = `${xKey}|${yKey}`;
+    const noteEl = document.getElementById("scatter-context-note");
+    if (noteEl) {
+        const note = SCATTER_NOTES[noteKey];
+        if (note) { noteEl.style.display = "block"; noteEl.innerHTML = note; }
+        else { noteEl.style.display = "none"; }
     }
 }
 
@@ -5827,6 +5870,19 @@ initMobile();
       <h2 style="font-size:16px;color:#eee" data-i18n="scatter_title">Scatter Plot — Correlation Explorer</h2>
       <button onclick="closeScatter()" style="background:none;border:none;color:#445;font-size:18px;cursor:pointer">✕</button>
     </div>
+    <!-- Preset correlations -->
+    <div style="margin-bottom:12px">
+      <div style="font-size:10px;color:#445;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">⚡ Quick correlations</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px" id="scatter-presets">
+        <button onclick="loadScatterPreset('smoking_prev','death_lung')"       style="background:#10131f;border:1px solid #1a1d2e;color:#889;font-size:10px;padding:3px 10px;border-radius:20px;cursor:pointer;white-space:nowrap">🚬 Smoking → Lung</button>
+        <button onclick="loadScatterPreset('pm25_pollution','death_lung')"     style="background:#10131f;border:1px solid #1a1d2e;color:#889;font-size:10px;padding:3px 10px;border-radius:20px;cursor:pointer;white-space:nowrap">💨 PM2.5 → Lung</button>
+        <button onclick="loadScatterPreset('obesity_prev','death_pancreatic')" style="background:#10131f;border:1px solid #1a1d2e;color:#889;font-size:10px;padding:3px 10px;border-radius:20px;cursor:pointer;white-space:nowrap">⚖ Obesity → Pancreatic</button>
+        <button onclick="loadScatterPreset('alcohol_pc','death_liver')"        style="background:#10131f;border:1px solid #1a1d2e;color:#889;font-size:10px;padding:3px 10px;border-radius:20px;cursor:pointer;white-space:nowrap">🍷 Alcohol → Liver</button>
+        <button onclick="loadScatterPreset('uhc_index','death_cancer_all')"    style="background:#10131f;border:1px solid #1a1d2e;color:#889;font-size:10px;padding:3px 10px;border-radius:20px;cursor:pointer;white-space:nowrap">🏥 UHC → Mortality</button>
+        <button onclick="loadScatterPreset('smoking_prev','death_cervical')"   style="background:#10131f;border:1px solid #1a1d2e;color:#889;font-size:10px;padding:3px 10px;border-radius:20px;cursor:pointer;white-space:nowrap">🚬 Smoking → Cervical</button>
+        <button onclick="loadScatterPreset('research_index','death_cancer_all')" style="background:#10131f;border:1px solid #1a1d2e;color:#889;font-size:10px;padding:3px 10px;border-radius:20px;cursor:pointer;white-space:nowrap">🔬 Research → Survival</button>
+      </div>
+    </div>
     <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
       <div>
         <div style="font-size:10px;color:#556;text-transform:uppercase;margin-bottom:4px" data-i18n="scatter_x_axis">X Axis</div>
@@ -5851,6 +5907,7 @@ initMobile();
     </div>
     <div id="scatter-svg-wrap" style="width:100%;height:420px;position:relative"></div>
     <div id="scatter-legend" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px"></div>
+    <div id="scatter-context-note" style="display:none;margin-top:10px;padding:10px 14px;background:#0a1428;border-left:3px solid #f7c84f;border-radius:0 6px 6px 0;font-size:11px;color:#889;line-height:1.5"></div>
     <div style="font-size:10px;color:#334;margin-top:6px" data-i18n="scatter_hint">Hover a dot for details · Click to pin label · Dots sized by population (where available).</div>
   </div>
 </div>
